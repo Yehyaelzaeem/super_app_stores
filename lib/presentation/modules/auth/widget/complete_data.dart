@@ -1,0 +1,199 @@
+
+import 'package:cogina_restaurants/core/helpers/extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/resources/color.dart';
+import '../../../../core/resources/styles.dart';
+import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/resources/decoration.dart';
+import '../../../../core/routing/routes.dart';
+import '../../../component/custom_elevated_button.dart';
+import '../../../component/custom_text_field.dart';
+import '../auth_cubit.dart';
+
+class CompeteDataWidget extends StatelessWidget {
+  const CompeteDataWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    AuthCubit cubit =AuthCubit.get(context);
+    return
+      Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: whiteColor,
+              boxShadow: const [
+                BoxShadow(color: Colors.black12, blurRadius: 2)
+              ]),
+          child: SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height*0.7,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        color: backGroundGray,
+                        borderRadius: BorderRadius.only(topRight: Radius.circular(15),topLeft: Radius.circular(15))
+                    ),
+                    width: MediaQuery.of(context).size.width,
+                    height: 60.h,
+                    child: Center(
+                      child: Text('استكمال بيانات المطعم',
+                        style: TextStyles.font20Black700Weight,
+                      ),
+                    ),
+                  ),
+                  verticalSpace(20),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 5.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomTextField(
+                            prefixIcon:  const Icon(Icons.menu_rounded,color: Colors.grey,),
+                            hintText: 'اسم المطعم',
+                            hintStyle: TextStyles.font16Black500Weight.copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w600
+                            ),
+                            fillColor: backGroundGray,
+                            controller: cubit.comNameController,
+                            borderRadius: 40,
+                            borderColor: Colors.grey.shade400,
+                        ),
+                        verticalSpace(20),
+                        CustomTextField(
+                          prefixIcon:  const Icon(Icons.email,color: Colors.grey,),
+                          hintText: 'البريد الالكتروني',
+                          hintStyle: TextStyles.font16Black500Weight.copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w600
+                          ),
+                          fillColor: backGroundGray,
+                          controller: cubit.comEmailController,
+                          borderRadius: 40,
+                          borderColor: Colors.grey.shade400,
+                        ),
+                        verticalSpace(20),
+                        CustomTextField(
+                          prefixIcon:  const Icon(Icons.phone_android,color: Colors.grey,),
+                          hintText: 'الموبايل',
+                          hintStyle: TextStyles.font16Black500Weight.copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w600
+                          ),
+                          fillColor: backGroundGray,
+                          controller: cubit.comPhoneController,
+                          borderRadius: 40,
+                          borderColor: Colors.grey.shade400,
+                        ),
+                        verticalSpace(20),
+                        CustomTextField(
+                          suffixIcon:IconButton(onPressed: (){},icon: const Icon(Icons.location_on,color: Colors.grey,),),
+                          prefixIcon:  const Icon(Icons.location_on_outlined,color: Colors.grey,),
+                          hintText: 'العنوان',
+                          hintStyle: TextStyles.font16Black500Weight.copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w600
+                          ),
+                          fillColor: backGroundGray,
+                          controller: cubit.comAddressController,
+                          borderRadius: 40,
+                          borderColor: Colors.grey.shade400,
+                        ),
+                        verticalSpace(20),
+                        CustomTextField(
+                          prefixIcon:  const Icon(Icons.store,color: Colors.grey,),
+                          hintText: 'نوع المطعم',
+                          hintStyle: TextStyles.font16Black500Weight.copyWith(
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w600
+                          ),
+                          fillColor: backGroundGray,
+                          controller: cubit.comTypeController,
+                          borderRadius: 40,
+                          borderColor: Colors.grey.shade400,
+                        ),
+                        verticalSpace(20),
+                        Text('اضف صورة',
+                          style: TextStyles.font18Black700Weight,
+                        ),
+                        verticalSpace(25),
+                       BlocConsumer<AuthCubit, AuthState>(
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                return Column(
+                                        children: [
+                                                       Center(
+                                                         child: InkWell(
+                                                           onTap: (){
+                                                             cubit.pickImage();
+                                                           },
+                                                           child: Container(
+                                                             decoration: BoxDecoration(
+                                                                 borderRadius: BorderRadius.circular(30),
+                                                                 border: Border.all(color: Colors.grey)
+                                                             ),
+                                                             child:
+                                                               cubit.imageFile!=null?
+                                                                Container(
+                                                                  height:150.w,
+                                                                  width:150.w,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(20.0),
+                                                                    child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(80),
+                                                                    child: Image.file(cubit.imageFile!,
+                                                                    fit: BoxFit.cover,
+                                                                    ),),
+                                                                  ),
+                                                                ):
+                                                               SizedBox(
+                                                                 height:150.w,
+                                                                 width:150.w,
+                                                               child: const Center(
+                                                                 child: Icon(Icons.photo,size: 150,color: Colors.grey,),
+                                                               ),
+                                                             ),
+                                                           ),
+                                                         ),
+                                                       ),
+                                                       verticalSpace(25),
+                                                       Container(
+                                                         decoration: Decorations.backGroundDecorationButton().copyWith(
+                                                             borderRadius: BorderRadius.circular(40)
+                                                         ),
+                                                         child: CustomElevatedButton(
+                                                           backgroundColor: Colors.transparent,
+                                                           onTap: (){
+                                                             cubit.completeProfile(context);
+                                                           },
+                                                           buttonText:'تم',
+                                                           width: MediaQuery.of(context).size.width,
+                                                           height: 40,
+                                                           fontSize: 17,
+                                                           borderRadius: 40,
+                                                         ),
+                                                       ),
+                                                       verticalSpace(20),
+                                                     ],
+                                            );
+                              },
+                            )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

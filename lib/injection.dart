@@ -1,0 +1,23 @@
+
+
+
+import 'package:cogina_restaurants/presentation/modules/auth/auth_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/branches/branch_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/account/account_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/home/provider_home_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'data/injection.dart';
+import 'domain/provider/local_auth_provider_cubit.dart';
+
+Future<void> init() async {
+  getIt.registerLazySingleton(() => LayoutCubit());
+  getIt.registerLazySingleton(() => LocalAuthCubit(clearUserDataUseCase: getIt(), isUserLoginUseCase: getIt(), getProfileUseCase: getIt()));
+  getIt.registerLazySingleton(() => HomeCubit());
+  getIt.registerLazySingleton(() => AccountCubit(bankAccountUseCase: getIt(), addAccountFilesUseCase: getIt()));
+  getIt.registerLazySingleton(() => BranchCubit(getBranchesUseCase:  getIt(), addBranchUseCase: getIt(), getRegionsUseCase: getIt(), deleteBranchUseCase: getIt(), updateBranchUseCase: getIt()));
+  getIt.registerLazySingleton(() => ProfileCubit(profileUseCase: getIt(), updateProfileUseCase: getIt(),));
+  getIt.registerLazySingleton(() => AuthCubit(signInUseCase: getIt(), otpUseCase: getIt(), registerUseCase: getIt(), saveUserDataUseCase: getIt(), completeProfileUseCase: getIt()));
+}
