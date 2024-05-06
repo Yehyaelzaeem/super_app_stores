@@ -1,6 +1,8 @@
+import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../core/routing/routes.dart';
 import '../../core/utils/globals.dart';
 import '../../data/model/base/response_model.dart';
 import '../usecase/local/clear_user_data_usecase.dart';
@@ -45,9 +47,8 @@ class LocalAuthCubit extends Cubit<LocalAuthState> {
     ResponseModel responseModel = await _clearUserDataUseCase.call();
     if (responseModel.isSuccess) {
       kUser = null;
-       // context.pushNamedAndRemoveUntil(Routes.splash, predicate: (route) => route.isFirst);
+      context.pushNamedAndRemoveUntil(Routes.splashScreen, predicate: (route) => route.isFirst);
       emit(state.copyWith(isLogin: false));
-
     }
     return responseModel.isSuccess;
    }

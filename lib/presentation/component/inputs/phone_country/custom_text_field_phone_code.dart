@@ -319,8 +319,7 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
   @override
   void initState() {
     super.initState();
-
-    widget.controller?.text = widget.defaultValue??'';
+    widget.controller?.text = widget.defaultValue ?? '';
 
     _countryList = widget.countries == null
         ? countries
@@ -329,16 +328,50 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
         .toList();
     filteredCountries = _countryList;
     number = widget.initialValue ?? '';
-    if (widget.initialCountryCode == null && number.startsWith('+')) {
-      number = number.substring(1);
-      // parse initial value
-      _selectedCountry = countries.firstWhere((country) => number.startsWith(country.dialCode), orElse: () => _countryList.first);
-      number = number.substring(_selectedCountry.dialCode.length);
-    } else {
-      _selectedCountry = _countryList.firstWhere(
-              (item) => item.code == (widget.initialCountryCode ?? 'US'),
-          orElse: () => _countryList.first);
+
+    // Set initial value to Egypt's dial code +20
+    _selectedCountry = _countryList.firstWhere(
+          (item) => item.code == (widget.initialCountryCode ?? 'EG'), // EG for Egypt
+      orElse: () => _countryList.first,
+    );
+
+    if (widget.autoValidate) {
+      final initialPhoneNumber = PhoneNumber(
+        countryISOCode: _selectedCountry.code,
+        countryCode: '+${_selectedCountry.dialCode}',
+        number: widget.initialValue ?? '',
+      );
+
+      final value = widget.validator?.call(initialPhoneNumber);
+
+      if (value is String) {
+        validatorMessage = value;
+      } else {
+        (value as Future).then((msg) {
+          validatorMessage = msg;
+        });
+      }
     }
+    //////
+    // widget.controller?.text = widget.defaultValue??'';
+    //
+    // _countryList = widget.countries == null
+    //     ? countries
+    //     : countries
+    //     .where((country) => widget.countries!.contains(country.code))
+    //     .toList();
+    // filteredCountries = _countryList;
+    // number = widget.initialValue ?? '';
+    // if (widget.initialCountryCode == null && number.startsWith('+')) {
+    //   number = number.substring(1);
+    //   // parse initial value
+    //   _selectedCountry = countries.firstWhere((country) => number.startsWith(country.dialCode), orElse: () => _countryList.first);
+    //   number = number.substring(_selectedCountry.dialCode.length);
+    // } else {
+    //   _selectedCountry = _countryList.firstWhere(
+    //           (item) => item.code == (widget.initialCountryCode ?? 'US'),
+    //       orElse: () => _countryList.first);
+    // }
 
     if (widget.autoValidate) {
       final initialPhoneNumber = PhoneNumber(

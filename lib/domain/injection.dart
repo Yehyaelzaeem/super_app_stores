@@ -12,7 +12,11 @@ import 'package:cogina_restaurants/domain/usecase/branches/update_branch_usecase
 import 'package:cogina_restaurants/domain/usecase/favorite/add_favorite_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/favorite/get_favorite_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/favorite/remove_favorite_usecase.dart';
-import 'package:cogina_restaurants/domain/usecase/home/home_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/add_product_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/delete_product_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/get_products_categories_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/get_products_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/update_product_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/local/clear_user_data_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/local/get_is_login_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/local/get_user_token_usecase.dart';
@@ -57,7 +61,11 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => UpdateProfileUseCase(repository: getIt()));
 
    ///Home
-   getIt.registerLazySingleton(() => HomeUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => GetProductsCategoriesUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => AddProductUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => GetProductsUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => UpdateProductUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => DeleteProductUseCase(repository: getIt()));
 
 
    ///Restaurant

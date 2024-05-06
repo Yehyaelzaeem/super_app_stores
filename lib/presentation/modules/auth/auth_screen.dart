@@ -4,8 +4,6 @@ import 'package:cogina_restaurants/presentation/modules/auth/widget/complete_dat
 import 'package:cogina_restaurants/presentation/modules/auth/widget/otp_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/assets_constant/images.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/resources/decoration.dart';
 import 'auth_cubit.dart';

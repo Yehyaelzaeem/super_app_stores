@@ -1,4 +1,6 @@
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/account_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,9 +26,9 @@ class BankDetailsScreen extends StatelessWidget {
     }
     return Scaffold(
       backgroundColor:  backGroundGray,
-      appBar:  const CustomAppBar(
+      appBar:   CustomAppBar(
         color: backGroundGray,
-        title: 'تفاصيل البنك',
+        title: LocaleKeys.bankDetails.tr(),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
@@ -36,7 +38,7 @@ class BankDetailsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('اسم صاحب الحساب المصرقي',
+                Text(LocaleKeys.bankHolderName.tr(),
                   style: TextStyles.font18Black700Weight.copyWith(
                       color: Colors.grey.shade700
                   ),
@@ -45,7 +47,7 @@ class BankDetailsScreen extends StatelessWidget {
                 CustomTextField(
                   validationFunc: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'The holder name is empty';
+                      return LocaleKeys.requiredField.tr();
                     }
                     return null;
                   },
@@ -61,7 +63,7 @@ class BankDetailsScreen extends StatelessWidget {
                   borderColor: Colors.grey.shade400,
                 ),
                 verticalSpace(10),
-                Text('اسم البنك',
+                Text(LocaleKeys.bankName.tr(),
                   style: TextStyles.font18Black700Weight.copyWith(
                       color: Colors.grey.shade700
                   ),
@@ -70,7 +72,7 @@ class BankDetailsScreen extends StatelessWidget {
                 CustomTextField(
                   validationFunc: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'The name is empty';
+                      return LocaleKeys.requiredField.tr();
                     }
                     return null;
                   },
@@ -86,16 +88,17 @@ class BankDetailsScreen extends StatelessWidget {
                   borderColor: Colors.grey.shade400,
                 ),
                 verticalSpace(10),
-                Text('رقم الحساب',
+                Text(LocaleKeys.accountNumber.tr(),
                   style: TextStyles.font18Black700Weight.copyWith(
                       color: Colors.grey.shade700
                   ),
                 ),
                 verticalSpace(7),
                 CustomTextField(
+                  textInputType: TextInputType.number,
                   validationFunc: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'The number is empty';
+                      return LocaleKeys.requiredField.tr();
                     }
                     return null;
                   },
@@ -111,7 +114,7 @@ class BankDetailsScreen extends StatelessWidget {
                   borderColor: Colors.grey.shade400,
                 ),
                 verticalSpace(10),
-                Text('اسم الفرع',
+                Text(LocaleKeys.branchName.tr(),
                   style: TextStyles.font18Black700Weight.copyWith(
                       color: Colors.grey.shade700
                   ),
@@ -120,7 +123,7 @@ class BankDetailsScreen extends StatelessWidget {
                 CustomTextField(
                   validationFunc: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'The branch name is empty';
+                      return LocaleKeys.requiredField.tr();
                     }
                     return null;
                   },
@@ -136,7 +139,7 @@ class BankDetailsScreen extends StatelessWidget {
                   borderColor: Colors.grey.shade400,
                 ),
                 verticalSpace(10),
-                Text('ايبان',
+                Text(LocaleKeys.iban.tr(),
                   style: TextStyles.font18Black700Weight.copyWith(
                       color: Colors.grey.shade700
                   ),
@@ -145,7 +148,7 @@ class BankDetailsScreen extends StatelessWidget {
                 CustomTextField(
                   validationFunc: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'The ipan is empty';
+                      return LocaleKeys.requiredField.tr();
                     }
                     return null;
                   },
@@ -175,7 +178,9 @@ class BankDetailsScreen extends StatelessWidget {
                                         onTap: (){
                                           cubit.bankAccount(context);
                                         },
-                                        buttonText:(profileCubit.profileModel!.bankAccount!=null&&profileCubit.profileModel!.bankAccount!.holderName!=null)?'تحديث':'تم',
+                                        buttonText:(profileCubit.profileModel!.bankAccount!=null&&profileCubit.profileModel!.bankAccount!.holderName!=null)?
+                                        LocaleKeys.update.tr():
+                                        LocaleKeys.done.tr(),
                                         width: MediaQuery.of(context).size.width*0.5,
                                         height: 40,
                                         fontSize: 17,

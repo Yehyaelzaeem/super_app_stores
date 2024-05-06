@@ -14,6 +14,7 @@ import 'domain/injection.dart' as domain_injection;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await data_injection.init();
   await domain_injection.init();
   await injection.init();
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: RouteGenerator.generateBaseRoute,
             localizationsDelegates: [CountryLocalizations.delegate, ...context.localizationDelegates,],
             supportedLocales: context.supportedLocales,
-            locale: context.locale,            theme: ThemeData(
+            locale: context.locale,
+            theme: ThemeData(
               primaryColor: primaryColor,
               // AppColors.primaryColor,
               primaryColorDark: primaryColorDark,

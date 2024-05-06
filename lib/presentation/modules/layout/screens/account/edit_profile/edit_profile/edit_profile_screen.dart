@@ -1,5 +1,7 @@
 import 'package:cogina_restaurants/core/assets_constant/images.dart';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,9 +25,9 @@ class EditProviderProfileScreen extends StatelessWidget {
     return
       Scaffold(
       backgroundColor: backGroundGray,
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         color: backGroundGray,
-        title: 'تعديل الصفحة الشخصية',
+        title: LocaleKeys.editProfile.tr(),
       ),
       body:
       BlocConsumer<ProfileCubit, ProfileState>(
@@ -82,17 +84,17 @@ class EditProviderProfileScreen extends StatelessWidget {
                                     '${cubit.profileModel!.firstName??''} ali${cubit.profileModel!.lastName??''}',
                                     style: TextStyles.font20Black700Weight,
                                   ),
-                                  Text(
-                                    'تاجر',
-                                    style: TextStyles.font14White500Weight
-                                        .copyWith(color: customGray),
-                                  ),
+                                  // Text(
+                                  //   'تاجر',
+                                  //   style: TextStyles.font14White500Weight
+                                  //       .copyWith(color: customGray),
+                                  // ),
                                 ],
                               ),
                               verticalSpace(50),
                               CustomTextField(
                                 prefixIcon:  const Icon(Icons.person,color: Colors.grey,),
-                                hintText: 'الاسم الاول',
+                                hintText: LocaleKeys.firstName.tr(),
                                 hintStyle: TextStyles.font16Black500Weight.copyWith(
                                     color: Colors.grey.shade500,
                                     fontWeight: FontWeight.w600
@@ -105,7 +107,7 @@ class EditProviderProfileScreen extends StatelessWidget {
                               verticalSpace(20),
                               CustomTextField(
                                 prefixIcon:  const Icon(Icons.person,color: Colors.grey,),
-                                hintText: 'الاسم الثاني',
+                                hintText: LocaleKeys.lastName.tr(),
                                 hintStyle: TextStyles.font16Black500Weight.copyWith(
                                     color: Colors.grey.shade500,
                                     fontWeight: FontWeight.w600
@@ -118,7 +120,7 @@ class EditProviderProfileScreen extends StatelessWidget {
                               verticalSpace(20),
                               CustomTextField(
                                 prefixIcon:  const Icon(Icons.phone_android,color: Colors.grey,),
-                                hintText: 'الهاتف',
+                                hintText: LocaleKeys.phone.tr(),
                                 hintStyle: TextStyles.font16Black500Weight.copyWith(
                                     color: Colors.grey.shade500,
                                     fontWeight: FontWeight.w600
@@ -142,7 +144,7 @@ class EditProviderProfileScreen extends StatelessWidget {
                                       cubit.updateImageProfile();
                                     }
                                   },
-                                  buttonText:'تعديل',
+                                  buttonText:LocaleKeys.update.tr(),
                                   width: MediaQuery.of(context).size.width*0.5,
                                   height: 35,
                                   fontSize: 17,
@@ -151,24 +153,24 @@ class EditProviderProfileScreen extends StatelessWidget {
                               ),
                               verticalSpace(20),
 
-                              Container(
-                                height: 43,
-                                decoration: Decorations.backGroundDecorationButton().copyWith(
-                                    borderRadius: BorderRadius.circular(40)
-                                ),
-                                child: CustomElevatedButton(
-                                  backgroundColor: Colors.transparent,
-                                  onTap: (){
-                                    context.pushNamed(Routes.changeProfilePasswordScreen);
-                                  },
-                                  buttonText:'تحديث كلمة المرور',
-                                  width: MediaQuery.of(context).size.width*0.5,
-                                  height: 35,
-                                  fontSize: 17,
-                                  borderRadius: 40,
-                                ),
-                              ),
-                              verticalSpace(70),
+                              // Container(
+                              //   height: 43,
+                              //   decoration: Decorations.backGroundDecorationButton().copyWith(
+                              //       borderRadius: BorderRadius.circular(40)
+                              //   ),
+                              //   child: CustomElevatedButton(
+                              //     backgroundColor: Colors.transparent,
+                              //     onTap: (){
+                              //       context.pushNamed(Routes.changeProfilePasswordScreen);
+                              //     },
+                              //     buttonText:'تحديث كلمة المرور',
+                              //     width: MediaQuery.of(context).size.width*0.5,
+                              //     height: 35,
+                              //     fontSize: 17,
+                              //     borderRadius: 40,
+                              //   ),
+                              // ),
+                              // verticalSpace(70),
 
 
                             ],

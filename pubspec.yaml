@@ -19,6 +19,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   easy_date_timeline: ^1.0.3
   easy_localization: ^3.0.5
+  shimmer: ^3.0.0
   flutter_staggered_animations: ^1.1.1 # #animation
   awesome_dialog: ^3.0.2 #dialog
   flutter_svg:  #svg images
@@ -57,6 +58,7 @@ dependencies:
   flutter_timer_countdown: ^1.0.5
   carousel_slider: ^4.2.1
   flutter_rating_bar: ^4.0.1
+  audioplayers: ^5.2.1
   url_launcher: ^6.1.6
 
 
@@ -79,6 +81,7 @@ flutter:
     - assets/images/
     - lib/presentation/component/inputs/phone_country/flags/
     - assets/translation/
+    - assets/mp3/
 
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -106,6 +109,52 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+  fonts:
+    - family: Lateef
+      fonts:
+        - asset: assets/fonts/Lateef-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Lateef-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Lateef-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Lateef-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lateef-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Lateef-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lateef-ExtraBold.ttf
+          weight: 800
+
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Tajawal-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Tajawal-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Tajawal-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Tajawal-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Tajawal-ExtraBold.ttf
+          weight: 800
+
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Cairo-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Cairo-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Cairo-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Cairo-ExtraBold.ttf
+          weight: 800
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

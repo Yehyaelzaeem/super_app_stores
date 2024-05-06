@@ -1,4 +1,6 @@
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/modules/auth/auth_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,9 +51,9 @@ class _AuthWidgetState extends State<AuthWidget> {
                             });
                           }
                         },
-                        tabs: const <Widget>[
-                          CustomTitleTabBarWidget(title: 'انشاء حساب',),
-                          CustomTitleTabBarWidget(title: 'تسجيل دخول',),
+                        tabs:  <Widget>[
+                          CustomTitleTabBarWidget(title: LocaleKeys.register.tr(),),
+                          CustomTitleTabBarWidget(title: LocaleKeys.login.tr(),),
                         ],
                         labelStyle: TextStyles.font15CustomGray400Weight,
                         unselectedLabelStyle: TextStyles

@@ -26,6 +26,12 @@ class AppURL {
   static  String kUpdateBranchURL({required int branchId}) => "stores/branches/update_branch/$branchId";
   static const String kGetRegionsURL = "stores/regions";
 
+///Products
+  static const String kGetProductsCategoriesURL = "stores/products/categories";
+  static const String kGetProductsURL = "stores/products";
+  static  String kDeleteProductURL({required int id}) => "stores/products/remove_product/$id";
+  static  String kUpdateProductURL({required int id}) => "stores/products/update_product/$id";
+  static const String kAddProductURL = "stores/products/add_product";
 
 
 
@@ -76,6 +82,8 @@ class AppURL {
   static const String kGetFavoriteURL = "fav/list";
   static const String kAddFavoriteURL = "fav/add";
   static const String kRemoveFavoriteURL = "fav/remove";
+
+
 
   /// order
   static const String kRestaurantOrdersURL = "stores/checkout";

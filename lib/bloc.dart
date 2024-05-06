@@ -4,7 +4,7 @@ import 'package:cogina_restaurants/presentation/modules/branches/branch_cubit.da
 import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/account_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
-import 'package:cogina_restaurants/presentation/modules/layout/screens/home/provider_home_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

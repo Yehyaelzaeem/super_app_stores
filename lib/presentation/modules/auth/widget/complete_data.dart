@@ -1,5 +1,7 @@
 
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +45,7 @@ class CompeteDataWidget extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     height: 60.h,
                     child: Center(
-                      child: Text('استكمال بيانات المطعم',
+                      child: Text(LocaleKeys.completeData.tr(),
                         style: TextStyles.font20Black700Weight,
                       ),
                     ),
@@ -56,7 +58,7 @@ class CompeteDataWidget extends StatelessWidget {
                       children: [
                         CustomTextField(
                             prefixIcon:  const Icon(Icons.menu_rounded,color: Colors.grey,),
-                            hintText: 'اسم المطعم',
+                            hintText: LocaleKeys.restaurantName.tr(),
                             hintStyle: TextStyles.font16Black500Weight.copyWith(
                               color: Colors.grey.shade500,
                               fontWeight: FontWeight.w600
@@ -68,8 +70,9 @@ class CompeteDataWidget extends StatelessWidget {
                         ),
                         verticalSpace(20),
                         CustomTextField(
+                          textInputType: TextInputType.emailAddress,
                           prefixIcon:  const Icon(Icons.email,color: Colors.grey,),
-                          hintText: 'البريد الالكتروني',
+                          hintText: LocaleKeys.email.tr(),
                           hintStyle: TextStyles.font16Black500Weight.copyWith(
                               color: Colors.grey.shade500,
                               fontWeight: FontWeight.w600
@@ -81,8 +84,9 @@ class CompeteDataWidget extends StatelessWidget {
                         ),
                         verticalSpace(20),
                         CustomTextField(
+                          textInputType: TextInputType.phone,
                           prefixIcon:  const Icon(Icons.phone_android,color: Colors.grey,),
-                          hintText: 'الموبايل',
+                          hintText: LocaleKeys.phone.tr(),
                           hintStyle: TextStyles.font16Black500Weight.copyWith(
                               color: Colors.grey.shade500,
                               fontWeight: FontWeight.w600
@@ -96,7 +100,7 @@ class CompeteDataWidget extends StatelessWidget {
                         CustomTextField(
                           suffixIcon:IconButton(onPressed: (){},icon: const Icon(Icons.location_on,color: Colors.grey,),),
                           prefixIcon:  const Icon(Icons.location_on_outlined,color: Colors.grey,),
-                          hintText: 'العنوان',
+                          hintText: LocaleKeys.address.tr(),
                           hintStyle: TextStyles.font16Black500Weight.copyWith(
                               color: Colors.grey.shade500,
                               fontWeight: FontWeight.w600
@@ -109,7 +113,7 @@ class CompeteDataWidget extends StatelessWidget {
                         verticalSpace(20),
                         CustomTextField(
                           prefixIcon:  const Icon(Icons.store,color: Colors.grey,),
-                          hintText: 'نوع المطعم',
+                          hintText: LocaleKeys.restaurantType.tr(),
                           hintStyle: TextStyles.font16Black500Weight.copyWith(
                               color: Colors.grey.shade500,
                               fontWeight: FontWeight.w600
@@ -120,7 +124,7 @@ class CompeteDataWidget extends StatelessWidget {
                           borderColor: Colors.grey.shade400,
                         ),
                         verticalSpace(20),
-                        Text('اضف صورة',
+                        Text(LocaleKeys.addImage.tr(),
                           style: TextStyles.font18Black700Weight,
                         ),
                         verticalSpace(25),
@@ -141,7 +145,7 @@ class CompeteDataWidget extends StatelessWidget {
                                                              ),
                                                              child:
                                                                cubit.imageFile!=null?
-                                                                Container(
+                                                                SizedBox(
                                                                   height:150.w,
                                                                   width:150.w,
                                                                   child: Padding(
@@ -173,7 +177,7 @@ class CompeteDataWidget extends StatelessWidget {
                                                            onTap: (){
                                                              cubit.completeProfile(context);
                                                            },
-                                                           buttonText:'تم',
+                                                           buttonText:LocaleKeys.done.tr(),
                                                            width: MediaQuery.of(context).size.width,
                                                            height: 40,
                                                            fontSize: 17,

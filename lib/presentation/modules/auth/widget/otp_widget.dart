@@ -1,5 +1,5 @@
-
-import 'package:cogina_restaurants/domain/logger.dart';
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +10,7 @@ import '../../../../core/resources/color.dart';
 import '../../../../core/resources/styles.dart';
 import '../../../component/custom_elevated_button.dart';
 import '../auth_cubit.dart';
+
 class OtpWidget extends StatefulWidget {
   const OtpWidget({super.key});
 
@@ -45,13 +46,13 @@ class _OtpWidgetState extends State<OtpWidget> {
                   width: MediaQuery.of(context).size.width,
                   height: 60.h,
                   child: Center(
-                    child: Text('تاكيد الرقم',
+                    child: Text(LocaleKeys.sureNumber.tr(),
                     style: TextStyles.font20Black700Weight,
                     ),
                   ),
                 ),
                 verticalSpace(20),
-                Text('ادخل كود OTP المرسل لك',
+                Text(LocaleKeys.otpMes.tr(),
                   style: TextStyles.font18Black700Weight.copyWith(
                     color: Colors.grey
                   ),
@@ -96,7 +97,7 @@ class _OtpWidgetState extends State<OtpWidget> {
                                                   onTap: (){
                                                     cubit.login(cubit.phoneController.text, _code,context);
                                                   },
-                                                  buttonText:'تاكيد',
+                                                  buttonText:LocaleKeys.sure.tr(),
                                                   width: MediaQuery.of(context).size.width,
                                                   height: 40,
                                                   fontSize: 17,

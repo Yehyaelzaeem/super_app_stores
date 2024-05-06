@@ -1,8 +1,10 @@
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/core/routing/routes.dart';
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/my_files/widget/file_done_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/my_files/widget/file_required_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,9 +23,9 @@ class MyFilesScreen extends StatelessWidget {
     ProfileCubit profileCubit =ProfileCubit.get(context);
     return  Scaffold(
       backgroundColor: backGroundGray,
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         color: backGroundGray,
-        title: 'ملفاتي',
+        title: LocaleKeys.myFiles.tr(),
       ),
       body: BlocConsumer<ProfileCubit, ProfileState>(
               listener: (context, state) {},
@@ -34,42 +36,43 @@ class MyFilesScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         storeFiles.commercialId!=null?
-                        FileDoneWidget(title: 'ملف السجل التجاري', text: 'قم بتحديث ملف السجل التجاري الخاص بك', onTap: () {
+                        FileDoneWidget(
+                          title: LocaleKeys.commercialRegisterFile.tr(), text: LocaleKeys.commercialRegisterFileUpdate.tr(), onTap: () {
                           context.pushNamed(Routes.editFileScreen,arguments: {
                             'type':'commercialIdFile',
-                            'title':'ملف السجل التجاري',
-                            'text':'قم بتحديث ملف السجل التجاري الخاص بك',
+                            'title': LocaleKeys.commercialRegisterFile.tr(),
+                            'text':LocaleKeys.commercialRegisterFileUpdate.tr(),
                           });
                         },):
-                        FileRequiredWidget(title: 'ملف السجل التجاري', text: 'قم بتحميل ملف السجل التجاري الخاص بك', onTap: () {
+                        FileRequiredWidget(title:LocaleKeys.commercialRegisterFile.tr(), text: LocaleKeys.commercialRegisterFileUpdate.tr(), onTap: () {
                           cubit.pickImage(type: 'commercialIdFile').then((value) {
                             cubit.uploadAccountFile(context: context, type: 'commercialIdFile');
                           });
                         },),
 
                         storeFiles.tax!=null?
-                        FileDoneWidget(title: 'البطاقة الضريبية', text: 'قم بتحديث  بطاقتك الضريبية', onTap: () {
+                        FileDoneWidget(title: LocaleKeys.taxCard.tr(), text:LocaleKeys.taxCardUpdate.tr(), onTap: () {
                           context.pushNamed(Routes.editFileScreen,arguments: {
                             'type':'taxFile',
-                            'title':'البطاقة الضريبية',
-                            'text':'قم بتحديث  بطاقتك الضريبية',
+                            'title':LocaleKeys.taxCard.tr(),
+                            'text':LocaleKeys.taxCardUpdate.tr(),
                           });
                         },):
-                        FileRequiredWidget(title: 'البطاقة الضريبية', text: 'قم بتحميل بطاقتك الضريبية', onTap: () {
+                        FileRequiredWidget(title: LocaleKeys.taxCard.tr(), text:LocaleKeys.taxCardUpdate.tr(), onTap: () {
                           cubit.pickImage(type: 'taxFile').then((value) {
                             cubit.uploadAccountFile(context: context, type: 'taxFile');
                           });
                         },),
 
                         storeFiles.banner!=null?
-                        FileDoneWidget(title: 'صورة البانر', text: 'قم بتحديث صورة البانر', onTap: () {
+                        FileDoneWidget(title: LocaleKeys.bannerImage.tr(), text:LocaleKeys.bannerImageUpdate.tr(), onTap: () {
                           context.pushNamed(Routes.editFileScreen,arguments: {
                             'type':'bannerFile',
-                            'title':'صورة البانر',
-                            'text':'قم بتحديث صورة البانر',
+                            'title': LocaleKeys.bannerImage.tr(),
+                            'text':LocaleKeys.bannerImageUpdate.tr(),
                           });
                         },):
-                        FileRequiredWidget(title: 'صورة البانر', text: 'قم بتحميل صورة البانر', onTap: () {
+                        FileRequiredWidget(title:  LocaleKeys.bannerImage.tr(), text: LocaleKeys.bannerImageUpdate.tr(), onTap: () {
                           cubit.pickImage(type: 'bannerFile').then((value) {
                             cubit.uploadAccountFile(context: context, type: 'bannerFile');
 

@@ -1,6 +1,8 @@
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/core/routing/routes.dart';
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/modules/branches/branch_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,7 +65,7 @@ class CustomBranchItemWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         const Icon(Icons.location_on,color: backBlue2,size: 25,),
-                        Text('علي الخريطة',style: TextStyles.font18Black700Weight.copyWith(
+                        Text(LocaleKeys.onMap.tr(),style: TextStyles.font18Black700Weight.copyWith(
                             color: backBlue2,
                             fontWeight: FontWeight.w600
                         ),),

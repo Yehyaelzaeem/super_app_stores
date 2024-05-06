@@ -1,3 +1,5 @@
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -24,7 +26,7 @@ class AuthBodyWidget extends StatelessWidget {
             children: [
               verticalSpace(20),
               Text(
-              'ادخل الاسم الاول',
+              LocaleKeys.enterFirstName.tr(),
               style: TextStyles.font18Black700Weight
                   .copyWith(fontWeight: FontWeight.bold),
             ),
@@ -34,16 +36,16 @@ class AuthBodyWidget extends StatelessWidget {
                 borderRadius: 40,
                 validationFunc: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'first name empty';
+                    return LocaleKeys.requiredField.tr();
                   }
                   return null;
                 },
                 // borderColor: AppColors.whiteColor.withOpacity(0.1),
-                hintText: '  الاسم الاول',
+                hintText: LocaleKeys.firstName.tr(),
                 controller: cubit.regFirstNameController),
              verticalSpace(20),
               Text(
-                'ادخل الاسم الاخير',
+                LocaleKeys.enterLastName.tr(),
                 style: TextStyles.font18Black700Weight
                     .copyWith(fontWeight: FontWeight.bold),
               ),
@@ -54,26 +56,26 @@ class AuthBodyWidget extends StatelessWidget {
                 borderRadius: 40,
                 validationFunc: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'last name empty';
+                    return LocaleKeys.requiredField.tr();
                   }
                   return null;
                 },
                 // borderColor: AppColors.whiteColor.withOpacity(0.1),
-                hintText: ' الاسم الاخير',
+                hintText: LocaleKeys.lastName.tr(),
                 controller: cubit.regLastNameController),
           ],):const SizedBox.shrink(),
           verticalSpace(20),
           Text(
-            'ادخل رقم هاتفك',
+            LocaleKeys.enterPhone.tr(),
             style: TextStyles.font18Black700Weight
                 .copyWith(fontWeight: FontWeight.bold),
           ),
           verticalSpace(10),
           CustomTextFieldPhoneCode(
-            label: 'الموبايل',
-            initialCountryCode:'+20',
+            label: LocaleKeys.phone.tr(),
+            initialCountryCode:'EG',
             controller:type=='login'?cubit.phoneController: cubit.regPhoneController,
-            autofocus: true,
+            autofocus: false,
             textInputAction: TextInputAction.next,
             onCountryChanged: (v){
 
@@ -84,9 +86,7 @@ class AuthBodyWidget extends StatelessWidget {
                   listener: (context, state) {},
                   builder: (context, state) {
                     return Container(
-                          decoration: Decorations.backGroundDecorationButton().copyWith(
-                            borderRadius: BorderRadius.circular(40)
-                          ),
+                          decoration: Decorations.backGroundDecorationButton().copyWith(borderRadius: BorderRadius.circular(40)),
                           height: 47,
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
@@ -100,11 +100,9 @@ class AuthBodyWidget extends StatelessWidget {
                                   cubit.register(context);
                                 }
                               },
-                              buttonText: type=='login'?'تسجيل':'التالي',
+                              buttonText: type=='login'?LocaleKeys.log.tr():LocaleKeys.next.tr(),
                               width: MediaQuery.of(context).size.width,
                               fontSize: 17,
-
-                              //profile
                               borderRadius: 40,
                             ),
                           ),

@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +32,12 @@ class BranchDataWidget extends StatelessWidget {
                     CustomTextField(
                       validationFunc: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'The name is empty';
+                          return LocaleKeys.requiredField.tr();
                         }
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.menu,color: Colors.grey,),
-                      hintText: 'اسم المطعم',
+                      hintText: LocaleKeys.restaurantName.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600
@@ -48,14 +49,15 @@ class BranchDataWidget extends StatelessWidget {
                     ),
                     verticalSpace(20),
                     CustomTextField(
+                      textInputType: TextInputType.emailAddress,
                       validationFunc: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'The emil is empty';
+                          return LocaleKeys.requiredField.tr();
                         }
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.email,color: Colors.grey,),
-                      hintText: ' البريد الالكتروني',
+                      hintText:LocaleKeys.email.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600
@@ -67,14 +69,15 @@ class BranchDataWidget extends StatelessWidget {
                     ),
                     verticalSpace(20),
                     CustomTextField(
+                      textInputType: TextInputType.phone,
                       validationFunc: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'The phone is empty';
+                          return LocaleKeys.requiredField.tr();
                         }
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.phone_android,color: Colors.grey,),
-                      hintText: 'الموبايل',
+                      hintText: LocaleKeys.phone.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600
@@ -88,17 +91,18 @@ class BranchDataWidget extends StatelessWidget {
                     CustomTextField(
                       validationFunc: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'The address is empty';
+                          return LocaleKeys.requiredField.tr();
                         }
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.store,color: Colors.grey,),
-                      hintText: 'العنوان',
+                      hintText: LocaleKeys.address.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600
                       ),
-                      suffixIcon: IconButton(onPressed: (){},icon: const Icon(Icons.store_mall_directory_outlined,color: Colors.grey,),),
+                      suffixIcon: IconButton(onPressed: (){},
+                        icon: const Icon(Icons.store_mall_directory_outlined,color: Colors.grey,),),
                       fillColor: whiteColor,
                       controller: cubit.storeAddress,
                       borderRadius: 40,
@@ -118,14 +122,14 @@ class BranchDataWidget extends StatelessWidget {
                       child: CustomTextField(
                         validationFunc: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'The location is empty';
+                            return LocaleKeys.requiredField.tr();
                           }
                           return null;
                         },
                         enabled: false,
                         fontSize: 10.sp,
                         prefixIcon:  const Icon(Icons.location_on,color: Colors.grey,),
-                        hintText: 'الموقع',
+                        hintText: LocaleKeys.location.tr(),
                         hintStyle: TextStyles.font16Black500Weight.copyWith(
                             color: Colors.grey.shade500,
                             fontWeight: FontWeight.w600
@@ -179,12 +183,12 @@ class BranchDataWidget extends StatelessWidget {
                     CustomTextField(
                       validationFunc: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'The time is empty';
+                          return LocaleKeys.requiredField.tr();
                         }
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.timer_outlined,color: Colors.grey,),
-                      hintText: 'وقت التوصيل',
+                      hintText: LocaleKeys.deliveryTime.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600

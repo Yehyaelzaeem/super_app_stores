@@ -45,7 +45,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
 
   _buildItem(BuildContext context, NavigationTab tab) {
     return BottomNavigationBarItem(
-      label: tr(tab.name),
+      label: tab.name,
       icon: TapEffect(
         onClick: () => _onTap(tab.index),
         child:

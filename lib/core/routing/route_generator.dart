@@ -19,18 +19,22 @@ import '../../presentation/modules/layout/screens/account/my_files/my_files_scre
 import '../../presentation/modules/layout/screens/account/privacy_policy/privacy_policy.dart';
 import '../../presentation/modules/layout/screens/account/settings/settings_screen.dart';
 import '../../presentation/modules/layout/screens/account/terms_conditions/terms_conditions.dart';
-import '../../presentation/modules/layout/screens/home/meal/add_meal_screen.dart';
-import '../../presentation/modules/layout/screens/home/meal/meal_details_screen.dart';
 import '../../presentation/modules/layout/screens/home/notification/notification_screen.dart';
+import '../../presentation/modules/layout/screens/home/product/add_product_screen.dart';
+import '../../presentation/modules/layout/screens/home/product/product_details_screen.dart';
+import '../../presentation/modules/layout/screens/home/product/update_product_screen.dart';
 import '../../presentation/modules/messages/chat_details.dart';
 import '../../presentation/modules/messages/messages_screen.dart';
 import '../../presentation/modules/orders/provider_orders_screen.dart';
+import '../../presentation/modules/splash/splash_screen.dart';
 import 'routes.dart';
 
 class RouteGenerator {
   static Route generateBaseRoute(RouteSettings settings) {
     Map? arguments = settings.arguments as Map<String, dynamic>?;
     switch (settings.name) {
+        case Routes.splashScreen:
+        return platformPageRoute( const SplashScreen());
         case Routes.aboutUsScreen:
         return platformPageRoute( const AboutUsScreen());
         case Routes.termsConditionScreen:
@@ -43,10 +47,12 @@ class RouteGenerator {
         return platformPageRoute(   ChangeProfilePasswordScreen());
       case Routes.elementsScreen:
         return platformPageRoute(   const ElementsScreen());
+        case Routes.updateProductScreen:
+        return platformPageRoute(    UpdateProductScreen(product: arguments?['product'],));
         case Routes.providerOrdersScreen:
         return platformPageRoute( const  ProviderOrdersScreen());
-        case Routes.mealDetailsScreen:
-        return platformPageRoute( const  MealDetailsScreen());
+        case Routes.productDetailsScreen:
+        return platformPageRoute(   ProductDetailsScreen(product: arguments?['product'],));
         case Routes.addBranchScreen:
         return platformPageRoute( const  AddBranchScreen());
         case Routes.settingsScreen:
@@ -72,7 +78,7 @@ class RouteGenerator {
         case Routes.editProviderProfileScreen:
         return platformPageRoute(  const EditProviderProfileScreen());
         case Routes.addMealScreen:
-        return platformPageRoute(  const AddMealScreen());
+        return platformPageRoute(  const AddProductScreen());
         case Routes.layoutScreen:
         return platformPageRoute(   LayoutScreen(
           currentPage: arguments?['currentPage'],));

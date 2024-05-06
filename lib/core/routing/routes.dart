@@ -11,7 +11,7 @@ class Routes {
   static const String address = "/address";
   static const String notification = "/notification";
   static const String notificationScreen = "/notificationScreen";
-  static const String mealDetailsScreen = "/mealDetailsScreen";
+  static const String productDetailsScreen = "/productDetailsScreen";
   static const String branchesScreen = "/branchesScreen";
   static const String addBranchScreen = "/addBranchScreen";
   static const String settingsScreen = "/settingsScreen";
@@ -31,6 +31,7 @@ class Routes {
   static const String cartScreen = "/cartScreen";
   static const String changePasswordScreen = "/changePasswordScreen";
   static const String aboutUsScreen = "/aboutUsScreen";
+  static const String splashScreen = "/splashScreen";
   static const String termsConditionScreen = "/termsConditionScreen";
   static const String privacyPolicyScreen = "/privacyPolicyScreen";
   static const String registerScreen = "/registerScreen";
@@ -38,6 +39,7 @@ class Routes {
   static const String authScreen = "/authScreen";
   static const String chooseUserScreen = "/chooseUserScreen";
   static const String changeProfilePasswordScreen = "/changeProfilePasswordScreen";
+  static const String updateProductScreen = "/updateProductScreen";
   static const String elementsScreen = "/elementsScreen";
   static const String providerOrdersScreen = "/providerOrdersScreen";
   static const String contactUsScreen = "/contactUsScreen";

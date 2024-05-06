@@ -1,3 +1,5 @@
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -26,7 +28,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
     cubit.storeLocation.text='';
     cubit.addressLocationModel=null;
     cubit.getLocation(context);
-    cubit.valueData='المنطقة';
+    cubit.valueData=LocaleKeys.region.tr();
     cubit.regionsId=null;
     cubit.storeTime.text='';
     super.initState();
@@ -37,9 +39,9 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
     cubit.getLocation(context);
     return  Scaffold(
       backgroundColor: backGroundGray,
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         color: backGroundGray,
-        title: 'اضافة فرع',
+        title:LocaleKeys.addBranch.tr(),
       ),
       body:
       BlocConsumer<BranchCubit, BranchState>(
@@ -62,7 +64,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
                        onTap: (){
                          cubit.addBranch(context);
                        },
-                       buttonText:'تم',
+                       buttonText:LocaleKeys.done.tr(),
                        width: MediaQuery.of(context).size.width*0.5,
                        height: 35,
                        fontSize: 17,

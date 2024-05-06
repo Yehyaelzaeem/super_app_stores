@@ -1,6 +1,6 @@
 
 import '../../../domain/entities/user_entity.dart';
-class UserModel {
+class UserModel{
   LoginModelData? data;
 
   UserModel({this.data});

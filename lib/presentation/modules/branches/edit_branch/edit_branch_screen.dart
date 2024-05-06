@@ -1,3 +1,5 @@
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helpers/spacing.dart';
@@ -43,9 +45,9 @@ class _EditBranchScreenState extends State<EditBranchScreen> {
     BranchCubit cubit=BranchCubit.get(context);
     return  Scaffold(
       backgroundColor: backGroundGray,
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         color: backGroundGray,
-        title: 'تعديل الفرع',
+        title: LocaleKeys.branchEdit.tr(),
       ),
       body:
       BlocConsumer<BranchCubit, BranchState>(
@@ -68,7 +70,7 @@ class _EditBranchScreenState extends State<EditBranchScreen> {
                       onTap: (){
                         cubit.updateBranch(branchId: widget.branchesModelData.id!, context: context);
                       },
-                      buttonText:'تم',
+                      buttonText:LocaleKeys.update.tr(),
                       width: MediaQuery.of(context).size.width*0.5,
                       height: 35,
                       fontSize: 17,

@@ -1,9 +1,11 @@
 
 import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import '../../../core/tabs/tab.dart';
 import 'navigation_tabs.dart';
 import 'widgets/bottom_navigation_bar_widget.dart';
 
@@ -21,6 +23,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     getPermission();
+    HomeCubit.get(context).getProducts();
     ProfileCubit.get(context).getProfile();
     BlocProvider.of<LayoutCubit>(context, listen: false).init(widget._currentPage);
     super.initState();
@@ -31,6 +34,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
     int currentIndex = context.watch<LayoutCubit>().currentIndex;
     final LayoutCubit viewModel = BlocProvider.of<LayoutCubit>(context);
+    List<NavigationTab> kTabs =getDataTabs();
+
     return  Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
