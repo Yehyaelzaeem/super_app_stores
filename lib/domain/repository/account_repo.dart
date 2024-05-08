@@ -8,6 +8,9 @@ import '../request_body/profile_body.dart';
 
 
 mixin AccountRepository {
+  Future<ApiResponse> getAboutUs() ;
+  Future<ApiResponse> getPrivacy() ;
+  Future<ApiResponse> getTerms() ;
 
   Future<ApiResponse> bankAccount({required BankAccountBody bankAccountBody}) ;
   Future<ApiResponse> addAccountFiles({required AccountFilesBody accountFilesBody}) ;

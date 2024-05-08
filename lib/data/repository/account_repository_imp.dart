@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:cogina_restaurants/domain/request_body/account_files_body.dart';
 import 'package:cogina_restaurants/domain/request_body/bank_account_body.dart';
 import 'package:dio/dio.dart';
@@ -57,6 +58,43 @@ class AccountRepositoryImp implements AccountRepository{
       Response response = await _dioClient.post(
           AppURL.kAddAccountFilesURL,
           data2: data
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponse> getAboutUs() async{
+    try {
+      Response response = await _dioClient.get(
+        AppURL.kGetAboutUsURL,
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponse> getPrivacy() async{
+    try {
+      Response response = await _dioClient.get(
+        AppURL.kGetPrivacyURL,
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponse> getTerms() async{
+    try {
+      log('yehya', 'starrrt');
+      Response response = await _dioClient.get(
+        AppURL.kGetTermsURL,
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

@@ -9,16 +9,30 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../data/model/base/response_model.dart';
+import '../../../../../data/model/response/more_contact_us_model.dart';
+import '../../../../../domain/usecase/account/about_us_usecase.dart';
 import '../../../../../domain/usecase/account/add_account_file_usecase.dart';
 import '../../../../../domain/usecase/account/bank_account_usecase.dart';
+import '../../../../../domain/usecase/account/privacy_usecase.dart';
+import '../../../../../domain/usecase/account/terms_usecase.dart';
 import 'edit_profile/profile_cubit.dart';
 part 'account_state.dart';
 
 class AccountCubit extends Cubit<AccountState> {
+  final AboutUsUseCase _aboutUsUseCase;
+  final PrivacyUseCase _privacyUseCase;
+  final TermsUseCase _termsUseCase;
   final BankAccountUseCase _bankAccountUseCase;
   final AddAccountFilesUseCase _addAccountFilesUseCase;
-  AccountCubit({required BankAccountUseCase bankAccountUseCase,required AddAccountFilesUseCase addAccountFilesUseCase}) :
+  AccountCubit({
+    required BankAccountUseCase bankAccountUseCase,
+    required AboutUsUseCase aboutUsUseCase,
+    required PrivacyUseCase privacyUseCase,
+    required TermsUseCase termsUseCase,
+    required AddAccountFilesUseCase addAccountFilesUseCase}) :
+        _aboutUsUseCase =aboutUsUseCase,_privacyUseCase=privacyUseCase,_termsUseCase=termsUseCase,
         _bankAccountUseCase=bankAccountUseCase,_addAccountFilesUseCase=addAccountFilesUseCase, super(AccountInitial());
+
   static AccountCubit get(BuildContext context)=>BlocProvider.of(context);
 
   TextEditingController holderName =TextEditingController();
@@ -68,6 +82,45 @@ class AccountCubit extends Cubit<AccountState> {
     }
   }
 
+  MoreContactUsModel? aboutUsData;
+  MoreContactUsModel? privacyData;
+  MoreContactUsModel? termsData;
+  Future<ResponseModel> getAboutUs() async {
+    aboutUsData=null;
+    emit(GetDataLoadingState()) ;
+    ResponseModel responseModel = await _aboutUsUseCase.call();
+    if (responseModel.isSuccess) {
+      MoreContactUsModel moreContactUsModel=responseModel.data;
+      emit(GetDataSuccessState(data: moreContactUsModel.data.toString())) ;
+    }else{
+      emit(GetDataErrorState()) ;
+    }
+    return responseModel;
+  }
+  Future<ResponseModel> getPrivacy() async {
+    privacyData=null;
+    emit(GetDataLoadingState()) ;
+    ResponseModel responseModel = await _privacyUseCase.call();
+    if (responseModel.isSuccess) {
+      MoreContactUsModel moreContactUsModel=responseModel.data;
+      emit(GetDataSuccessState(data: moreContactUsModel.data!.toString())) ;
+    }else{
+      emit(GetDataErrorState()) ;
+    }
+    return responseModel;
+  }
+  Future<ResponseModel> getTerms() async {
+    termsData=null;
+    emit(GetDataLoadingState()) ;
+    ResponseModel responseModel = await _termsUseCase.call();
+    if (responseModel.isSuccess) {
+      MoreContactUsModel moreContactUsModel=responseModel.data;
+      emit(GetDataSuccessState(data:  moreContactUsModel.data!.toString())) ;
+    }else{
+      emit(GetDataErrorState()) ;
+    }
+    return responseModel;
+  }
   void passAccountData(BuildContext context){
     ProfileCubit cubit=  ProfileCubit.get(context);
     var data =cubit.profileModel!.bankAccount!;

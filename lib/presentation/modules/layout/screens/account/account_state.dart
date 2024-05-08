@@ -13,3 +13,9 @@ class PickImageState extends AccountState {}
 class UploadFileLoadingState extends AccountState {}
 class UploadFileLSuccessState extends AccountState {}
 class UploadFileErrorState extends AccountState {}
+class GetDataSuccessState extends AccountState {
+  final String data;
+  GetDataSuccessState({required this.data});
+}
+class GetDataErrorState extends AccountState {}
+class GetDataLoadingState extends AccountState {}

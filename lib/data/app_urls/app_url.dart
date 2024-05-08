@@ -33,6 +33,10 @@ class AppURL {
   static  String kUpdateProductURL({required int id}) => "stores/products/update_product/$id";
   static const String kAddProductURL = "stores/products/add_product";
 
+  ///more
+  static const String kGetPrivacyURL = "privacy-policy-restaurant";
+  static const String kGetTermsURL = "terms-restaurant";
+  static const String kGetAboutUsURL = "how-we-are";
 
 
 
@@ -74,10 +78,7 @@ class AppURL {
   static const String kAddMainAddressURL = "other-trip/main-address";
   ///checkout
   static const String kCheckOutURL = "stores/checkout/store";
-  ///more
-  static const String kGetPrivacyURL = "privacy-policy";
-  static const String kGetTermsURL = "terms";
-  static const String kGetAboutUsURL = "how-we-are";
+
  /// favorite
   static const String kGetFavoriteURL = "fav/list";
   static const String kAddFavoriteURL = "fav/add";

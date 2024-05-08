@@ -1,17 +1,16 @@
-
 import '../../../data/model/base/base_model.dart';
 import '../../../data/model/base/response_model.dart';
 import '../../../data/model/response/more_contact_us_model.dart';
-import '../../repository/more_repo.dart';
+import '../../repository/account_repo.dart';
 import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
 
 class TermsUseCase implements BaseUseCase<MoreContactUsModel>{
-  final MoreRepository repository;
+  final AccountRepository repository;
   TermsUseCase({required this.repository});
   Future<ResponseModel> call() async {
-    return BaseUseCaseCall.onGetData<MoreContactUsModel>( await repository.getAboutUs(), onConvert,tag: 'TermsUseCase');
+    return BaseUseCaseCall.onGetData<MoreContactUsModel>( await repository.getTerms(), onConvert,tag: 'TermsUseCase');
   }
 
   @override

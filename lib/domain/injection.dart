@@ -21,9 +21,9 @@ import 'package:cogina_restaurants/domain/usecase/local/clear_user_data_usecase.
 import 'package:cogina_restaurants/domain/usecase/local/get_is_login_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/local/get_user_token_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/local/save_data_usecase.dart';
-import 'package:cogina_restaurants/domain/usecase/more/about_us_usecase.dart';
-import 'package:cogina_restaurants/domain/usecase/more/privacy_usecase.dart';
-import 'package:cogina_restaurants/domain/usecase/more/terms_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/account/about_us_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/account/privacy_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/account/terms_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/profile/get_profile_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/profile/update_profile_usecase.dart';
 

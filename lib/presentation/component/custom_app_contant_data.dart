@@ -24,19 +24,8 @@ class CustomAppContData extends StatelessWidget {
             child: SizedBox(
                 height: 130.w,
                 width: 130.w,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child:Image.asset(AppImages.pro2)
-                  // Image.network(
-                  //   image,
-                  //   fit: BoxFit.cover,
-                  //   errorBuilder: (context,error,v){
-                  //     return const Center(child: CircularProgressIndicator(()),);
-                  //   },
-                  // ),
-                )),
+                child: Image.asset(AppImages.logo2,fit: BoxFit.cover,)),
           ),
-          SizedBox(height: 35.h,),
           Text(
            title,
             style: TextStyles.font18Black700Weight.copyWith(

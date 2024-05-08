@@ -4,7 +4,6 @@ import 'package:cogina_restaurants/data/repository/branches_repository_imp.dart'
 import 'package:cogina_restaurants/data/repository/favorite_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/home_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/local_repository_imp.dart';
-import 'package:cogina_restaurants/data/repository/more_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/profile_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/restaurant_repository_imp.dart';
 import 'package:dio/dio.dart';
@@ -17,7 +16,6 @@ import '../domain/repository/branches_repo.dart';
 import '../domain/repository/favorite_repo.dart';
 import '../domain/repository/home_repo.dart';
 import '../domain/repository/local_repo.dart';
-import '../domain/repository/more_repo.dart';
 import '../domain/repository/profile_repo.dart';
 import '../domain/repository/restaurant_repo.dart';
 import 'app_urls/app_url.dart';
@@ -38,7 +36,6 @@ Future<void> init() async {
    getIt.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<RestaurantRepository>(() => RestaurantRepositoryImp(dioClient: getIt()));
-   getIt.registerLazySingleton<MoreRepository>(() => MoreRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<FavoriteRepository>(() => FavoriteRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<BranchesRepository>(() => BranchesRepositoryImp(dioClient: getIt()));
 /// Account

@@ -2,16 +2,16 @@
 import '../../../data/model/base/base_model.dart';
 import '../../../data/model/base/response_model.dart';
 import '../../../data/model/response/more_contact_us_model.dart';
-import '../../repository/more_repo.dart';
+import '../../repository/account_repo.dart';
 import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
 
 class PrivacyUseCase implements BaseUseCase<MoreContactUsModel>{
-  final MoreRepository repository;
+  final AccountRepository repository;
   PrivacyUseCase({required this.repository});
   Future<ResponseModel> call() async {
-    return BaseUseCaseCall.onGetData<MoreContactUsModel>( await repository.getAboutUs(), onConvert,tag: 'PrivacyUseCase');
+    return BaseUseCaseCall.onGetData<MoreContactUsModel>( await repository.getPrivacy(), onConvert,tag: 'PrivacyUseCase');
   }
 
   @override
