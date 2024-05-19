@@ -23,6 +23,7 @@ import '../../presentation/modules/layout/screens/home/notification/notification
 import '../../presentation/modules/layout/screens/home/product/add_product_screen.dart';
 import '../../presentation/modules/layout/screens/home/product/product_details_screen.dart';
 import '../../presentation/modules/layout/screens/home/product/update_product_screen.dart';
+import '../../presentation/modules/layout/screens/orders/order_details/order_details.dart';
 import '../../presentation/modules/messages/chat_details.dart';
 import '../../presentation/modules/messages/messages_screen.dart';
 import '../../presentation/modules/orders/provider_orders_screen.dart';
@@ -53,6 +54,8 @@ class RouteGenerator {
         return platformPageRoute( const  ProviderOrdersScreen());
         case Routes.productDetailsScreen:
         return platformPageRoute(   ProductDetailsScreen(product: arguments?['product'],));
+        case Routes.orderDetailsScreen:
+        return platformPageRoute(   OrderDetailsScreen(ordersDetails: arguments?['ordersDetails'],));
         case Routes.addBranchScreen:
         return platformPageRoute( const  AddBranchScreen());
         case Routes.settingsScreen:

@@ -39,7 +39,7 @@ class CustomBranchItemWidget extends StatelessWidget {
                       icon: const Icon(Icons.edit_calendar_outlined)),
                   IconButton(
                       onPressed: (){
-                        BranchCubit.get(context).deleteBranch( branchId: branchesModel.id!, context: context);
+                        BranchCubit.get().deleteBranch( branchId: branchesModel.id!, context: context);
                       },
                       icon: const Icon(Icons.delete,color: redColor,))
 

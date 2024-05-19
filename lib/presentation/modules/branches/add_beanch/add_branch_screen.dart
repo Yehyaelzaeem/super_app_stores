@@ -20,7 +20,7 @@ class AddBranchScreen extends StatefulWidget {
 class _AddBranchScreenState extends State<AddBranchScreen> {
   @override
   void initState() {
-    BranchCubit cubit=BranchCubit.get(context);
+    BranchCubit cubit=BranchCubit.get();
     cubit.storeName.text='';
     cubit.storeEmail.text='';
     cubit.storePhone.text='';
@@ -35,7 +35,7 @@ class _AddBranchScreenState extends State<AddBranchScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    BranchCubit cubit =BranchCubit.get(context);
+    BranchCubit cubit =BranchCubit.get();
     cubit.getLocation(context);
     return  Scaffold(
       backgroundColor: backGroundGray,

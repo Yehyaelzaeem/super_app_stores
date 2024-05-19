@@ -5,6 +5,7 @@ import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/account_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/orders_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,6 +27,7 @@ class GenerateMultiBloc extends StatelessWidget {
         BlocProvider(create: (_) => getIt<ProfileCubit>()),
         BlocProvider(create: (_) => getIt<BranchCubit>()),
         BlocProvider(create: (_) => getIt<AccountCubit>()),
+        BlocProvider(create: (_) => getIt<OrdersCubit>()),
       ],
       child: child,
     );

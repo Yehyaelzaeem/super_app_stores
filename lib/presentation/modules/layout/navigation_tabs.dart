@@ -1,7 +1,7 @@
 import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/account_screen.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/orders_screen.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/profits/profits.dart';
-import 'package:cogina_restaurants/presentation/modules/layout/screens/restaurant/provider_restaurant.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,7 @@ getDataTabs(){
       // unSelectIcon: CupertinoIcons.square_list,
       selectIcon: Icons.store_mall_directory,
       unSelectIcon: Icons.store_mall_directory_outlined,
-      initialRoute: const RestaurantScreen(),
+      initialRoute: const OrdersScreen(),
       index: NavigationTabs.store ,
     ),
 

@@ -18,6 +18,9 @@ class LocaleKeys
   static const home = 'home';
   static const favorite = 'favorite';
   static const orders = 'orders';
+  static const agree = 'agree';
+  static const reject = 'reject';
+  static const orderDetails = 'order_details';
   static const cart = 'cart';
   static const more = 'more';
   static const logFirst = 'Log_in_first';
@@ -178,6 +181,7 @@ class LocaleKeys
   static const completeData = 'complete_data';
   static const restaurantType = 'restaurant_type';
   static const addImage = 'add_image';
+  static const productName = 'product_name';
 
 
 

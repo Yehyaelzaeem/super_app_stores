@@ -131,6 +131,7 @@
 
   "meal_update": "تحديث بيانات الوجبة",
   "meal_details": "تفاصيل الوجبة",
+  "order_details": "تفاصيل الطلب",
   "additions": "الاضافات",
   "edit_profile": "تعديل الصفحة الشخصية",
   "elements": "العناصر",
@@ -177,7 +178,10 @@
   "sure":"تاكيد",
   "complete_data":"استكمال بيانات المطعم",
   "restaurant_type":"نوع المطعم",
-  "add_image":"اضف صورة"
+  "add_image":"اضف صورة",
+  "agree":"قبول",
+  "reject":"رفض",
+  "product_name":"اسم المنتج"
 
 
 

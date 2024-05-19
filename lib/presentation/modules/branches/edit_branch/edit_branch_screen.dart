@@ -22,7 +22,7 @@ class EditBranchScreen extends StatefulWidget {
 class _EditBranchScreenState extends State<EditBranchScreen> {
   @override
   void initState() {
-    BranchCubit cubit=BranchCubit.get(context);
+    BranchCubit cubit=BranchCubit.get();
     cubit.storeName.text=widget.branchesModelData.name!;
     cubit.storeEmail.text=widget.branchesModelData.email!;
     cubit.storePhone.text=widget.branchesModelData.phone!;
@@ -42,7 +42,7 @@ class _EditBranchScreenState extends State<EditBranchScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    BranchCubit cubit=BranchCubit.get(context);
+    BranchCubit cubit=BranchCubit.get();
     return  Scaffold(
       backgroundColor: backGroundGray,
       appBar:  CustomAppBar(

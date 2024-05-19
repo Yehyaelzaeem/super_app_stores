@@ -22,6 +22,7 @@ class EditProviderProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProfileCubit cubit =ProfileCubit.get(context);
+    cubit.pushProfileData();
     return
       Scaffold(
       backgroundColor: backGroundGray,

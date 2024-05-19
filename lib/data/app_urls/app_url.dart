@@ -87,8 +87,9 @@ class AppURL {
 
 
   /// order
-  static const String kRestaurantOrdersURL = "stores/checkout";
-  static  String kOrdersURL({required int id}) => "stores/checkout/details?order_id=$id";
+  static const String kAllOrdersURL = "stores/orders";
+  static const String kAcceptOrderURL = "stores/orders/accept-order";
+  static  String kRejectOrderURL({required int id}) => "stores/orders/reject_order/$id";
 
   ///setting
   static const String kGetCitiesURL = "";

@@ -19,7 +19,7 @@ class BranchesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BranchCubit cubit = BranchCubit.get(context);
+    BranchCubit cubit = BranchCubit.get();
     return
       Scaffold(
         backgroundColor: backGroundGray,

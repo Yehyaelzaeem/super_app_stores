@@ -119,8 +119,8 @@ class _MapScreenState extends State<CustomGoogleMapScreen> {
                       locality: getLocality.isEmpty?'':getLocality,
                     );
                     if(getCountry.isNotEmpty){
-                      BranchCubit.get(context).addressLocationModel =addressModel;
-                      BranchCubit.get(context).getLocationAddress(context);
+                      BranchCubit.get().addressLocationModel =addressModel;
+                      BranchCubit.get().getLocationAddress(context);
                     }
                   },
                   fontSize: 25,

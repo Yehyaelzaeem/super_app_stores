@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../../core/routing/navigation_services.dart';
 import '../../../data/model/base/response_model.dart';
 import '../../../data/model/response/branches_model.dart';
 import '../../../data/model/response/regions_model.dart';
@@ -31,7 +32,7 @@ class BranchCubit extends Cubit<BranchState> {
         _getBranchesUseCase=getBranchesUseCase, super(BranchInitial()){
     getRegions();
   }
-  static BranchCubit get(BuildContext context )=>BlocProvider.of(context);
+  static BranchCubit get()=>BlocProvider.of(NavigationService.navigationKey.currentContext!);
   TextEditingController storeName =TextEditingController();
   TextEditingController storeEmail =TextEditingController();
   TextEditingController storePhone =TextEditingController();

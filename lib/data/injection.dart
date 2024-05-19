@@ -4,8 +4,8 @@ import 'package:cogina_restaurants/data/repository/branches_repository_imp.dart'
 import 'package:cogina_restaurants/data/repository/favorite_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/home_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/local_repository_imp.dart';
+import 'package:cogina_restaurants/data/repository/orders_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/profile_repository_imp.dart';
-import 'package:cogina_restaurants/data/repository/restaurant_repository_imp.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -16,8 +16,8 @@ import '../domain/repository/branches_repo.dart';
 import '../domain/repository/favorite_repo.dart';
 import '../domain/repository/home_repo.dart';
 import '../domain/repository/local_repo.dart';
+import '../domain/repository/orders_repo.dart';
 import '../domain/repository/profile_repo.dart';
-import '../domain/repository/restaurant_repo.dart';
 import 'app_urls/app_url.dart';
 import 'datasource/local/cache_consumer.dart';
 import 'datasource/remote/dio/dio_client.dart';
@@ -35,11 +35,12 @@ Future<void> init() async {
    getIt.registerLazySingleton<AuthRepository>(() => AuthRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImp(dioClient: getIt()));
-   getIt.registerLazySingleton<RestaurantRepository>(() => RestaurantRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<FavoriteRepository>(() => FavoriteRepositoryImp(dioClient: getIt()));
    getIt.registerLazySingleton<BranchesRepository>(() => BranchesRepositoryImp(dioClient: getIt()));
 /// Account
   getIt.registerLazySingleton<AccountRepository>(() => AccountRepositoryImp(dioClient: getIt()));
+/// Order
+  getIt.registerLazySingleton<OrdersRepository>(() => OrdersRepositoryImp(dioClient: getIt()));
 
 
 

@@ -1,23 +1,25 @@
 import 'dart:async';
+import 'package:cogina_restaurants/domain/request_body/accept_order_body.dart';
 import 'package:dio/dio.dart';
-import '../../domain/repository/restaurant_repo.dart';
+import '../../domain/repository/favorite_repo.dart';
+import '../../domain/repository/orders_repo.dart';
 import '../app_urls/app_url.dart';
 import '../datasource/remote/dio/dio_client.dart';
 import '../datasource/remote/exception/api_error_handler.dart';
 import '../model/base/api_response.dart';
 
-class RestaurantRepositoryImp implements RestaurantRepository{
+class OrdersRepositoryImp implements OrdersRepository{
   final DioClient _dioClient;
-  const RestaurantRepositoryImp({
+  const OrdersRepositoryImp({
     required DioClient dioClient,
   })  : _dioClient = dioClient;
 
 
   @override
-  Future<ApiResponse> getCategories({required int id})async {
+  Future<ApiResponse> getAllOrders() async{
     try {
       Response response = await _dioClient.get(
-        AppURL.kCategoriesURI(id),
+          AppURL.kAllOrdersURL,
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -26,10 +28,11 @@ class RestaurantRepositoryImp implements RestaurantRepository{
   }
 
   @override
-  Future<ApiResponse> getCategoriesItems({required int categoryId, required int storeId})async {
+  Future<ApiResponse> acceptOrder({required AcceptOrderBody acceptOrderBody})async {
     try {
-      Response response = await _dioClient.get(
-        AppURL.kCategoriesItemsURI(categoryId: categoryId, storeId: storeId)
+      Response response = await _dioClient.post(
+        AppURL.kAcceptOrderURL,
+        queryParameters: acceptOrderBody.toJson()
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -38,15 +41,14 @@ class RestaurantRepositoryImp implements RestaurantRepository{
   }
 
   @override
-  Future<ApiResponse> getItemsExtra({required int itemId})async {
+  Future<ApiResponse> rejectOrder({required int orderId}) async{
     try {
-      Response response = await _dioClient.get(
-          AppURL.kItemExtraURI(itemId)
+      Response response = await _dioClient.post(
+        AppURL.kRejectOrderURL(id: orderId),
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-
 }

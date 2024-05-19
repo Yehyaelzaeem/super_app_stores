@@ -16,7 +16,7 @@ class BranchDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BranchCubit cubit =BranchCubit.get(context);
+    BranchCubit cubit =BranchCubit.get();
     return BlocConsumer<BranchCubit, BranchState>(
       listener: (context, state) {},
       builder: (context, state) {

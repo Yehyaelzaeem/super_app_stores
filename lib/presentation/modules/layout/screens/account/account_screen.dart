@@ -157,7 +157,7 @@ class AccountScreen extends StatelessWidget {
                     verticalSpace(10),
                      CustomProviderProfileItem(title: LocaleKeys.branches.tr(), icon: Icons.location_on,
                     onTap: (){
-                      BranchCubit.get(context).getBranches();
+                      BranchCubit.get().getBranches();
                       context.pushNamed(Routes.branchesScreen);
                     },
                     ),

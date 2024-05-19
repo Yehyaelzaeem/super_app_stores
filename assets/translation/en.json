@@ -14,7 +14,11 @@
   "language": "Language",
   "delete_account": "Delete Account",
   "logout": "Log Out",
+  "order_details": "Order Details",
   "home": "Home",
+  "agree":"Agree",
+  "reject":"Reject",
+
   "favorite": "Favorite",
   "orders": "Orders",
   "cart": "Cart",
@@ -178,5 +182,7 @@
   "sure": "Confirm",
   "complete_data": "Complete Restaurant Data",
   "restaurant_type": "Restaurant Type",
-  "add_image": "Add Image"
+  "add_image": "Add Image",
+  "product_name":"Product Name"
+
 }

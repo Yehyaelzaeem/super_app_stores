@@ -1,17 +1,17 @@
-
 import '../../../data/model/base/base_model.dart';
 import '../../../data/model/base/response_model.dart';
-import '../../repository/home_repo.dart';
-import '../../request_body/add_product_body.dart';
+import '../../../data/model/response/orders_model.dart';
+import '../../repository/orders_repo.dart';
+import '../../request_body/accept_order_body.dart';
 import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
 
-class AddProductUseCase implements BaseUseCase<dynamic>{
-  final HomeRepository repository;
-  AddProductUseCase({required this.repository});
-  Future<ResponseModel> call({required AddProductBody addProductBody}) async {
-    return BaseUseCaseCall.onGetData<dynamic>( await repository.addProduct(addProductBody: addProductBody), onConvert,tag: 'AddProductUseCase');
+class RejectOrderUseCase implements BaseUseCase<dynamic>{
+  final OrdersRepository repository;
+  RejectOrderUseCase({required this.repository});
+  Future<ResponseModel> call({required int orderId}) async {
+    return BaseUseCaseCall.onGetData<dynamic>( await repository.rejectOrder(orderId: orderId), onConvert,tag: 'RejectOrderUseCase');
   }
 
   @override
@@ -22,7 +22,7 @@ class AddProductUseCase implements BaseUseCase<dynamic>{
       }else{
         return ResponseModel(baseModel.status??false, baseModel.message,data: baseModel.item);
       }
-      }catch(e){
+    }catch(e){
       return ResponseModel(baseModel.status??false, baseModel.message,data: baseModel.item);
     }
   }
