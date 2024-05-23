@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 import '../../../core/resources/decoration.dart';
+import '../../component/custom_logo.dart';
 import '../auth/auth_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -50,7 +51,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
       begin: const Offset(0.0, 0.9),
       end: Offset.zero,
     ).animate(_animationController!);
-    play('mp3/splash2.mp3',);
+    // play('mp3/splash2.mp3',);
     _animationController!.forward().whenComplete(() {
       navigationPage();
     });
@@ -96,7 +97,12 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
                     width: MediaQuery.of(context).size.width,
                     alignment: Alignment.topLeft,
                     duration: const Duration(seconds: 0),
-                    child: Image(
+                    child:
+                      // SizedBox(
+                      //   height: height * 0.2 + 20,
+                      //   child: const CustomLogo(),
+                      // )
+                    Image(
                       height: height * 0.2 + 20,
                       width: width * 0.8 + 10,
                       fit: BoxFit.contain,

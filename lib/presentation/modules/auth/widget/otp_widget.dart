@@ -1,5 +1,5 @@
 import 'package:cogina_restaurants/core/translations/locale_keys.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as tr;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,29 +57,31 @@ class _OtpWidgetState extends State<OtpWidget> {
                     color: Colors.grey
                   ),
                 ),
-
-                VerificationCode(
-                  textStyle: TextStyle(fontSize: 20.0, color: Colors.blue.shade900,fontWeight: FontWeight.bold),
-                  keyboardType: TextInputType.number,
-                  underlineColor: backBlue2, // If this is null it will use primaryColor: Colors.red from Theme
-                  length: 4,
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  cursorColor:  backBlue2, // If this is null it will default to the ambient
-                  // clearAll is NOT required, you can delete it
-                  // takes any widget, so you can implement your design
-                  clearAll: const SizedBox.shrink(),
-                  onCompleted: (String value) {
-                    cubit.login(cubit.phoneController.text, value,context);
-                    setState(() {
-                      _code = value;
-                    });
-                  },
-                  onEditing: (bool value) {
-                    setState(() {
-                      _onEditing = value;
-                    });
-                    if (!_onEditing) FocusScope.of(context).unfocus();
-                  },
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: VerificationCode(
+                    textStyle: TextStyle(fontSize: 20.0, color: Colors.blue.shade900,fontWeight: FontWeight.bold),
+                    keyboardType: TextInputType.number,
+                    underlineColor: backBlue2, // If this is null it will use primaryColor: Colors.red from Theme
+                    length: 4,
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    cursorColor:  backBlue2, // If this is null it will default to the ambient
+                    // clearAll is NOT required, you can delete it
+                    // takes any widget, so you can implement your design
+                    clearAll: const SizedBox.shrink(),
+                    onCompleted: (String value) {
+                      cubit.login(cubit.phoneController.text, value,context);
+                      setState(() {
+                        _code = value;
+                      });
+                    },
+                    onEditing: (bool value) {
+                      setState(() {
+                        _onEditing = value;
+                      });
+                      if (!_onEditing) FocusScope.of(context).unfocus();
+                    },
+                  ),
                 ),
                 verticalSpace(50),
                 Padding(

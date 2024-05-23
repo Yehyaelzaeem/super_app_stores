@@ -183,6 +183,7 @@
   "complete_data": "Complete Restaurant Data",
   "restaurant_type": "Restaurant Type",
   "add_image": "Add Image",
-  "product_name":"Product Name"
-
+  "product_name":"Product Name",
+  "this_field": "this field",
+  "required": "required"
 }

@@ -47,7 +47,9 @@ class MyApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
-            title: 'كُوجِينَا',
+            title: 'مطاعم كوجينا',
+            // 'كُوجِينَا',
+
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationService.navigationKey,
             onGenerateRoute: RouteGenerator.generateBaseRoute,

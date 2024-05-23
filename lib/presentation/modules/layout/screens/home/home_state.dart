@@ -22,3 +22,6 @@ class DeleteProductLoadingState extends HomeState {}
 class DeleteProductSuccessState extends HomeState {}
 class DeleteProductErrorState extends HomeState {}
 class PushDataState extends HomeState {}
+class ExtraModelLoadingState extends HomeState {}
+class AddExtraModelState extends HomeState {}
+class RemoveExtraModelState extends HomeState {}

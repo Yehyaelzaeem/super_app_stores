@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../core/routing/navigation_services.dart';
 import '../../../../../data/model/base/response_model.dart';
+import '../../../../../data/model/response/extra_model.dart';
 import '../../../../../data/model/response/products_categories_model.dart';
 import '../../../../../data/model/response/products_model.dart';
 import '../../../../../domain/request_body/add_product_body.dart';
@@ -48,6 +49,7 @@ class HomeCubit extends Cubit<HomeState> {
   TextEditingController  productDisCount =TextEditingController();
   TextEditingController  productDescription =TextEditingController();
   GlobalKey<FormState> productFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> extraFormKey = GlobalKey<FormState>();
 
   String? categoryValue;
   int? categoryId;
@@ -63,6 +65,22 @@ class HomeCubit extends Cubit<HomeState> {
       emit(GetProductCategoriesErrorState()) ;
     }
     return responseModel;
+  }
+
+  List<ExtraModel> extralList=[];
+  void addExtra(ExtraModel extraModel){
+    emit(ExtraModelLoadingState());
+    Future.delayed(const Duration(milliseconds: 50)).then((value) {
+      extralList.add(extraModel);
+      productExtraNameAr.text='';
+      productExtraName.text='';
+      productExtraPrice.text='';
+      emit(AddExtraModelState());
+    });
+  }
+  void removeExtra(ExtraModel extraModel){
+    extralList.remove(extraModel);
+    emit(RemoveExtraModelState());
   }
 
   Future<ResponseModel> getProducts() async {
@@ -82,15 +100,16 @@ class HomeCubit extends Cubit<HomeState> {
     AddProductBody addProductBody=AddProductBody(
         name: productName.text, description: productDescription.text,
         price: productPrice.text, discount: productDisCount.text, image: productImageFile!,
-        categoryId: categoryId.toString(), additionName: productExtraName.text,
-        additionNameAr: productExtraNameAr.text,
-        additionPrice: productExtraPrice.text,
+        categoryId: categoryId.toString(), additionName: extralList.map((e) => e.nameEn.trim()).join(','),
+        additionNameAr: extralList.map((e) => e.nameAr.trim()).join(','),
+        additionPrice: extralList.map((e) => e.price.toString()).join(','),
     );
     emit(AddProductLoadingState()) ;
     ResponseModel responseModel = await _addProductUseCase.call(addProductBody: addProductBody);
     if (responseModel.isSuccess) {
       getProducts();
-      NavigationService.navigationKey!.currentContext!.pop();
+      extralList.clear();
+      NavigationService.navigationKey.currentContext!.pop();
       emit(AddProductSuccessState()) ;
     }else{
       emit(AddProductErrorState()) ;

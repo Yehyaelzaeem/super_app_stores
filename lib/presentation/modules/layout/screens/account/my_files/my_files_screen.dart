@@ -27,7 +27,8 @@ class MyFilesScreen extends StatelessWidget {
         color: backGroundGray,
         title: LocaleKeys.myFiles.tr(),
       ),
-      body: BlocConsumer<ProfileCubit, ProfileState>(
+      body:
+      BlocConsumer<ProfileCubit, ProfileState>(
               listener: (context, state) {},
               builder: (context, state) {
                 if(profileCubit.profileModel!=null){

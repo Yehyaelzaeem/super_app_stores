@@ -60,7 +60,7 @@ class OrderItem extends StatelessWidget {
                       InkWell(
                         onTap: (){
                           context.pushNamed(
-                            Routes.orderDetailsScreen,arguments: {'ordersDetails':ordersModelData.details}
+                            Routes.orderDetailsScreen,arguments: {'ordersModelData':ordersModelData}
                           );
                         },
                         child: Row(

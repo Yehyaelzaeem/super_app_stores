@@ -26,7 +26,6 @@ class MealItemWidget extends StatelessWidget {
         },
         child:
         Container(
-          height: 130.h,
           decoration:  BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             boxShadow: const [BoxShadow(color: Colors.black12,blurRadius: 2)],
@@ -35,6 +34,7 @@ class MealItemWidget extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
+                height: MediaQuery.of(context).size.height*0.18,
                 width: MediaQuery.of(context).size.width*0.4,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -47,18 +47,23 @@ class MealItemWidget extends StatelessWidget {
                    crossAxisAlignment: CrossAxisAlignment.start,
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
-                    verticalSpace(5),
+                    verticalSpace(10),
                     Text(product.name!,
                       style: TextStyles.font18Black700Weight.copyWith(
                           fontWeight: FontWeight.bold,height: 0.5
                       ),
                     ),
-                    Text(product.description!,
+                     verticalSpace(8),
+                     Text(product.description!,
                       style: TextStyles.font15CustomGray400Weight.copyWith(
-                          fontWeight: FontWeight.w600
-
+                          fontWeight: FontWeight.w600,
+                        height: 1
                       ),
-                    ),
+
+                      maxLines: 2,
+                                         ),
+                     verticalSpace(8),
+
                      product.extra!=null&&product.extra!.data!.isNotEmpty?
                      FittedBox(
                        child: SizedBox(

@@ -182,6 +182,8 @@ class LocaleKeys
   static const restaurantType = 'restaurant_type';
   static const addImage = 'add_image';
   static const productName = 'product_name';
+  static const thisField = 'this_field';
+  static const required = 'required';
 
 
 

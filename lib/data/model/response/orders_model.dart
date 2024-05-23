@@ -23,6 +23,7 @@ class OrdersModel {
 
 class OrdersModelData {
   int? id;
+  String? status;
   Client? client;
   String? orderPrice;
   String? discout;
@@ -35,6 +36,7 @@ class OrdersModelData {
 
   OrdersModelData(
       {this.id,
+        this.status,
         this.client,
         this.orderPrice,
         this.discout,
@@ -47,6 +49,7 @@ class OrdersModelData {
 
   OrdersModelData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    status = json['status'];
     client =
     json['client'] != null ?  Client.fromJson(json['client']) : null;
     orderPrice = json['order_price'];
@@ -64,6 +67,7 @@ class OrdersModelData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
+    data['status'] = status;
     if (client != null) {
       data['client'] = client!.toJson();
     }

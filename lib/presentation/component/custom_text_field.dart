@@ -60,6 +60,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: isPassword ?? false,
       maxLines:textInputType==TextInputType.multiline?null:  1,
+
       decoration:
       customInputDecoration(
         fontSize: fontSize,

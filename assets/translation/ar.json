@@ -181,7 +181,9 @@
   "add_image":"اضف صورة",
   "agree":"قبول",
   "reject":"رفض",
-  "product_name":"اسم المنتج"
+  "product_name":"اسم المنتج",
+  "this_field":"هذا الحقل",
+  "required":"مطلوب"
 
 
 

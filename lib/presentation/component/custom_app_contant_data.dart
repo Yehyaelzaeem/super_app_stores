@@ -1,5 +1,6 @@
 
 import 'package:cogina_restaurants/core/assets_constant/images.dart';
+import 'package:cogina_restaurants/presentation/component/custom_logo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +25,10 @@ class CustomAppContData extends StatelessWidget {
             child: SizedBox(
                 height: 130.w,
                 width: 130.w,
-                child: Image.asset(AppImages.logo2,fit: BoxFit.cover,)),
+                child:
+                // CustomLogo()
+                Image.asset(AppImages.logo2,fit: BoxFit.cover,),
+            ),
           ),
           Text(
            title,

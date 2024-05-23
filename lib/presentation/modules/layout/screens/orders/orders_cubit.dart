@@ -26,6 +26,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   static OrdersCubit get()=>BlocProvider.of(NavigationService.navigationKey.currentContext!);
   OrdersModel? ordersModel;
   Future<ResponseModel> getAllOrders() async {
+    ordersModel=null;
     emit(GetAllOrderLoadingState()) ;
     ResponseModel responseModel = await _getOrdersUseCase.call();
     if (responseModel.isSuccess) {

@@ -14,16 +14,14 @@ import '../../../../component/custom_app_bar.dart';
 import '../../../../component/custom_not_found_data.dart';
 import '../../../branches/branch_cubit.dart';
 
-class OrdersScreen extends StatefulWidget {
+class OrdersScreen extends StatefulWidget{
   const OrdersScreen({Key? key}) : super(key: key);
-
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
   bool switchValue = true;
-
   @override
   Widget build(BuildContext context) {
     OrdersCubit cubit =OrdersCubit.get();
@@ -50,6 +48,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
         body: Container(
           color: customWhite,
+          width: double.infinity,
           child: BlocConsumer<OrdersCubit, OrdersState>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -68,16 +67,30 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount:cubit.ordersModel!.data!.length ,
-                            itemBuilder: (context,index){
-                          return  Padding(
-                            padding:  EdgeInsets.symmetric(vertical: 5.h,horizontal: 10.w),
-                            child: OrderItem(ordersModelData: cubit.ordersModel!.data![index],),
-                          );
-                        }),
-                      )
+                      ...cubit.ordersModel!.data!.where((element) => element.status=='padding').map((e) => OrderItem(ordersModelData: e,)),
+                     if(cubit.ordersModel!.data!.where((element) => element.status=='padding').toList().isEmpty)
+                       Padding(
+                         padding: const EdgeInsets.only(top: 100.0),
+                         child: Center(
+                           child: Text(LocaleKeys.notFoundData.tr(),
+                             style: TextStyles.font20Black700Weight.copyWith(
+                                 color: backBlue2,
+                                 fontSize: 23
+                             ),
+                           ),
+                         ),
+                       ),
+
+                      // Expanded(
+                      //   child: ListView.builder(
+                      //       itemCount:cubit.ordersModel!.data!.length ,
+                      //       itemBuilder: (context,index){
+                      //     return  Padding(
+                      //       padding:  EdgeInsets.symmetric(vertical: 5.h,horizontal: 10.w),
+                      //       child: OrderItem(ordersModelData: cubit.ordersModel!.data![index],),
+                      //     );
+                      //   }),
+                      // )
                     ],
                   );
                 }else{
@@ -90,7 +103,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
               else{
                 return  const CustomLoadingWidget();
               }
-
             },
           ),
         )

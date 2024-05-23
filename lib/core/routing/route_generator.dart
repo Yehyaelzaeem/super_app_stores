@@ -55,7 +55,7 @@ class RouteGenerator {
         case Routes.productDetailsScreen:
         return platformPageRoute(   ProductDetailsScreen(product: arguments?['product'],));
         case Routes.orderDetailsScreen:
-        return platformPageRoute(   OrderDetailsScreen(ordersDetails: arguments?['ordersDetails'],));
+        return platformPageRoute(   OrderDetailsScreen(ordersModelData: arguments?['ordersModelData'],));
         case Routes.addBranchScreen:
         return platformPageRoute( const  AddBranchScreen());
         case Routes.settingsScreen:

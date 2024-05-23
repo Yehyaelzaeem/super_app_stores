@@ -63,7 +63,8 @@ class ProductImageAndButtonWidget extends StatelessWidget {
                 decoration: Decorations.backGroundDecorationButton().copyWith(
                     borderRadius: BorderRadius.circular(40)
                 ),
-                child: CustomElevatedButton(
+                child:
+                CustomElevatedButton(
                   isLoading: state is AddProductLoadingState,
                   backgroundColor: Colors.transparent,
                   onTap: (){
