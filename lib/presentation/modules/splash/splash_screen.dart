@@ -46,7 +46,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
   @override
   void initState() {
     _viewModel = BlocProvider.of<LocalAuthCubit>(context, listen: false);
-    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 3));
+    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _animation = Tween<Offset>(
       begin: const Offset(0.0, 0.9),
       end: Offset.zero,
@@ -82,7 +82,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-          decoration:Decorations.backGroundDecorationCircleBorderRadius(),
+          // decoration:Decorations.backGroundDecorationCircleBorderRadius(),
           child: Stack(
             alignment: Alignment.center,
             fit: StackFit.loose,

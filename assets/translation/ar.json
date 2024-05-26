@@ -160,6 +160,7 @@
   "not_found_branch":"لم يتم العثور على أي فروع حاليا",
   "add_branch":"اضافة فرع",
   "restaurant_name":"اسم المطعم",
+  "restaurant_name_ar":"اسم المطعم بالعربي",
   "email":"البريد الالكتروني",
   "location":"الموقع",
   "delivery_time":"وقت التوصيل",
@@ -183,20 +184,7 @@
   "reject":"رفض",
   "product_name":"اسم المنتج",
   "this_field":"هذا الحقل",
-  "required":"مطلوب"
+  "required":"مطلوب",
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  "update_data":"تحديث بيانات المطعم"
 }

@@ -53,10 +53,12 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController regLastNameController = TextEditingController();
   TextEditingController regPhoneController = TextEditingController();
   TextEditingController comNameController = TextEditingController();
+  TextEditingController comNameArController = TextEditingController();
   TextEditingController comEmailController = TextEditingController();
   TextEditingController comPhoneController = TextEditingController();
   TextEditingController comAddressController = TextEditingController();
   TextEditingController comTypeController = TextEditingController();
+
   File? imageFile;
   Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -124,21 +126,24 @@ class AuthCubit extends Cubit<AuthState> {
     }
     return responseModel;
   }
-  Future<ResponseModel?> completeProfile(BuildContext context) async {
+  Future<ResponseModel?> completeProfile(BuildContext context, bool? isUpdate) async {
     emit(CompleteProfileLoadingState()) ;
-    if(comNameController.text.isNotEmpty&&comAddressController.text.isNotEmpty&&comEmailController.text.isNotEmpty&&comPhoneController.text.isNotEmpty&&comTypeController.text.isNotEmpty&&imageFile!=null){
+    if(comNameArController.text.isNotEmpty&&comNameController.text.isNotEmpty&&comAddressController.text.isNotEmpty&&comEmailController.text.isNotEmpty&&comPhoneController.text.isNotEmpty&&comTypeController.text.isNotEmpty&&imageFile!=null){
       CompleteProfileBody completeProfileBody =
       CompleteProfileBody(name: comNameController.text,
-          email: comEmailController.text, mobile: comPhoneController.text, address: comAddressController.text, type: comTypeController.text, image: imageFile);
+          email: comEmailController.text, mobile: comPhoneController.text, address: comAddressController.text, type: comTypeController.text, image: imageFile, nameAr: comNameArController.text);
       ResponseModel responseModel = await _completeProfileUseCase.call(body: completeProfileBody);
       if (responseModel.isSuccess) {
         comEmailController.text='';
         comAddressController.text='';
         comNameController.text='';
+        comNameArController.text='';
         comPhoneController.text='';
         comTypeController.text='';
         imageFile=null;
-        context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
+        Future.delayed(const Duration(minutes: 0)).then((value) {
+          isUpdate==true?context.pop(): context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
+        });
         emit(CompleteProfileSuccessState()) ;
       }else{
         emit(CompleteProfileErrorState()) ;
@@ -149,7 +154,16 @@ class AuthCubit extends Cubit<AuthState> {
       return null;
     }
   }
-
+  void removeCompleteDate(BuildContext context){
+    comEmailController.text='';
+    comAddressController.text='';
+    comNameController.text='';
+    comNameArController.text='';
+    comPhoneController.text='';
+    comTypeController.text='';
+    imageFile=null;
+    emit(RemoveDateState()) ;
+  }
   Future<ResponseModel?> otpCode({required String phone,required BuildContext context}) async {
     emit(OtpLoadingState()) ;
     try{

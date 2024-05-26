@@ -64,6 +64,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                  ProductTitleField(title: LocaleKeys.description.tr(),),
                 ProductTextField(controller: cubit.productDescription,
                 textInputType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
                 ),
                 verticalSpace(10),
                 BlocConsumer<HomeCubit, HomeState>(
@@ -97,6 +98,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                               ProductTitleField(title: LocaleKeys.addition.tr(),),
                                                               ProductTextField(
                                                                 contentHorizontalPadding:20,
+                                                                textInputAction: TextInputAction.newline,
+
                                                                 textInputType: TextInputType.multiline,
                                                                 controller: cubit.productExtraName,notValidation: true,),
                                                             ],
@@ -108,6 +111,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                             children: [
                                                               ProductTitleField(title:LocaleKeys.additionArabic.tr(),),
                                                               ProductTextField(controller: cubit.productExtraNameAr,
+                                                                textInputAction: TextInputAction.newline,
+
                                                                 contentHorizontalPadding:20,
                                                                 textInputType: TextInputType.multiline,notValidation: true,),
                                                             ],
@@ -119,6 +124,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                             children: [
                                                               ProductTitleField(title: LocaleKeys.extraPrice.tr(),),
                                                               ProductTextField(controller: cubit.productExtraPrice,
+                                                                textInputAction: TextInputAction.newline,
+
                                                                 contentHorizontalPadding:20,
                                                                 textInputType: TextInputType.number,notValidation: true,),
                                                             ],

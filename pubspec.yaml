@@ -20,6 +20,7 @@ dependencies:
   easy_date_timeline: ^1.0.3
   easy_localization: ^3.0.5
   shimmer: ^3.0.0
+  flutter_switch: ^0.3.2
   flutter_staggered_animations: ^1.1.1 # #animation
   awesome_dialog: ^3.0.2 #dialog
   flutter_svg:  #svg images

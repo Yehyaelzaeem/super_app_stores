@@ -13,6 +13,7 @@ import 'package:cogina_restaurants/domain/usecase/favorite/add_favorite_usecase.
 import 'package:cogina_restaurants/domain/usecase/favorite/get_favorite_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/favorite/remove_favorite_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/add_product_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/change_product_state_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/delete_product_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/get_products_categories_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/get_products_usecase.dart';
@@ -69,6 +70,7 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => GetProductsUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => UpdateProductUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => DeleteProductUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => ChangeProductStateUseCase(repository: getIt()));
 
 
    ///Orders

@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/domain/logger.dart';
+import 'package:cogina_restaurants/presentation/component/custom_loading_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../core/routing/navigation_services.dart';
@@ -11,6 +13,7 @@ import '../../../../../data/model/response/products_categories_model.dart';
 import '../../../../../data/model/response/products_model.dart';
 import '../../../../../domain/request_body/add_product_body.dart';
 import '../../../../../domain/usecase/home/add_product_usecase.dart';
+import '../../../../../domain/usecase/home/change_product_state_usecase.dart';
 import '../../../../../domain/usecase/home/delete_product_usecase.dart';
 import '../../../../../domain/usecase/home/get_products_categories_usecase.dart';
 import '../../../../../domain/usecase/home/get_products_usecase.dart';
@@ -24,14 +27,17 @@ class HomeCubit extends Cubit<HomeState> {
   final GetProductsUseCase _getProductsUseCase;
   final DeleteProductUseCase _deleteProductUseCase;
   final UpdateProductUseCase _updateProductUseCase;
+  final ChangeProductStateUseCase _changeProductStateUseCase;
   HomeCubit({required GetProductsCategoriesUseCase getProductsCategoriesUseCase,
   required UpdateProductUseCase updateProductUseCase,
+  required ChangeProductStateUseCase changeProductStateUseCase,
   required DeleteProductUseCase deleteProductUseCase,
   required AddProductUseCase addProductUseCase,
   required GetProductsUseCase getProductsUseCase
   }) :
         _deleteProductUseCase=deleteProductUseCase,
         _updateProductUseCase=updateProductUseCase,
+        _changeProductStateUseCase=changeProductStateUseCase,
         _addProductUseCase=addProductUseCase,
         _getProductsUseCase=getProductsUseCase,
         _getProductsCategoriesUseCase=getProductsCategoriesUseCase,super(HomeInitial());
@@ -82,12 +88,23 @@ class HomeCubit extends Cubit<HomeState> {
     extralList.remove(extraModel);
     emit(RemoveExtraModelState());
   }
+  Future<ResponseModel> changeProductsState({required int id,}) async {
+    emit(ChangeProductLoadingState()) ;
+    ResponseModel responseModel = await _changeProductStateUseCase.call(id: id);
+    if (responseModel.isSuccess) {
+      getProducts();
+      emit(ChangeProductSuccessState()) ;
+    }else{
+      emit(ChangeProductErrorState()) ;
+    }
+    return responseModel;
+  }
+
 
   Future<ResponseModel> getProducts() async {
     emit(GetProductLoadingState()) ;
     ResponseModel responseModel = await _getProductsUseCase.call();
     if (responseModel.isSuccess) {
-      log('ssss', responseModel.data.toString());
       homeModel=responseModel.data;
       emit(GetProductSuccessState()) ;
     }else{

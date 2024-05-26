@@ -16,7 +16,7 @@ import 'domain/provider/local_auth_provider_cubit.dart';
 Future<void> init() async {
   getIt.registerLazySingleton(() => LayoutCubit());
   getIt.registerLazySingleton(() => LocalAuthCubit(clearUserDataUseCase: getIt(), isUserLoginUseCase: getIt(), getProfileUseCase: getIt()));
-  getIt.registerLazySingleton(() => HomeCubit(getProductsCategoriesUseCase: getIt(), addProductUseCase: getIt(), getProductsUseCase: getIt(), updateProductUseCase: getIt(), deleteProductUseCase: getIt()));
+  getIt.registerLazySingleton(() => HomeCubit(getProductsCategoriesUseCase: getIt(), addProductUseCase: getIt(), getProductsUseCase: getIt(), updateProductUseCase: getIt(), deleteProductUseCase: getIt(), changeProductStateUseCase: getIt()));
   getIt.registerLazySingleton(() => AccountCubit(bankAccountUseCase: getIt(), addAccountFilesUseCase: getIt(), aboutUsUseCase: getIt(), privacyUseCase: getIt(), termsUseCase: getIt()));
   getIt.registerLazySingleton(() => BranchCubit(getBranchesUseCase:  getIt(), addBranchUseCase: getIt(), getRegionsUseCase: getIt(), deleteBranchUseCase: getIt(), updateBranchUseCase: getIt()));
   getIt.registerLazySingleton(() => ProfileCubit(profileUseCase: getIt(), updateProfileUseCase: getIt(),));

@@ -21,6 +21,7 @@ class BankDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AccountCubit cubit =AccountCubit.get(context);
     ProfileCubit profileCubit =ProfileCubit.get(context);
+    cubit.removeData();
     if(profileCubit.profileModel!.bankAccount!=null&&profileCubit.profileModel!.bankAccount!.holderName!=null){
       cubit.passAccountData(context);
     }

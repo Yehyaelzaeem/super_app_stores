@@ -163,6 +163,7 @@ class LocaleKeys
   static const notFoundBranch = 'not_found_branch';
   static const addBranch = 'add_branch';
   static const restaurantName = 'restaurant_name';
+  static const restaurantNameAR = 'restaurant_name_ar';
   static const email = 'email';
   static const location = 'location';
   static const deliveryTime = 'delivery_time';
@@ -179,6 +180,7 @@ class LocaleKeys
   static const otpMes = 'otp_mes';
   static const sure = 'sure';
   static const completeData = 'complete_data';
+  static const updateData = 'update_data';
   static const restaurantType = 'restaurant_type';
   static const addImage = 'add_image';
   static const productName = 'product_name';

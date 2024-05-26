@@ -19,6 +19,7 @@ import '../../presentation/modules/layout/screens/account/my_files/my_files_scre
 import '../../presentation/modules/layout/screens/account/privacy_policy/privacy_policy.dart';
 import '../../presentation/modules/layout/screens/account/settings/settings_screen.dart';
 import '../../presentation/modules/layout/screens/account/terms_conditions/terms_conditions.dart';
+import '../../presentation/modules/layout/screens/account/update_restaurant/update_restaurant.dart';
 import '../../presentation/modules/layout/screens/home/notification/notification_screen.dart';
 import '../../presentation/modules/layout/screens/home/product/add_product_screen.dart';
 import '../../presentation/modules/layout/screens/home/product/product_details_screen.dart';
@@ -60,6 +61,8 @@ class RouteGenerator {
         return platformPageRoute( const  AddBranchScreen());
         case Routes.settingsScreen:
         return platformPageRoute( const  SettingsScreen());
+        case Routes.updateRestaurant:
+        return platformPageRoute( const  UpdateRestaurant());
         case Routes.bankDetailsScreen:
         return platformPageRoute( const  BankDetailsScreen());
         case Routes.chatDetailsScreen:

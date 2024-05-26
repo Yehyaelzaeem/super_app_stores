@@ -126,6 +126,11 @@ class AccountScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
+                    CustomProviderProfileItem(title: LocaleKeys.restaurant.tr(), icon: Icons.restaurant,
+                      onTap: (){
+                        context.pushNamed(Routes.updateRestaurant);
+                      },),
+                    verticalSpace(10),
                     CustomProviderProfileItem(title: LocaleKeys.orders.tr(), icon: Icons.badge,
                     onTap: (){
                       context.pushNamed(Routes.providerOrdersScreen);
@@ -136,12 +141,12 @@ class AccountScreen extends StatelessWidget {
                       cubit.setCurrentIndex(1);
                     },
                     ),
-                    verticalSpace(10),
-                     CustomProviderProfileItem(title: LocaleKeys.elements.tr(), icon: Icons.menu,
-                    onTap: (){
-                      context.pushNamed(Routes.elementsScreen);
-                    },
-                    ),
+                    // verticalSpace(10),
+                    //  CustomProviderProfileItem(title: LocaleKeys.elements.tr(), icon: Icons.menu,
+                    // onTap: (){
+                    //   context.pushNamed(Routes.elementsScreen);
+                    // },
+                    // ),
                     verticalSpace(10),
                      CustomProviderProfileItem(title: LocaleKeys.myFiles.tr(), icon: Icons.file_copy,
                     onTap: (){

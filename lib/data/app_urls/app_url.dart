@@ -31,6 +31,7 @@ class AppURL {
   static const String kGetProductsCategoriesURL = "stores/products/categories";
   static const String kGetProductsURL = "stores/products";
   static  String kDeleteProductURL({required int id}) => "stores/products/remove_product/$id";
+  static  String kChangeProductStateURL({required int id}) => "stores/products/change_status?id=$id";
   static  String kUpdateProductURL({required int id}) => "stores/products/update_product/$id";
   static const String kAddProductURL = "stores/products/add_product";
 

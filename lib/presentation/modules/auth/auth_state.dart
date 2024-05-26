@@ -23,3 +23,4 @@ class PickImageState extends AuthState {}
 class CompleteProfileLoadingState extends AuthState {}
 class CompleteProfileSuccessState extends AuthState {}
 class CompleteProfileErrorState extends AuthState {}
+class RemoveDateState extends AuthState {}

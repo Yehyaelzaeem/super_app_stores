@@ -16,6 +16,7 @@ class Routes {
   static const String branchesScreen = "/branchesScreen";
   static const String addBranchScreen = "/addBranchScreen";
   static const String settingsScreen = "/settingsScreen";
+  static const String updateRestaurant = "/updateRestaurant";
   static const String bankDetailsScreen = "/bankDetailsScreen";
   static const String chatDetailsScreen = "/chatDetailsScreen";
   static const String messagesScreen = "/messagesScreen";

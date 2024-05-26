@@ -181,9 +181,11 @@
   "otp_mes": "Enter the OTP code sent to you",
   "sure": "Confirm",
   "complete_data": "Complete Restaurant Data",
+  "update_data": "Update Restaurant Data",
   "restaurant_type": "Restaurant Type",
   "add_image": "Add Image",
   "product_name":"Product Name",
   "this_field": "this field",
-  "required": "required"
+  "required": "required",
+  "restaurant_name_ar": "Restaurant Name in Arabic"
 }

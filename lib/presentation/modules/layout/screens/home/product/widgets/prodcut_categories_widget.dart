@@ -46,10 +46,18 @@ class ProductCategoriesWidget extends StatelessWidget {
                       }
                     });
                   },
+                  dropdownStyleData: DropdownStyleData(
+                    maxHeight: 200.h, // Set the fixed height here
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                  ),
                   iconStyleData: IconStyleData(
                     icon: cubit.productsCategoriesModel == null?
                         const CustomLoadingWidget():
-                    const Icon(Icons.arrow_drop_down)
+                    const Icon(Icons.keyboard_arrow_down)
                   ) ,
                   buttonStyleData: ButtonStyleData(
                       decoration: BoxDecoration(

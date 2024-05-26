@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/domain/request_body/account_files_body.dart';
 import 'package:cogina_restaurants/domain/request_body/bank_account_body.dart';
+import 'package:cogina_restaurants/presentation/modules/auth/auth_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -120,6 +121,16 @@ class AccountCubit extends Cubit<AccountState> {
       emit(GetDataErrorState()) ;
     }
     return responseModel;
+  }
+  void pushToUpdateRestaurant(BuildContext context){
+    ProfileCubit profileCubit=  ProfileCubit.get(context);
+    AuthCubit cubit =AuthCubit.get(context);
+    var data =profileCubit.profileModel!;
+    cubit.comNameController=TextEditingController(text:data.store?.name??'');
+    cubit.comEmailController=TextEditingController(text:data.email??'');
+    cubit.comPhoneController=TextEditingController(text:data.phone??'');
+    cubit.comAddressController=TextEditingController(text:data.address??'');
+    emit(PassAccountDataState()) ;
   }
   void passAccountData(BuildContext context){
     ProfileCubit cubit=  ProfileCubit.get(context);

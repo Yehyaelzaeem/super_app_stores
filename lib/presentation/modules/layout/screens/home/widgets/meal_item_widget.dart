@@ -1,6 +1,7 @@
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/core/resources/fonts/app_fonts.dart';
 import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:cogina_restaurants/presentation/component/images/custom_image.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,6 +12,7 @@ import '../../../../../../core/resources/styles.dart';
 import '../../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/routing/routes.dart';
 import '../../../../../../data/model/response/products_model.dart';
+import '../../../../../component/switch/custom_switch.dart';
 import 'custom_chip.dart';
 
 class MealItemWidget extends StatelessWidget {
@@ -34,7 +36,8 @@ class MealItemWidget extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height*0.18,
+                height:product.extra!=null&&product.extra!.data!.isNotEmpty?
+                MediaQuery.of(context).size.height*0.2:MediaQuery.of(context).size.height*0.15,
                 width: MediaQuery.of(context).size.width*0.4,
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -47,11 +50,20 @@ class MealItemWidget extends StatelessWidget {
                    crossAxisAlignment: CrossAxisAlignment.start,
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
-                    verticalSpace(10),
-                    Text(product.name!,
-                      style: TextStyles.font18Black700Weight.copyWith(
-                          fontWeight: FontWeight.bold,height: 0.5
-                      ),
+                    verticalSpace(15),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(product.name!,
+                            style: TextStyles.font18Black700Weight.copyWith(
+                                fontWeight: FontWeight.bold,height: 0.5
+                            ),
+                          ),
+                        ),
+                        CustomSwitch(onToggle: (bool x) {
+                              HomeCubit.get(context).changeProductsState(id: product.id??0);
+                        }, value: product.published??false,)
+                      ],
                     ),
                      verticalSpace(8),
                      Text(product.description!,
@@ -59,11 +71,9 @@ class MealItemWidget extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         height: 1
                       ),
-
                       maxLines: 2,
-                                         ),
+                     ),
                      verticalSpace(8),
-
                      product.extra!=null&&product.extra!.data!.isNotEmpty?
                      FittedBox(
                        child: SizedBox(
@@ -95,7 +105,6 @@ class MealItemWidget extends StatelessWidget {
                        ),
                      ):const SizedBox.shrink(),
                      verticalSpace(5),
-
                      FittedBox(
                        child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -110,7 +119,8 @@ class MealItemWidget extends StatelessWidget {
                             ),
                           ),
                           horizontalSpace(8),
-                          Text('${product.priceAfterDiscount!.toString()} ${LocaleKeys.lyd.tr()}',
+                         if(product.discount!=null&&product.discount!.isNotEmpty&&product.discount!='0')
+                            Text('${product.priceAfterDiscount!.toString()} ${LocaleKeys.lyd.tr()}',
                             style: TextStyles.font18Black700Weight.copyWith(
                                 color:gray2,
                                 fontSize: 15,
@@ -121,10 +131,11 @@ class MealItemWidget extends StatelessWidget {
 
 
                             ),
-                          ),
+                          )
+                          else
+                            horizontalSpace(50),
                           // const Spacer(),
                           horizontalSpace(20),
-
                           InkWell(
                               onTap:(){
                                 HomeCubit.get(context).getProductsCategories();
@@ -141,11 +152,10 @@ class MealItemWidget extends StatelessWidget {
                         ],
                                            ),
                      ),
-                    verticalSpace(5),
+                    verticalSpace(15),
                   ],
                 ),
               ),
-
             ],
           ),
         ),

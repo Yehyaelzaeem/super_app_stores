@@ -18,6 +18,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     AuthCubit cubit =AuthCubit.get(context);
+    cubit.removeCompleteDate(context);
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {},
@@ -39,7 +40,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       verticalSpace(cubit.type=='auth'||cubit.type=='otp'?60:10),
                       cubit.type=='auth'?const AuthWidget():
                       cubit.type=='otp'?const OtpWidget():
-                      const CompeteDataWidget(),
+                       CompeteDataWidget(height: MediaQuery.of(context).size.height*0.7,),
                     ],
                   ),
                 ),

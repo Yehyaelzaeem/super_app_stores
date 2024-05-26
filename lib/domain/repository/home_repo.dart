@@ -12,6 +12,7 @@ mixin HomeRepository {
   Future<ApiResponse> getProducts() ;
   Future<ApiResponse> addProduct({required AddProductBody addProductBody}) ;
   Future<ApiResponse> deleteProduct({required int id}) ;
+  Future<ApiResponse> changeProductState({required int id}) ;
   Future<ApiResponse> updateProduct({required AddProductBody addProductBody,required int id}) ;
 
 }

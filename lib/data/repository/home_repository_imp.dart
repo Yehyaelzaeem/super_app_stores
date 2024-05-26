@@ -107,4 +107,16 @@ class HomeRepositoryImp implements HomeRepository{
     }
   }
 
+  @override
+  Future<ApiResponse> changeProductState({required int id})async {
+    try {
+      Response response = await _dioClient.post(
+        AppURL.kChangeProductStateURL(id: id),
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
 }
