@@ -4,6 +4,7 @@ import 'package:cogina_restaurants/domain/usecase/auth/check_otp_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/complete_profile_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/register_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/sign_in_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/auth/update_fcm_token_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/branches/add_branch_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/branches/delete_branch_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/branches/get_branches_usecase.dart';
@@ -26,6 +27,7 @@ import 'package:cogina_restaurants/domain/usecase/account/about_us_usecase.dart'
 import 'package:cogina_restaurants/domain/usecase/account/privacy_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/account/terms_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/accept_order_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/orders/change_state_restaurant_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/get_orders_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/reject_order_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/profile/get_profile_usecase.dart';
@@ -48,6 +50,7 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => OTPUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => RegisterUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => CompleteProfileUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => UpdateFCMTokenUseCase(repository: getIt()));
    ///Branches
    getIt.registerLazySingleton(() => GetBranchesUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AddBranchUseCase(repository: getIt()));
@@ -77,6 +80,7 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => GetOrdersUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => RejectOrderUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AcceptOrderUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => ChangeStateRestaurantUseCase(repository: getIt()));
 
   ///more
    getIt.registerLazySingleton(() => TermsUseCase(repository: getIt()));

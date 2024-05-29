@@ -51,4 +51,16 @@ class OrdersRepositoryImp implements OrdersRepository{
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  @override
+  Future<ApiResponse> changeStateRestaurant()async {
+    try {
+      Response response = await _dioClient.post(
+        AppURL.kChangeRestaurantStateURL,
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

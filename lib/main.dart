@@ -37,7 +37,7 @@ final supportedLocales = <Locale>[
   const Locale('ar'),
   const Locale('en'),
 ];
-BuildContext? appContext;
+BuildContext appContext=NavigationService.navigationKey.currentContext!;
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'مطاعم كوجينا',
             // 'كُوجِينَا',
-
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationService.navigationKey,
             onGenerateRoute: RouteGenerator.generateBaseRoute,

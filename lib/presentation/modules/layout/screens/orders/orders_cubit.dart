@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import '../../../../../core/routing/navigation_services.dart';
@@ -7,6 +8,7 @@ import '../../../../../data/model/base/response_model.dart';
 import '../../../../../data/model/response/orders_model.dart';
 import '../../../../../domain/request_body/accept_order_body.dart';
 import '../../../../../domain/usecase/orders/accept_order_usecase.dart';
+import '../../../../../domain/usecase/orders/change_state_restaurant_usecase.dart';
 import '../../../../../domain/usecase/orders/get_orders_usecase.dart';
 import '../../../../../domain/usecase/orders/reject_order_usecase.dart';
 import '../../../branches/branch_cubit.dart';
@@ -17,14 +19,21 @@ class OrdersCubit extends Cubit<OrdersState> {
   final GetOrdersUseCase _getOrdersUseCase;
   final RejectOrderUseCase _rejectOrderUseCase;
   final AcceptOrderUseCase _acceptOrderUseCase;
-  OrdersCubit({required GetOrdersUseCase getOrdersUseCase,required AcceptOrderUseCase acceptOrderUseCase,required RejectOrderUseCase rejectOrderUseCase}) :
+  final ChangeStateRestaurantUseCase _changeStateRestaurantUseCase;
+  OrdersCubit({required ChangeStateRestaurantUseCase changeStateRestaurantUseCase,required GetOrdersUseCase getOrdersUseCase,required AcceptOrderUseCase acceptOrderUseCase,required RejectOrderUseCase rejectOrderUseCase}) :
       _getOrdersUseCase=getOrdersUseCase,
+      _changeStateRestaurantUseCase=changeStateRestaurantUseCase,
       _acceptOrderUseCase=acceptOrderUseCase,
       _rejectOrderUseCase=rejectOrderUseCase,
         super(OrdersInitial());
 
   static OrdersCubit get()=>BlocProvider.of(NavigationService.navigationKey.currentContext!);
   OrdersModel? ordersModel;
+  bool switchValue = true;
+  void switchState(bool x){
+    switchValue=x;
+    emit(GetAllOrderLoadingState()) ;
+  }
   Future<ResponseModel> getAllOrders() async {
     ordersModel=null;
     emit(GetAllOrderLoadingState()) ;
@@ -55,6 +64,17 @@ class OrdersCubit extends Cubit<OrdersState> {
       emit(AcceptOrderSuccessState()) ;
     }else{
       emit(AcceptOrderErrorState()) ;
+    }
+    return responseModel;
+  }
+  Future<ResponseModel> changeStateRestaurant() async {
+    emit(ChangeRestaurantLoadingState()) ;
+    ResponseModel responseModel = await _changeStateRestaurantUseCase.call();
+    if (responseModel.isSuccess) {
+      ProfileCubit.get(NavigationService.navigationKey.currentContext!).getProfile();
+      emit(ChangeRestaurantSuccessState()) ;
+    }else{
+      emit(ChangeRestaurantErrorState()) ;
     }
     return responseModel;
   }

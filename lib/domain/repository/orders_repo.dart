@@ -11,6 +11,7 @@ import '../request_body/profile_body.dart';
 mixin OrdersRepository {
   Future<ApiResponse> getAllOrders() ;
   Future<ApiResponse> rejectOrder({required int orderId}) ;
+  Future<ApiResponse> changeStateRestaurant() ;
   Future<ApiResponse> acceptOrder({required AcceptOrderBody acceptOrderBody}) ;
 
 }

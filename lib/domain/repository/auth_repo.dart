@@ -11,7 +11,7 @@ mixin AuthRepository {
   Future<ApiResponse> login({required LoginBody loginBody}) ;
 
   Future<ApiResponse> otpCode({required OTPBody otpBody});
-  // Future<ApiResponse> updateFCMToken({required String fcmToken,required String deviceType});
+   Future<ApiResponse> updateFCMToken({required String fcmToken});
 
   Future<ApiResponse> register({required RegisterBody registerBody});
   Future<ApiResponse> completeProfile({required CompleteProfileBody completeProfileBody});

@@ -22,6 +22,7 @@ class GetProfileModelData {
   String? lastName;
   String? mobileNumber;
   String? email;
+  String? status;
   String? phone;
   String? address;
   String? image;
@@ -34,6 +35,7 @@ class GetProfileModelData {
         this.lastName,
         this.mobileNumber,
         this.email,
+        this.status,
         this.phone,
         this.address,
         this.image,
@@ -47,6 +49,7 @@ class GetProfileModelData {
     mobileNumber = json['mobile_number'];
     email = json['email'];
     phone = json['phone'];
+    status = json['status'];
     address = json['address'];
     image = json['image'];
     store = json['store'] != null ?  Store.fromJson(json['store']) : null;
@@ -78,6 +81,7 @@ class GetProfileModelData {
 class Store {
   int? id;
   String? name;
+  String? nameAr;
   int? storeType;
   bool? approvedByAdmin;
   bool? status;
@@ -85,6 +89,7 @@ class Store {
 
   Store(
       {this.id,
+        this.nameAr,
         this.name,
         this.storeType,
         this.approvedByAdmin,
@@ -94,6 +99,7 @@ class Store {
   Store.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    nameAr = json['name_ar'];
     storeType = json['store_type'];
     approvedByAdmin = json['approved_by_admin'];
     status = json['status'];

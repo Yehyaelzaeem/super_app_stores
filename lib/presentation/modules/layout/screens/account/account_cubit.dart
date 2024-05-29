@@ -126,9 +126,10 @@ class AccountCubit extends Cubit<AccountState> {
     ProfileCubit profileCubit=  ProfileCubit.get(context);
     AuthCubit cubit =AuthCubit.get(context);
     var data =profileCubit.profileModel!;
+    cubit.comNameArController=TextEditingController(text:data.store?.nameAr??'');
     cubit.comNameController=TextEditingController(text:data.store?.name??'');
     cubit.comEmailController=TextEditingController(text:data.email??'');
-    cubit.comPhoneController=TextEditingController(text:data.phone??'');
+    cubit.comPhoneController=TextEditingController(text:data.mobileNumber??'');
     cubit.comAddressController=TextEditingController(text:data.address??'');
     emit(PassAccountDataState()) ;
   }

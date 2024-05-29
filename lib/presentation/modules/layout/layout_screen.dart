@@ -5,7 +5,10 @@ import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import '../../../core/notification/FcmHandler.dart';
+import '../../../core/routing/navigation_services.dart';
 import '../../../core/tabs/tab.dart';
+import '../../../domain/provider/local_auth_provider_cubit.dart';
 import 'navigation_tabs.dart';
 import 'widgets/bottom_navigation_bar_widget.dart';
 
@@ -22,6 +25,7 @@ class LayoutScreen extends StatefulWidget {
 class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
+    LocalAuthCubit.get().updateFCMToken();
     getPermission();
     HomeCubit.get(context).getProducts();
     ProfileCubit.get(context).getProfile();
@@ -36,25 +40,28 @@ class _LayoutScreenState extends State<LayoutScreen> {
     final LayoutCubit viewModel = BlocProvider.of<LayoutCubit>(context);
     List<NavigationTab> kTabs =getDataTabs();
 
-    return  Scaffold(
-      extendBody: true,
-      extendBodyBehindAppBar: true,
-      body: PopScope(
-        canPop: false,
-        onPopInvoked: (c) async {
-          if (currentIndex != 0) {
-            viewModel.setCurrentIndex(0);
-          } else {
-            // _nestedNavigator.currentState!.maybePop();
-          }
-        },
-        child:
-        kTabs[currentIndex].initialRoute,
-      ),
-      bottomNavigationBar: BottomNavigationBarWidget(
-        onTap: viewModel.setCurrentIndex,
-        currentIndex: currentIndex,
-        tabs: kTabs,
+    return  FcmHandler(
+      navigatorKey: NavigationService.navigationKey,
+      child: Scaffold(
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        body: PopScope(
+          canPop: false,
+          onPopInvoked: (c) async {
+            if (currentIndex != 0) {
+              viewModel.setCurrentIndex(0);
+            } else {
+              // _nestedNavigator.currentState!.maybePop();
+            }
+          },
+          child:
+          kTabs[currentIndex].initialRoute,
+        ),
+        bottomNavigationBar: BottomNavigationBarWidget(
+          onTap: viewModel.setCurrentIndex,
+          currentIndex: currentIndex,
+          tabs: kTabs,
+        ),
       ),
     );
   }

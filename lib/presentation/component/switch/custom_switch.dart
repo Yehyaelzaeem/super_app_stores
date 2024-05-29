@@ -9,13 +9,15 @@ class CustomSwitch extends StatelessWidget {
   final bool value;
   final String? title;
   final TextStyle? style;
+  final double? width;
+  final double? height;
 
   const CustomSwitch(
       {Key? key,
       required this.onToggle,
       required this.value ,
       this.title,
-      this.style})
+      this.style, this.width, this.height})
       : super(key: key);
 
   @override
@@ -29,8 +31,8 @@ class CustomSwitch extends StatelessWidget {
         children: [
           StatefulBuilder(builder: (context, setState) {
             return FlutterSwitch(
-              width: 35,
-              height: 20,
+              width: width??35,
+              height:height?? 20,
               padding: 5,
               toggleSize: 15,
               value: isActive,

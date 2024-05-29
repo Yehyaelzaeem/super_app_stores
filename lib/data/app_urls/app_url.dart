@@ -10,6 +10,7 @@ class AppURL {
   static const String kOtpURI = "stores/otp";
   static const String kRegisterURI = "stores/register";
   static const String kCompleteProfileURI = "stores/profile/store_info";
+  static const String kUpdateFCMTokenURI = "stores/profile/fcm_token";
 
 
   /// Profile
@@ -59,7 +60,6 @@ class AppURL {
   static const String kCheckOTPURI = "auth/check-otp";
   static const String kResetPasswordURI = "";
   static const String kDeleteAccountURI = "";
-  static const String kUpdateFCMTokenURI = "fcm_token";
 
   ///home
   static const String kHomeURI = "home";
@@ -92,6 +92,7 @@ class AppURL {
   static const String kAllOrdersURL = "stores/orders";
   static const String kAcceptOrderURL = "stores/orders/accept-order";
   static  String kRejectOrderURL({required int id}) => "stores/orders/reject_order/$id";
+  static  String kChangeRestaurantStateURL ="stores/profile/change_status";
 
   ///setting
   static const String kGetCitiesURL = "";
