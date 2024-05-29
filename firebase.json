@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"kojena-backend","appId":"1:912896616367:android:61225392656f338be2f15a","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"kojena-backend","configurations":{"android":"1:912896616367:android:61225392656f338be2f15a","ios":"1:912896616367:ios:fe0febe23fbf5288e2f15a"}}}}}}
