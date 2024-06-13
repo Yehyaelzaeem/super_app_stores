@@ -1,18 +1,24 @@
 
+import 'package:cogina_restaurants/core/helpers/extensions.dart';
+import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../core/resources/decoration.dart';
 import '../../../../core/helpers/spacing.dart';
 import '../../../../core/resources/color.dart';
 import '../../../../core/resources/styles.dart';
+import '../../../../core/routing/routes.dart';
+import '../../../../data/model/response/orders_model.dart';
 import '../../../component/custom_elevated_button.dart';
 import '../../../component/custom_rate.dart';
 
 
 class OrderProviderItem extends StatelessWidget {
-   OrderProviderItem({super.key,  this.isProfits});
+   OrderProviderItem({super.key,  this.isProfits, this.ordersModelData});
   double rating =3;
   final bool? isProfits;
+  final OrdersModelData? ordersModelData;
   @override
   Widget build(BuildContext context) {
     return  Container(
@@ -38,7 +44,7 @@ class OrderProviderItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     verticalSpace(1),
-                    Text('28 نوفمبر 2023',style: TextStyles.font18Black700Weight.copyWith(
+                    Text(ordersModelData?.date??'',style: TextStyles.font18Black700Weight.copyWith(
                       color: backBlue2
                     ),),
                     isProfits==true?
@@ -82,7 +88,7 @@ class OrderProviderItem extends StatelessWidget {
                     Row(
                       children: [
                         const Icon(Icons.flag_rounded,color: backBlue2,size: 25,),
-                        Text(' 25 دينار',style: TextStyles.font18Black700Weight.copyWith(
+                        Text('${ordersModelData?.orderTotal??''} ${LocaleKeys.lyd.tr()}',style: TextStyles.font18Black700Weight.copyWith(
                           color: backBlue2
                         ),),
                       ],
@@ -97,6 +103,7 @@ class OrderProviderItem extends StatelessWidget {
                       child: CustomElevatedButton(
                         backgroundColor: Colors.transparent,
                         onTap: (){
+                          context.pushNamed(Routes.orderDetailsScreen,arguments: {'ordersModelData':ordersModelData});
                         },
                         borderColor: isProfits==true?Colors.black87:Colors.transparent,
                         buttonText:'تفاصيل الطلب',

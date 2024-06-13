@@ -9,6 +9,7 @@ import '../../../../../data/model/response/orders_model.dart';
 import '../../../../../domain/request_body/accept_order_body.dart';
 import '../../../../../domain/usecase/orders/accept_order_usecase.dart';
 import '../../../../../domain/usecase/orders/change_state_restaurant_usecase.dart';
+import '../../../../../domain/usecase/orders/get_orders_date_usecase.dart';
 import '../../../../../domain/usecase/orders/get_orders_usecase.dart';
 import '../../../../../domain/usecase/orders/reject_order_usecase.dart';
 import '../../../branches/branch_cubit.dart';
@@ -19,9 +20,12 @@ class OrdersCubit extends Cubit<OrdersState> {
   final GetOrdersUseCase _getOrdersUseCase;
   final RejectOrderUseCase _rejectOrderUseCase;
   final AcceptOrderUseCase _acceptOrderUseCase;
+  final GetOrdersByDateUseCase _getOrdersByDateUseCase;
   final ChangeStateRestaurantUseCase _changeStateRestaurantUseCase;
-  OrdersCubit({required ChangeStateRestaurantUseCase changeStateRestaurantUseCase,required GetOrdersUseCase getOrdersUseCase,required AcceptOrderUseCase acceptOrderUseCase,required RejectOrderUseCase rejectOrderUseCase}) :
+  OrdersCubit({required ChangeStateRestaurantUseCase changeStateRestaurantUseCase,
+    required GetOrdersByDateUseCase getOrdersByDateUseCase,required GetOrdersUseCase getOrdersUseCase,required AcceptOrderUseCase acceptOrderUseCase,required RejectOrderUseCase rejectOrderUseCase}) :
       _getOrdersUseCase=getOrdersUseCase,
+      _getOrdersByDateUseCase=getOrdersByDateUseCase,
       _changeStateRestaurantUseCase=changeStateRestaurantUseCase,
       _acceptOrderUseCase=acceptOrderUseCase,
       _rejectOrderUseCase=rejectOrderUseCase,
@@ -29,6 +33,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   static OrdersCubit get()=>BlocProvider.of(NavigationService.navigationKey.currentContext!);
   OrdersModel? ordersModel;
+  OrdersModel? ordersByDate;
   bool switchValue = true;
   void switchState(bool x){
     switchValue=x;
@@ -40,6 +45,19 @@ class OrdersCubit extends Cubit<OrdersState> {
     ResponseModel responseModel = await _getOrdersUseCase.call();
     if (responseModel.isSuccess) {
       ordersModel =responseModel.data;
+      emit(GetAllOrderSuccessState()) ;
+    }else{
+      emit(GetAllOrderErrorState()) ;
+    }
+    return responseModel;
+  }
+  Future<ResponseModel> getOrdersByDate({required String date}) async {
+    ordersByDate=null;
+    emit(GetAllOrderLoadingState()) ;
+    ResponseModel responseModel = await _getOrdersByDateUseCase.call(date: date);
+    if (responseModel.isSuccess) {
+      print(responseModel.data!.toString());
+      ordersByDate =responseModel.data!;
       emit(GetAllOrderSuccessState()) ;
     }else{
       emit(GetAllOrderErrorState()) ;

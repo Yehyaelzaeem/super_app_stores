@@ -6,6 +6,7 @@ import 'package:cogina_restaurants/presentation/component/images/custom_image.da
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/resources/color.dart';
 import '../../../../../../core/resources/styles.dart';
@@ -66,13 +67,27 @@ class MealItemWidget extends StatelessWidget {
                       ],
                     ),
                      verticalSpace(8),
-                     Text(product.description!,
-                      style: TextStyles.font15CustomGray400Weight.copyWith(
-                          fontWeight: FontWeight.w600,
-                        height: 1
-                      ),
-                      maxLines: 2,
+                     // Text(product.description!,
+                     //  style: TextStyles.font15CustomGray400Weight.copyWith(
+                     //      fontWeight: FontWeight.w600,
+                     //    height: 1
+                     //  ),
+                     //  maxLines: 2,
+                     // ),
+                     Html(
+                       data:product.description.toString(),
+                       style: {
+                     "p": Style(
+                     fontSize: FontSize(20),
+                     color: customGray,
+                     fontWeight: FontWeight.w600,
+                       fontFamily:  AppFonts.lateefFont,
+                       lineHeight: const LineHeight(1.0),
+                       padding: HtmlPaddings.zero, // إزالة الحواف
+                       margin: Margins.zero, // إزالة الهامش إذا كان موجوداً
+
                      ),
+                     }, ),
                      verticalSpace(8),
                      product.extra!=null&&product.extra!.data!.isNotEmpty?
                      FittedBox(
@@ -110,7 +125,7 @@ class MealItemWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${product.price!.toString()} ${LocaleKeys.lyd.tr()}',
+                          Text('${product.priceAfterDiscount!.toString()} ${LocaleKeys.lyd.tr()}',
                             style: TextStyles.font18Black700Weight.copyWith(
                                 color: backBlue2,
                                 fontSize: 15,
@@ -120,7 +135,7 @@ class MealItemWidget extends StatelessWidget {
                           ),
                           horizontalSpace(8),
                          if(product.discount!=null&&product.discount!.isNotEmpty&&product.discount!='0')
-                            Text('${product.priceAfterDiscount!.toString()} ${LocaleKeys.lyd.tr()}',
+                            Text('${product.price!.toString()} ${LocaleKeys.lyd.tr()}',
                             style: TextStyles.font18Black700Weight.copyWith(
                                 color:gray2,
                                 fontSize: 15,

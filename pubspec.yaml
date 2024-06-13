@@ -37,6 +37,7 @@ dependencies:
   google_maps_flutter: ^2.5.1
   geolocator:
   geocoding:
+  flutter_html:
   # DI
   get_it: ^7.2.0
   equatable: ^2.0.5

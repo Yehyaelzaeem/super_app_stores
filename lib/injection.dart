@@ -21,5 +21,6 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => BranchCubit(getBranchesUseCase:  getIt(), addBranchUseCase: getIt(), getRegionsUseCase: getIt(), deleteBranchUseCase: getIt(), updateBranchUseCase: getIt()));
   getIt.registerLazySingleton(() => ProfileCubit(profileUseCase: getIt(), updateProfileUseCase: getIt(),));
   getIt.registerLazySingleton(() => AuthCubit(signInUseCase: getIt(), otpUseCase: getIt(), registerUseCase: getIt(), saveUserDataUseCase: getIt(), completeProfileUseCase: getIt()));
-  getIt.registerLazySingleton(() => OrdersCubit(getOrdersUseCase: getIt(), acceptOrderUseCase: getIt(), rejectOrderUseCase: getIt(), changeStateRestaurantUseCase: getIt()));
+  getIt.registerLazySingleton(() => OrdersCubit(
+      getOrdersUseCase: getIt(), acceptOrderUseCase: getIt(), rejectOrderUseCase: getIt(), changeStateRestaurantUseCase: getIt(), getOrdersByDateUseCase: getIt()));
 }

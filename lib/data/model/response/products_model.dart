@@ -93,7 +93,7 @@ class ProductData {
   int? id;
   String? name;
   String? description;
-  // String? category;
+  CategoriesData? category;
   dynamic price;
   String? discount;
   dynamic priceAfterDiscount;
@@ -106,7 +106,7 @@ class ProductData {
       {this.id,
         this.name,
         this.description,
-        // this.category,
+         this.category,
         this.price,
         this.discount,
         this.priceAfterDiscount,
@@ -119,7 +119,7 @@ class ProductData {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    // category = json['category'];
+    category =CategoriesData.fromJson(json['category']);
     price = json['price'];
     discount = json['discount'];
     priceAfterDiscount = json['price_after_discount'];
@@ -136,7 +136,7 @@ class ProductData {
     data['id'] = id;
     data['name'] = name;
     data['description'] = description;
-    // data['category'] = category;
+     data['category'] = category;
     data['price'] = price;
     data['discount'] = discount;
     data['price_after_discount'] = priceAfterDiscount;
@@ -194,3 +194,4 @@ class ProductExtraData {
     return data;
   }
 }
+

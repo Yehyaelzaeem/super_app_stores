@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
-import 'package:cogina_restaurants/domain/logger.dart';
-import 'package:cogina_restaurants/presentation/component/custom_loading_widget.dart';
+import 'package:cogina_restaurants/main.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +18,6 @@ import '../../../../../domain/usecase/home/delete_product_usecase.dart';
 import '../../../../../domain/usecase/home/get_products_categories_usecase.dart';
 import '../../../../../domain/usecase/home/get_products_usecase.dart';
 import '../../../../../domain/usecase/home/update_product_usecase.dart';
-
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -117,7 +116,8 @@ class HomeCubit extends Cubit<HomeState> {
     AddProductBody addProductBody=AddProductBody(
         name: productName.text, description: productDescription.text,
         price: productPrice.text, discount: productDisCount.text, image: productImageFile!,
-        categoryId: categoryId.toString(), additionName: extralList.map((e) => e.nameEn.trim()).join(','),
+        categoryId: categoryId.toString(),
+        additionName: extralList.map((e) => e.nameEn.trim()).join(','),
         additionNameAr: extralList.map((e) => e.nameAr.trim()).join(','),
         additionPrice: extralList.map((e) => e.price.toString()).join(','),
     );
@@ -138,10 +138,10 @@ class HomeCubit extends Cubit<HomeState> {
     AddProductBody addProductBody=AddProductBody(
         name: productName.text, description: productDescription.text,
         price: productPrice.text, discount: productDisCount.text, image: productImageFile,
-        categoryId: categoryId.toString(), additionName: productExtraName.text,
-        additionNameAr: productExtraNameAr.text,
-        additionPrice: productExtraPrice.text,
-
+        categoryId: categoryId.toString(),
+        additionName: extralList.map((e) => e.nameEn.trim()).join(','),
+        additionNameAr: extralList.map((e) => e.nameAr.trim()).join(','),
+        additionPrice:  extralList.map((e) => e.price.toString()).join(','),
     );
     ResponseModel responseModel = await _updateProductUseCase.call(addProductBody: addProductBody, id: id);
     if (responseModel.isSuccess) {
@@ -174,10 +174,13 @@ class HomeCubit extends Cubit<HomeState> {
     productExtraPrice.text='';
     productDescription.text='';
     productImageFile=null;
+    extralList.clear();
     productDisCount.text='';
   }
   void pushProductTextFieldData(ProductData productData){
     productName.text=productData.name!;
+    categoryId=productData.category?.id??0;
+    categoryValue=productData.category?.name??'';
     productPrice.text=productData.priceAfterDiscount!.toString();
     // if(productsCategoriesModel!=null){
     //   for(var a in productsCategoriesModel!.data!){
@@ -188,13 +191,21 @@ class HomeCubit extends Cubit<HomeState> {
     //       }
     //   }
     // }
-    if(productData.extra!=null&&productData.extra!.data!.isNotEmpty){
-      productExtraName.text=productData.extra!.data![0].name.toString();
-      productExtraNameAr.text=productData.extra!.data![0].name.toString();
-      productExtraPrice.text=productData.extra!.data![0].price.toString();
-    }
+
+    // if(productData.extra!=null&&productData.extra!.data!.isNotEmpty){
+    //   productExtraName.text=productData.extra!.data![0].name.toString();
+    //   productExtraNameAr.text=productData.extra!.data![0].name.toString();
+    //   productExtraPrice.text=productData.extra!.data![0].price.toString();
+    // }
     productDescription.text=productData.description!;
     productDisCount.text=productData.discount!;
+    for(var a in productData.extra!.data! ){
+      if(appContext.locale.languageCode.toString()=='en'){
+        extralList.add(ExtraModel(nameAr: '', nameEn: a.name??'', price:a.price!=null? double.parse(a.price.toString()):0.0));
+      }else{
+        extralList.add(ExtraModel(nameAr: a.name??'', nameEn: '', price:a.price!=null? double.parse(a.price.toString()):0.0));
+      }
+    }
     emit(PushDataState());
 
   }

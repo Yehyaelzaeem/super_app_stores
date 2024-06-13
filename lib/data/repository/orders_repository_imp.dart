@@ -63,4 +63,16 @@ class OrdersRepositoryImp implements OrdersRepository{
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+  @override
+  Future<ApiResponse> getOrderByDate({required String date}) async{
+    try {
+      Response response = await _dioClient.get(
+        AppURL.kGetOrdersByDateStateURL(date: date),
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 }

@@ -28,93 +28,91 @@ class OrderItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: const [BoxShadow(color: Colors.black12,blurRadius: 5)]
       ),
-      height: 200.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           verticalSpace(10),
-          Expanded(
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 10.w),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomImage(
-                    height: 70,
-                    width: 70,
-                    image: ordersModelData.details?.data?[0].image??'',
-                    radius: 50,
-                  ),
-                  horizontalSpace(5),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(ordersModelData.client?.name??'',style: TextStyles.font18Black700Weight,),
-                      Row(
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 10.w),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomImage(
+                  height: 70,
+                  width: 70,
+                  image: ordersModelData.details?.data?[0].image??'',
+                  radius: 50,
+                ),
+                horizontalSpace(10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(ordersModelData.client?.name??'',style: TextStyles.font18Black700Weight,),
+                    Row(
+                      children: [
+                        Text(ordersModelData.client?.address??'',style: TextStyles.font15CustomGray400Weight,),
+                        const Icon(Icons.location_on,color: Colors.grey,),
+                      ],
+                    ),
+                    InkWell(
+                      onTap: (){
+                        context.pushNamed(
+                          Routes.orderDetailsScreen,arguments: {'ordersModelData':ordersModelData}
+                        );
+                      },
+                      child: Row(
                         children: [
-                          Text(ordersModelData.client?.address??'',style: TextStyles.font15CustomGray400Weight,),
-                          const Icon(Icons.location_on,color: Colors.grey,),
+                          Text(LocaleKeys.orderDetails.tr(),style: TextStyles.font15CustomGray400Weight.copyWith(
+                              color: backBlue2
+                          ),),
+                          const Icon(Icons.arrow_forward_ios_outlined,color: Colors.grey,size: 18,),
                         ],
                       ),
-                      InkWell(
-                        onTap: (){
-                          context.pushNamed(
-                            Routes.orderDetailsScreen,arguments: {'ordersModelData':ordersModelData}
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            Text(LocaleKeys.orderDetails.tr(),style: TextStyles.font15CustomGray400Weight.copyWith(
-                                color: backBlue2
-                            ),),
-                            const Icon(Icons.arrow_forward_ios_outlined,color: Colors.grey,size: 18,),
-                          ],
+                    )
+                  ],),
+                const Spacer(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('${ordersModelData.orderTotal??''} ${LocaleKeys.lyd.tr()}',style: TextStyles.font18Black700Weight,),
+                   verticalSpace(20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: redColor.withOpacity(0.3),
+                          radius: 18,
+                          child:
+                          const Icon(Icons.phone,
+                            color: redColor,),
                         ),
-                      )
-                    ],),
-                  const Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('${ordersModelData.orderTotal??''} ${LocaleKeys.lyd.tr()}',style: TextStyles.font18Black700Weight,),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: redColor.withOpacity(0.3),
-                            radius: 18,
-                            child:
-                            const Icon(Icons.phone,
-                              color: redColor,),
-                          ),
-                          horizontalSpace(10),
-                          CircleAvatar(
-                            backgroundColor: backBlue2.withOpacity(0.3),
-                            radius: 18,
-                            child:
-                            const Icon(Icons.message_outlined,
-                                color: backBlue2),
-                          ),
-                          horizontalSpace(10),
-                          CircleAvatar(
-                            backgroundColor: Colors.blue.withOpacity(0.3),
+                        horizontalSpace(10),
+                        CircleAvatar(
+                          backgroundColor: backBlue2.withOpacity(0.3),
+                          radius: 18,
+                          child:
+                          const Icon(Icons.message_outlined,
+                              color: backBlue2),
+                        ),
+                        horizontalSpace(10),
+                        CircleAvatar(
+                          backgroundColor: Colors.blue.withOpacity(0.3),
 
-                            radius: 18,
-                            child:
-                            const Icon(Icons.send,
-                                color:  Colors.blue),
-                          )
-                        ],
-                      )
-                    ],),
-                ],
-              ),
+                          radius: 18,
+                          child:
+                          const Icon(Icons.send,
+                              color:  Colors.blue),
+                        )
+                      ],
+                    )
+                  ],),
+              ],
             ),
           ),
-          SizedBox(
+          if(ordersModelData.status=='padding')
+             SizedBox(
             height: 80.h,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),
@@ -161,7 +159,14 @@ class OrderItem extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          verticalSpace(15)
+          // if(ordersModelData.status=='restaurant_accepted')
+          //   Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: Text('تم قبول الاوردر'),
+          //   )
+
 
         ],
       ),

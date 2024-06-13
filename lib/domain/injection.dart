@@ -28,6 +28,7 @@ import 'package:cogina_restaurants/domain/usecase/account/privacy_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/account/terms_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/accept_order_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/change_state_restaurant_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/orders/get_orders_date_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/get_orders_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/reject_order_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/profile/get_profile_usecase.dart';
@@ -81,6 +82,7 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => RejectOrderUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AcceptOrderUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => ChangeStateRestaurantUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => GetOrdersByDateUseCase(repository: getIt()));
 
   ///more
    getIt.registerLazySingleton(() => TermsUseCase(repository: getIt()));

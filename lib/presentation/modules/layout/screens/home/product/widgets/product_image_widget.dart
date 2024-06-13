@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../core/helpers/spacing.dart';
+import '../../../../../../../core/resources/color.dart';
 import '../../../../../../../core/resources/decoration.dart';
 import '../../../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../../component/custom_elevated_button.dart';
+import 'extra_widget.dart';
 
 class ProductImageAndButtonWidget extends StatelessWidget {
   const ProductImageAndButtonWidget({super.key, required this.type,  this.id});
@@ -56,6 +58,20 @@ class ProductImageAndButtonWidget extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            verticalSpace(20),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 8.w,vertical: 10.h),
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: backGroundGray,
+                    boxShadow: const [BoxShadow(color: Colors.black12,blurRadius: 7)]
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: ExtraWidget(),
+                  )),
             ),
             verticalSpace(20),
             Center(

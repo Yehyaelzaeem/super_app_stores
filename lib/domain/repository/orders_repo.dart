@@ -13,5 +13,6 @@ mixin OrdersRepository {
   Future<ApiResponse> rejectOrder({required int orderId}) ;
   Future<ApiResponse> changeStateRestaurant() ;
   Future<ApiResponse> acceptOrder({required AcceptOrderBody acceptOrderBody}) ;
+  Future<ApiResponse> getOrderByDate({required String date}) ;
 
 }

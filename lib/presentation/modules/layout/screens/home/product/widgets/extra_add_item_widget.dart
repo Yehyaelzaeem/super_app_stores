@@ -44,13 +44,17 @@ class ExtraAddItemWidget extends StatelessWidget {
             ),
           ),
            Positioned(
-              top: 8,
-              left: 5,
-              child: InkWell(
-                  onTap: (){
-                    HomeCubit.get(context).removeExtra(extraModel);
-                  },
-                  child: const Icon(Icons.delete_forever,color: redColor,)))
+               top: 5,
+               bottom: 5,
+               left: 5,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: InkWell(
+                    onTap: (){
+                      HomeCubit.get(context).removeExtra(extraModel);
+                    },
+                    child: const Icon(Icons.delete_forever,color: redColor,)),
+              ))
         ],
       ),
     );

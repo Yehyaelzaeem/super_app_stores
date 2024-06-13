@@ -18,6 +18,7 @@ class LocaleKeys
   static const home = 'home';
   static const favorite = 'favorite';
   static const orders = 'orders';
+  static const acceptOrders = 'accept_orders';
   static const agree = 'agree';
   static const reject = 'reject';
   static const orderDetails = 'order_details';

@@ -2,8 +2,8 @@ class AppURL {
 
   static const String kAPIKey = "";
   // static const String kBaseURL = "http://kogena.dev03.matrix-clouds.com/api/";
-  static const String kBaseURL = "http://kogena.matrixclouds.net/api/";
-  // static const String kBaseURL = "https://welt-resturant.dev03.matrix-clouds.com/api/";
+  // static const String kBaseURL = "http://kogena.matrixclouds.net/api/";
+  static const String kBaseURL = "https://welt-resturant.dev03.matrix-clouds.com/api/";
 
   /// Auth
   static const String kLoginURI = "stores/login";
@@ -93,6 +93,7 @@ class AppURL {
   static const String kAcceptOrderURL = "stores/orders/accept-order";
   static  String kRejectOrderURL({required int id}) => "stores/orders/reject_order/$id";
   static  String kChangeRestaurantStateURL ="stores/profile/change_status";
+  static  String kGetOrdersByDateStateURL({required String date}) =>"stores/orders/date/$date";
 
   ///setting
   static const String kGetCitiesURL = "";
