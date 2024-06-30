@@ -1,10 +1,14 @@
+import '../../main.dart';
+
 class AppURL {
 
   static const String kAPIKey = "";
   // static const String kBaseURL = "http://kogena.dev03.matrix-clouds.com/api/";
   // static const String kBaseURL = "http://kogena.matrixclouds.net/api/";
-  static const String kBaseURL = "https://welt-resturant.dev03.matrix-clouds.com/api/";
-
+  static  String kBaseURL =
+  isWeltApp==true?
+      "https://welt-resturant.dev03.matrix-clouds.com/api/":
+  "http://kogena.dev03.matrix-clouds.com/api/";
   /// Auth
   static const String kLoginURI = "stores/login";
   static const String kOtpURI = "stores/otp";

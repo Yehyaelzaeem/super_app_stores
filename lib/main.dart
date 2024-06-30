@@ -11,7 +11,7 @@ import 'core/resources/color.dart';
 import 'core/routing/navigation_services.dart';
 import 'core/routing/route_generator.dart';
 import 'domain/injection.dart' as domain_injection;
-
+bool isWeltApp=true;
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -47,8 +47,10 @@ class MyApp extends StatelessWidget {
         useInheritedMediaQuery: true,
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
-            title: 'Welt Restaurant',
-            // 'كُوجِينَا',
+            title:
+            isWeltApp==true?
+            'Welt Restaurant':
+            'كُوجِينَا',
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationService.navigationKey,
             onGenerateRoute: RouteGenerator.generateBaseRoute,
