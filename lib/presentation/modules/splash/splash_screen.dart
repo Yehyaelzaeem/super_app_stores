@@ -1,3 +1,4 @@
+import 'package:cogina_restaurants/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/routing/navigation_services.dart';
@@ -89,7 +90,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
             children: [
               Positioned(
                 top: height * 0.4,
-                // left: width * 0.1,
+                left:isWeltApp==true?null:width * 0.1,
                 child: SlideTransition(
                   position: _animation!,
                   child: AnimatedContainer(
@@ -98,16 +99,17 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
                     alignment: Alignment.topLeft,
                     duration: const Duration(seconds: 0),
                     child:
+                        isWeltApp==true?
                       SizedBox(
                         height: height * 0.2 + 20,
                         child: const CustomLogo(),
-                      )
-                    // Image(
-                    //   height: height * 0.2 + 20,
-                    //   width: width * 0.8 + 10,
-                    //   fit: BoxFit.contain,
-                    //   image: const AssetImage(AppImages.logo2),
-                    // ),
+                      ):
+                    Image(
+                      height: height * 0.2 + 20,
+                      width: width * 0.8 + 10,
+                      fit: BoxFit.contain,
+                      image: const AssetImage(AppImages.logo2),
+                    ),
                   ),
                 ),
               ),
