@@ -27,8 +27,6 @@ class CustomAppContData extends StatelessWidget {
                 height: 130.w,
                 width: 130.w,
                 child:
-                    isWeltApp==true?
-                const CustomLogo():
                 Image.asset(AppImages.logo2,fit: BoxFit.cover,),
             ),
           ),
