@@ -46,17 +46,22 @@ class ProfitsScreen extends StatelessWidget {
                         builder: (context, state) {
                           if(cubit.ordersByDate!=null){
                             if(cubit.ordersByDate!.data!.isNotEmpty){
-                              final total = cubit.ordersByDate!.data!
-                                  .map((e) => double.parse(e.orderTotal.toString()))
-                                  .toList()
-                                  .fold(0.0, (previousValue, element) => previousValue + element);
+                              var total = 0.0;
+                              try{
+                                total= cubit.ordersByDate!.data!
+                                    .map((e) => double.parse(e.orderTotal.toString()))
+                                    .toList()
+                                    .fold(0.0, (previousValue, element) => previousValue + element);
+                              }catch(e){
+
+                              }
                               return Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('$total ${LocaleKeys.lyd.tr()}',style: TextStyles.font20Black700Weight.copyWith(
-                                      color: backBlue2
-                                  ),),
-                                  Text('اجمالي الارباح',style: TextStyles.font16Black600Weight),
+                                  // Text('$total ${LocaleKeys.lyd.tr()}',style: TextStyles.font20Black700Weight.copyWith(
+                                  //     color: backBlue2
+                                  // ),),
+                                  // Text('اجمالي الارباح',style: TextStyles.font16Black600Weight),
                                 ],
                               );
                             }else{

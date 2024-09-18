@@ -50,21 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBOsDF3LNsTk2DgQmUPTOMjuN3CaMe5Ud0',
-    appId: '1:912896616367:android:61225392656f338be2f15a',
-    messagingSenderId: '912896616367',
-    projectId: 'kojena-backend',
-    databaseURL: 'https://kojena-backend-default-rtdb.firebaseio.com',
-    storageBucket: 'kojena-backend.appspot.com',
+    apiKey: 'AIzaSyDTEBIiN14MftBx_GjtOlS--xCo1GcqL7g',
+    appId: '1:385925368356:android:e0d67df319efc55f7126b1',
+    messagingSenderId: '385925368356',
+    projectId: 'delivego-47c93',
+    databaseURL: 'https://delivego-47c93-default-rtdb.firebaseio.com',
+    storageBucket: 'delivego-47c93.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBizrgRH1caolGsg6FwyT-giFX21y69Qw4',
-    appId: '1:912896616367:ios:fe0febe23fbf5288e2f15a',
-    messagingSenderId: '912896616367',
-    projectId: 'kojena-backend',
-    databaseURL: 'https://kojena-backend-default-rtdb.firebaseio.com',
-    storageBucket: 'kojena-backend.appspot.com',
+    apiKey: 'AIzaSyC61HXtS0hZSsXWSMekoTlh0VyN2l2oGkc',
+    appId: '1:385925368356:ios:bb5012b1d3ba53b17126b1',
+    messagingSenderId: '385925368356',
+    projectId: 'delivego-47c93',
+    databaseURL: 'https://delivego-47c93-default-rtdb.firebaseio.com',
+    storageBucket: 'delivego-47c93.appspot.com',
     iosBundleId: 'com.example.coginaRestaurants',
   );
 }

@@ -22,14 +22,14 @@ class CustomAppContData extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 15.h,),
-          Center(
-            child: SizedBox(
-                height: 130.w,
-                width: 130.w,
-                child:
-                Image.asset(AppImages.logo2,fit: BoxFit.cover,),
-            ),
-          ),
+          // Center(
+          //   child: SizedBox(
+          //       height: 130.w,
+          //       width: 130.w,
+          //       child:
+          //       Image.asset(AppImages.logo2,fit: BoxFit.cover,),
+          //   ),
+          // ),
           Text(
            title,
             style: TextStyles.font18Black700Weight.copyWith(

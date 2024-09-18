@@ -7,7 +7,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/resources/styles.dart';
-import '../../../../../../core/translations/locale_keys.dart';
 import '../../../../../../data/model/response/products_model.dart';
 import '../../../../../component/custom_app_bar.dart';
 
@@ -22,7 +21,7 @@ class ProductDetailsScreen extends StatelessWidget {
       backgroundColor: whiteColor,
        appBar: CustomAppBar(
            color: backGroundGray,
-           title: LocaleKeys.mealDetails.tr(),
+           // title: LocaleKeys.mealDetails.tr(),
        ),
       body: Column(
         children: [

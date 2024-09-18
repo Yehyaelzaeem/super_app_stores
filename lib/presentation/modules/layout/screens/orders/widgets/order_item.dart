@@ -112,7 +112,7 @@ class OrderItem extends StatelessWidget {
             ),
           ),
           if(ordersModelData.status=='padding')
-             SizedBox(
+            SizedBox(
             height: 80.h,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),

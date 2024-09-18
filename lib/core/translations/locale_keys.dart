@@ -8,6 +8,7 @@ class LocaleKeys
   static const profile = 'profile';
   static const aboutUs = 'about_us';
   static const notification = 'notification';
+  static const this_field_required = 'this_field_required';
   static const myOrders = 'my_orders';
   static const addresses = 'addresses';
   static const privacyPolicy = 'privacy_policy';
@@ -106,6 +107,7 @@ class LocaleKeys
   static const forgetPassword = 'forget_password';
   static const confirmNumber = 'confirm_number';
   static const enterCode = 'enter_code';
+  static const password = 'password';
   static const done = 'done';
   static const firstNameEmpty = 'name1_empty';
   static const firstName = 'first_name';

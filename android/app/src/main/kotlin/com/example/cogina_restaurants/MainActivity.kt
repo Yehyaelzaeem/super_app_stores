@@ -1,4 +1,4 @@
-package com.example.cogina_restaurants
+package com.delivego.Partners
 
 import io.flutter.embedding.android.FlutterActivity
 

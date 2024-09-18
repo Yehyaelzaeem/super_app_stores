@@ -48,9 +48,13 @@ class AuthCubit extends Cubit<AuthState> {
 
   final registerFormKey = GlobalKey<FormState>();
   final loginFormKey = GlobalKey<FormState>();
+  TextEditingController regPasswordController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController regFirstNameController = TextEditingController();
   TextEditingController regLastNameController = TextEditingController();
+  TextEditingController regEmailController = TextEditingController();
   TextEditingController regPhoneController = TextEditingController();
   TextEditingController comNameController = TextEditingController();
   TextEditingController comNameArController = TextEditingController();
@@ -81,9 +85,9 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   ///variables
-  final LoginBody _body = LoginBody(phone: '', otp: '');
+  final LoginBody _body = LoginBody(phone: '', password: '');
   final OTPBody _otpBody = OTPBody(phone: '');
-  final RegisterBody _regBody = RegisterBody(firstName: '', lastName: '', mobile: '');
+  final RegisterBody _regBody = RegisterBody(firstName: '', lastName: '', mobile: '', confirmPassword: '', password: '', email: '');
 
   ///getters
   LoginBody get body => _body;
@@ -96,13 +100,15 @@ class AuthCubit extends Cubit<AuthState> {
 
 
   ///calling APIs Functions
-  Future<ResponseModel> login(String phone, String otp,context) async {
+  Future<ResponseModel> login(String phone, String password,context) async {
     emit(LoginLoadingState()) ;
-    if(authType=='login'){
-      _assignLoginBody(phoneController.text, otp);
-    }else{
-      _assignLoginBody(regPhoneController.text, otp);
-    }
+    // if(authType=='login'){
+    //   _assignLoginBody(phoneController.text, otp);
+    // }else{
+    //   _assignLoginBody(regPhoneController.text, otp);
+    // }
+    _assignLoginBody(phoneController.text, password);
+
     ResponseModel responseModel = await _signInUseCase.call(loginBody: body);
     if (responseModel.isSuccess) {
       UserModel userModel = responseModel.data;
@@ -196,8 +202,9 @@ class AuthCubit extends Cubit<AuthState> {
   Future<ResponseModel?> register(context) async {
     emit(RegisterLoadingState()) ;
     try{
-      changeAuthType('register');
-      _assignRegisterBody(firstName: regFirstNameController.text, lastName:  regLastNameController.text, phone: regPhoneController.text);
+      // changeAuthType('register');
+      _assignRegisterBody(firstName: regFirstNameController.text,
+          lastName:  regLastNameController.text, phone: regPhoneController.text, password: regPasswordController.text, confirmPassword: confirmPasswordController.text, email: regEmailController.text);
       ResponseModel responseModel = await _registerUseCase.call(body: regBody);
       RegisterModel registerModel =responseModel.data;
       if(responseModel.data!=null){
@@ -226,12 +233,17 @@ class AuthCubit extends Cubit<AuthState> {
   void _assignRegisterBody({
     required String firstName,
     required String lastName,
-    required String phone}) {
-    regBody.setData(firstName: firstName, lastName: lastName, phone: phone);
+    required String phone,
+    required String password,
+    required String confirmPassword,
+    required String email,
+
+  }) {
+    regBody.setData(firstName: firstName, lastName: lastName, phone: phone, password: password, confirmPassword: confirmPassword, email: email);
   }
 
-  void _assignLoginBody(String phone,String otp) {
-    body.setData(phone: phone, otp: otp);
+  void _assignLoginBody(String phone,String password) {
+    body.setData(phone: phone, password: password);
   }
   void _assignOtpBody(String phone) {
     otpBody.setData(phone: phone);

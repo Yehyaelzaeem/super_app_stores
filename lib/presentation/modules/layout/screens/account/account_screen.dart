@@ -133,7 +133,9 @@ class AccountScreen extends StatelessWidget {
                     verticalSpace(10),
                     CustomProviderProfileItem(title: LocaleKeys.orders.tr(), icon: Icons.badge,
                     onTap: (){
-                      context.pushNamed(Routes.providerOrdersScreen);
+                      // context.pushNamed(Routes.providerOrdersScreen);
+                      cubit.setCurrentIndex(2);
+
                     },),
                     verticalSpace(10),
                      CustomProviderProfileItem(title: LocaleKeys.profits.tr(), icon: Icons.bar_chart_outlined,
@@ -166,18 +168,18 @@ class AccountScreen extends StatelessWidget {
                       context.pushNamed(Routes.branchesScreen);
                     },
                     ),
-                    verticalSpace(10),
-                     CustomProviderProfileItem(title: LocaleKeys.messages.tr(), icon: Icons.message,
-                      onTap: (){
-                        context.pushNamed(Routes.messagesScreen);
-                      },
-                    ),
-                    verticalSpace(10),
-                     CustomProviderProfileItem(title: LocaleKeys.setting.tr(), icon: Icons.settings,
-                      onTap: (){
-                        context.pushNamed(Routes.settingsScreen);
-                      },
-                    ),
+                    // verticalSpace(10),
+                    //  CustomProviderProfileItem(title: LocaleKeys.messages.tr(), icon: Icons.message,
+                    //   onTap: (){
+                    //     context.pushNamed(Routes.messagesScreen);
+                    //   },
+                    // ),
+                    // verticalSpace(10),
+                    //  CustomProviderProfileItem(title: LocaleKeys.setting.tr(), icon: Icons.settings,
+                    //   onTap: (){
+                    //     context.pushNamed(Routes.settingsScreen);
+                    //   },
+                    // ),
                     verticalSpace(10),
                     CustomProviderProfileItem(title: LocaleKeys.aboutUs.tr(), icon: Icons.info_outline,
                       onTap: (){
@@ -196,12 +198,12 @@ class AccountScreen extends StatelessWidget {
                         context.pushNamed(Routes.privacyPolicyScreen);
                       },
                     ),
-                    verticalSpace(10),
-                     CustomProviderProfileItem(title: LocaleKeys.contactUs.tr(), icon: Icons.phone,
-                    onTap: (){
-                       context.pushNamed(Routes.contactUsScreen);
-                    },
-                    ),
+                    // verticalSpace(10),
+                    //  CustomProviderProfileItem(title: LocaleKeys.contactUs.tr(), icon: Icons.phone,
+                    // onTap: (){
+                    //    context.pushNamed(Routes.contactUsScreen);
+                    // },
+                    // ),
                     verticalSpace(10),
                    StatefulBuilder(builder: (context,setState){
                      return   CustomProviderProfileItem(title: LocaleKeys.language.tr(), icon: Icons.language,

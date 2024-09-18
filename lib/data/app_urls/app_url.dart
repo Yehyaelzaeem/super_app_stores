@@ -3,7 +3,7 @@ import '../../main.dart';
 class AppURL {
 
   static const String kAPIKey = "";
-  static  String kBaseURL = "http://kogena.dev03.matrix-clouds.com/api/";
+  static  String kBaseURL = "https://delivego.loutsdelivery.com/api/";
   /// Auth
   static const String kLoginURI = "stores/login";
   static const String kOtpURI = "stores/otp";

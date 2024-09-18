@@ -35,7 +35,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      verticalSpace(150),
+                      verticalSpace(20),
                       // Image.asset(AppImages.logo),
                       verticalSpace(cubit.type=='auth'||cubit.type=='otp'?60:10),
                       cubit.type=='auth'?const AuthWidget():

@@ -20,7 +20,7 @@ class _CustomCalenderState extends State<CustomCalender> {
   @override
   void initState() {
     final date =DateFormat('yyyy-MM-dd').format(DateTime.now()).toString();
-    cubit.getOrdersByDate(date: date);
+    cubit.getOrdersByDate(date: '2024-8-15');
     super.initState();
   }
   @override
@@ -29,7 +29,7 @@ class _CustomCalenderState extends State<CustomCalender> {
       initialDate: DateTime.now(),
       onDateChange: (selectedDate) {
         final date =DateFormat('yyyy-MM-dd').format(selectedDate).toString();
-         cubit.getOrdersByDate(date: date);
+         cubit.getOrdersByDate(date: '2024-8-15');
         },
       headerProps:  EasyHeaderProps(
         selectedDateStyle:TextStyles.font16PrimaryColor700Weight.copyWith(

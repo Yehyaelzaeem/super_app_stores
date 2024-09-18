@@ -42,12 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
           color: backGroundGray,
           title: LocaleKeys.restaurant.tr(),
           isBackButtonExist: false,
-          actions: [
-            IconButton(
-                onPressed: (){
-                  context.pushNamed(Routes.notificationScreen);
-                },
-                icon: const Icon(Icons.notifications_active_outlined,color: primaryColor,),
+          // actions: [
+            // IconButton(
+            //     onPressed: (){
+            //       context.pushNamed(Routes.notificationScreen);
+            //     },
+            //     icon: const Icon(Icons.notifications_active_outlined,color: primaryColor,),
                 //Container(
 //                     decoration: BoxDecoration(
 //                         borderRadius: BorderRadius.circular(50),
@@ -61,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
 //                       child:
 //                       Icon(Icons.notifications_active_outlined,color: primaryColor,),
 //                     ))
-                )
-          ],
+//                 )
+//           ],
         ),
         backgroundColor: backGroundGray,
         body:  Column(

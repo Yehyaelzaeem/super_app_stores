@@ -1,8 +1,13 @@
+
+
 import 'package:easy_localization/easy_localization.dart';
+
 import '../../../../core/utils/alerts.dart';
 import '../../../../domain/logger.dart';
 import '../../../../generated/locale_keys.g.dart';
+import '../../../../main.dart';
 import '../../../model/base/api_response.dart';
+
 import '../../../model/base/error_response.dart';
 import '../../../model/base/response_model.dart';
 import 'error_widget.dart';
@@ -20,8 +25,8 @@ class ApiChecker {
         _showAlert(errorResponse.message, showError);
         return ResponseModel<T>(false, errorResponse.message);
       } else {
-        _showAlert(tr(LocaleKey2.error), showError);
-        return  ResponseModel<T>(false, tr(LocaleKey2.error));
+        _showAlert('error', showError);
+        return  ResponseModel<T>(false, 'error');
       }
 
     }catch(e){
@@ -43,7 +48,7 @@ class ApiChecker {
           return ResponseModel<T>(false, apiResponse.error);
         } else {
           log(_tag, 'apiResponse Can not get error');
-          return ResponseModel<T>(false, tr(LocaleKey2.error));
+          return ResponseModel<T>(false, 'error');
         }
       } else if (message != null) {
         log( _tag,'Error is message');
@@ -51,7 +56,7 @@ class ApiChecker {
         return ResponseModel<T>(false, message);
       } else {
         log(_tag, 'Can not get error');
-        return ResponseModel<T>(false, tr(LocaleKey2.error));
+        return ResponseModel<T>(false,'error');
       }
     }
   }
@@ -63,11 +68,11 @@ class ApiChecker {
   }
 
   static _showAlert(String? error,bool showError ) {
-     if (error != null) Alerts.showSnackBar(error);
+    if (error != null) Alerts.showSnackBar(error);
   }
   static _onLogout() {
-    // if (appContext ==null) {return;}
-     // Provider.of<LocalAuthProvider>(appContext!, listen: false).logOut();
+    if (appContext ==null) {return;}
+    // Provider.of<LocalAuthProvider>(appContext!, listen: false).logOut();
 
   }
 }
