@@ -1,7 +1,7 @@
 class OrdersModel {
   List<OrdersModelData>? data;
-
-  OrdersModel({this.data});
+  MetaPagination? meta;
+  OrdersModel({this.data, this.meta});
 
   OrdersModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
@@ -10,6 +10,7 @@ class OrdersModel {
         data!.add( OrdersModelData.fromJson(v));
       });
     }
+    meta = json['meta'] != null ? MetaPagination.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -233,4 +234,33 @@ class AdditionData {
     data['price'] = price;
     return data;
   }
+}
+
+class MetaPagination {
+  Pagination? pagination;
+
+  MetaPagination({this.pagination});
+
+  MetaPagination.fromJson(Map<String, dynamic> json) {
+    pagination = json['pagination'] != null
+        ? Pagination.fromJson(json['pagination'])
+        : null;
+  }
+}
+class Pagination {
+  int? totalPages;
+  int? currentPage;
+  int? perPage;
+  int? total;
+
+  Pagination({this.currentPage, this.totalPages, this.perPage, this.total});
+
+  Pagination.fromJson(Map<String, dynamic> json) {
+    currentPage = json['current_page'];
+    totalPages = json['total_pages'];
+    perPage = json['per_page'];
+    total = json['total'];
+  }
+
+
 }

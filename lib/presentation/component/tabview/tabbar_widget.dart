@@ -8,7 +8,7 @@ class TabItemModel{
   final String label ;
   final String? image ;
   final Widget page ;
-  TabItemModel({required this.label ,required this.page, this.image});
+  TabItemModel({required this.label  ,required this.page, this.image});
   Tab builder(){
     return TabWidgetItemBuilder(this);
   }
@@ -20,8 +20,10 @@ class TabWidgetItemBuilder extends Tab{
 
 class TabBarWidget  extends StatelessWidget{
   final Function(int)? onTap;
+  final TabController? controllerTapBar;
+
   final List<TabItemModel> tabs ;
-  const TabBarWidget({super.key ,required this.tabs, this.onTap});
+  const TabBarWidget({super.key ,required this.tabs, this.onTap, this.controllerTapBar});
 
   @override
   Widget build(BuildContext context) {
@@ -30,33 +32,34 @@ class TabBarWidget  extends StatelessWidget{
       child: Scaffold(
         backgroundColor: scaffoldBackgroundColor,
         appBar: AppBar(
-          toolbarHeight: 15,
+          toolbarHeight: 0,
           backgroundColor: whiteColor,
           bottom:
           TabBar(
+controller: controllerTapBar,
             // isScrollable: true,
             indicatorColor: primaryColor,
             // dividerColor: dividerColor,
             unselectedLabelStyle:TextStyles.font15CustomGray400Weight.copyWith(
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.lateefFont,
-              fontSize: 20,
+              fontSize: 11,
               color: customGray
             ),
             labelStyle: TextStyles.font16Black500Weight.copyWith(
               fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.lateefFont,
 
-                fontSize: 25,
+                fontSize: 15,
               color: whiteColor
             ),
 
-            padding:  EdgeInsets.symmetric(horizontal: 16.w,vertical: 5.h),
+            padding:  EdgeInsets.symmetric(horizontal: 0.w,vertical: 0.h),
             indicatorPadding: EdgeInsets.zero,
             labelPadding:  EdgeInsets.zero ,
-            indicator:  const BoxDecoration(
+            indicator:   BoxDecoration(
               color: primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
               // boxShadow: [
               //   BoxShadow(
               //     color: Colors.black.withOpacity(0.2),

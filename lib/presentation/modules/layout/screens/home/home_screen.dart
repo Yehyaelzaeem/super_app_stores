@@ -38,47 +38,29 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeCubit cubit =HomeCubit.get(context);
     return  SafeArea(
       child: Scaffold(
-        appBar:  CustomAppBar(
-          color: backGroundGray,
-          title: LocaleKeys.restaurant.tr(),
-          isBackButtonExist: false,
-          // actions: [
-            // IconButton(
-            //     onPressed: (){
-            //       context.pushNamed(Routes.notificationScreen);
-            //     },
-            //     icon: const Icon(Icons.notifications_active_outlined,color: primaryColor,),
-                //Container(
-//                     decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(50),
-//                         color: whiteColor,
-//                         boxShadow: const [BoxShadow(color: Colors.black12,blurRadius: 5,
-//                             offset: Offset(1, 4)
-//                         )]
-//                     ),
-//                     child:  const Padding(
-//                       padding: EdgeInsets.all(8.0),
-//                       child:
-//                       Icon(Icons.notifications_active_outlined,color: primaryColor,),
-//                     ))
-//                 )
-//           ],
-        ),
+
+
         backgroundColor: backGroundGray,
         body:  Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            verticalSpace(25),
-             BlocConsumer<HomeCubit, HomeState>(
+            verticalSpace(15),
+            Center(child: Image.asset(
+              AppImages.logo2,
+              width: 100.w,
+              height: 100.h,
+              color: backBlue2, ),),
+
+            BlocConsumer<HomeCubit, HomeState>(
                     listener: (context, state) {},
                     builder: (context, state) {
                       if(cubit.homeModel!=null&&cubit.homeModel!.categories!=null&&cubit.homeModel!.categories!.data!.isNotEmpty){
                         return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          padding: EdgeInsets.symmetric(horizontal: 16.w,)+ EdgeInsets.only(bottom: 15.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(LocaleKeys.restaurantCategories.tr(),
+                              Text(LocaleKeys.categories.tr(),
                                 style: TextStyles.font20Black700Weight.copyWith(
                                     color: backBlue2,
                                     fontSize: 26
@@ -103,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                     },
                   ),
-            verticalSpace(25),
+
             Row(children: [
               horizontalSpace(16),
               Text(LocaleKeys.meals.tr(),
@@ -112,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 20
                 ),
               ),
+
               horizontalSpace(5),
               const Icon(Icons.edit_note_outlined),
               const Spacer(),

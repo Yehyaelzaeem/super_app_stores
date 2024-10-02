@@ -1,13 +1,12 @@
-import 'package:dalalah/core/exceptions/extensions.dart';
-import 'package:dalalah/core/resources/validation.dart';
-import 'package:dalalah/core/themes/colors.dart';
+
+import 'package:cogina_restaurants/core/helpers/spacing.dart';
+import 'package:cogina_restaurants/presentation/component/custom_loading_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import '../../assets/app_icons.dart';
-import '../../decorations/decorations.dart';
-import '../buttons/app_icon.dart';
-import '../pagination/loading_widget.dart';
-import '../text-field/custom_text_field.dart';
+import 'package:collection/collection.dart';
+
+import '../../core/resources/color.dart';
+import 'custom_text_field.dart';
 
 class DropDownField extends StatelessWidget {
   final List<DropDownItem> items;
@@ -66,13 +65,12 @@ class DropDownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? colorBorderSide = isDecoration ? context.cardColor : context.colorScheme.outline;
-    Color? fillColor = context.cardColor;
+    Color? colorBorderSide = Colors.grey;
+    Color? fillColor = Colors.white;
     TextEditingController controller = TextEditingController();
     return Container(
-      margin: margin ?? 10.paddingVert - 8.paddingBottom,
-      decoration: isDecoration
-          ?  Decorations.kDecorationField() : null,
+      margin: margin ?? EdgeInsets.symmetric(vertical: 10)+ EdgeInsets.only(bottom: 8),
+
       // color: isDecoration ? null : backgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,9 +78,9 @@ class DropDownField extends StatelessWidget {
           if (title != null) ...[
             Text(
               title ?? '',
-              style: titleStyle ?? context.bodySmall,
+              style: titleStyle ?? Theme.of(context).textTheme.bodySmall,
             ),
-            5.ph,
+            verticalSpace(5)
           ],
           Padding(
             padding: marginDropDown ?? EdgeInsets.zero,
@@ -99,42 +97,37 @@ class DropDownField extends StatelessWidget {
                 // ),
                 filled: true,
                 fillColor: fillColor,
-                contentPadding: 2.paddingEnd + 0.paddingVert,
+                contentPadding: EdgeInsets.only(left: 2),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: colorBorderSide ?? context.colorScheme.outline,
+                    color: colorBorderSide
                   ),
                   borderRadius: BorderRadius.circular(radius ?? 12),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: colorBorderSide ?? context.colorScheme.outline,
+                    color: colorBorderSide ,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(radius ?? 12),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: colorBorderSide ?? context.colorScheme.outline,
+                    color: colorBorderSide
                   ),
                   borderRadius: BorderRadius.circular(radius ?? 12),
                 ),
                 prefixIcon: iconWidget ??
                     (prefixIcon != null
-                        ? AppIcon(
-                            padding: 10.paddingAll,
-                            icon: prefixIcon!,
-                            color: dropDownIconColor ?? context.primaryColor,
-                          )
+                        ? Icon(Icons.arrow_drop_down, color: dropDownIconColor ?? primaryColor)
                         : null),
 
-                errorStyle: context.displaySmall.copyWith(color: context.errorColor),
+                errorStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.red),
                 // Add more decoration..
               ),
               hint: Text(
                 hint ?? '',
-                style: context.displaySmall
-                    .copyWith(fontSize: hintFontSize ?? 12, color: hintColor),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: hintFontSize ?? 12, color: hintColor),
                 overflow: TextOverflow.ellipsis,
               ),
               items: items
@@ -144,17 +137,17 @@ class DropDownField extends StatelessWidget {
                           fit: BoxFit.scaleDown,
                           child: Text(
                             item.title ?? '',
-                            style: context.textTheme.labelLarge!.copyWith(
-                              color: AppColors.blue_49,
+                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Colors.black,
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ))
                   .toList(),
-              validator: isValidator
-                  ? (value) => Validation.validateRequired(value?.title ?? '')
-                  : null,
+              // validator: isValidator
+              //     ? (value) => Validation.validateRequired(value?.title ?? '')
+              //     : null,
               onChanged: onChanged,
               onSaved: (value) {
                 //  selectedValue = value.toString();
@@ -166,14 +159,11 @@ class DropDownField extends StatelessWidget {
               ),
               iconStyleData: IconStyleData(
                 icon: Padding(
-                  padding: 10.paddingEnd,
-                  child: isLoading ?  const SmallLoading() : AppIcon(
-                    icon: AppIcons.down_arrow,
-                    color: dropDownIconColor ?? AppColors.blue_49,
-                    size: 8,
-                  ),
+                  padding:EdgeInsets.only(right: 10),
+                  child: isLoading ?  CustomLoadingWidget(size:25) :
+                  Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade700),
                 ),
-                iconSize: 10,
+                iconSize: 25,
               ),
               dropdownStyleData: DropdownStyleData(
                 maxHeight: 200,
@@ -183,7 +173,7 @@ class DropDownField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(radius ?? 8),
                   boxShadow: [
                     BoxShadow(
-                      color: context.primaryColor.withOpacity(0.15),
+                      color: primaryColor.withOpacity(0.15),
                       offset: const Offset(0, 0),
                       blurRadius: 10,
                     ),
@@ -200,10 +190,9 @@ class DropDownField extends StatelessWidget {
                 searchInnerWidget: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextField(
-                    hintText: context.strings.search_here,
+                    hintText: 'search',
                     controller: controller,
-                    prefixIcon: Icon(Icons.search, color: context.primaryColor),
-                    isValidator: false,
+                    prefixIcon: Icon(Icons.search, color: primaryColor),
                   ),
                 ),
                 searchMatchFn: (DropdownMenuItem<DropDownItem> item, String text) {

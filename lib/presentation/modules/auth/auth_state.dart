@@ -9,6 +9,10 @@ class LoginErrorState extends AuthState {
   final ErrorModel? error;
   LoginErrorState(this.error);
 }
+class GetRestaurantCategoriesLoadingState extends AuthState {}
+class GetRestaurantCategoriesSuccessState extends AuthState {}
+class GetRestaurantCategoriesErrorState extends AuthState {}
+
 class LoginSuccessState extends AuthState {}
 class LoginLoadingState extends AuthState {}
 class OtpLoadingState extends AuthState {}

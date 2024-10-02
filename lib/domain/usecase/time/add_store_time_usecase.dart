@@ -1,15 +1,17 @@
 import '../../../data/model/base/base_model.dart';
 import '../../../data/model/base/response_model.dart';
+import '../../../data/model/response/time_params.dart';
 import '../../repository/favorite_repo.dart';
+import '../../repository/store_time_repo.dart';
 import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
 
-class AddFavoriteUseCase implements BaseUseCase<dynamic>{
-  final FavoriteRepository repository;
-  AddFavoriteUseCase({required this.repository});
-  Future<ResponseModel> call({required int itemId}) async {
-    return BaseUseCaseCall.onGetData<dynamic>( await repository.addFavorite(itemId: itemId), onConvert,tag: 'AddFavoriteUseCase');
+class AddStoreTimeUseCase implements BaseUseCase<dynamic>{
+  final StoreTimeRepository repository;
+  AddStoreTimeUseCase({required this.repository});
+  Future<ResponseModel> call({required TimeParams params}) async {
+    return BaseUseCaseCall.onGetData<dynamic>( await repository.addStoreTime( params: params), onConvert,tag: 'AddStoreTimeUseCase');
   }
   @override
   ResponseModel<dynamic> onConvert(BaseModel baseModel) {

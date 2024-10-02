@@ -102,10 +102,10 @@ class OrderDetailsScreen extends StatelessWidget {
                           child:
                           Column(
                           children: [
-                          CustomTextRowCartWidget(title: LocaleKeys.subtotal.tr(), text: '${ordersModelData.orderPrice} ${LocaleKeys.lyd.tr()}',vertical: 7.h,),
-                          CustomTextRowCartWidget(title: LocaleKeys.discount.tr(), text: '${ordersModelData.discout} ${LocaleKeys.lyd.tr()}',vertical: 7.h,),
-                          CustomTextRowCartWidget(title: LocaleKeys.shipping.tr(), text: '${ordersModelData.deliveryFees} ${LocaleKeys.lyd.tr()}',vertical: 7.h,),
-                          CustomTextRowCartWidget(title: LocaleKeys.total.tr(), text: '${ordersModelData.orderTotal} ${LocaleKeys.lyd.tr()}',vertical: 7.h,),
+                          CustomTextRowCartWidget(title: LocaleKeys.subtotal.tr(), text: '${ordersModelData.orderPrice} ${LocaleKeys.currency.tr()}',vertical: 7.h,),
+                          CustomTextRowCartWidget(title: LocaleKeys.discount.tr(), text: '${ordersModelData.discout} ${LocaleKeys.currency.tr()}',vertical: 7.h,),
+                          CustomTextRowCartWidget(title: LocaleKeys.shipping.tr(), text: '${ordersModelData.deliveryFees} ${LocaleKeys.currency.tr()}',vertical: 7.h,),
+                          CustomTextRowCartWidget(title: LocaleKeys.total.tr(), text: '${ordersModelData.orderTotal} ${LocaleKeys.currency.tr()}',vertical: 7.h,),
                           verticalSpace(50),
                           ],
                           ),

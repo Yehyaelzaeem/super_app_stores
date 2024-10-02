@@ -68,7 +68,7 @@ class ProfitsScreen extends StatelessWidget {
                               return Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('0.0 ${LocaleKeys.lyd.tr()}',style: TextStyles.font20Black700Weight.copyWith(
+                                  Text('0.0 ${LocaleKeys.currency.tr()}',style: TextStyles.font20Black700Weight.copyWith(
                                       color: backBlue2
                                   ),),
                                   Text('اجمالي الارباح',style: TextStyles.font16Black600Weight),

@@ -1,36 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app/src/auth/data/models/register_params.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:image_cropper/image_cropper.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../src/main_index.dart';
-import '../../src/profile/data/models/profile_dto.dart';
-import 'navigator.dart';
-
 class HelperMethods {
-  static Future<CroppedFile?> getImagePicker() async {
-    XFile? imageFile;
-    imageFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    return await ImageCropper().cropImage(
-      sourcePath: imageFile!.path,
-      aspectRatio: const CropAspectRatio(ratioX: 2, ratioY: 1),
-      uiSettings: [
-        AndroidUiSettings(
-            toolbarColor: Colors.black,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: true),
-      ],
-    );
-  }
 
   static Future<File> getImageFromCamera() async {
     final pickedFile =
@@ -159,55 +137,6 @@ class HelperMethods {
     return prefs.getString('language') ?? 'en';
   }
 
-  static Future<void> saveProfile(ProfileDto dto) async {
-
-    try {
-      GetStorage().write('profile',  jsonEncode(dto.toJson()));
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      if (dto.token != null && dto.token!.isNotEmpty) {
-        prefs.setString('profile', jsonEncode(dto.toJson()));
-      } else {
-        dto.token = await getToken();
-        prefs.setString('profile', jsonEncode(dto.toJson()));
-      }
-    } on Exception catch (e) {
-      print('e $e');
-      rethrow;
-    }
-  }
-
-  static Future<void> saveToken(String token) async {
-    try {
-      GetStorage().write('token',  token);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', token);
-    } on Exception catch (e) {
-      print('e $e');
-      rethrow;
-    }
-  }
-  static getProfile2(){
-    var res = GetStorage().read('profile');
-   return  ProfileDto.fromJson(jsonDecode(res));
-  }
-  static String getTokenStorage(){
-    var res = GetStorage().read('token');
-   return  res??'';
-  }
-
-  static Future<ProfileDto> getProfile() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String profile = prefs.getString('profile') ?? '';
-      print('profile $profile');
-      final decoded = jsonDecode(profile);
-      print('decoded $decoded');
-      return ProfileDto.fromJson(decoded);
-    } on Exception catch (e) {
-      print('getProfile error $e');
-      return ProfileDto();
-    }
-  }
 
   static Future<DateTime?> selectDate(BuildContext context) async {
     ThemeData theme = Theme.of(context);
@@ -220,7 +149,6 @@ class HelperMethods {
         return Theme(
           data: ThemeData.light().copyWith(
             colorScheme: ColorScheme.light(
-              primary: injector<ServicesLocator>().appContext.primaryColor,
             ),
             buttonTheme: const ButtonThemeData(
               textTheme: ButtonTextTheme.primary,
@@ -232,50 +160,8 @@ class HelperMethods {
     );
   }
 
-  static Future<String> getToken() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      return prefs.getString('token') ?? '';
-    } on Exception catch (e) {
-      return '';
-    }
-  }
 
-  // is login
-  static Future<bool> isLogin() async {
-    try {
-      String token = await getToken();
-      return token.isNotEmpty && token != null;
-    } on Exception catch (e) {
-      return false;
-    }
-  }
 
-  // remove token
-  static Future<void> clearCashData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear().then((value) {
-      pushNamedAndRemoveUntil(Routes.loginPage);
-    });
 
-  }
 
-  static Future<bool> isFirstTime() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
-      return isFirstTime;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  static Future<void> setFirstTime() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool('isFirstTime', false);
-    } catch (e) {
-      print('e $e');
-    }
-  }
 }

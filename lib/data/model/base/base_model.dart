@@ -8,6 +8,7 @@ class BaseModel<E> {
   E? categories;
   E? extra;
 
+
   BaseModel({ this.statusCode, this.status, this.code,  this.message, this.item, this.response,this.categories,this.extra});
 
  factory BaseModel.fromJson(Map<String, dynamic> json) => BaseModel(

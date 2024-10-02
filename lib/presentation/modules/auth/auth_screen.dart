@@ -30,7 +30,9 @@ class _AuthScreenState extends State<AuthScreen> {
               child:   DefaultTabController(
                 length: 2,
                 child: SingleChildScrollView(
-                  child: Column(
+                  physics: ClampingScrollPhysics(),
+                  child:
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -40,7 +42,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       verticalSpace(cubit.type=='auth'||cubit.type=='otp'?60:10),
                       cubit.type=='auth'?const AuthWidget():
                       cubit.type=='otp'?const OtpWidget():
-                       CompeteDataWidget(height: MediaQuery.of(context).size.height*0.7,),
+                       CompeteDataWidget(height: MediaQuery.of(context).size.height*0.885,),
                     ],
                   ),
                 ),

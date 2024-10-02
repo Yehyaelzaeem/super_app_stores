@@ -1,4 +1,4 @@
-import 'package:app/core/di/injector.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class DateFormatter {
@@ -23,11 +23,7 @@ class DateFormatter {
     DateTime dateTime = DateFormat('yyyy-MM-ddThh:mm:ss').parse(date);
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
-  static String formatToTimeChat(String date) {
-    // Parse the input date string into a DateTime object
-    DateTime dateTime = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'").parse(date, true).toLocal();
-    return DateFormat('hh:mm a', injector<ServicesLocator>().languageCode).format(dateTime);
-  }
+
   static String formatChatDate(String dateChat){
     try {
       final date = DateTime.parse(dateChat);
@@ -80,14 +76,12 @@ class DateFormatter {
   static String formatOnlyDay(DateTime date, String language) {
     return DateFormat('EEEE', language).format(date);
   }
-  static String formatDayMonthDate(String dateString) {
-    DateTime date = DateTime.parse(dateString);
-    DateFormat formatter = DateFormat('dd MMM',injector<ServicesLocator>().languageCode);
-    return formatter.format(date);
-  }
-  static String formatTimeHM(String dateTimeString) {
+
+  static String formatTimeHM(String dateTimeString,context) {
     DateTime dateTime = DateTime.parse(dateTimeString);
-    DateFormat formatter = DateFormat('hh:mm a');
+    Locale locale = Localizations.localeOf(context); // Get the Locale from the context
+    print('formatTimeHM dateTimeString: ${locale.languageCode}');
+    DateFormat formatter = DateFormat('hh:mm a',locale.toString());
     return formatter.format(dateTime);
   }
   static String formatTimeHM22(String dateTimeString) {
@@ -98,6 +92,16 @@ class DateFormatter {
   static String formatTimeHMS(String timeString) {
     DateTime dateTime = DateTime.parse(timeString);
     DateFormat formatter = DateFormat('HH:mm:ss');
+    return formatter.format(dateTime);
+  }
+
+  static String formatTimeHMS22(String timeString,context) {
+
+    DateTime dateTime = DateTime.parse("1970-01-01 $timeString"); // إضافة تاريخ افتراضي
+    Locale locale = Localizations.localeOf(context); // Get the Locale from the context
+
+    // تنسيق الوقت إلى 12 ساعة
+    DateFormat formatter = DateFormat('h:mm a',locale.toString());
     return formatter.format(dateTime);
   }
   static String formatDateYMD(String dateString) {

@@ -19,7 +19,7 @@ class AuthWidget extends StatefulWidget {
 }
 
 class _AuthWidgetState extends State<AuthWidget> {
-  int height =500;
+  int height =600;
   @override
   Widget build(BuildContext context) {
     return
@@ -48,7 +48,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                             });
                           }else{
                             setState(() {
-                              height=500;
+                              height=600;
 
                             });
                           }

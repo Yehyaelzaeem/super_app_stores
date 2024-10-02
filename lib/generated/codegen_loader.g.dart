@@ -1,390 +1,188 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-// ignore_for_file: prefer_single_quotes, avoid_renaming_method_parameters
+abstract class  LocaleKeys {
+  static const en = 'en';
+  static const ar = 'ar';
+  static const change_language = 'change_language';
+  static const save = 'save';
+  static const profile = 'profile';
+  static const about_us = 'about_us';
+  static const notification = 'notification';
+  static const my_orders = 'my_orders';
+  static const addresses = 'addresses';
+  static const privacy_policy = 'privacy_policy';
+  static const termsAndConditions = 'termsAndConditions';
+  static const language = 'language';
+  static const delete_account = 'delete_account';
+  static const logout = 'logout';
+  static const home = 'home';
+  static const favorite = 'favorite';
+  static const orders = 'orders';
+  static const accept_orders = 'accept_orders';
+  static const cart = 'cart';
+  static const more = 'more';
+  static const password = 'password';
+  static const this_field_required = 'this_field_required';
+  static const sign_up = 'sign_up';
+  static const Log_in_first = 'Log_in_first';
+  static const app_name = 'app_name';
+  static const good_morning = 'good_morning';
+  static const offer_meals = 'offer_meals';
+  static const not_found_data = 'not_found_data';
+  static const see_all = 'see_all';
+  static const see_more = 'see_more';
+  static const from = 'from';
+  static const to = 'to';
+  static const add_cart = 'add_cart';
+  static const order_no = 'order_no';
+  static const delivered = 'delivered';
+  static const shipping_address = 'shipping_address';
+  static const phone_number = 'phone_number';
+  static const ordered = 'ordered';
+  static const processing = 'processing';
+  static const shipped = 'shipped';
+  static const payment_method = 'payment_method';
+  static const order_summary = 'order_summary';
+  static const subtotal = 'subtotal';
+  static const discount = 'discount';
+  static const shipping = 'shipping';
+  static const total = 'total';
+  static const shopping_cart = 'shopping_cart';
+  static const checkout = 'checkout';
+  static const total_amount = 'total_amount';
+  static const search = 'search';
+  static const the_search = 'the_search';
+  static const description = 'description';
+  static const start_search = 'start_search';
+  static const extra_components = 'extra_components';
+  static const choose_sandwich = 'choose_sandwich';
+  static const address = 'address';
+  static const delivery = 'delivery';
+  static const payment = 'payment';
+  static const confirm = 'confirm';
+  static const mes_address = 'mes_address';
+  static const my_home_address = 'my_home_address';
+  static const work_address = 'work_address';
+  static const other_address = 'other_address';
+  static const add = 'add';
+  static const continue2 = 'continue2';
+  static const free = 'free';
+  static const in_cart = 'in_cart';
+  static const standard = 'standard';
+  static const order_now = 'order_now';
+  static const mesDelivery = 'mesDelivery';
+  static const credit_card = 'credit_card';
+  static const add_method = 'add_method';
+  static const pay_now = 'pay_now';
+  static const my_home = 'my_home';
+  static const work = 'work';
+  static const telephone_number = 'telephone_number';
+  static const telephone_number_mes = 'telephone_number_mes';
+  static const address_mes = 'address_mes';
+  static const log_out = 'log_out';
+  static const log_out_mes = 'log_out_mes';
+  static const delete_account_mes = 'delete_account_mes';
+  static const no = 'no';
+  static const yes = 'yes';
+  static const on_language = 'on_language';
+  static const getStarted = 'getStarted';
+  static const welcome_mes = 'welcome_mes';
+  static const easyTrackOrder = 'easyTrackOrder';
+  static const easyTrackOrderDesc = 'easyTrackOrderDesc';
+  static const onlineDelivery = 'onlineDelivery';
+  static const onlineDeliveryDesc = 'onlineDeliveryDesc';
+  static const onlineFoodDelivery = 'onlineFoodDelivery';
+  static const onlineFoodDeliveryDesc = 'onlineFoodDeliveryDesc';
+  static const sign_in = 'sign_in';
+  static const log_guest = 'log_guest';
+  static const welcome_back = 'welcome_back';
+  static const sign_continue = 'sign_continue';
+  static const have_account = 'have_account';
+  static const enter_phone = 'enter_phone';
+  static const phone = 'phone';
+  static const remember_me = 'remember_me';
+  static const forget_password = 'forget_password';
+  static const confirm_number = 'confirm_number';
+  static const enter_code = 'enter_code';
+  static const done = 'done';
+  static const name1_empty = 'name1_empty';
+  static const first_name = 'first_name';
+  static const last_name = 'last_name';
+  static const last_name_empty = 'last_name_empty';
+  static const mobile_phone_empty = 'mobile_phone_empty';
+  static const mobile_phone = 'mobile_phone';
+  static const creating_account_agree = 'creating_account_agree';
+  static const already_have_account = 'already_have_account';
+  static const lyd = 'lyd';
+  static const another_cart = 'another_cart';
+  static const cart_empty = 'cart_empty';
+  static const my_account = 'my_account';
+  static const profits = 'profits';
+  static const restaurant_categories = 'restaurant_categories';
+  static const meals = 'meals';
+  static const restaurant = 'restaurant';
+  static const add_meal = 'add_meal';
+  static const meal_name = 'meal_name';
+  static const price = 'price';
+  static const category = 'category';
+  static const addition = 'addition';
+  static const addition_arabic = 'addition_arabic';
+  static const extra_price = 'extra_price';
+  static const choose_category = 'choose_category';
+  static const choose_image = 'choose_image';
+  static const update = 'update';
+  static const meal_update = 'meal_update';
+  static const meal_details = 'meal_details';
+  static const order_details = 'order_details';
+  static const additions = 'additions';
+  static const edit_profile = 'edit_profile';
+  static const elements = 'elements';
+  static const my_files = 'my_files';
+  static const bank_details = 'bank_details';
+  static const branches = 'branches';
+  static const messages = 'messages';
+  static const setting = 'setting';
+  static const contact_us = 'contact_us';
+  static const commercial_register_file = 'commercial_register_file';
+  static const commercial_register_file_update = 'commercial_register_file_update';
+  static const tax_card = 'tax_card';
+  static const tax_card_update = 'tax_card_update';
+  static const banner_image = 'banner_image';
+  static const banner_image_update = 'banner_image_update';
+  static const my_files_edit = 'my_files_edit';
+  static const bank_holder_name = 'bank_holder_name';
+  static const required_field = 'required_field';
+  static const bank_name = 'bank_name';
+  static const account_number = 'account_number';
+  static const branch_name = 'branch_name';
+  static const iban = 'iban';
+  static const not_found_branch = 'not_found_branch';
+  static const add_branch = 'add_branch';
+  static const restaurant_name = 'restaurant_name';
+  static const restaurant_name_ar = 'restaurant_name_ar';
+  static const email = 'email';
+  static const location = 'location';
+  static const delivery_time = 'delivery_time';
+  static const region = 'region';
+  static const on_map = 'on_map';
+  static const branch_edit = 'branch_edit';
+  static const register = 'register';
+  static const log_in = 'log_in';
+  static const enter_first_name = 'enter_first_name';
+  static const enter_last_name = 'enter_last_name';
+  static const log = 'log';
+  static const next = 'next';
+  static const sure_number = 'sure_number';
+  static const otp_mes = 'otp_mes';
+  static const sure = 'sure';
+  static const complete_data = 'complete_data';
+  static const restaurant_type = 'restaurant_type';
+  static const add_image = 'add_image';
+  static const agree = 'agree';
+  static const reject = 'reject';
+  static const product_name = 'product_name';
+  static const this_field = 'this_field';
+  static const required = 'required';
+  static const update_data = 'update_data';
 
-import 'dart:ui';
-
-import 'package:easy_localization/easy_localization.dart' show AssetLoader;
-
-class CodegenLoader extends AssetLoader{
-  const CodegenLoader();
-
-  @override
-  Future<Map<String, dynamic>?> load(String path, Locale locale) {
-    return Future.value(mapLocales[locale.toString()]);
-  }
-
-  static const Map<String,dynamic> ar = {
-  "en": "English",
-  "ar": "العربية",
-  "change_language": "تغيير اللغة",
-  "save": "حفظ",
-  "profile": "الملف الشخصي",
-  "about_us": "عن الشركة",
-  "notification": "الإشعارات",
-  "my_orders": "طلباتي",
-  "addresses": "العناوين",
-  "privacy_policy": "سياسة الخصوصية",
-  "termsAndConditions": "الشروط والأحكام",
-  "language": "اللغة",
-  "delete_account": "حذف الحساب",
-  "logout": "تسجيل الخروج",
-  "home": "الرئيسية",
-  "favorite": "المفضلة",
-  "orders": "الطلبات",
-  "accept_orders": "الطلبات المقبولة",
-  "cart": "العربة",
-  "more": "المزيد",
-  "password": "الرقم السري",
-  "this_field_required": "هذا الحقل مطلوب",
-  "sign_up": "التسجيل",
-  "Log_in_first": "تسجيل الدخول أولاً",
-  "app_name": "كُوجِينَا",
-  "good_morning": "صباح الخير",
-  "offer_meals": "عروض الوجبات",
-  "not_found_data": "لا توجد بيانات الآن",
-  "see_all": "عرض الكل",
-  "see_more": "عرض المزيد",
-  "from": "من",
-  "to": "إلى",
-  "add_cart": "إضافة إلى السلة",
-  "order_no": "رقم الطلب",
-  "delivered": "تم التوصيل",
-  "shipping_address": "عنوان الشحن",
-  "phone_number": "رقم الهاتف",
-  "ordered": "تم الطلب",
-  "processing": "قيد المعالجة",
-  "shipped": "تم الشحن",
-  "payment_method": "طريقة الدفع",
-  "order_summary": "ملخص الطلب",
-  "subtotal": "المجموع الفرعي",
-  "discount": "الخصم",
-  "shipping": "تكلفة الشحن",
-  "total": "الإجمالي",
-  "shopping_cart": "عربة التسوق",
-  "checkout": "الدفع",
-  "total_amount": "المبلغ الإجمالي",
-  "search": "بحث",
-  "the_search": "البحث",
-  "description": "الوصف",
-  "start_search": "ماذا ترغب في البحث عنه ؟",
-  "extra_components": "المكونات الإضافية",
-  "choose_sandwich": "اختر الساندويتش الأول",
-  "address": "العنوان",
-  "delivery": "التوصيل",
-  "payment": "الدفع",
-  "confirm": "تأكيد",
-  "mes_address": "من فضلك، أدخل عنوانك",
-  "my_home_address": "منزلي #1",
-  "work_address": "العمل #2",
-  "other_address": "آخر #3",
-  "add": "إضافة",
-  "continue2": "متابعة",
-  "free": "مجاناً",
-  "in_cart": "في سلة التسوق الخاصة بك",
-  "standard": "قياسي",
-  "order_now": "اطلب الآن",
-  "mesDelivery": "الشحن المجاني للطلبات التي تزيد عن 19 دولار + إرجاع وتبديل مجاني",
-  "credit_card": "بطاقة ائتمان/خصم/صراف آلي",
-  "add_method": "إضافة طريقة الدفع",
-  "pay_now": "ادفع الآن",
-  "my_home": "منزلي",
-  "work": "العمل",
-  "other": "آخر",
-  "telephone_number": "رقم الهاتف",
-  "telephone_number_mes": "رقم الهاتف فارغ",
-  "address_mes": "العنوان فارغ",
-  "log_out": "تسجيل الخروج",
-  "log_out_mes": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
-  "delete_account_mes": "هل أنت متأكد أنك تريد حذف الحساب؟",
-  "no": "لا",
-  "yes": "نعم",
-  "on_language": "English",
-  "getStarted": "ابدأ",
-  "welcome_mes": "مَرْحَبًا بِكُمْ فِي كوجينا، حَيْثُ نَقُدِّمُ لَكُمْ تَجْرِبَةَ طَعَامٍ إِسْتِثْنَائِيَّةً عَبَرَ أَطْيَافِ مُتَعَدِّدَةٍ مِنَ المَأْكُولَاتِ الشَّهِيَّةِ وَالمُخْتَلِفَة",
-  "easyTrackOrder": "تتبع الطلب بسهولة",
-  "easyTrackOrderDesc": "تتبع طلبك ببساطة وسهولة، لتستمتع بالطلبات بلا قلق، مع إمكانية معرفة حالة الطلب في أي وقت ومن أي مكان.",
-  "onlineDelivery": "استمتع بطلبك",
-  "onlineDeliveryDesc": "استمتع بسهولة الطلب عبر تطبيقنا الخاص، حيث يمكنك اختيار وطلب طعامك المفضل من قائمة متنوعة، وسيصلك بسرعة مع الاحتفاظ بالجودة والطعم اللذيذ.",
-  "onlineFoodDelivery": "توصيل الطعام عبر الإنترنت",
-  "onlineFoodDeliveryDesc": "احصل على طعامك ببساطة ويسر من خلال خدمة توصيل الطعام عبر الإنترنت، مع تجربة مريحة وموثوقة تتيح لك اختيار وجبتك المفضلة واستلامها في الوقت المحدد، دون عناء أو تأخير.",
-  "sign_in": "تسجيل الدخول",
-  "log_guest": "تسجيل الدخول كضيف",
-  "welcome_back": "مرحبًا مرة أخرى!",
-  "sign_continue": "تسجيل الدخول للمتابعة",
-  "have_account": "هل لديك حساب؟",
-  "enter_phone": "أدخل رقم هاتفك",
-  "phone": "الهاتف",
-  "remember_me": "تذكرني",
-  "forget_password": "نسيت كلمة المرور؟",
-  "confirm_number": "تأكيد الرقم",
-  "enter_code": "أدخل رمز OTP المُرسل إليك",
-  "done": "تم",
-  "name1_empty": "اسم الأول فارغ",
-  "first_name": "الاسم الأول",
-  "last_name": "اسم العائلة",
-  "last_name_empty": "اسم العائلة فارغ",
-  "mobile_phone_empty": "رقم الهاتف المحمول فارغ",
-  "mobile_phone": "الهاتف المحمول",
-  "creating_account_agree": "بإنشاء حسابك، أنت توافق على",
-  "already_have_account": "هل لديك حساب بالفعل؟",
-  "lyd": "دينار",
-  "another_cart": "لديك عربة تسوق أخرى",
-  "cart_empty": "السلة فارغة",
-  "my_account": "حسابي",
-  "profits": "الأرباح",
-  "restaurant_categories": "اقسام المطعم",
-  "meals": "الوجبات",
-  "restaurant": "المطعم",
-  "add_meal": "أضف وجبة",
-  "meal_name": "اسم الوجبة",
-  "price": "السعر",
-  "category": "القسم",
-  "addition": "الاضافة",
-  "addition_arabic": "الاضافة بالعربي",
-  "extra_price": "سعر الاضافة",
-  "choose_category": "اختر القسم",
-  "choose_image": "اختر صورة للمنتج",
-  "update": "تحديث",
-  "meal_update": "تحديث بيانات الوجبة",
-  "meal_details": "تفاصيل الوجبة",
-  "order_details": "تفاصيل الطلب",
-  "additions": "الاضافات",
-  "edit_profile": "تعديل الصفحة الشخصية",
-  "elements": "العناصر",
-  "my_files": "ملفاتى",
-  "bank_details": "تفاصيل البنك",
-  "branches": "الفروع",
-  "messages": "الرسائل",
-  "setting": "الاعدادات",
-  "contact_us": "تواصل معنا",
-  "commercial_register_file": "ملف السجل التجاري",
-  "commercial_register_file_update": "قم بتحديث ملف السجل التجاري الخاص بك",
-  "tax_card": "البطاقة الضريبية",
-  "tax_card_update": "قم بتحديث  بطاقتك الضريبية",
-  "banner_image": "صورة البانر",
-  "banner_image_update": "قم بتحديث صورة البانر",
-  "my_files_edit": "تعديل ملفاتي",
-  "bank_holder_name": "اسم صاحب الحساب المصرقي",
-  "required_field": "هذا الحقل مطلوب",
-  "bank_name": "اسم البنك",
-  "account_number": "رقم الحساب",
-  "branch_name": "اسم الفرع",
-  "iban": "ايبان",
-  "not_found_branch": "لم يتم العثور على أي فروع حاليا",
-  "add_branch": "اضافة فرع",
-  "restaurant_name": "اسم المطعم",
-  "restaurant_name_ar": "اسم المطعم بالعربي",
-  "email": "البريد الالكتروني",
-  "location": "الموقع",
-  "delivery_time": "وقت التوصيل",
-  "region": "المنطقة",
-  "on_map": "علي الخريطة",
-  "branch_edit": "تعديل الفرع",
-  "register": "انشاء حساب",
-  "log_in": "تسجيل دخول",
-  "enter_first_name": "ادخل الاسم الاول",
-  "enter_last_name": "ادخل الاسم الاخير",
-  "log": "تسجيل",
-  "next": "التالي",
-  "sure_number": "تاكيد الرقم",
-  "otp_mes": "ادخل كود OTP المرسل لك",
-  "sure": "تاكيد",
-  "complete_data": "استكمال بيانات المطعم",
-  "restaurant_type": "نوع المطعم",
-  "add_image": "اضف صورة",
-  "agree": "قبول",
-  "reject": "رفض",
-  "product_name": "اسم المنتج",
-  "this_field": "هذا الحقل",
-  "required": "مطلوب",
-  "update_data": "تحديث بيانات المطعم"
-};
-static const Map<String,dynamic> en = {
-  "en": "English",
-  "ar": "العربية",
-  "change_language": "Change Language",
-  "save": "Save",
-  "profile": "Profile",
-  "about_us": "About us",
-  "notification": "Notification",
-  "my_orders": "My Orders",
-  "addresses": "Addresses",
-  "privacy_policy": "Privacy Policy",
-  "termsAndConditions": "Terms and Conditions",
-  "language": "Language",
-  "delete_account": "Delete Account",
-  "logout": "Log Out",
-  "order_details": "Order Details",
-  "home": "Home",
-  "agree": "Agree",
-  "reject": "Reject",
-  "password": "Password",
-  "thisFieldRequired": "This Field is Required",
-  "favorite": "Favorite",
-  "orders": "Orders",
-  "cart": "Cart",
-  "more": "More",
-  "sign_up": "Sign Up",
-  "Log_in_first": "Log in first",
-  "app_name": "Cocina",
-  "good_morning": "Good Morning",
-  "offer_meals": "Offer Meals",
-  "not_found_data": "Not Found any Data Now",
-  "see_all": "See All",
-  "see_more": "See More",
-  "from": "From",
-  "to": "To",
-  "add_cart": "Add to Cart",
-  "order_no": "Order No",
-  "delivered": "Delivered",
-  "shipping_address": "Shipping Address",
-  "phone_number": "Phone Number",
-  "ordered": "Ordered",
-  "processing": "Processing",
-  "shipped": "Shipped",
-  "payment_method": "Payment Method",
-  "order_summary": "Order Summary",
-  "subtotal": "subtotal",
-  "discount": "discount",
-  "shipping": "shipping",
-  "total": "Total",
-  "shopping_cart": "Shopping cart",
-  "checkout": "Checkout",
-  "total_amount": "Total Amount",
-  "search": "Search",
-  "description": "Description",
-  "extra_components": "Extra components",
-  "choose_sandwich": "Choose the first sandwich",
-  "address": "Address",
-  "delivery": "Delivery",
-  "payment": "Payment",
-  "confirm": "Confirm",
-  "mes_address": "Please sire, enter your address",
-  "my_home_address": "MyHome #1",
-  "work_address": "Work #2",
-  "other_address": "other #3",
-  "add": "Add",
-  "continue2": "Continue",
-  "free": "Free",
-  "in_cart": "In your cart",
-  "standard": "Standard",
-  "order_now": "Order now",
-  "credit_card": "Credit/Debit/ATM Card",
-  "add_method": "Add Payment Method",
-  "pay_now": "Pay Now",
-  "mesDelivery": "Free Shipping over \\$19 +free return \\n and exchange",
-  "my_home": "MyHome",
-  "work": "Work",
-  "other": "Other",
-  "telephone_number": "Telephone number",
-  "telephone_number_mes": "The Telephone number is empty",
-  "address_mes": "The Address is empty",
-  "log_out": "Log Out",
-  "log_out_mes": "Are you sure you want to Log out?",
-  "delete_account_mes": "Are you sure you want to Delete Account?",
-  "no": "NO",
-  "yes": "Yes",
-  "on_language": "عربي",
-  "getStarted": "GetStarted",
-  "welcome_mes": "Welcome to CUCINA, where we offer you an exceptional dining experience through a variety of delicious and diverse cuisines.",
-  "easyTrackOrder": "Easy Track Order",
-  "easyTrackOrderDesc": "Track your order simply and easily, to enjoy hassle-free orders, with the ability to know the status of your order at any time and from anywhere.",
-  "onlineDelivery": "Enjoy your order",
-  "onlineDeliveryDesc": "Enjoy easy ordering through our app, where you can choose and order your favorite food from a diverse menu, and it will arrive quickly while maintaining quality and delicious taste.",
-  "onlineFoodDelivery": "Online Food Delivery",
-  "onlineFoodDeliveryDesc": "Get your food simply and easily through online food delivery service, with a convenient and reliable experience that allows you to choose your favorite meal and receive it on time, without hassle or delay.",
-  "sign_in": "Sign In",
-  "log_guest": "Log in as guest",
-  "welcome_back": "Welcome Back!",
-  "sign_continue": "Sign in to continue",
-  "have_account": "Already have not an account?",
-  "enter_phone": "Enter Your phone",
-  "phone": "Phone",
-  "remember_me": "Remember me",
-  "forget_password": "Forget Password?",
-  "confirm_number": "Confirm the number",
-  "enter_code": "Enter the OTP code sent to you",
-  "done": "Done",
-  "name1_empty": "The first name is empty",
-  "first_name": "First Name",
-  "last_name": "Last Name",
-  "last_name_empty": "The last name is empty",
-  "mobile_phone_empty": "The mobile phone is empty",
-  "mobile_phone": "Mobile Phone",
-  "creating_account_agree": "By creating an account you agree our",
-  "already_have_account": "Already have an account?",
-  "lyd": "LYD",
-  "another_cart": "You Have Another Shopping Cart",
-  "cart_empty": "Cart is Empty",
-  "the_search": "The Search",
-  "start_search": "What do you want to search for ?",
-  "my_account": "My Account",
-  "profits": "Profits",
-  "restaurant_categories": "Restaurant Categories",
-  "meals": "Meals",
-  "restaurant": "Restaurant",
-  "add_meal": "Add Meal",
-  "meal_name": "Meal Name",
-  "price": "Price",
-  "category": "Category",
-  "addition": "Addition",
-  "addition_arabic": "Addition in Arabic",
-  "extra_price": "Extra Price",
-  "choose_category": "Choose Category",
-  "choose_image": "Choose Image",
-  "update": "Update",
-  "meal_update": "Update Meal Data",
-  "meal_details": "Meal Details",
-  "additions": "Additions",
-  "edit_profile": "Edit Profile",
-  "elements": "Elements",
-  "my_files": "My Files",
-  "bank_details": "Bank Details",
-  "branches": "Branches",
-  "messages": "Messages",
-  "setting": "Settings",
-  "contact_us": "Contact Us",
-  "commercial_register_file": "Commercial Register File",
-  "commercial_register_file_update": "Update Your Commercial Register File",
-  "tax_card": "Tax Card",
-  "tax_card_update": "Update Your Tax Card",
-  "banner_image": "Banner Image",
-  "banner_image_update": "Update Banner Image",
-  "my_files_edit": "Edit My Files",
-  "bank_holder_name": "Bank Account Holder Name",
-  "required_field": "This field is required",
-  "bank_name": "Bank Name",
-  "account_name": "Account Number",
-  "branch_name": "Branch Name",
-  "iban": "IBAN",
-  "not_found_branch": "No branches found at the moment",
-  "add_branch": "Add Branch",
-  "restaurant_name": "Restaurant Name",
-  "email": "Email",
-  "location": "Location",
-  "delivery_time": "Delivery Time",
-  "region": "Region",
-  "on_map": "On Map",
-  "branch_edit": "Edit Branch",
-  "register": "Create Account",
-  "log_in": "Log In",
-  "enter_first_name": "Enter First Name",
-  "enter_last_name": "Enter Last Name",
-  "log": "Register",
-  "next": "Next",
-  "sure_number": "Confirm Number",
-  "otp_mes": "Enter the OTP code sent to you",
-  "sure": "Confirm",
-  "complete_data": "Complete Restaurant Data",
-  "update_data": "Update Restaurant Data",
-  "restaurant_type": "Restaurant Type",
-  "accept_orders": "Accepted Orders",
-  "add_image": "Add Image",
-  "product_name": "Product Name",
-  "this_field": "this field",
-  "required": "required",
-  "restaurant_name_ar": "Restaurant Name in Arabic"
-};
-static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

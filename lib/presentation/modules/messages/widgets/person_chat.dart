@@ -51,7 +51,7 @@ class PersonChatWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const CircleAvatar(
+                     CircleAvatar(
                       radius: 15,
                       backgroundColor:backBlue2,
                       child: Text('6',style: TextStyle(color: Colors.white),

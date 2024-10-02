@@ -6,6 +6,7 @@ import 'package:cogina_restaurants/data/repository/home_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/local_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/orders_repository_imp.dart';
 import 'package:cogina_restaurants/data/repository/profile_repository_imp.dart';
+import 'package:cogina_restaurants/data/repository/store_time_repository_imp.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -18,6 +19,7 @@ import '../domain/repository/home_repo.dart';
 import '../domain/repository/local_repo.dart';
 import '../domain/repository/orders_repo.dart';
 import '../domain/repository/profile_repo.dart';
+import '../domain/repository/store_time_repo.dart';
 import 'app_urls/app_url.dart';
 import 'datasource/local/cache_consumer.dart';
 import 'datasource/remote/dio/dio_client.dart';
@@ -41,6 +43,9 @@ Future<void> init() async {
   getIt.registerLazySingleton<AccountRepository>(() => AccountRepositoryImp(dioClient: getIt()));
 /// Order
   getIt.registerLazySingleton<OrdersRepository>(() => OrdersRepositoryImp(dioClient: getIt()));
+
+  ///StoreTime
+  getIt.registerLazySingleton<StoreTimeRepository>(() => StoreTimeRepositoryImp(dioClient: getIt()));
 
 
 

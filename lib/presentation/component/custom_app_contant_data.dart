@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/helpers/spacing.dart';
 import '../../core/resources/color.dart';
 import '../../core/resources/styles.dart';
+import 'package:html/parser.dart';
 
 class CustomAppContData extends StatelessWidget {
   const CustomAppContData({super.key, required this.image, required this.title, required this.des});
@@ -36,13 +37,15 @@ class CustomAppContData extends StatelessWidget {
                 color: black
             ),),
           verticalSpace(16),
+
           Text(
-            des,
+            parse(des).documentElement!.text,
             style: TextStyles.font15CustomGray400Weight.copyWith(
                 color: customGray,
-              fontWeight: FontWeight.w700
+                fontWeight: FontWeight.w700
             ),
-          textAlign: TextAlign.start,),
+            textAlign: TextAlign.start,),
+
         ],
       ),
     );

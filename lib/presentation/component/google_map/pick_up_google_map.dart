@@ -1,32 +1,41 @@
 import 'dart:async';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../core/resources/decoration.dart';
+import '../../../domain/provider/local_auth_provider_cubit.dart';
+import '../../../domain/provider/local_auth_provider_state.dart';
 import '../../modules/branches/branch_cubit.dart';
 import '../custom_elevated_button.dart';
 import '../custom_text_field.dart';
 import 'address_location_model.dart';
 
-class CustomGoogleMapScreen extends StatefulWidget {
-  final double lat;
-  final double long;
-  const CustomGoogleMapScreen({super.key, required this.lat, required this.long});
+class PickUpGoogleMapScreen extends StatefulWidget {
+  final LatLng? latLng;
+  const PickUpGoogleMapScreen({super.key, this.latLng});
 
   @override
-  State<CustomGoogleMapScreen> createState() => _MapScreenState();
+  State<PickUpGoogleMapScreen> createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<CustomGoogleMapScreen> {
+class _MapScreenState extends State<PickUpGoogleMapScreen> {
   late GoogleMapController mapController;
-  LatLng? markerPosition; // Initial position (San Francisco)
+  LatLng? markerPosition; // Initial po
+  // sition (San Francisco)
   @override
   void initState() {
-    markerPosition =LatLng(widget.lat, widget.long);
+    LatLng? latLng=context.read<LocalAuthCubit>().state.latLng;
+    if(latLng!=null){
+      markerPosition =latLng;
+    }else{
+      markerPosition = widget.latLng;
+    }
     super.initState();
   }
+
   TextEditingController searchController = TextEditingController();
    var getLat='';
    var getLong='';
@@ -39,6 +48,7 @@ class _MapScreenState extends State<CustomGoogleMapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getAddressPosition(markerPosition??LatLng(0,0));
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Map',
@@ -100,32 +110,28 @@ class _MapScreenState extends State<CustomGoogleMapScreen> {
               decoration: Decorations.backGroundDecorationButton().copyWith(
                   borderRadius: BorderRadius.circular(40)
               ),
-              child: CustomElevatedButton(
-                  backgroundColor: Colors.transparent,
-                  onTap: (){
-                    if(getCountry.isEmpty){
-                      LatLng latLng=LatLng(widget.lat, widget.long);
-                      setState(() {
-                        getAddressPosition(latLng);
-                      });
-                    }
-                    AddressLocationModel addressModel =AddressLocationModel(
-                      lat: getLat.isEmpty?widget.lat.toString():getLat ,
-                      long: getLong.isEmpty?widget.long.toString():getLong,
-                      country: getCountry.isEmpty?'':getCountry,
-                      bigCity: getBigCity.isEmpty?'':getBigCity,
-                      city: getCity.isEmpty?'':getCity,
-                      street: getStreet.isEmpty?'':getStreet,
-                      locality: getLocality.isEmpty?'':getLocality,
-                    );
-                    if(getCountry.isNotEmpty){
-                      BranchCubit.get().addressLocationModel =addressModel;
-                      BranchCubit.get().getLocationAddress(context);
-                    }
-
-                  },
-                  fontSize: 25,
-                  buttonText: 'Save'),
+              child:
+             BlocBuilder<LocalAuthCubit, LocalAuthState>(
+                builder: (context, state) {
+                  return  CustomElevatedButton(
+                      backgroundColor: Colors.transparent,
+                      onTap: (){
+                        AddressLocationModel addressModel =AddressLocationModel(
+                          lat: getLat.isEmpty?markerPosition?.latitude.toString():getLat ,
+                          long: getLong.isEmpty?markerPosition?.longitude.toString():getLong,
+                          country: getCountry.isEmpty?'':getCountry,
+                          bigCity: getBigCity.isEmpty?'':getBigCity,
+                          city: getCity.isEmpty?'':getCity,
+                          street: getStreet.isEmpty?'':getStreet,
+                          locality: getLocality.isEmpty?'':getLocality,
+                        );
+                        context.read<LocalAuthCubit>().pickUpAddress(addressModel).then((value) {
+                          Navigator.pop(context,addressModel);
+                        });
+                      },
+                      fontSize: 25,
+                      buttonText: 'Save');
+                })
             ),
           ),
 

@@ -13,6 +13,10 @@ abstract class  LocaleKeys {
   static const privacy_policy = 'privacy_policy';
   static const termsAndConditions = 'termsAndConditions';
   static const language = 'language';
+  static const orderTime = 'orderTime';
+  static const deliveryTime = 'deliveryTime';
+  static const deliveryPrice = 'deliveryPrice';
+
   static const delete_account = 'delete_account';
   static const logout = 'logout';
   static const home = 'home';
@@ -113,7 +117,7 @@ abstract class  LocaleKeys {
   static const mobile_phone = 'mobile_phone';
   static const creating_account_agree = 'creating_account_agree';
   static const already_have_account = 'already_have_account';
-  static const lyd = 'lyd';
+  static const currency = 'currency';
   static const another_cart = 'another_cart';
   static const cart_empty = 'cart_empty';
   static const my_account = 'my_account';

@@ -13,25 +13,24 @@ import '../../../../../component/custom_not_found_data.dart';
 import '../../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../component/error_widget.dart';
 
-class AcceptedOrdersWidget extends StatefulWidget {
-  const AcceptedOrdersWidget({super.key});
+class CompletedOrdersWidget extends StatefulWidget {
+  const CompletedOrdersWidget({super.key});
 
   @override
-  State<AcceptedOrdersWidget> createState() => _State();
+  State<CompletedOrdersWidget> createState() => _State();
 }
 
-class _State extends State<AcceptedOrdersWidget> {
+class _State extends State<CompletedOrdersWidget> {
   OrdersCubit cubit = OrdersCubit.get();
   ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    print('initState');
-    cubit.getAcceptedOrders(status: 'restaurant_accepted',);
+    cubit.getCompletedOrders(status: 'restaurant_delivered_driver',);
     super.initState();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !cubit.isLoading) {
-        cubit.getAcceptedOrders(status: 'restaurant_accepted');
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !cubit.isPaginationCompletedLoading) {
+        cubit.getCompletedOrders(status: 'restaurant_delivered_driver');
       }
     });
   }
@@ -47,20 +46,23 @@ class _State extends State<AcceptedOrdersWidget> {
       width: double.infinity,
       child: BlocBuilder<OrdersCubit, OrdersState>(
         builder: (context, state) {
-          if (state.acceptOrderState == RequestState.error) {
+          if (state.completeState == RequestState.error) {
             return ErrorNetworkWidget(onTap: () {
-              cubit.getAcceptedOrders(status: 'restaurant_accepted');
+              cubit.getCompletedOrders(status: 'restaurant_delivered_driver');
             });
           }
-          else if (state.acceptOrderState == RequestState.loaded) {
-            if (state.acceptOrdersList.isNotEmpty) {
+          else if (state.completeState == RequestState.loading) {
+            return const CustomLoadingWidget();
+          }
+          else {
+            if (cubit.completedOrdersList.isNotEmpty) {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
                   controller: _scrollController,
-                  itemCount: state.acceptOrdersList.length + 1,
+                  itemCount: cubit.completedOrdersList.length + 1,
                   itemBuilder: (context, index) {
-                    if (index == state.acceptOrdersList.length) {
+                    if (index == cubit.completedOrdersList.length) {
                       return
                         //   cubit.isPaginationLoading
                         //     ? Padding(
@@ -75,7 +77,7 @@ class _State extends State<AcceptedOrdersWidget> {
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 2.w),
                         child: OrderItem(
-                          ordersModelData: state.acceptOrdersList[index],
+                          ordersModelData: cubit.completedOrdersList[index],
                         ),
                       );
 
@@ -93,9 +95,7 @@ class _State extends State<AcceptedOrdersWidget> {
                 ),
               );
             }
-          }
-          else {
-            return const CustomLoadingWidget();
+
           }
         },
       ),

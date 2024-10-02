@@ -53,7 +53,7 @@ class Decorations{
 
   static BoxDecoration backGroundDecorationCircleBorderRadius()
   {
-    return  const BoxDecoration(
+    return   BoxDecoration(
       gradient: LinearGradient(
         begin:  Alignment(0, 1),
         end: Alignment(0,-1.0),
@@ -63,7 +63,7 @@ class Decorations{
 }
   static BoxDecoration backGroundDecorationButton()
   {
-    return  const BoxDecoration(
+    return   BoxDecoration(
       gradient: LinearGradient(
         begin:  Alignment.centerRight,
         end: Alignment.centerLeft,

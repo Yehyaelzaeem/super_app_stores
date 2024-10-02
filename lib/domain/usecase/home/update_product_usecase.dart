@@ -12,6 +12,8 @@ class UpdateProductUseCase implements BaseUseCase<dynamic>{
   final HomeRepository repository;
   UpdateProductUseCase({required this.repository});
   Future<ResponseModel> call({required AddProductBody addProductBody,required int id}) async {
+
+
     return BaseUseCaseCall.onGetData<dynamic>( await repository.updateProduct(addProductBody: addProductBody, id: id), onConvert,tag: 'UpdateProductUseCase');
   }
 

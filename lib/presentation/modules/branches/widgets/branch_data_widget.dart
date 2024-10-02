@@ -117,6 +117,14 @@ class BranchDataWidget extends StatelessWidget {
                                 lat: cubit.lat!,
                                 long: cubit.long!,
                               )));
+                        }else{
+                          cubit.getLocation(context).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>
+                                CustomGoogleMapScreen(
+                                  lat: cubit.lat!,
+                                  long: cubit.long!,
+                                )));
+                          });
                         }
                       },
                       child: CustomTextField(

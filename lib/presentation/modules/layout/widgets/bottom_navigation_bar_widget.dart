@@ -52,7 +52,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
         ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (Rect bounds) {
-            return const LinearGradient(
+            return  LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [backRed1, backBlue2],

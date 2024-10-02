@@ -35,7 +35,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
     HomeCubit cubit =HomeCubit.get(context);
-
     return Scaffold(
       backgroundColor:  backGroundGray,
       appBar:   CustomAppBar(
@@ -52,6 +51,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
               children: [
                  ProductTitleField(title: LocaleKeys.mealName.tr(),),
                  ProductTextField(controller: cubit.productName,),
+                 ProductTitleField(title: LocaleKeys.mealNameAr.tr(),),
+                 ProductTextField(controller: cubit.productNameAr,),
                  ProductTitleField(title: LocaleKeys.price.tr(),),
                  ProductTextField(controller: cubit.productPrice,
                 textInputType: TextInputType.number,
@@ -59,10 +60,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
                  ProductTitleField(title: LocaleKeys.category.tr(),),
                 const ProductCategoriesWidget(),
                  ProductTitleField(title: '${LocaleKeys.discount.tr()}%',),
-                ProductTextField(controller: cubit.productDisCount,
+                 ProductTextField(controller: cubit.productDisCount,
                   textInputType: TextInputType.number,),
                  ProductTitleField(title: LocaleKeys.description.tr(),),
-                ProductTextField(controller: cubit.productDescription,
+                 ProductTextField(controller: cubit.productDescription,
+                textInputType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
+                ),
+                ProductTitleField(title: LocaleKeys.descriptionAr.tr(),),
+                 ProductTextField(controller: cubit.productDescriptionAR,
                 textInputType: TextInputType.multiline,
                   textInputAction: TextInputAction.newline,
                 ),

@@ -7,11 +7,11 @@ import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
 
-class AcceptOrderUseCase implements BaseUseCase<dynamic>{
+class InProgressOrderUseCase implements BaseUseCase<dynamic>{
   final OrdersRepository repository;
-  AcceptOrderUseCase({required this.repository});
-  Future<ResponseModel> call({required AcceptOrderBody acceptOrderBody}) async {
-    return BaseUseCaseCall.onGetData<dynamic>( await repository.acceptOrder(acceptOrderBody: acceptOrderBody), onConvert,tag: 'AcceptOrderUseCase');
+  InProgressOrderUseCase({required this.repository});
+  Future<ResponseModel> call({required int orderId}) async {
+    return BaseUseCaseCall.onGetData<dynamic>( await repository.inProgressOrder(orderId: orderId), onConvert,tag: 'InProgressOrderUseCase');
   }
 
   @override

@@ -45,7 +45,7 @@ class CustomOrderDetailsItemWidget extends StatelessWidget {
                             ),),
                           ),
                           horizontalSpace(10),
-                          Text('${ordersDetailsData.productPrice} ${LocaleKeys.lyd.tr()}',style: TextStyles.font18Black700Weight.copyWith(
+                          Text('${ordersDetailsData.productPrice} ${LocaleKeys.currency.tr()}',style: TextStyles.font18Black700Weight.copyWith(
                               color: redColor),),
                           horizontalSpace(10)
                         ],
@@ -60,7 +60,7 @@ class CustomOrderDetailsItemWidget extends StatelessWidget {
                                  fontSize: 12.sp,
                                  color: redColor
                              ),),
-                             Text('${ordersDetailsData.productPrice} ${LocaleKeys.lyd.tr()}',style: TextStyles.font18Black700Weight.copyWith(
+                             Text('${ordersDetailsData.productPrice} ${LocaleKeys.currency.tr()}',style: TextStyles.font18Black700Weight.copyWith(
                                  fontWeight: FontWeight.w500,
                                  fontSize: 12.sp
                              ),),

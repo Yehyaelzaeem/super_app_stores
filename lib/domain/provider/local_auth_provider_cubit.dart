@@ -3,10 +3,14 @@ import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:cogina_restaurants/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../core/notification/device_token.dart';
 import '../../core/routing/routes.dart';
 import '../../core/utils/globals.dart';
+import '../../core/utils/toast_states/enums.dart';
 import '../../data/model/base/response_model.dart';
+import '../../presentation/component/google_map/address_location_model.dart';
 import '../usecase/auth/update_fcm_token_usecase.dart';
 import '../usecase/local/clear_user_data_usecase.dart';
 import '../usecase/local/get_is_login_usecase.dart';
@@ -45,7 +49,20 @@ class LocalAuthCubit extends Cubit<LocalAuthState> {
     }
     return responseModel.isSuccess;
   }
-
+  Future<LatLng> getLocation()async{
+    return await Geolocator.getCurrentPosition().then((Position value)async {
+      final latLng = await LatLng(value.latitude, value.longitude);
+       emit(state.copyWith(latLng: latLng));
+      return latLng;
+    });
+  }
+  Future<AddressLocationModel> pickUpAddress(AddressLocationModel addressModel)async{
+    emit(state.copyWith(addressLocationModel: addressModel, pickUpState: RequestState.loaded));
+    return addressModel;
+  }
+  Future loadingPickUpAddress()async{
+    emit(state.copyWith(pickUpState: RequestState.loading));
+  }
   Future<bool> logOut(BuildContext context) async {
     ResponseModel responseModel = await _clearUserDataUseCase.call();
     if (responseModel.isSuccess) {

@@ -3,13 +3,14 @@ import '../../main.dart';
 class AppURL {
 
   static const String kAPIKey = "";
-  static  String kBaseURL = "https://delivego.loutsdelivery.com/api/";
+  static  String kBaseURL = "http://yalla-hatly.matrixclouds.net/api/";
   /// Auth
   static const String kLoginURI = "stores/login";
   static const String kOtpURI = "stores/otp";
   static const String kRegisterURI = "stores/register";
   static const String kCompleteProfileURI = "stores/profile/store_info";
   static const String kUpdateFCMTokenURI = "stores/profile/fcm_token";
+  static const String kRestaurantTypesURI = "stores/types";
 
 
   /// Profile
@@ -86,13 +87,21 @@ class AppURL {
   static const String kRemoveFavoriteURL = "fav/remove";
 
 
+  ///Time
+  static const String kAddStoreTimeURL = "stores/profile/change-time";
+  static const String kAddDeliveryTimeURL = "stores/profile/store-delivery-time";
+
+
 
   /// order
-  static const String kAllOrdersURL = "stores/orders";
+  static  String kAllOrdersURL({required String status,required int page,required String branchId}) => "stores/orders/status?status=$status&page=$page&branch_id=$branchId";
   static const String kAcceptOrderURL = "stores/orders/accept-order";
   static  String kRejectOrderURL({required int id}) => "stores/orders/reject_order/$id";
   static  String kChangeRestaurantStateURL ="stores/profile/change_status";
   static  String kGetOrdersByDateStateURL({required String date}) =>"stores/orders/date/$date";
+  static  String kInProgressOrderURL({required int id}) => "stores/orders/progress-order/$id";
+  static  String kDeliveredOrderURL({required int id}) => "stores/orders/delivered-driver-order/$id";
+        static  String kFinishOrderURL({required int id}) => "stores/orders/done-order/$id";
 
   ///setting
   static const String kGetCitiesURL = "";

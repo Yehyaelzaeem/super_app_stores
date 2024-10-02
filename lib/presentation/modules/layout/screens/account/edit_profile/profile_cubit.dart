@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import '../../../../../../../data/model/response/profile_model.dart';
 import '../../../../../../../domain/request_body/profile_body.dart';
 import '../../../../../../../domain/usecase/profile/get_profile_usecase.dart';
 import '../../../../../../../domain/usecase/profile/update_profile_usecase.dart';
+import '../../../../../../core/routing/routes.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
@@ -29,6 +31,29 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (responseModel.isSuccess) {
       GetProfileModel model =responseModel.data;
       profileModel=model.data;
+      final context = NavigationService.navigationKey.currentContext!;
+      if(profileModel!=null){
+        if(profileModel?.store==null){
+          context.pushNamed(Routes.completeProfileScreen);
+        }
+       else if(profileModel!.store?.files==null){
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
+        }
+        else if(profileModel!.store?.files?.tax==null){
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
+        }
+        else if(profileModel!.store?.files?.commercialId==null){
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
+        }
+        else if(profileModel!.store?.files?.banner==null){
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
+        }else if(profileModel!.store?.times==null || profileModel!.store?.times?.length==0){
+          context.pushNamed(Routes.storeTimeScreen,arguments: {'isComplete':true});
+        }else if(profileModel!.store?.deliveryTime==null || profileModel!.store?.deliveryPrice==null || profileModel!.store?.orderTime==null){
+          context.pushNamed(Routes.deliveryTimeScreen,arguments: {'isComplete':true});
+        }
+
+      }
       emit(GetProfileSuccessState()) ;
     }else{
       emit(GetProfileErrorState()) ;

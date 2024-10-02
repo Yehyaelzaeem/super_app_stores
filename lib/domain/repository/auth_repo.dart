@@ -9,6 +9,7 @@ import '../request_body/register_body.dart';
 
 mixin AuthRepository {
   Future<ApiResponse> login({required LoginBody loginBody}) ;
+  Future<ApiResponse> getRestaurantTypes() ;
 
   Future<ApiResponse> otpCode({required OTPBody otpBody});
    Future<ApiResponse> updateFCMToken({required String fcmToken});

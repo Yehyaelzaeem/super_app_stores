@@ -3,6 +3,7 @@ import 'package:cogina_restaurants/domain/usecase/account/bank_account_usecase.d
 import 'package:cogina_restaurants/domain/usecase/auth/check_otp_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/complete_profile_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/register_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/auth/restaurant_type_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/sign_in_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/update_fcm_token_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/branches/add_branch_usecase.dart';
@@ -28,11 +29,16 @@ import 'package:cogina_restaurants/domain/usecase/account/privacy_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/account/terms_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/accept_order_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/change_state_restaurant_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/orders/delivered_order_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/orders/finish_order_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/get_orders_date_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/get_orders_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/orders/in_progress_order_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/orders/reject_order_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/profile/get_profile_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/profile/update_profile_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/time/add_delivery_time_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/time/add_store_time_usecase.dart';
 
 import '../data/injection.dart';
 
@@ -52,12 +58,17 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => RegisterUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => CompleteProfileUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => UpdateFCMTokenUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => RestaurantTypesUseCase(repository: getIt()));
    ///Branches
    getIt.registerLazySingleton(() => GetBranchesUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AddBranchUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => GetRegionsUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => DeleteBranchUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => UpdateBranchUseCase(repository: getIt()));
+
+   ///TimeStore
+   getIt.registerLazySingleton(() => AddStoreTimeUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => AddDeliveryTimeUseCase(repository: getIt()));
 
 
    ///Account
@@ -83,6 +94,9 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => AcceptOrderUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => ChangeStateRestaurantUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => GetOrdersByDateUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => FinishOrderUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => InProgressOrderUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => DeliveredOrderUseCase(repository: getIt()));
 
   ///more
    getIt.registerLazySingleton(() => TermsUseCase(repository: getIt()));

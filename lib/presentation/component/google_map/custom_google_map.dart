@@ -122,6 +122,7 @@ class _MapScreenState extends State<CustomGoogleMapScreen> {
                       BranchCubit.get().addressLocationModel =addressModel;
                       BranchCubit.get().getLocationAddress(context);
                     }
+
                   },
                   fontSize: 25,
                   buttonText: 'Save'),
@@ -134,12 +135,7 @@ class _MapScreenState extends State<CustomGoogleMapScreen> {
   }
   Future<void> getAddressPosition(LatLng position)async {
     List<Placemark> p = await placemarkFromCoordinates(position.latitude, position.longitude);
-    // print(p[0].country);
-    // print(p[0].administrativeArea);
-    // print(p[0].locality);
-    // print(p[0].street);
-    // print(p[0].name);
-    // print(p[0].subAdministrativeArea);
+
     setState(() {
       getCountry=p[0].country.toString();
       getBigCity=p[0].administrativeArea.toString();
@@ -157,6 +153,7 @@ class _MapScreenState extends State<CustomGoogleMapScreen> {
       markerPosition = newPosition;
     });
   }
+//getPermission
   Future<void> _searchPlace() async {
     try {
       List<Location> locations = await locationFromAddress(searchController.text);

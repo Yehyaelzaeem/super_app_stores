@@ -13,6 +13,7 @@ class Routes {
   static const String notificationScreen = "/notificationScreen";
   static const String productDetailsScreen = "/productDetailsScreen";
   static const String orderDetailsScreen = "/orderDetailsScreen";
+  static const String storeTimeScreen = "/storeTimeScreen";
   static const String branchesScreen = "/branchesScreen";
   static const String addBranchScreen = "/addBranchScreen";
   static const String settingsScreen = "/settingsScreen";
@@ -34,7 +35,9 @@ class Routes {
   static const String aboutUsScreen = "/aboutUsScreen";
   static const String splashScreen = "/splashScreen";
   static const String termsConditionScreen = "/termsConditionScreen";
+  static const String deliveryTimeScreen = "/deliveryTimeScreen";
   static const String privacyPolicyScreen = "/privacyPolicyScreen";
+  static const String completeProfileScreen = "/completeProfileScreen";
   static const String registerScreen = "/registerScreen";
   static const String loginScreen = "/loginScreen";
   static const String authScreen = "/authScreen";

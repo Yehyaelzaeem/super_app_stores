@@ -24,6 +24,7 @@ class BranchesScreen extends StatelessWidget {
       Scaffold(
         backgroundColor: backGroundGray,
         appBar: CustomAppBar(
+
           color: backGroundGray,
           isBackButtonExist: false,
           title: LocaleKeys.branches.tr(),

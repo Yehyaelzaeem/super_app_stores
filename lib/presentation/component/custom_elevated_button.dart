@@ -1,3 +1,4 @@
+import 'package:cogina_restaurants/presentation/component/custom_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,6 +31,9 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        if (isLoading==true) {
+          return null;
+        }
         onTap();
       },
       style: ElevatedButton.styleFrom(
@@ -43,9 +47,9 @@ class CustomElevatedButton extends StatelessWidget {
       ),
       child:
       isLoading==true? SizedBox(
-          height: height?? 30,
-          width:  width??20,
-          child: const Center(child: CircularProgressIndicator(color: whiteColor,),)):
+          height: height?? 45,
+          width:  width??30,
+          child: const Center(child: CustomLoadingWidget(color: whiteColor,),)):
       Text(
         buttonText,
         style: TextStyle(

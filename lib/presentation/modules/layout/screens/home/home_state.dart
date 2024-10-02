@@ -6,6 +6,7 @@ abstract class HomeState {}
 class HomeInitial extends HomeState {}
 class GetProductLoadingState extends HomeState {}
 class GetProductCategoriesLoadingState extends HomeState {}
+
 class GetProductSuccessState extends HomeState {}
 class GetProductCategoriesSuccessState extends HomeState {}
 class GetProductCategoriesErrorState extends HomeState {}

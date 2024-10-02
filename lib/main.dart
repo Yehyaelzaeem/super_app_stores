@@ -1,3 +1,4 @@
+import 'package:cogina_restaurants/presentation/modules/auth/complete_profile/complete_profile_screen.dart';
 import 'package:cogina_restaurants/presentation/modules/splash/splash_screen.dart';
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:device_preview/device_preview.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
             title:
-            'Delive Go Restaurant',
+            'Yalla Hatly Restaurant',
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationService.navigationKey,
             onGenerateRoute: RouteGenerator.generateBaseRoute,
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: primaryColor.withOpacity(0.5)),
               useMaterial3: true,
             ),
-            home: const SplashScreen(),
+            home:  SplashScreen(),
 
 
           );

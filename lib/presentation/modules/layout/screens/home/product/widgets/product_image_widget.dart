@@ -1,4 +1,5 @@
 import 'package:cogina_restaurants/core/translations/locale_keys.dart';
+import 'package:cogina_restaurants/presentation/component/images/custom_image.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,10 @@ import '../../../../../../component/custom_elevated_button.dart';
 import 'extra_widget.dart';
 
 class ProductImageAndButtonWidget extends StatelessWidget {
-  const ProductImageAndButtonWidget({super.key, required this.type,  this.id});
+  const ProductImageAndButtonWidget({super.key, required this.type,  this.id, this.image});
   final String type;
   final int? id;
+  final String? image;
   @override
   Widget build(BuildContext context) {
     HomeCubit cubit =HomeCubit.get(context);
@@ -52,8 +54,14 @@ class ProductImageAndButtonWidget extends StatelessWidget {
                   SizedBox(
                     height:100.w,
                     width:150.w,
-                    child: const Center(
-                      child: Icon(Icons.add_photo_alternate_outlined,size: 100,color: Colors.grey,),
+                    child:  Center(
+                      child:
+                     type=='update' && image!=null?
+                         CustomImage(image: image??'',radius: 25,
+                          height: 100.h,
+                           width: 150.w,
+                         ):
+                      Icon(Icons.add_photo_alternate_outlined,size: 100,color: Colors.grey,),
                     ),
                   ),
                 ),
@@ -89,10 +97,11 @@ class ProductImageAndButtonWidget extends StatelessWidget {
                         if(cubit.categoryId==null){
                           showToast(text: LocaleKeys.chooseCategory.tr(), state: ToastStates.error, context: context);
                         }
-                        else if(cubit.productImageFile==null){
-                          showToast(text: LocaleKeys.chooseImage.tr(), state: ToastStates.error, context: context);
-                        }else{
-                          cubit.updateProduct(id: id!=null?id!:0, context: context);
+                        // else if(cubit.productImageFile==null){
+                        //   showToast(text: LocaleKeys.chooseImage.tr(), state: ToastStates.error, context: context);
+                        // }
+                        else{
+                          cubit.updateProduct(id: id??0, context: context);
                         }
                       }
                     }else{

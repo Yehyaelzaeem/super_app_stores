@@ -8,23 +8,42 @@ class CompleteProfileBody {
   String? mobile;
   String? address;
   String? type;
+  String? lat;
+  String? long;
   File? image;
 
 
   Map<String, dynamic> toJson() {
-    return {
-      "name": nameAr,
-      "email": email,
-      "phone": mobile,
-      "address": address,
-      "type": type,
-      "image": image!.path,
-      "name_en": name,
-    };
+    if(image !=null){
+      return {
+        "name": nameAr,
+        "email": 'sss@gmail.com',
+        "phone": '021',
+        "address": address,
+        "type": type,
+        "image": image!.path,
+        "name_en": name,
+        "lat": lat,
+        "long": long,
+      };
+    }else{
+      return {
+        "name": nameAr,
+        "email": 'sss@gmail.com',
+        "phone": '021',
+        "address": address,
+        "type": type,
+        "name_en": name,
+        "lat": lat,
+        "long": long,
+      };
+    }
+
   }
 
-  CompleteProfileBody({required this.nameAr,required this.name,required this.email,required this.mobile,required this.address,
-    required this.type,required this.image});
+  CompleteProfileBody({ this.nameAr, this.name, this.address,
+     this.lat, this.long,
+     this.type, this.image});
 
 
 

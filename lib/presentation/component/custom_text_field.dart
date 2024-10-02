@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import '../../core/helpers/spacing.dart';
 import '../../core/resources/color.dart';
+import '../../core/resources/styles.dart';
 import '../../core/routing/navigation_services.dart';
 import '../../core/translations/locale_keys.dart';
 import 'input_decoration.dart';
@@ -18,10 +20,14 @@ class CustomTextField extends StatelessWidget {
   final FontWeight? fontWeight;
   final String? validationMessage;
   final Color? hintColor;
-  final String?  hintFontFamily  ;
+  final String? hintFontFamily;
+  final String? title;
+
   final Color? prefixIconColor;
   final double? contentHorizontalPadding;
   final double? contentVerticalPadding;
+  final double? height;
+  final double? width;
   final Color? fillColor;
   final Color? borderColor;
   final TextInputAction? textInputAction;
@@ -29,13 +35,20 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validationFunc;
   final void Function(String)? onFieldSubmitted;
   final TextStyle? hintStyle;
+  final TextStyle? textStyle;
   final void Function(String)? onChanged;
+  final void Function()? onTap;
+
   const CustomTextField({
     Key? key,
     required this.hintText,
     required this.controller,
     this.prefixIcon,
+    this.onTap,
     this.prefixIconColor,
+    this.textStyle,
+    this.width,
+    this.height,
     this.fillColor,
     this.contentHorizontalPadding,
     this.contentVerticalPadding,
@@ -55,69 +68,141 @@ class CustomTextField extends StatelessWidget {
     this.hintColor,
     this.suffixIcon,
     this.onFieldSubmitted,
-    this.onChanged,
+    this.onChanged, this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     bool isVisibility = false;
-    if(isPassword==true){
-      isVisibility=true;
+    if (isPassword == true) {
+      isVisibility = true;
     }
-    return
-      StatefulBuilder(builder: (context,setState){
-        return   TextFormField(
-          onFieldSubmitted: onFieldSubmitted,
-          controller: controller,
-          obscureText:  isVisibility,
-          maxLines: maxLines ?? 1,
-          decoration:
-          customInputDecoration(
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            hintStyle:hintStyle ,
-            hintText: hintText,
-            contentHorizontalPadding: contentHorizontalPadding,
-            contentVerticalPadding: contentVerticalPadding,
-            borderRadius: borderRadius,
-            borderColor: borderColor,
-            prefixIconColor: prefixIconColor,
-            prefixIcon: prefixIcon,
-            hintFontFamily: hintFontFamily,
-            suffixIcon: isPassword==true ?
-            IconButton(
-              icon: Icon(
-                isVisibility==true ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                color: isVisibility==true ?  hintColor:primaryColor,
-              ),
-              onPressed: () {
-                isVisibility = !isVisibility;
-                setState(() {});
-              },
-            ) :
-            null,
-            enabled: enabled,
-            hintColor: hintColor,
-            fillColor: fillColor,
-          ),
-          validator:validationFunc??(value) {
-            if (value == null || value.isEmpty) {
-              return LocaleKeys.this_field_required.tr();
-            }
-            return null;
-          } ,
-          onSaved: (String? val) {
-            controller.text = val!;
-          },
+    return StatefulBuilder(builder: (context, setState) {
+      return SizedBox(
+          height: height,
+          width: width,
+          child:
+          title!=null?
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if(title!=null) ...
+              [Text(title!,style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade800,fontSize: 18),),
+               verticalSpace(10),
+              ],
+              TextFormField(
+                style: textStyle,
 
-          cursorWidth: 1,
-          textInputAction: textInputAction ?? TextInputAction.next,
-          keyboardType: textInputType ?? TextInputType.text,
-          onChanged:onChanged ,
-        );
-      });
+                onTap: onTap,
+                onFieldSubmitted: onFieldSubmitted,
+                controller: controller,
+                obscureText: isVisibility,
+                // maxLines: maxLines ?? 1,
+                decoration: customInputDecoration(
+                  fontSize: fontSize,
+                  fontWeight: fontWeight,
+                  hintStyle: hintStyle,
+                  hintText: hintText,
+                  contentHorizontalPadding: contentHorizontalPadding,
+                  contentVerticalPadding: contentVerticalPadding,
+                  borderRadius: borderRadius,
+                  borderColor: borderColor,
+                  prefixIconColor: prefixIconColor,
+                  prefixIcon: prefixIcon,
+                  hintFontFamily: hintFontFamily,
+                  suffixIcon: isPassword == true
+                      ? IconButton(
+                    icon: Icon(
+                      isVisibility == true
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                      color: isVisibility == true ? hintColor : primaryColor,
+                    ),
+                    onPressed: () {
+                      isVisibility = !isVisibility;
+                      setState(() {});
+                    },
+                  )
+                      : null,
+                  enabled: enabled,
+                  hintColor: hintColor,
+                  fillColor: fillColor,
+                ),
+                validator: validationFunc ??
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return LocaleKeys.this_field_required.tr();
+                      }
+                      return null;
+                    },
+                onSaved: (String? val) {
+                  controller.text = val!;
+                },
+
+                cursorWidth: 1,
+                textInputAction: textInputAction ?? TextInputAction.next,
+                keyboardType: textInputType ?? TextInputType.text,
+                onChanged: onChanged,
+              )
+            ],
+          ): TextFormField(
+            style: textStyle,
+
+            onTap: onTap,
+            onFieldSubmitted: onFieldSubmitted,
+            controller: controller,
+            obscureText: isVisibility,
+            // maxLines: maxLines ?? 1,
+            decoration: customInputDecoration(
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+              hintStyle: hintStyle,
+              hintText: hintText,
+              contentHorizontalPadding: contentHorizontalPadding,
+              contentVerticalPadding: contentVerticalPadding,
+              borderRadius: borderRadius,
+              borderColor: borderColor,
+              prefixIconColor: prefixIconColor,
+              prefixIcon: prefixIcon,
+              hintFontFamily: hintFontFamily,
+              suffixIcon: isPassword == true
+                  ? IconButton(
+                icon: Icon(
+                  isVisibility == true
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  color: isVisibility == true ? hintColor : primaryColor,
+                ),
+                onPressed: () {
+                  isVisibility = !isVisibility;
+                  setState(() {});
+                },
+              )
+                  : null,
+              enabled: enabled,
+              hintColor: hintColor,
+              fillColor: fillColor,
+            ),
+            validator: validationFunc ??
+                    (value) {
+                  if (value == null || value.isEmpty) {
+                    return LocaleKeys.this_field_required.tr();
+                  }
+                  return null;
+                },
+            onSaved: (String? val) {
+              controller.text = val!;
+            },
+
+            cursorWidth: 1,
+            textInputAction: textInputAction ?? TextInputAction.next,
+            keyboardType: textInputType ?? TextInputType.text,
+            onChanged: onChanged,
+          ));
+    });
   }
 }
+
 InputDecoration customInputDecration({
   String? hintText,
   TextEditingController? controller,
@@ -151,23 +236,31 @@ InputDecoration customInputDecration({
       horizontal: contentHorizontalPadding ?? 16.0,
       vertical: contentVerticalPadding ?? 12.0,
     ),
-    border: isBorderEnabled ? OutlineInputBorder(
-      borderSide: BorderSide(
-        color: borderColor ?? Colors.black, // Adjust the color here
-        width: 1.0,
-      ),
-      borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-    ) : InputBorder.none, // Use InputBorder.none when not enabled
-    enabledBorder: isBorderEnabled ? OutlineInputBorder(
-      borderSide: BorderSide(
-        color: borderColor ?? Colors.black, // Adjust the color here
-        width: 1.0,
-      ),
-      borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-    ) : InputBorder.none, // Use InputBorder.none when not enabled
+    border: isBorderEnabled
+        ? OutlineInputBorder(
+            borderSide: BorderSide(
+              color: borderColor ?? Colors.black, // Adjust the color here
+              width: 1.0,
+            ),
+            borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+          )
+        : InputBorder.none,
+    // Use InputBorder.none when not enabled
+    enabledBorder: isBorderEnabled
+        ? OutlineInputBorder(
+            borderSide: BorderSide(
+              color: borderColor ?? Colors.black, // Adjust the color here
+              width: 1.0,
+            ),
+            borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+          )
+        : InputBorder.none,
+    // Use InputBorder.none when not enabled
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(
-        color: borderColor ?? Theme.of(NavigationService.navigationKey.currentContext!).primaryColor, // Adjust the color here
+        color: borderColor ??
+            Theme.of(NavigationService.navigationKey.currentContext!)
+                .primaryColor, // Adjust the color here
         width: 2.0,
       ),
       borderRadius: BorderRadius.circular(borderRadius ?? 8.0),

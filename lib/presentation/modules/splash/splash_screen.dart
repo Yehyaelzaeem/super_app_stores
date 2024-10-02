@@ -1,6 +1,8 @@
 import 'package:cogina_restaurants/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../core/routing/navigation_services.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../data/app_urls/app_url.dart';
@@ -46,6 +48,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
   DioClient dioClient =DioClient(AppURL.kBaseURL, getIt(),loggingInterceptor: getIt(), cacheConsumer: getIt());
   @override
   void initState() {
+
     _viewModel = BlocProvider.of<LocalAuthCubit>(context, listen: false);
     _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     _animation = Tween<Offset>(
@@ -54,7 +57,9 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
     ).animate(_animationController!);
     // play('mp3/splash2.mp3',);
     _animationController!.forward().whenComplete(() {
-      navigationPage();
+      getPermission().then((value) {
+        navigationPage();
+      });
     });
     super.initState();
 
@@ -67,7 +72,23 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
 
 
 
+  Future getPermission()async{
+    bool service;
+    LocationPermission permission;
+    service =await Geolocator.isLocationServiceEnabled();
+    if(service ==false){
+    }
+    permission =await Geolocator.checkPermission();
+    if(permission ==LocationPermission.denied){
+      permission =await Geolocator.requestPermission();
+    }
+    // Position p ;
+    // p=await Geolocator.getCurrentPosition().then((value) => value);
+    // List<Placemark> place= await placemarkFromCoordinates(p.latitude,p.longitude);
+    return permission;
+  }
   navigationPage() async{
+    context.read<LocalAuthCubit>().getLocation();
     AuthCubit.get(context).changeType('auth');
     bool isAuthed = await _viewModel.isLogin();
     if (isAuthed) {
@@ -77,12 +98,14 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
       NavigationService.pushNamedAndRemoveUntil(Routes.authScreen);
     }
   }
+
+    // Position p ;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: const Color(0xff303171),
+        backgroundColor: Color(0xff26624E),
         body: Image.asset(AppImages.logo3,
           height: height,
           width: width,

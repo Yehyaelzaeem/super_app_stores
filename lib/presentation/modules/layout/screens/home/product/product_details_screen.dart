@@ -44,13 +44,13 @@ class ProductDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(product.name!,style: TextStyles.font18Black700Weight.copyWith(
-                          color: backBlue2
-                      ),),
+                     Expanded(child:  Text(product.name!,style: TextStyles.font18Black700Weight.copyWith(
+                         color: backBlue2
+                     ),),),
                       Row(
                         children: [
-                          const Icon(Icons.flag_rounded,color: backBlue2,size: 25,),
-                          Text('${product.priceAfterDiscount} ${LocaleKeys.lyd.tr()}',style: TextStyles.font18Black700Weight.copyWith(
+                           Icon(Icons.flag_rounded,color: backBlue2,size: 25,),
+                          Text('${product.priceAfterDiscount} ${LocaleKeys.currency.tr()}',style: TextStyles.font18Black700Weight.copyWith(
                               color: backBlue2
                           ),),
                         ],

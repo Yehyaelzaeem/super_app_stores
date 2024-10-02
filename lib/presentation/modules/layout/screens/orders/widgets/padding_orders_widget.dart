@@ -11,46 +11,96 @@ import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/resources/color.dart';
 import '../../../../../../core/resources/styles.dart';
 import '../../../../../../core/translations/locale_keys.dart';
+import '../../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../component/custom_not_found_data.dart';
+import '../../../../../component/error_widget.dart';
 
-class PaddingWidget extends StatelessWidget {
+class PaddingWidget extends StatefulWidget {
   const PaddingWidget({super.key});
 
   @override
+  State<PaddingWidget> createState() => _State();
+}
+
+class _State extends State<PaddingWidget> {
+  OrdersCubit cubit = OrdersCubit.get();
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    cubit.getPendingOrders(status: 'padding',);
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !cubit.isPaginationLoading) {
+        cubit.getPendingOrders(status: 'padding');
+      }
+    });
+  }
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    OrdersCubit cubit =OrdersCubit.get();
-    return   Container(
+    return Container(
       color: customWhite,
       width: double.infinity,
-      child: BlocConsumer<OrdersCubit, OrdersState>(
-        listener: (context, state) {},
+      child: BlocBuilder<OrdersCubit, OrdersState>(
         builder: (context, state) {
-          if(cubit.pendingOrders!=null){
-            if(cubit.pendingOrdersList.isNotEmpty){
+          if (state.paddingState == RequestState.error) {
+            return ErrorNetworkWidget(onTap: () {
+              state.copyWith(paddingPage: 1);
+              cubit.getPendingOrders(status: 'padding');
+            });
+          } else if (state.paddingState == RequestState.loading) {
+            return const CustomLoadingWidget();
+          } else {
+            if (cubit.pendingOrdersList.isNotEmpty) {
               return Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
-                    itemCount: cubit.pendingOrdersList.length ,
-                    itemBuilder: (context,index){
-                  return Padding(
-                    padding:  EdgeInsets.symmetric(vertical: 8.h),
-                    child: OrderItem(ordersModelData: cubit.pendingOrdersList[index],),
-                  );
-                }),
+                  controller: _scrollController,
+                  itemCount: cubit.pendingOrdersList.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == cubit.pendingOrdersList.length) {
+                      return
+                        //   cubit.isPaginationLoading
+                        //     ? Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Center(
+                        //     child: CustomLoadingWidget(),
+                        //   ),
+                        // )
+                        //     :
+                        SizedBox.shrink();
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 2.w),
+                        child: OrderItem(
+                          ordersModelData: cubit.pendingOrdersList[index],
+                        ),
+                      );
+                    }
+                  },
+                ),
               );
-            }
-            else{
+            } else {
               return Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 16.w),
-                child: CustomNotFoundDataWidget(image: AppImages.notFoundBranch,title: LocaleKeys.notFoundData.tr(), type: 'svg',),
+                padding: EdgeInsets.only(top: 16.h),
+                child: CustomNotFoundDataWidget(
+                  image: AppImages.notFoundBranch,
+                  title: LocaleKeys.notFoundData.tr(),
+                  type: 'svg',
+                ),
               );
             }
-          }
-          else{
-            return  const CustomLoadingWidget();
+
           }
         },
       ),
     );
   }
+
 }

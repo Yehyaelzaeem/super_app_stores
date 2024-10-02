@@ -1,5 +1,3 @@
-import 'package:cogina_restaurants/core/assets_constant/images.dart';
-import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,6 @@ import '../../../../../../../core/resources/color.dart';
 import '../../../../../../../core/resources/styles.dart';
 import '../../../../../../../../core/helpers/spacing.dart';
 import '../../../../../../../../core/resources/decoration.dart';
-import '../../../../../../../core/routing/routes.dart';
 import '../../../../../../component/custom_app_bar.dart';
 import '../../../../../../component/custom_elevated_button.dart';
 import '../../../../../../component/custom_text_field.dart';
@@ -18,7 +15,6 @@ import '../profile_cubit.dart';
 
 class EditProviderProfileScreen extends StatelessWidget {
   const EditProviderProfileScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     ProfileCubit cubit =ProfileCubit.get(context);
@@ -30,8 +26,7 @@ class EditProviderProfileScreen extends StatelessWidget {
         color: backGroundGray,
         title: LocaleKeys.editProfile.tr(),
       ),
-      body:
-      BlocConsumer<ProfileCubit, ProfileState>(
+      body: BlocConsumer<ProfileCubit, ProfileState>(
                   listener: (context, state) {},
                   builder: (context, state) {
                     if(cubit.profileModel!=null){
@@ -62,7 +57,7 @@ class EditProviderProfileScreen extends StatelessWidget {
                                             ),
                                           )
                                               :
-                                          CustomImage(image: cubit.profileModel!.image!,radius: 60,)
+                                          CustomImage(image: cubit.profileModel?.image??'',radius: 60,)
                                       ),
                                       Positioned(
                                         bottom: 0,
@@ -76,13 +71,13 @@ class EditProviderProfileScreen extends StatelessWidget {
                                                 onPressed: (){
                                                   cubit.pickImage();
                                                 },
-                                                icon: const Icon(Icons.camera_alt,size: 20,color: backBlue2,)),
+                                                icon:  Icon(Icons.camera_alt,size: 20,color: backBlue2,)),
                                           ),
                                         ),)
                                     ],
                                   ),
                                   Text(
-                                    '${cubit.profileModel!.firstName??''} ali${cubit.profileModel!.lastName??''}',
+                                    '${cubit.profileModel?.firstName??''} ${cubit.profileModel?.lastName??''}',
                                     style: TextStyles.font20Black700Weight,
                                   ),
                                   // Text(

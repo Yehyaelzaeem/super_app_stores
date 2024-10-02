@@ -152,7 +152,9 @@ class RegisterWidget extends StatelessWidget {
                  ),
                );
              },
-           )
+           ),
+           verticalSpace(150),
+
          ],
        ),
      );

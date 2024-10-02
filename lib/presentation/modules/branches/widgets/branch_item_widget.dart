@@ -64,7 +64,7 @@ class CustomBranchItemWidget extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        const Icon(Icons.location_on,color: backBlue2,size: 25,),
+                         Icon(Icons.location_on,color: backBlue2,size: 25,),
                         Text(LocaleKeys.onMap.tr(),style: TextStyles.font18Black700Weight.copyWith(
                             color: backBlue2,
                             fontWeight: FontWeight.w600

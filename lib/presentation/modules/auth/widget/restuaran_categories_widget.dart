@@ -1,18 +1,37 @@
 import 'package:cogina_restaurants/presentation/component/custom_loading_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../core/resources/styles.dart';
+import '../../../../core/resources/color.dart';
+import '../../../../core/routing/navigation_services.dart';
+import '../../../../core/translations/locale_keys.dart';
+import '../auth_cubit.dart';
 
-class ProductCategoriesWidget extends StatelessWidget {
-  const ProductCategoriesWidget({super.key});
+class RestaurantTypesWidget extends StatefulWidget {
+  final Function(String) onChanged;
+  const RestaurantTypesWidget({super.key, required this.onChanged});
 
   @override
+  State<RestaurantTypesWidget> createState() => _RestaurantCategoriesWidgetState();
+}
+
+class _RestaurantCategoriesWidgetState extends State<RestaurantTypesWidget> {
+  AuthCubit cubit =AuthCubit.get(NavigationService.navigationKey.currentContext!);
+
+  @override
+  void initState() {
+    cubit.getRestaurantCategories();
+    super.initState();
+  }
+
+  String? selectedValue;
+  @override
   Widget build(BuildContext context) {
-    HomeCubit cubit =HomeCubit.get(context);
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Padding(
@@ -23,28 +42,23 @@ class ProductCategoriesWidget extends StatelessWidget {
                 DropdownButton2<String>(
                   isExpanded: true,
                   underline: const SizedBox.shrink(),
-                  hint: Text(cubit.categoryValue ?? '', style:TextStyles.font16Black500Weight),
+                  hint: Text(selectedValue!=null?selectedValue??'':'${LocaleKeys.restaurantType.tr()}', style:
+                  selectedValue!=null?TextStyles.font16Black500Weight:TextStyles.font16Black500Weight.copyWith(color: Colors.grey),),
                   items:
-                  cubit.productsCategoriesModel==null?[]:
-                  cubit.productsCategoriesModel!.data!.map(( e) => DropdownMenuItem<String>(
+                  cubit.restaurantTypesModel?.data==null?[]:
+                  cubit.restaurantTypesModel?.data?.map(( e) => DropdownMenuItem<String>(
                     value: e.name,
                     child: Text(
-                      e.name!,
+                      e.name??'',
                       style: TextStyles.font15CustomGray400Weight.copyWith(
                           fontSize: 20
                       ),
                     ),
-                  )).toList(),
+                  )).toList()??[],
                   onChanged: (String? value) {
-                    setState(() {
-                      cubit.categoryValue = value!;
-                      for(var a in cubit.productsCategoriesModel!.data! ){
-                        if(cubit.categoryValue==a.name){
-                          cubit.categoryId=a.id!;
-                          break;
-                        }
-                      }
-                    });
+
+                    widget.onChanged.call(value??'');
+                    setState((){selectedValue=value??'';});
                   },
                   dropdownStyleData: DropdownStyleData(
                     maxHeight: 200.h, // Set the fixed height here
@@ -55,13 +69,13 @@ class ProductCategoriesWidget extends StatelessWidget {
                     ),
                   ),
                   iconStyleData: IconStyleData(
-                    icon: cubit.productsCategoriesModel == null?
-                        const CustomLoadingWidget():
-                    const Icon(Icons.keyboard_arrow_down)
+                      icon: cubit.restaurantTypesModel == null?
+                      const CustomLoadingWidget():
+                      const Icon(Icons.keyboard_arrow_down)
                   ) ,
                   buttonStyleData: ButtonStyleData(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: backGroundGray,
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(50.r),
                       ),
@@ -78,3 +92,6 @@ class ProductCategoriesWidget extends StatelessWidget {
     );
   }
 }
+
+
+

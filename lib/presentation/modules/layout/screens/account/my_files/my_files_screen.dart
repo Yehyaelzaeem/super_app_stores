@@ -11,11 +11,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/resources/color.dart';
 import '../../../../../../core/resources/styles.dart';
+import '../../../../../../data/model/response/profile_model.dart';
 import '../../../../../component/custom_app_bar.dart';
 import '../account_cubit.dart';
 
 class MyFilesScreen extends StatelessWidget {
-  const MyFilesScreen({super.key});
+  final bool isComplete;
+  const MyFilesScreen({super.key,  this.isComplete=false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class MyFilesScreen extends StatelessWidget {
               listener: (context, state) {},
               builder: (context, state) {
                 if(profileCubit.profileModel!=null){
-                  var storeFiles =profileCubit.profileModel!.store!.files!;
+                  var storeFiles =profileCubit.profileModel?.store?.files??Files();
                   return SingleChildScrollView(
                     child: Column(
                       children: [
@@ -47,7 +49,7 @@ class MyFilesScreen extends StatelessWidget {
                         },):
                         FileRequiredWidget(title:LocaleKeys.commercialRegisterFile.tr(), text: LocaleKeys.commercialRegisterFileUpdate.tr(), onTap: () {
                           cubit.pickImage(type: 'commercialIdFile').then((value) {
-                            cubit.uploadAccountFile(context: context, type: 'commercialIdFile');
+                            cubit.uploadAccountFile(context: context, type: 'commercialIdFile',isComplete: isComplete);
                           });
                         },),
 
@@ -61,7 +63,7 @@ class MyFilesScreen extends StatelessWidget {
                         },):
                         FileRequiredWidget(title: LocaleKeys.taxCard.tr(), text:LocaleKeys.taxCardUpdate.tr(), onTap: () {
                           cubit.pickImage(type: 'taxFile').then((value) {
-                            cubit.uploadAccountFile(context: context, type: 'taxFile');
+                            cubit.uploadAccountFile(context: context, type: 'taxFile',isComplete: isComplete);
                           });
                         },),
 
@@ -73,9 +75,10 @@ class MyFilesScreen extends StatelessWidget {
                             'text':LocaleKeys.bannerImageUpdate.tr(),
                           });
                         },):
-                        FileRequiredWidget(title:  LocaleKeys.bannerImage.tr(), text: LocaleKeys.bannerImageUpdate.tr(), onTap: () {
+                        FileRequiredWidget(title:  LocaleKeys.bannerImage.tr(), text: LocaleKeys.bannerImageUpdate.tr(),
+                          onTap: () {
                           cubit.pickImage(type: 'bannerFile').then((value) {
-                            cubit.uploadAccountFile(context: context, type: 'bannerFile');
+                            cubit.uploadAccountFile(context: context, type: 'bannerFile',isComplete: isComplete);
 
                           });
                         },),

@@ -73,10 +73,10 @@ const errorColor =  Color(0xffc52828);
 const errorColorDark = Colors.redAccent;
 
 // primary color
-const primaryColor =  Color(0xff432BCB);
+const primaryColor = Color(0xff26624E);
 // Color(0xff71C0A3);
-const primaryColorDark =Color(0xffFEC641);
-const primaryColorLight =Color(0xffFE8270);
+const primaryColorDark =primaryColor;
+const primaryColorLight =primaryColor;
 // const primaryColorLight =Color(0xffEADCFA);
 
 const homeCardColor =Color(0xffF5F5F5);
@@ -148,10 +148,10 @@ const textSelectionDark = Colors.grey;
  const Color  buttonOrangeColor=  Color(0xffFEC641);
  const Color  sandwichBackGround=  Color(0xffECF4F6);
  const Color  backGroundGray=  Color(0xffF4F5F7);
- const Color  backPink1=  Color(0xffFED4D7);
- const Color  backBlue1=  Color(0xffCAC9F3);
- const Color  backBlue2=  Color(0xff432BCB);
- const Color  backRed1=  Color(0xffF8484A);
+  Color  backPink1=  primaryColor.withOpacity(0.9);
+  Color  backBlue1= primaryColor;
+  Color  backBlue2= primaryColor.withOpacity(0.95);
+  Color  backRed1= primaryColor.withOpacity(0.8);
 
 
 

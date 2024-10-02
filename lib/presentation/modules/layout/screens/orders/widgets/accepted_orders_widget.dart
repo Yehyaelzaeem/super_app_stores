@@ -1,4 +1,3 @@
-import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,51 +7,101 @@ import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/wi
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/assets_constant/images.dart';
-import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/resources/color.dart';
-import '../../../../../../core/resources/styles.dart';
 import '../../../../../../core/translations/locale_keys.dart';
 import '../../../../../component/custom_not_found_data.dart';
+import '../../../../../../core/utils/toast_states/enums.dart';
+import '../../../../../component/error_widget.dart';
 
-class AcceptedOrdersWidget extends StatelessWidget {
+class AcceptedOrdersWidget extends StatefulWidget {
   const AcceptedOrdersWidget({super.key});
 
   @override
+  State<AcceptedOrdersWidget> createState() => _State();
+}
+
+class _State extends State<AcceptedOrdersWidget> {
+  OrdersCubit cubit = OrdersCubit.get();
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    print('initState');
+    cubit.getAcceptedOrders(status: 'restaurant_accepted',);
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !cubit.isPaginationAcceptedLoading) {
+        cubit.getAcceptedOrders(status: 'restaurant_accepted');
+      }
+    });
+  }
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    OrdersCubit cubit =OrdersCubit.get();
-    return   Container(
+    return Container(
       color: customWhite,
       width: double.infinity,
-      child: BlocConsumer<OrdersCubit, OrdersState>(
-        listener: (context, state) {},
+      child: BlocBuilder<OrdersCubit, OrdersState>(
         builder: (context, state) {
-          if(cubit.ordersModel!=null){
-            if(cubit.ordersModel!.data!.where((element) => element.status =='restaurant_accepted').isNotEmpty){
-              return Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 16.w),
-                child:
-               Column(
-                 children: [
-                   ... cubit.ordersModel!.data!.where((element) => element.status =='restaurant_accepted').map((e) =>
-                       Padding(
-                           padding:  EdgeInsets.symmetric(vertical: 8.h),
-                           child: OrderItem(ordersModelData: e,)))
-                 ],
-               )
-              );
-            }
-            else{
-              return Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 16.w),
-                child: CustomNotFoundDataWidget(image: AppImages.notFoundBranch,title: LocaleKeys.notFoundData.tr(), type: 'svg',),
-              );
-            }
+          if (state.acceptOrderState == RequestState.error) {
+            return ErrorNetworkWidget(onTap: () {
+              cubit.getAcceptedOrders(status: 'restaurant_accepted');
+            });
           }
-          else{
-            return  const CustomLoadingWidget();
+          else if (state.acceptOrderState == RequestState.loading) {
+            return const CustomLoadingWidget();
+          }
+          else {
+            if (cubit.acceptedOrdersList.isNotEmpty) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: cubit.acceptedOrdersList.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == cubit.acceptedOrdersList.length) {
+                      return
+                        //   cubit.isPaginationLoading
+                        //     ? Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: Center(
+                        //     child: CustomLoadingWidget(),
+                        //   ),
+                        // )
+                        //     :
+                        SizedBox.shrink();
+                    } else {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 2.w),
+                        child: OrderItem(
+                          ordersModelData: cubit.acceptedOrdersList[index],
+                        ),
+                      );
+
+                    }
+                  },
+                ),
+              );
+            } else {
+              return Padding(
+                padding: EdgeInsets.only(top: 16.h),
+                child: CustomNotFoundDataWidget(
+                  image: AppImages.notFoundBranch,
+                  title: LocaleKeys.notFoundData.tr(),
+                  type: 'svg',
+                ),
+              );
+            }
+
           }
         },
       ),
     );
   }
+
 }
+

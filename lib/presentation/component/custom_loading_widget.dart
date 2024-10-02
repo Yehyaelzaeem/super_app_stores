@@ -5,13 +5,14 @@ import '../../core/resources/color.dart';
 
 class CustomLoadingWidget extends StatelessWidget {
   final Color? color;
-  const CustomLoadingWidget({super.key, this.color});
+  final double? size;
+  const CustomLoadingWidget({super.key, this.color, this.size});
 
   @override
   Widget build(BuildContext context) {
     return   SpinKitCircle(
       color: color??primaryColor,
-      size: 50.0,
+      size:size?? 50.0,
     );
   }
 }

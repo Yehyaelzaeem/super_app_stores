@@ -57,7 +57,7 @@ class MealItemWidget extends StatelessWidget {
                         Expanded(
                           child: Text(product.name!,
                             style: TextStyles.font18Black700Weight.copyWith(
-                                fontWeight: FontWeight.bold,height: 0.5
+                                fontWeight: FontWeight.bold,height:1
                             ),
                           ),
                         ),
@@ -125,7 +125,7 @@ class MealItemWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${product.priceAfterDiscount!.toString()} ${LocaleKeys.lyd.tr()}',
+                          Text('${product.priceAfterDiscount!.toString()} ${LocaleKeys.currency.tr()}',
                             style: TextStyles.font18Black700Weight.copyWith(
                                 color: backBlue2,
                                 fontSize: 15,
@@ -135,7 +135,7 @@ class MealItemWidget extends StatelessWidget {
                           ),
                           horizontalSpace(8),
                          if(product.discount!=null&&product.discount!.isNotEmpty&&product.discount!='0')
-                            Text('${product.price!.toString()} ${LocaleKeys.lyd.tr()}',
+                            Text('${product.price!.toString()} ${LocaleKeys.currency.tr()}',
                             style: TextStyles.font18Black700Weight.copyWith(
                                 color:gray2,
                                 fontSize: 15,

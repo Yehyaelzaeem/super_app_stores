@@ -113,7 +113,15 @@ abstract class  LocaleKeys {
   static const mobile_phone = 'mobile_phone';
   static const creating_account_agree = 'creating_account_agree';
   static const already_have_account = 'already_have_account';
-  static const lyd = 'lyd';
+  static const currency = 'currency';
+  static const saturday = 'saturday';
+  static const monday = 'monday';
+  static const tuesday = 'tuesday';
+  static const wednesday = 'wednesday';
+  static const thursday = 'thursday';
+  static const friday = 'friday';
+  static const saturday = 'saturday';
+
   static const another_cart = 'another_cart';
   static const cart_empty = 'cart_empty';
   static const my_account = 'my_account';
@@ -134,6 +142,10 @@ abstract class  LocaleKeys {
   static const meal_update = 'meal_update';
   static const meal_details = 'meal_details';
   static const order_details = 'order_details';
+    static const orderTime = 'orderTime';
+    static const deliveryTime = 'deliveryTime';
+    static const deliveryPrice = 'deliveryPrice';
+
   static const additions = 'additions';
   static const edit_profile = 'edit_profile';
   static const elements = 'elements';

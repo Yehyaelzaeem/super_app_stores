@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../core/routing/routes.dart';
 import '../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../data/model/base/response_model.dart';
 import '../../../../../data/model/response/more_contact_us_model.dart';
@@ -64,7 +65,7 @@ class AccountCubit extends Cubit<AccountState> {
       }
     }
   }
-  Future<dynamic> uploadAccountFile({required BuildContext context,required String type}) async {
+  Future<dynamic> uploadAccountFile({required BuildContext context,required String type,bool isComplete=false}) async {
     emit(UploadFileLoadingState()) ;
     AccountFilesBody accountFilesBody =
     type=='commercialIdFile'?
@@ -75,7 +76,11 @@ class AccountCubit extends Cubit<AccountState> {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         showToast(text: responseModel.message.toString(), state: ToastStates.success, context: context);
         ProfileCubit.get(context).getProfile();
-        context.pop();
+        if(isComplete==true){
+          context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
+        }else{
+          context.pop();
+        }
       });
       emit(UploadFileLSuccessState()) ;
     }else{

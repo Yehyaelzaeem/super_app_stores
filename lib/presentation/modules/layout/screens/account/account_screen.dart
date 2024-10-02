@@ -15,6 +15,7 @@ import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../core/routing/navigation_services.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../../core/translations/locale_keys.dart';
+import '../../../../../data/model/response/profile_model.dart';
 import '../../../../component/custom_app_bar.dart';
 import '../../../../component/images/custom_image.dart';
 import '../../../../dialog/show_logout_dialog.dart';
@@ -92,16 +93,26 @@ class AccountScreen extends StatelessWidget {
                               ),
                               verticalSpace(5),
                               Text(
-                                '${profileCubit.profileModel!.firstName} ${profileCubit.profileModel!.lastName}',
+                                '${profileCubit.profileModel?.firstName??''} ${profileCubit.profileModel?.lastName??''}',
                                 style: TextStyles.font20Black700Weight,
                               ),
                               Text(
-                                profileCubit.profileModel!.email ?? '',
+                                profileCubit.profileModel?.email ?? '',
                                 style: TextStyles.font14White500Weight
                                     .copyWith(color: customGray,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
+                              if(profileCubit.profileModel?.store?.appCommission!=null)
+                                ...[
+                                  Text(
+                                    '${LocaleKeys.appCommission.tr()} ${profileCubit.profileModel?.email ?? ''}',
+                                    style: TextStyles.font14White500Weight
+                                        .copyWith(color: customGray,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ]
                             ],
                           ),
                         ),
@@ -126,7 +137,17 @@ class AccountScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
-                    CustomProviderProfileItem(title: LocaleKeys.restaurant.tr(), icon: Icons.restaurant,
+                    CustomProviderProfileItem(title: LocaleKeys.times.tr(), icon: Icons.timelapse,
+                      onTap: (){
+                        context.pushNamed(Routes.storeTimeScreen,arguments: {'times': profileCubit.profileModel?.store?.times??[]});
+                      },),
+                    verticalSpace(10),
+                    CustomProviderProfileItem(title: LocaleKeys.delivery.tr(), icon: Icons.delivery_dining_outlined,
+                      onTap: (){
+                        context.pushNamed(Routes.deliveryTimeScreen,arguments: {'profile': profileCubit.profileModel??GetProfileModelData()});
+                      },),
+                    verticalSpace(10),
+                    CustomProviderProfileItem(title: LocaleKeys.updateData.tr(), icon: Icons.restaurant,
                       onTap: (){
                         context.pushNamed(Routes.updateRestaurant);
                       },),
@@ -155,12 +176,12 @@ class AccountScreen extends StatelessWidget {
                       context.pushNamed(Routes.myFilesScreen);
                     },
                     ),
-                    verticalSpace(10),
-                     CustomProviderProfileItem(title: LocaleKeys.bankDetails.tr(), icon: Icons.food_bank,
-                         onTap: (){
-                          context.pushNamed(Routes.bankDetailsScreen);
-                          },
-                     ),
+                    // verticalSpace(10),
+                    //  CustomProviderProfileItem(title: LocaleKeys.bankDetails.tr(), icon: Icons.food_bank,
+                    //      onTap: (){
+                    //       context.pushNamed(Routes.bankDetailsScreen);
+                    //       },
+                    //  ),
                     verticalSpace(10),
                      CustomProviderProfileItem(title: LocaleKeys.branches.tr(), icon: Icons.location_on,
                     onTap: (){

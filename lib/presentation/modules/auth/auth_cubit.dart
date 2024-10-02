@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,6 +14,7 @@ import '../../../data/datasource/remote/exception/error_widget.dart';
 import '../../../data/model/base/response_model.dart';
 import '../../../data/model/response/otp_model.dart';
 import '../../../data/model/response/register_model.dart';
+import '../../../data/model/response/restaurant_types_model.dart';
 import '../../../data/model/response/user_model.dart';
 import '../../../domain/logger.dart';
 import '../../../domain/provider/local_auth_provider_cubit.dart';
@@ -22,8 +25,11 @@ import '../../../domain/request_body/register_body.dart';
 import '../../../domain/usecase/auth/check_otp_usecase.dart';
 import '../../../domain/usecase/auth/complete_profile_usecase.dart';
 import '../../../domain/usecase/auth/register_usecase.dart';
+import '../../../domain/usecase/auth/restaurant_type_usecase.dart';
 import '../../../domain/usecase/auth/sign_in_usecase.dart';
 import '../../../domain/usecase/local/save_data_usecase.dart';
+import '../../component/google_map/address_location_model.dart';
+import 'complete_profile/complete_profile_screen.dart';
 
 part 'auth_state.dart';
 
@@ -31,21 +37,24 @@ class AuthCubit extends Cubit<AuthState> {
   final SignInUseCase _signInUseCase;
   final RegisterUseCase _registerUseCase;
   final OTPUseCase _otpUseCase;
+  final RestaurantTypesUseCase _restaurantTypesUseCase;
   final CompleteProfileUseCase _completeProfileUseCase;
   final SaveUserDataUseCase _saveUserDataUseCase;
   AuthCubit({
     required SignInUseCase signInUseCase,
+    required RestaurantTypesUseCase restaurantTypesUseCase,
     required OTPUseCase otpUseCase,
     required CompleteProfileUseCase completeProfileUseCase,
     required RegisterUseCase registerUseCase,
     required SaveUserDataUseCase saveUserDataUseCase,
   })  : _signInUseCase = signInUseCase,
         _otpUseCase = otpUseCase,
+        _restaurantTypesUseCase = restaurantTypesUseCase,
         _completeProfileUseCase=completeProfileUseCase,
         _saveUserDataUseCase = saveUserDataUseCase,
         _registerUseCase = registerUseCase,
         super(AuthInitial());
-
+//location
   final registerFormKey = GlobalKey<FormState>();
   final loginFormKey = GlobalKey<FormState>();
   TextEditingController regPasswordController = TextEditingController();
@@ -62,7 +71,8 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController comPhoneController = TextEditingController();
   TextEditingController comAddressController = TextEditingController();
   TextEditingController comTypeController = TextEditingController();
-
+  AddressLocationModel? addressModel;
+  TextEditingController pickUpController = TextEditingController(text: 'المنطقة/المدينة/البلدة/الشارع');
   File? imageFile;
   Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -111,16 +121,16 @@ class AuthCubit extends Cubit<AuthState> {
 
     ResponseModel responseModel = await _signInUseCase.call(loginBody: body);
     if (responseModel.isSuccess) {
-      UserModel userModel = responseModel.data;
-      String token = userModel.data!.token!;
+      UserModel registerModel =responseModel.data;
+      LoginModelData userModel = registerModel.data??LoginModelData();
+      String token = userModel.token??'';
       if (token.isNotEmpty) {
         await _saveUserDataUseCase.call(token: token);
       }
       await BlocProvider.of<LocalAuthCubit>(context,listen: false).userLoginSuccessfully();
       phoneController.text='';
-      regPhoneController.text='';
-      regLastNameController.text='';
-      regFirstNameController.text='';
+      passwordController.text='';
+
       if(authType=='login'){
         NavigationService.pushReplacement(Routes.layoutScreen,arguments: {'currentPage':0});
       }else{
@@ -132,30 +142,52 @@ class AuthCubit extends Cubit<AuthState> {
     }
     return responseModel;
   }
+  RestaurantTypesModel? restaurantTypesModel;
+  Future<ResponseModel> getRestaurantCategories() async {
+    emit(GetRestaurantCategoriesLoadingState()) ;
+    ResponseModel responseModel = await _restaurantTypesUseCase.call();
+    if (responseModel.isSuccess) {
+      restaurantTypesModel=responseModel.data;
+      emit(GetRestaurantCategoriesSuccessState()) ;
+    }else{
+      emit(GetRestaurantCategoriesErrorState()) ;
+    }
+    return responseModel;
+  }
+
   Future<ResponseModel?> completeProfile(BuildContext context, bool? isUpdate) async {
     emit(CompleteProfileLoadingState()) ;
-    if(comNameArController.text.isNotEmpty&&comNameController.text.isNotEmpty&&comAddressController.text.isNotEmpty&&comEmailController.text.isNotEmpty&&comPhoneController.text.isNotEmpty&&comTypeController.text.isNotEmpty&&imageFile!=null){
+    if(comNameArController.text.isNotEmpty&&comNameController.text.isNotEmpty){
       CompleteProfileBody completeProfileBody =
       CompleteProfileBody(name: comNameController.text,
-          email: comEmailController.text, mobile: comPhoneController.text, address: comAddressController.text, type: comTypeController.text, image: imageFile, nameAr: comNameArController.text);
+          address: comAddressController.text, type: comTypeController.text, image: imageFile, nameAr: comNameArController.text, lat: addressModel?.lat??'', long: addressModel?.long??'');
       ResponseModel responseModel = await _completeProfileUseCase.call(body: completeProfileBody);
       if (responseModel.isSuccess) {
+
         comEmailController.text='';
         comAddressController.text='';
         comNameController.text='';
         comNameArController.text='';
         comPhoneController.text='';
+        pickUpController.text='المنطقة/المدينة/البلدة/الشارع';
         comTypeController.text='';
         imageFile=null;
         Future.delayed(const Duration(minutes: 0)).then((value) {
-          isUpdate==true?context.pop(): context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
+          if(isUpdate==true){
+            context.pop();
+            ProfileCubit.get(context).getProfile();
+          }else{
+            context.pushNamed(Routes.storeTimeScreen,arguments: {'isComplete':true});
+          }
+          // context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
         });
         emit(CompleteProfileSuccessState()) ;
       }else{
         emit(CompleteProfileErrorState()) ;
       }
       return responseModel;
-    }else{
+    }
+    else{
       showToast(text: 'اكمل البيانات', state: ToastStates.error, context: context);
       return null;
     }
@@ -209,9 +241,24 @@ class AuthCubit extends Cubit<AuthState> {
       RegisterModel registerModel =responseModel.data;
       if(responseModel.data!=null){
         if (responseModel.isSuccess) {
-          showToast(text: registerModel.data!.otp.toString(), state: ToastStates.success,
-              context: context,gravity: ToastGravity.TOP,timeInSecForIosWeb: 250);
-          changeType('otp');
+          // showToast(text: registerModel.data!.otp.toString(), state: ToastStates.success,
+          //     context: context,gravity: ToastGravity.TOP,timeInSecForIosWeb: 250);
+          // changeType('otp');
+          print('---------------------------');
+
+          LoginModelData userModel = registerModel.data??LoginModelData();
+          String token = userModel.token??'';
+          if (token.isNotEmpty) {
+            await _saveUserDataUseCase.call(token: token);
+            // context.pushNamed(Routes.completeProfileScreen);
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>CompleteProfileFirstScreen()));
+          }
+          regPhoneController.text='';
+          regLastNameController.text='';
+          regFirstNameController.text='';
+          regPasswordController.text='';
+          confirmPasswordController.text='';
+          regEmailController.text='';
           emit(RegisterSuccessState()) ;
         }else{
           emit(RegisterErrorState()) ;

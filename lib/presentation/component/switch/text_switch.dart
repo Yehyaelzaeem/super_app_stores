@@ -1,9 +1,12 @@
-import '../../../src/main_index.dart';
-import '../texts/black_texts.dart';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../../core/resources/color.dart';
+import '../../../core/resources/styles.dart';
 
 
-class TextSwitch extends BaseStatelessWidget {
+class TextSwitch extends StatelessWidget {
   final String text;
   final double? fontSize;
   final bool? value;
@@ -17,18 +20,18 @@ class TextSwitch extends BaseStatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        BlackSemiBoldText(
-          label: text,
-          fontSize:fontSize??14 ,
-        ),
+        Text(text,
+          style: TextStyles.font18Black700Weight.copyWith(
+              fontSize: 20,
+              color: Colors.grey.shade800
+          ),),
         CupertinoSwitch(
           value: isActive,
-          activeColor: context.primaryColor,
-          trackColor: disabledColor,
+          activeColor: primaryColor,
+          trackColor: Color(0xff9098A1),
           onChanged: (value) {
             isActive = value;
             onToggle(isActive);
-
           },
         )
       ],

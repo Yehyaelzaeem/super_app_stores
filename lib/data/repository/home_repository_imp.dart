@@ -35,6 +35,8 @@ class HomeRepositoryImp implements HomeRepository{
           await MultipartFile.fromFile(addProductBody!.image!.path!, filename: 'upload')
         ],
         'name': addProductBody.name,
+        'name_ar': addProductBody.nameAr,
+        'description_ar': addProductBody.descriptionAr,
         'description': addProductBody.description,
         'price': addProductBody.price,
         'discount': addProductBody.discount,
@@ -83,9 +85,6 @@ class HomeRepositoryImp implements HomeRepository{
   Future<ApiResponse> updateProduct({required AddProductBody addProductBody,required int id})async {
     try {
       var data = FormData.fromMap({
-        'image': [
-          await MultipartFile.fromFile(addProductBody.image!.path, filename: 'upload')
-        ],
         'name': addProductBody.name,
         'description': addProductBody.description,
         'price': addProductBody.price,
@@ -97,6 +96,10 @@ class HomeRepositoryImp implements HomeRepository{
         'addition_price': addProductBody.additionPrice,
         '': ''
       });
+
+      if(addProductBody.image!=null){
+        data.files.add(MapEntry('image', await MultipartFile.fromFile(addProductBody.image!.path, filename: 'upload')));
+      }
       Response response = await _dioClient.post(
         AppURL.kUpdateProductURL(id: id),
         data2: data

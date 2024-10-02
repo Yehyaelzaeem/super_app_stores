@@ -13,25 +13,24 @@ import '../../../../../component/custom_not_found_data.dart';
 import '../../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../component/error_widget.dart';
 
-class AcceptedOrdersWidget extends StatefulWidget {
-  const AcceptedOrdersWidget({super.key});
+class OnProgressOrdersWidget extends StatefulWidget {
+  const OnProgressOrdersWidget({super.key});
 
   @override
-  State<AcceptedOrdersWidget> createState() => _State();
+  State<OnProgressOrdersWidget> createState() => _State();
 }
 
-class _State extends State<AcceptedOrdersWidget> {
+class _State extends State<OnProgressOrdersWidget> {
   OrdersCubit cubit = OrdersCubit.get();
   ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    print('initState');
-    cubit.getAcceptedOrders(status: 'restaurant_accepted',);
+    cubit.getOnProgressOrders(status: 'restaurant_order_progress',);
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !cubit.isLoading) {
-        cubit.getAcceptedOrders(status: 'restaurant_accepted');
+        cubit.getOnProgressOrders(status: 'restaurant_order_progress');
       }
     });
   }
@@ -42,64 +41,72 @@ class _State extends State<AcceptedOrdersWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: customWhite,
-      width: double.infinity,
-      child: BlocBuilder<OrdersCubit, OrdersState>(
-        builder: (context, state) {
-          if (state.acceptOrderState == RequestState.error) {
-            return ErrorNetworkWidget(onTap: () {
-              cubit.getAcceptedOrders(status: 'restaurant_accepted');
-            });
-          }
-          else if (state.acceptOrderState == RequestState.loaded) {
-            if (state.acceptOrdersList.isNotEmpty) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: state.acceptOrdersList.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index == state.acceptOrdersList.length) {
-                      return
-                        //   cubit.isPaginationLoading
-                        //     ? Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: Center(
-                        //     child: CustomLoadingWidget(),
-                        //   ),
-                        // )
-                        //     :
-                        SizedBox.shrink();
-                    } else {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 2.w),
-                        child: OrderItem(
-                          ordersModelData: state.acceptOrdersList[index],
-                        ),
-                      );
 
-                    }
-                  },
-                ),
-              );
-            } else {
-              return Padding(
-                padding: EdgeInsets.only(top: 16.h),
-                child: CustomNotFoundDataWidget(
-                  image: AppImages.notFoundBranch,
-                  title: LocaleKeys.notFoundData.tr(),
-                  type: 'svg',
-                ),
-              );
+    return
+      Container(
+        color: customWhite,
+        width: double.infinity,
+        child: BlocBuilder<OrdersCubit, OrdersState>(
+          builder: (context, state) {
+            if (state.onProgressOrdersState == RequestState.error) {
+              return ErrorNetworkWidget(onTap: () {
+                cubit.getOnProgressOrders(status: 'restaurant_order_progress');
+              });
             }
-          }
-          else {
-            return const CustomLoadingWidget();
-          }
-        },
-      ),
-    );
+            else if (state.onProgressOrdersState == RequestState.loading) {
+              return const CustomLoadingWidget();
+            }
+            else {
+              if (cubit.onProgressOrdersList.isNotEmpty) {
+                return
+                  RefreshIndicator(
+                      child:  Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          itemCount: cubit.onProgressOrdersList.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == cubit.onProgressOrdersList.length) {
+                              return
+                                //   cubit.isPaginationLoading
+                                //     ? Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: Center(
+                                //     child: CustomLoadingWidget(),
+                                //   ),
+                                // )
+                                //     :
+                                SizedBox.shrink();
+                            } else {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 2.w),
+                                child: OrderItem(
+                                  ordersModelData: cubit.onProgressOrdersList[index],
+                                ),
+                              );
+
+                            }
+                          },
+                        ),
+                      ),
+                      onRefresh: ()async{
+                        return await cubit.getOnProgressOrders(status: 'restaurant_order_progress');
+                      });
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(top: 16.h),
+                  child: CustomNotFoundDataWidget(
+                    image: AppImages.notFoundBranch,
+                    title: LocaleKeys.notFoundData.tr(),
+                    type: 'svg',
+                  ),
+                );
+              }
+
+            }
+          },
+        ),
+      );
   }
 
 }

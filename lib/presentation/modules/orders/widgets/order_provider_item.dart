@@ -87,8 +87,8 @@ class OrderProviderItem extends StatelessWidget {
                     }),
                     Row(
                       children: [
-                        const Icon(Icons.flag_rounded,color: backBlue2,size: 25,),
-                        Text('${ordersModelData?.orderTotal??''} ${LocaleKeys.lyd.tr()}',style: TextStyles.font18Black700Weight.copyWith(
+                         Icon(Icons.flag_rounded,color: backBlue2,size: 25,),
+                        Text('${ordersModelData?.orderTotal??''} ${LocaleKeys.currency.tr()}',style: TextStyles.font18Black700Weight.copyWith(
                           color: backBlue2
                         ),),
                       ],

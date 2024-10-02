@@ -92,6 +92,8 @@ class Products {
 class ProductData {
   int? id;
   String? name;
+  String? nameAr;
+  String? descriptionAr;
   String? description;
   CategoriesData? category;
   dynamic price;
@@ -106,6 +108,8 @@ class ProductData {
       {this.id,
         this.name,
         this.description,
+        this.nameAr,
+        this.descriptionAr,
          this.category,
         this.price,
         this.discount,
@@ -118,8 +122,12 @@ class ProductData {
   ProductData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    nameAr = json['name_ar'];
+      description = json['description_ar'];
     description = json['description'];
-    category =CategoriesData.fromJson(json['category']);
+    category =json['category'] != null
+        ?  CategoriesData.fromJson(json['category'])
+        : null;
     price = json['price'];
     discount = json['discount'];
     priceAfterDiscount = json['price_after_discount'];

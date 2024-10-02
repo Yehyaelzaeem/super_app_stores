@@ -15,8 +15,10 @@ class GetProfileUseCase implements BaseUseCase<GetProfileModel>{
 
   @override
   ResponseModel<GetProfileModel> onConvert(BaseModel baseModel) {
+    GetProfileModel? profileModel = GetProfileModel.fromJson(baseModel.item);
+
     try{
-      GetProfileModel? profileModel = GetProfileModel.fromJson(baseModel.item);
+
       return ResponseModel(baseModel.status??true, baseModel.message,data: profileModel);
     }catch(e){
       return ResponseModel(baseModel.status??false, baseModel.message,data: baseModel.item);

@@ -1,5 +1,6 @@
 import '../../../data/model/base/base_model.dart';
 import '../../../data/model/base/response_model.dart';
+import '../../../data/model/response/delivery_time.dart';
 import '../../../data/model/response/time_params.dart';
 import '../../repository/favorite_repo.dart';
 import '../../repository/store_time_repo.dart';
@@ -7,11 +8,11 @@ import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
 
-class AddStoreTimeUseCase implements BaseUseCase<dynamic>{
+class AddDeliveryTimeUseCase implements BaseUseCase<dynamic>{
   final StoreTimeRepository repository;
-  AddStoreTimeUseCase({required this.repository});
-  Future<ResponseModel> call({required TimeParams params}) async {
-    return BaseUseCaseCall.onGetData<dynamic>( await repository.addStoreTime( params: params), onConvert,tag: 'AddStoreTimeUseCase');
+  AddDeliveryTimeUseCase({required this.repository});
+  Future<ResponseModel> call({required DeliveryTimeParams params}) async {
+    return BaseUseCaseCall.onGetData<dynamic>( await repository.addDeliveryTime(params: params), onConvert,tag: 'AddDeliveryTimeUseCase');
   }
   @override
   ResponseModel<dynamic> onConvert(BaseModel baseModel) {

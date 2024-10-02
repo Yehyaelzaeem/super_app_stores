@@ -65,7 +65,7 @@ class UpdateProductScreen extends StatelessWidget {
                 ProductTitleField(title: LocaleKeys.description.tr(),),
                 ProductTextField(controller: cubit.productDescription,),
                 verticalSpace(15),
-                 ProductImageAndButtonWidget(type: 'update',id: product.id!,),
+                 ProductImageAndButtonWidget(type: 'update',id: product.id!,image: product.image!,),
               ],
             ),
           ),

@@ -1,10 +1,12 @@
+import 'package:cogina_restaurants/data/model/response/user_model.dart';
+
 class RegisterModel {
-  RegisterModelData? data;
+  LoginModelData? data;
 
   RegisterModel({this.data});
 
   RegisterModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new RegisterModelData.fromJson(json['data']) : null;
+    data = json['data'] != null ? new LoginModelData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {

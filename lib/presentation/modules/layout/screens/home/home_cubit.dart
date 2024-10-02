@@ -47,12 +47,14 @@ class HomeCubit extends Cubit<HomeState> {
 
 
   TextEditingController productName =TextEditingController();
+  TextEditingController productNameAr =TextEditingController();
   TextEditingController  productPrice =TextEditingController();
   TextEditingController  productExtraName =TextEditingController();
   TextEditingController  productExtraNameAr =TextEditingController();
   TextEditingController  productExtraPrice =TextEditingController();
   TextEditingController  productDisCount =TextEditingController();
   TextEditingController  productDescription =TextEditingController();
+  TextEditingController  productDescriptionAR=TextEditingController();
   GlobalKey<FormState> productFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> extraFormKey = GlobalKey<FormState>();
 
@@ -114,7 +116,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<ResponseModel> addProduct() async {
     AddProductBody addProductBody=AddProductBody(
-        name: productName.text, description: productDescription.text,
+        name: productName.text,
+            nameAr: productNameAr.text,
+            descriptionAr: productDescriptionAR.text,
+            description: productDescription.text,
         price: productPrice.text, discount: productDisCount.text, image: productImageFile!,
         categoryId: categoryId.toString(),
         additionName: extralList.map((e) => e.nameEn.trim()).join(','),
@@ -136,11 +141,15 @@ class HomeCubit extends Cubit<HomeState> {
   Future<ResponseModel> updateProduct({required int id,required BuildContext context}) async {
     emit(AddProductLoadingState()) ;
     AddProductBody addProductBody=AddProductBody(
-        name: productName.text, description: productDescription.text,
-        price: productPrice.text, discount: productDisCount.text, image: productImageFile,
+        name: productName.text,
+       nameAr: productNameAr.text,
+       descriptionAr: productDescriptionAR.text,
+      description: productDescription.text,
+        price: productPrice.text, discount: productDisCount.text,
+       // image: productImageFile??null,
         categoryId: categoryId.toString(),
-        additionName: extralList.map((e) => e.nameEn.trim()).join(','),
-        additionNameAr: extralList.map((e) => e.nameAr.trim()).join(','),
+        additionName: extralList.map((e) =>e.nameEn.isNotEmpty? e.nameEn.trim():e.nameAr.trim()).join(','),
+        additionNameAr: extralList.map((e) =>e.nameAr.isNotEmpty? e.nameAr.trim():e.nameEn.trim()).join(','),
         additionPrice:  extralList.map((e) => e.price.toString()).join(','),
     );
     ResponseModel responseModel = await _updateProductUseCase.call(addProductBody: addProductBody, id: id);
@@ -178,7 +187,10 @@ class HomeCubit extends Cubit<HomeState> {
     productDisCount.text='';
   }
   void pushProductTextFieldData(ProductData productData){
-    productName.text=productData.name!;
+    productName.text=productData.name??'';
+    productNameAr.text=productData.nameAr??'';
+    productDescriptionAR.text=productData.descriptionAr??'';
+    productDescription.text=productData.description??'';
     categoryId=productData.category?.id??0;
     categoryValue=productData.category?.name??'';
     productPrice.text=productData.priceAfterDiscount!.toString();
@@ -197,8 +209,7 @@ class HomeCubit extends Cubit<HomeState> {
     //   productExtraNameAr.text=productData.extra!.data![0].name.toString();
     //   productExtraPrice.text=productData.extra!.data![0].price.toString();
     // }
-    productDescription.text=productData.description!;
-    productDisCount.text=productData.discount!;
+    productDisCount.text=productData.discount??'';
     for(var a in productData.extra!.data! ){
       if(appContext.locale.languageCode.toString()=='en'){
         extralList.add(ExtraModel(nameAr: '', nameEn: a.name??'', price:a.price!=null? double.parse(a.price.toString()):0.0));

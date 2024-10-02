@@ -4,9 +4,11 @@ import 'package:cogina_restaurants/core/routing/undefined_route_screen.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../presentation/modules/auth/auth_screen.dart';
+import '../../presentation/modules/auth/complete_profile/complete_profile_screen.dart';
 import '../../presentation/modules/branches/add_beanch/add_branch_screen.dart';
 import '../../presentation/modules/branches/branches_screen.dart';
 import '../../presentation/modules/branches/edit_branch/edit_branch_screen.dart';
+import '../../presentation/modules/delivery_time/delivery_time.dart';
 import '../../presentation/modules/elements/elements_screen.dart';
 import '../../presentation/modules/layout/layout_screen.dart';
 import '../../presentation/modules/layout/screens/account/about_us/about_us_screen.dart';
@@ -29,6 +31,7 @@ import '../../presentation/modules/messages/chat_details.dart';
 import '../../presentation/modules/messages/messages_screen.dart';
 import '../../presentation/modules/orders/provider_orders_screen.dart';
 import '../../presentation/modules/splash/splash_screen.dart';
+import '../../presentation/modules/store_time/store_time.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -41,8 +44,14 @@ class RouteGenerator {
         return platformPageRoute( const AboutUsScreen());
         case Routes.termsConditionScreen:
         return platformPageRoute( const TermsConditionScreen());
+        case Routes.deliveryTimeScreen:
+        return platformPageRoute(  DeliveryTimeScreen(profile: arguments?['profile'],isComplete: arguments?['isComplete']??false));
         case Routes.privacyPolicyScreen:
         return platformPageRoute( const PrivacyPolicyScreen());
+        case Routes.completeProfileScreen:
+        return platformPageRoute(  CompleteProfileFirstScreen());
+        case Routes.storeTimeScreen:
+        return platformPageRoute(  StoreTimeScreen(times: arguments?['times'],isComplete: arguments?['isComplete']??false));
         case Routes.authScreen:
         return platformPageRoute(  const AuthScreen());
         case Routes.changeProfilePasswordScreen:
@@ -70,9 +79,9 @@ class RouteGenerator {
         case Routes.messagesScreen:
         return platformPageRoute( const  MessagesScreen());
         case Routes.editFileScreen:
-        return platformPageRoute(   EditFileScreen(type: arguments?['type'], title: arguments?['title'], text: arguments?['text'],));
+        return platformPageRoute(   EditFileScreen(type: arguments?['type'],isComplete: arguments?['isComplete']??false, title: arguments?['title'], text: arguments?['text'],));
         case Routes.myFilesScreen:
-        return platformPageRoute( const  MyFilesScreen());
+        return platformPageRoute(   MyFilesScreen(isComplete: arguments?['isComplete']??false,));
         case Routes.editBranchScreen:
         return platformPageRoute(   EditBranchScreen(branchesModelData: arguments?['branchesModelData'],));
         case Routes.branchesScreen:

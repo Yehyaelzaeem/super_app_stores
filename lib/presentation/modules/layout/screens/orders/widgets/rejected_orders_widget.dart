@@ -13,25 +13,24 @@ import '../../../../../component/custom_not_found_data.dart';
 import '../../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../component/error_widget.dart';
 
-class AcceptedOrdersWidget extends StatefulWidget {
-  const AcceptedOrdersWidget({super.key});
+class RejectedOrdersWidget extends StatefulWidget {
+  const RejectedOrdersWidget({super.key});
 
   @override
-  State<AcceptedOrdersWidget> createState() => _State();
+  State<RejectedOrdersWidget> createState() => _State();
 }
 
-class _State extends State<AcceptedOrdersWidget> {
+class _State extends State<RejectedOrdersWidget> {
   OrdersCubit cubit = OrdersCubit.get();
   ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    print('initState');
-    cubit.getAcceptedOrders(status: 'restaurant_accepted',);
+    cubit.getRejectedOrders(status: 'restaurant_rejected',);
     super.initState();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !cubit.isLoading) {
-        cubit.getAcceptedOrders(status: 'restaurant_accepted');
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent && !cubit.isPaginationRejectedLoading) {
+        cubit.getRejectedOrders(status: 'restaurant_rejected');
       }
     });
   }
@@ -42,25 +41,29 @@ class _State extends State<AcceptedOrdersWidget> {
   }
   @override
   Widget build(BuildContext context) {
+
     return Container(
       color: customWhite,
       width: double.infinity,
       child: BlocBuilder<OrdersCubit, OrdersState>(
         builder: (context, state) {
-          if (state.acceptOrderState == RequestState.error) {
+          if (state.rejectedState == RequestState.error) {
             return ErrorNetworkWidget(onTap: () {
-              cubit.getAcceptedOrders(status: 'restaurant_accepted');
+              cubit.getRejectedOrders(status: 'restaurant_rejected');
             });
           }
-          else if (state.acceptOrderState == RequestState.loaded) {
-            if (state.acceptOrdersList.isNotEmpty) {
+          else if (state.rejectedState == RequestState.loading) {
+            return const CustomLoadingWidget();
+          }
+          else {
+            if (cubit.rejectedOrdersList.isNotEmpty) {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
                   controller: _scrollController,
-                  itemCount: state.acceptOrdersList.length + 1,
+                  itemCount: cubit.rejectedOrdersList.length + 1,
                   itemBuilder: (context, index) {
-                    if (index == state.acceptOrdersList.length) {
+                    if (index == cubit.rejectedOrdersList.length) {
                       return
                         //   cubit.isPaginationLoading
                         //     ? Padding(
@@ -75,7 +78,7 @@ class _State extends State<AcceptedOrdersWidget> {
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 2.w),
                         child: OrderItem(
-                          ordersModelData: state.acceptOrdersList[index],
+                          ordersModelData: cubit.rejectedOrdersList[index],
                         ),
                       );
 
@@ -93,9 +96,7 @@ class _State extends State<AcceptedOrdersWidget> {
                 ),
               );
             }
-          }
-          else {
-            return const CustomLoadingWidget();
+
           }
         },
       ),

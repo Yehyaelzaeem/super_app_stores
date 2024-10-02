@@ -13,7 +13,8 @@ import '../../../../../component/custom_elevated_button.dart';
 import '../account_cubit.dart';
 
 class EditFileScreen extends StatelessWidget {
-  const EditFileScreen({super.key, required this.type, required this.title, required this.text});
+  final bool isComplete;
+  const EditFileScreen({super.key, required this.type, required this.title, required this.text,this.isComplete=false});
   final String type;
   final String title;
   final String text;
@@ -129,7 +130,7 @@ class EditFileScreen extends StatelessWidget {
                                 isLoading: state is UploadFileLoadingState,
                                 backgroundColor: Colors.transparent,
                                 onTap: (){
-                                  cubit.uploadAccountFile(context: context, type: type);
+                                  cubit.uploadAccountFile(context: context, type: type,isComplete: isComplete);
                                 },
                                 buttonText:LocaleKeys.update.tr(),
                                 width: MediaQuery.of(context).size.width*0.5,
