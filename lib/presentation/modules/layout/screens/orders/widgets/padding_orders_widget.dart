@@ -13,8 +13,8 @@ import '../../../../../../core/resources/styles.dart';
 import '../../../../../../core/translations/locale_keys.dart';
 import '../../../../../component/custom_not_found_data.dart';
 
-class AllOrdersWidget extends StatelessWidget {
-  const AllOrdersWidget({super.key});
+class PaddingWidget extends StatelessWidget {
+  const PaddingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +25,16 @@ class AllOrdersWidget extends StatelessWidget {
       child: BlocConsumer<OrdersCubit, OrdersState>(
         listener: (context, state) {},
         builder: (context, state) {
-          if(cubit.ordersModel!=null){
-            if(cubit.ordersModel!.data!.isNotEmpty){
+          if(cubit.pendingOrders!=null){
+            if(cubit.pendingOrdersList.isNotEmpty){
               return Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
-                    itemCount: cubit.ordersModel!.data!.length ,
+                    itemCount: cubit.pendingOrdersList.length ,
                     itemBuilder: (context,index){
                   return Padding(
                     padding:  EdgeInsets.symmetric(vertical: 8.h),
-                    child: OrderItem(ordersModelData: cubit.ordersModel!.data![index],),
+                    child: OrderItem(ordersModelData: cubit.pendingOrdersList[index],),
                   );
                 }),
               );
