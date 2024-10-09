@@ -11,6 +11,7 @@ class LocaleKeys
   static const this_field_required = 'this_field_required';
   static const myOrders = 'my_orders';
   static const saturday = 'saturday';
+  static const note = 'note';
   static const sunday = 'sunday';
   static const monday = 'monday';
   static const tuesday = 'tuesday';

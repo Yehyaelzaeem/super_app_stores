@@ -37,7 +37,7 @@ class _EditBranchScreenState extends State<EditBranchScreen> {
         break;
       }
     }
-    cubit.storeTime.text='';
+    cubit.storeTime.text='0';
     super.initState();
   }
   @override

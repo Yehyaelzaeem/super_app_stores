@@ -58,10 +58,10 @@ class ProfitsScreen extends StatelessWidget {
                               return Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  // Text('$total ${LocaleKeys.lyd.tr()}',style: TextStyles.font20Black700Weight.copyWith(
-                                  //     color: backBlue2
-                                  // ),),
-                                  // Text('اجمالي الارباح',style: TextStyles.font16Black600Weight),
+                                  Text('$total ${LocaleKeys.currency.tr()}',style: TextStyles.font20Black700Weight.copyWith(
+                                      color: backBlue2
+                                  ),),
+                                  Text('اجمالي الارباح',style: TextStyles.font16Black600Weight),
                                 ],
                               );
                             }else{

@@ -32,6 +32,7 @@ class OrdersModelData {
   String? deliveryFees;
   String? promoCode;
   String? date;
+  String? note;
   String? paymentMethod;
   OrdersDetails? details;
 
@@ -45,6 +46,7 @@ class OrdersModelData {
         this.deliveryFees,
         this.promoCode,
         this.date,
+        this.note,
         this.paymentMethod,
         this.details});
 
@@ -59,6 +61,7 @@ class OrdersModelData {
     deliveryFees = json['delivery_fees'];
     promoCode = json['promo_code'];
     date = json['date'];
+    note = json['note'];
     paymentMethod = json['payment_method'];
     details = json['details'] != null
         ? OrdersDetails.fromJson(json['details'])

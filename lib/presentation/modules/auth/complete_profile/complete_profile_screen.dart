@@ -18,7 +18,7 @@ import '../../../component/google_map/const_location_map.dart';
 import '../../../component/google_map/pick_up_google_map.dart';
 import '../auth_cubit.dart';
 import '../widget/complete_data.dart';
-import '../widget/restuaran_categories_widget.dart';
+import '../widget/restuaran_type_widget.dart';
 
 class CompleteProfileFirstScreen extends StatelessWidget {
    CompleteProfileFirstScreen({super.key});
@@ -26,7 +26,6 @@ class CompleteProfileFirstScreen extends StatelessWidget {
   TextEditingController pickUpController = TextEditingController(text: 'المنطقة/المدينة/البلدة/الشارع');
   @override
   Widget build(BuildContext context) {
-    AuthCubit cubit =AuthCubit.get(context);
     return
       CompeteDataWidget(height: MediaQuery.of(context).size.height*0.885,);
   }

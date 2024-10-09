@@ -143,18 +143,30 @@ class AuthCubit extends Cubit<AuthState> {
     return responseModel;
   }
   RestaurantTypesModel? restaurantTypesModel;
+  Future<ResponseModel> getRestaurantType() async {
+    emit(GetRestaurantTypeLoadingState()) ;
+    ResponseModel responseModel = await _restaurantTypesUseCase.call();
+    if (responseModel.isSuccess) {
+      restaurantTypesModel=responseModel.data;
+      emit(GetRestaurantTypeSuccessState()) ;
+    }else{
+      emit(GetRestaurantTypeErrorState()) ;
+    }
+    return responseModel;
+  }
+
+  RestaurantTypesModel? restaurantCategoriesModel;
   Future<ResponseModel> getRestaurantCategories() async {
     emit(GetRestaurantCategoriesLoadingState()) ;
     ResponseModel responseModel = await _restaurantTypesUseCase.call();
     if (responseModel.isSuccess) {
-      restaurantTypesModel=responseModel.data;
+      restaurantCategoriesModel=responseModel.data;
       emit(GetRestaurantCategoriesSuccessState()) ;
     }else{
       emit(GetRestaurantCategoriesErrorState()) ;
     }
     return responseModel;
   }
-
   Future<ResponseModel?> completeProfile(BuildContext context, bool? isUpdate) async {
     emit(CompleteProfileLoadingState()) ;
     if(comNameArController.text.isNotEmpty&&comNameController.text.isNotEmpty){

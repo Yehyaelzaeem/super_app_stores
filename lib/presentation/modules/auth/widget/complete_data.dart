@@ -1,6 +1,7 @@
 import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/component/images/custom_image.dart';
 import 'package:cogina_restaurants/presentation/modules/auth/widget/restuaran_categories_widget.dart';
+import 'package:cogina_restaurants/presentation/modules/auth/widget/restuaran_type_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,10 @@ import '../../../../core/routing/navigation_services.dart';
 import '../../../../domain/provider/local_auth_provider_cubit.dart';
 import '../../../component/custom_elevated_button.dart';
 import '../../../component/custom_text_field.dart';
+import '../../../component/drop_down.dart';
 import '../../../component/google_map/address_location_model.dart';
 import '../../../component/google_map/pick_up_google_map.dart';
+import '../../../component/multi_selcet_drop_down.dart';
 import '../auth_cubit.dart';
 class CompeteDataWidget extends StatefulWidget {
   CompeteDataWidget({super.key, this.height, this.title, this.image});
@@ -42,6 +45,7 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
 
     super.initState();
   }
+  List<CategoryModel> categoryModelList=[];
   String? typeId;
   @override
   Widget build(BuildContext context) {
@@ -139,63 +143,82 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
                                 //   borderColor: Colors.grey.shade400,
                                 // ),
                                 // verticalSpace(20),
-                                CustomTextField(
-                                  suffixIcon:IconButton(onPressed: (){},icon: const Icon(Icons.location_on,color: Colors.grey,),),
-                                  prefixIcon:  const Icon(Icons.maps_home_work_outlined,color: Colors.grey,),
-                                  hintText: LocaleKeys.address.tr(),
-                                  hintStyle: TextStyles.font16Black500Weight.copyWith(
-                                      color: Colors.grey.shade500,
-                                      fontWeight: FontWeight.w600
-                                  ),
-                                  fillColor: backGroundGray,
-                                  controller: cubit.comAddressController,
-                                  borderRadius: 40,
-                                  borderColor: Colors.grey.shade400,
-                                ),
-                                verticalSpace(20),
-                                InkWell(
-                                  onTap: (){
-                                    final addressModel=cubit.addressModel??AddressLocationModel();
-                                    if(context.read<LocalAuthCubit>().state.latLng!=null){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                          PickUpGoogleMapScreen())).then((value) {
-                                        cubit.addressModel =value;
-                                        cubit.pickUpController.text='${addressModel.city??''}/${addressModel.street??''}/${addressModel.bigCity??''}';
-                                      });
-                                    }else{
-                                      context.read<LocalAuthCubit>().getLocation().then((value) {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                            PickUpGoogleMapScreen(latLng: value))).then((value) {
-                                          cubit.addressModel =value;
-                                          cubit.pickUpController.text='${addressModel.city??''}/${addressModel.street??''}/${addressModel.bigCity??''}';
-                                        });
-                                      });
-                                    }
-                                  },
-                                  child: CustomTextField(
-                                      hintText: LocaleKeys.location.tr(),
-                                      controller:cubit.pickUpController,
-                                      enabled: false,
-                                      borderRadius: 50,
-                                      textInputAction: TextInputAction.done,
-                                      validationFunc: (value){
-                                        if (value == null || value.isEmpty) {
-                                          return LocaleKeys.required.tr();
-                                        }
-                                        return null;
-                                      },
-                                      prefixIcon: Icon(Icons.location_on,color: customGray,),
-                                      contentHorizontalPadding: 20.w,
-                                      hintColor:customGray,
+                                if(widget.title != LocaleKeys.updateData.tr())
+                                Column(
+                                  children: [
+                                    CustomTextField(
+                                      suffixIcon:IconButton(onPressed: (){},icon: const Icon(Icons.location_on,color: Colors.grey,),),
+                                      prefixIcon:  const Icon(Icons.maps_home_work_outlined,color: Colors.grey,),
+                                      hintText: LocaleKeys.address.tr(),
+                                      hintStyle: TextStyles.font16Black500Weight.copyWith(
+                                          color: Colors.grey.shade500,
+                                          fontWeight: FontWeight.w600
+                                      ),
                                       fillColor: backGroundGray,
-                                      borderColor:backGroundGray
+                                      controller: cubit.comAddressController,
+                                      borderRadius: 40,
+                                      borderColor: Colors.grey.shade400,
+                                    ),
+                                    verticalSpace(20),
+                                    BlocConsumer<AuthCubit, AuthState>(
+                                        listener: (context, state) {},
+                                        builder: (context, state) {
+                                          return   InkWell(
+                                            onTap: (){
+                                              if(context.read<LocalAuthCubit>().state.latLng!=null){
+                                                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                                    PickUpGoogleMapScreen())).then((value) {
+                                                  cubit.addressModel =value;
+                                                  cubit.pickUpController.text='${cubit.addressModel?.city??''}/${cubit.addressModel?.street??''}/${cubit.addressModel?.bigCity??''}';
 
-                                  ),
+                                                });
+                                              }else{
+                                                context.read<LocalAuthCubit>().getLocation().then((value) {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                                      PickUpGoogleMapScreen(latLng: value))).then((value) {
+                                                    cubit.addressModel =value;
+                                                    cubit.pickUpController.text='${cubit.addressModel?.city??''}/${cubit.addressModel?.street??''}/${cubit.addressModel?.bigCity??''}';
+
+                                                  });
+                                                });
+                                              }
+                                            },
+                                            child: CustomTextField(
+                                                hintText: LocaleKeys.location.tr(),
+                                                controller:cubit.pickUpController,
+                                                enabled: false,
+                                                borderRadius: 50,
+                                                textInputAction: TextInputAction.done,
+                                                validationFunc: (value){
+                                                  if (value == null || value.isEmpty) {
+                                                    return LocaleKeys.required.tr();
+                                                  }
+                                                  return null;
+                                                },
+                                                prefixIcon: Icon(Icons.location_on,color: customGray,),
+                                                contentHorizontalPadding: 20.w,
+                                                hintColor:customGray,
+                                                fillColor: backGroundGray,
+                                                borderColor:backGroundGray
+
+                                            ),
+                                          );
+                                        }),
+                                    verticalSpace(20),
+                                    RestaurantTypesWidget(onChanged: (String value ) {
+                                      cubit.comTypeController.text=value;
+                                    },),
+                                    verticalSpace(13),
+                                    RestaurantCategoriesWidget(
+                                      items: (List<CategoryModel> values) {
+                                        categoryModelList=values;
+                                      },
+                                      onChanged: (DropDownItem? value ) {
+                                        print('value ============ ${value?.title}');
+                                      },
+                                    ),
+                                  ],
                                 ),
-                                verticalSpace(20),
-                                RestaurantTypesWidget(onChanged: (String value ) {
-                                  cubit.comTypeController.text=value;
-                                },),
                                 // CustomTextField(
                                 //   prefixIcon:  const Icon(Icons.store,color: Colors.grey,),
                                 //   hintText: LocaleKeys.restaurantType.tr(),
@@ -269,7 +292,7 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
                                               cubit.completeProfile(context,widget.image!=null?true:false);
                                             },
                                             buttonText:widget.image!=null?LocaleKeys.update.tr():LocaleKeys.done.tr(),
-                                            width: MediaQuery.of(context).size.width,
+                                            width:double.infinity,
                                             height: 40,
                                             fontSize: 17,
                                             borderRadius: 40,

@@ -51,9 +51,9 @@ class BranchDataWidget extends StatelessWidget {
                     CustomTextField(
                       textInputType: TextInputType.emailAddress,
                       validationFunc: (value) {
-                        if (value == null || value.isEmpty) {
-                          return LocaleKeys.requiredField.tr();
-                        }
+                        // if (value == null || value.isEmpty) {
+                        //   return LocaleKeys.requiredField.tr();
+                        // }
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.email,color: Colors.grey,),

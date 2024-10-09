@@ -47,9 +47,9 @@ class CustomElevatedButton extends StatelessWidget {
       ),
       child:
       isLoading==true? SizedBox(
-          height: height?? 45,
-          width:  width??30,
-          child: const Center(child: CustomLoadingWidget(color: whiteColor,),)):
+          // height: height?? 45,
+          width:  width??20,
+          child: const Center(child: CustomLoadingWidget(color: whiteColor,size: 30,),)):
       Text(
         buttonText,
         style: TextStyle(

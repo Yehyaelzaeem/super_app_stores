@@ -13,12 +13,15 @@ import '../../../../../../core/resources/styles.dart';
 import '../../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/routing/routes.dart';
 import '../../../../../../data/model/response/products_model.dart';
+import '../../../../../component/custom_loading_widget.dart';
 import '../../../../../component/switch/custom_switch.dart';
 import 'custom_chip.dart';
 
 class MealItemWidget extends StatelessWidget {
-  const MealItemWidget({super.key, required this.product});
+   MealItemWidget({super.key, required this.product});
   final ProductData product;
+  bool isLoading =false;
+
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -55,15 +58,34 @@ class MealItemWidget extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(product.name!,
+                          child: Text(product.name??'',
                             style: TextStyles.font18Black700Weight.copyWith(
                                 fontWeight: FontWeight.bold,height:1
                             ),
                           ),
                         ),
-                        CustomSwitch(onToggle: (bool x) {
-                              HomeCubit.get(context).changeProductsState(id: product.id??0);
-                        }, value: product.published??false,)
+                        StatefulBuilder(builder: (context, setState) {
+
+                          if(isLoading==true)
+                            return  Padding(padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: CustomLoadingWidget(color: primaryColor,size: 25,),);
+                          else
+                            return CustomSwitch(
+                              onToggle: (bool x) async {
+                                setState(() {
+                                  product.published= !product.published!;
+                                  isLoading = true;
+                                });
+                                await HomeCubit.get(context).changeProductsState(id: product.id??0).then((value) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                });
+                              },
+                              value: product.published??false,
+                            );
+                        }),
+
                       ],
                     ),
                      verticalSpace(8),

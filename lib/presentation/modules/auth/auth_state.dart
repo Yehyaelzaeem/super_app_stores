@@ -13,6 +13,10 @@ class GetRestaurantCategoriesLoadingState extends AuthState {}
 class GetRestaurantCategoriesSuccessState extends AuthState {}
 class GetRestaurantCategoriesErrorState extends AuthState {}
 
+class GetRestaurantTypeErrorState extends AuthState {}
+class GetRestaurantTypeSuccessState extends AuthState {}
+class GetRestaurantTypeLoadingState extends AuthState {}
+
 class LoginSuccessState extends AuthState {}
 class LoginLoadingState extends AuthState {}
 class OtpLoadingState extends AuthState {}

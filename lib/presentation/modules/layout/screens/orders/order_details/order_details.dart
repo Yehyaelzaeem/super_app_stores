@@ -5,6 +5,7 @@ import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/resources/color.dart';
 import '../../../../../../core/resources/styles.dart';
 import '../../../../../../core/translations/locale_keys.dart';
+import '../../../../../../core/utils/contact_helper.dart';
 import '../../../../../../data/model/response/orders_model.dart';
 import '../../../../../component/custom_divider.dart';
 import '../widgets/custom_order_details_item.dart';
@@ -49,22 +50,54 @@ class OrderDetailsScreen extends StatelessWidget {
                          fontSize: 16.sp
                      ),),
                          verticalSpace(5),
-                          Text(ordersModelData.client?.address??'',style: TextStyles.font20Black700Weight.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: customGray,
-                  fontSize: 12.sp
-                          ),),
+                               Row(
+                                 children: [
+                                   Text(
+                                     ordersModelData.client?.address ?? '',
+                                     style: TextStyles.font20Black700Weight.copyWith(
+                                         fontWeight: FontWeight.w600,
+                                         color: customGray,
+                                         fontSize: 16.sp),),
+                                   horizontalSpace(25),
+                                   InkWell(
+                                       onTap: () {
+                                         ContactHelper.launchMap(lat: double.parse(ordersModelData.client?.location?.lng ??'0.0'), long: double.parse(ordersModelData.client?.location?.lng ??'0.0'));
+                                       },
+                                       child: CircleAvatar(
+                                         radius: 15,
+                                         child: Icon(Icons.location_on,color: primaryColor,size: 14.sp,),
+                                       )
+
+                                   ),
+                                 ],
+                               ),
                          verticalSpace(5),
                          Text(' ${LocaleKeys.phoneNumber.tr()}',style: TextStyles.font20Black700Weight.copyWith(
                  fontWeight: FontWeight.bold,
                  fontSize: 16.sp
                          ),),
                          verticalSpace(5),
-                         Text(ordersModelData.client?.phone??'',style: TextStyles.font20Black700Weight.copyWith(
-                 fontWeight: FontWeight.w600,
-                 color: customGray,
-                 fontSize: 12.sp
-                         ),),
+                               Row(
+                                 children: [
+                                   Text(
+                                     ordersModelData.client?.phone ?? '',
+                                     style: TextStyles.font20Black700Weight.copyWith(
+                                         fontWeight: FontWeight.w600,
+                                         color: customGray,
+                                         fontSize: 16.sp),),
+                                   horizontalSpace(25),
+                                   InkWell(
+                                       onTap: () {
+                                         ContactHelper.launchCall(ordersModelData.client?.phone ?? '');
+                                       },
+                                       child: CircleAvatar(
+                                         radius: 15,
+                                         child: Icon(Icons.phone,color: primaryColor,size: 12.sp,),
+                                       )
+
+                                   ),
+                                 ],
+                               ),
                 verticalSpace(5),
                 Text(' ${LocaleKeys.paymentMethod.tr()}',style: TextStyles.font20Black700Weight.copyWith(
                     fontWeight: FontWeight.bold,
@@ -77,6 +110,22 @@ class OrderDetailsScreen extends StatelessWidget {
                     fontSize: 12.sp
                 ),),
                 verticalSpace(20),
+                               if(ordersModelData.note!=null)
+                                 ...[
+                                   Text(
+                                     ' ${LocaleKeys.note.tr()}',
+                                     style: TextStyles.font20Black700Weight.copyWith(
+                                         fontWeight: FontWeight.bold, fontSize: 16.sp),
+                                   ),
+                                   verticalSpace(5),
+                                   Text(
+                                     ordersModelData.note ?? '',
+                                     style: TextStyles.font20Black700Weight.copyWith(
+                                         fontWeight: FontWeight.w600,
+                                         color: customGray,
+                                         fontSize: 12.sp),
+                                   ),
+                                 ],
                        ],
                       ),
                     ),

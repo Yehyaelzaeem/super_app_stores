@@ -4,8 +4,10 @@ import 'package:cogina_restaurants/presentation/component/custom_loading_widget.
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/resources/color.dart';
+import '../../core/resources/styles.dart';
 import 'custom_text_field.dart';
 
 class DropDownField extends StatelessWidget {
@@ -34,7 +36,7 @@ class DropDownField extends StatelessWidget {
   final bool isLoading;
   final bool disabled;
   final Color? backgroundColor;
-
+final Widget? hintWidget;
   const DropDownField(
       {Key? key,
       required this.items,
@@ -43,6 +45,7 @@ class DropDownField extends StatelessWidget {
       this.onChanged,
       this.prefixIcon,
       this.texStyle,
+      this.hintWidget,
       this.valueId,
       this.iconWidget,
       this.isValidator = true,
@@ -66,10 +69,9 @@ class DropDownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? colorBorderSide = Colors.grey;
-    Color? fillColor = Colors.white;
     TextEditingController controller = TextEditingController();
     return Container(
-      margin: margin ?? EdgeInsets.symmetric(vertical: 10)+ EdgeInsets.only(bottom: 8),
+      margin: margin ?? EdgeInsets.symmetric(vertical: 0)+ EdgeInsets.only(bottom: 8),
 
       // color: isDecoration ? null : backgroundColor,
       child: Column(
@@ -125,11 +127,7 @@ class DropDownField extends StatelessWidget {
                 errorStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.red),
                 // Add more decoration..
               ),
-              hint: Text(
-                hint ?? '',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: hintFontSize ?? 12, color: hintColor),
-                overflow: TextOverflow.ellipsis,
-              ),
+              hint: hintWidget,
               items: items
                   .map((item) => DropdownMenuItem<DropDownItem>(
                         value: item,
@@ -137,8 +135,8 @@ class DropDownField extends StatelessWidget {
                           fit: BoxFit.scaleDown,
                           child: Text(
                             item.title ?? '',
-                            style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: Colors.black,
+                            style: TextStyles.font15CustomGray400Weight.copyWith(
+                                fontSize: 20
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -161,16 +159,19 @@ class DropDownField extends StatelessWidget {
                 icon: Padding(
                   padding:EdgeInsets.only(right: 10),
                   child: isLoading ?  CustomLoadingWidget(size:25) :
-                  Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade700),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 14.w),
+                  child: Icon(Icons.keyboard_arrow_down, color: Colors.grey.shade700),
+                  ),
                 ),
                 iconSize: 25,
               ),
               dropdownStyleData: DropdownStyleData(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 maxHeight: 200,
                 // offset: Offset(0, 0),
                 openInterval: const Interval(0.25, 0.5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(radius ?? 8),
+                  borderRadius: BorderRadius.circular( 12),
                   boxShadow: [
                     BoxShadow(
                       color: primaryColor.withOpacity(0.15),
@@ -202,7 +203,9 @@ class DropDownField extends StatelessWidget {
                       false;
                 },
               ),
+
             ),
+
           ),
         ],
       ),

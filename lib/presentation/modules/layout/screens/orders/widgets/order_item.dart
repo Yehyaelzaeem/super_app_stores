@@ -11,6 +11,7 @@ import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/resources/color.dart';
 import '../../../../../../core/resources/fonts/app_fonts.dart';
 import '../../../../../../core/resources/styles.dart';
+import '../../../../../../core/utils/contact_helper.dart';
 import '../../../../../../data/model/response/orders_model.dart';
 import '../../../../../component/custom_elevated_button.dart';
 import '../../../../../primary_button.dart';
@@ -119,27 +120,41 @@ class OrderItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CircleAvatar(
-                              backgroundColor: redColor.withOpacity(0.3),
-                              radius: 18,
-                              child: const Icon(
-                                Icons.phone,
-                                color: redColor,
+                            InkWell(
+                              onTap: () {
+                                ContactHelper.launchCall(ordersModelData.client?.phone ?? '');
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: redColor.withOpacity(0.3),
+                                radius: 18,
+                                child: const Icon(
+                                  Icons.phone,
+                                  color: redColor,
+                                ),
                               ),
+
                             ),
                             horizontalSpace(10),
-                            CircleAvatar(
-                              backgroundColor: backBlue2.withOpacity(0.3),
-                              radius: 18,
-                              child: Icon(Icons.message_outlined,
-                                  color: backBlue2),
-                            ),
+                            InkWell(
+                              onTap: () {
+                                ContactHelper.openWhatsApp1(context,ordersModelData.client?.phone ?? '');
+                              },
+                              child:  CircleAvatar(
+                                backgroundColor: backBlue2.withOpacity(0.3),
+                                radius: 18,
+                                child: Icon(Icons.message_outlined,
+                                    color: backBlue2),
+                              ),),
                             horizontalSpace(10),
-                            CircleAvatar(
-                              backgroundColor: Colors.blue.withOpacity(0.3),
-                              radius: 18,
-                              child: const Icon(Icons.send, color: Colors.blue),
-                            )
+                            InkWell(
+                                onTap: () {
+                                  ContactHelper.launchMap(lat: double.parse(ordersModelData.client?.location?.lng ??'0.0'), long: double.parse(ordersModelData.client?.location?.lng ??'0.0'));
+                                },
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blue.withOpacity(0.3),
+                                  radius: 18,
+                                  child: const Icon(Icons.location_on_outlined, color: Colors.blue),
+                                )),
                           ],
                         ),
                       )

@@ -90,13 +90,13 @@ class HomeCubit extends Cubit<HomeState> {
     emit(RemoveExtraModelState());
   }
   Future<ResponseModel> changeProductsState({required int id,}) async {
-    emit(ChangeProductLoadingState()) ;
+    // emit(ChangeProductLoadingState()) ;
     ResponseModel responseModel = await _changeProductStateUseCase.call(id: id);
     if (responseModel.isSuccess) {
       getProducts();
-      emit(ChangeProductSuccessState()) ;
+      // emit(ChangeProductSuccessState()) ;
     }else{
-      emit(ChangeProductErrorState()) ;
+      // emit(ChangeProductErrorState()) ;
     }
     return responseModel;
   }

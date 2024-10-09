@@ -54,12 +54,12 @@ class StoreTimeScreen extends StatelessWidget {
         backgroundColor: primaryColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        // leading: IconButton(
-        //   onPressed: (){
-        //     Navigator.pop(context);
-        //   },
-        //   icon: const Icon(Icons.arrow_back_ios,color: Colors.white,),
-        // ),
+        leading: IconButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios,color: Colors.white,),
+        ),
         title: Text(LocaleKeys.times.tr(),style: TextStyles.font20Black700Weight.copyWith(color: Colors.white,fontSize: 30),),
       ),
       body:
