@@ -22,7 +22,7 @@ class TextSwitch extends StatelessWidget {
       children: [
         Text(text,
           style: TextStyles.font18Black700Weight.copyWith(
-              fontSize: 20,
+              fontSize: 18,
               color: Colors.grey.shade800
           ),),
         CupertinoSwitch(

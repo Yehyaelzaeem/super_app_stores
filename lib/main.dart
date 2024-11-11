@@ -3,9 +3,11 @@ import 'package:cogina_restaurants/presentation/modules/splash/splash_screen.dar
 import 'package:country_code_picker/country_localizations.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'bloc.dart';
+import 'firebase_options.dart';
 import 'injection.dart' as injection;
 import 'data/injection.dart' as data_injection;
 import 'core/resources/color.dart';
@@ -18,6 +20,10 @@ void main() async{
   await data_injection.init();
   await domain_injection.init();
   await injection.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
 
   runApp( GenerateMultiBloc(
       child:   EasyLocalization(

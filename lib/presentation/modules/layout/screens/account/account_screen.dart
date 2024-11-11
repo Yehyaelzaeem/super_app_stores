@@ -139,15 +139,25 @@ class AccountScreen extends StatelessWidget {
                   children: [
                     CustomProviderProfileItem(title: LocaleKeys.times.tr(), icon: Icons.timelapse,
                       onTap: (){
-                        context.pushNamed(Routes.storeTimeScreen,arguments: {'times': profileCubit.profileModel?.store?.times??[]});
+                        context.pushNamed(Routes.storeTimeScreen,arguments: {'times': profileCubit.profileModel?.store?.times??[],'isComplete':true});
                       },),
                     verticalSpace(10),
                     CustomProviderProfileItem(title: LocaleKeys.delivery.tr(), icon: Icons.delivery_dining_outlined,
                       onTap: (){
-                        context.pushNamed(Routes.deliveryTimeScreen,arguments: {'profile': profileCubit.profileModel??GetProfileModelData()});
+                        context.pushNamed(Routes.deliveryTimeScreen,arguments: {'profile': profileCubit.profileModel??GetProfileModelData(), 'isComplete':true});
                       },),
                     verticalSpace(10),
-                    CustomProviderProfileItem(title: LocaleKeys.updateData.tr(), icon: Icons.restaurant,
+                    CustomProviderProfileItem(title: LocaleKeys.addOffers.tr(), icon: Icons.local_offer,
+                      onTap: (){
+                        context.pushNamed(Routes.addMealScreen,arguments: {'isOffer': true});
+                      },),
+                    // verticalSpace(10),
+                    // CustomProviderProfileItem(title: LocaleKeys.prescription.tr(), icon: Icons.event_note_outlined,
+                    //   onTap: (){
+                    //     context.pushNamed(Routes.prescriptionScreen,);
+                    //   },),
+                    verticalSpace(10),
+                    CustomProviderProfileItem(title: LocaleKeys.updateData.tr(), icon: Icons.store,
                       onTap: (){
                         context.pushNamed(Routes.updateRestaurant);
                       },),
@@ -173,7 +183,7 @@ class AccountScreen extends StatelessWidget {
                     verticalSpace(10),
                      CustomProviderProfileItem(title: LocaleKeys.myFiles.tr(), icon: Icons.file_copy,
                     onTap: (){
-                      context.pushNamed(Routes.myFilesScreen);
+                      context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
                     },
                     ),
                     // verticalSpace(10),

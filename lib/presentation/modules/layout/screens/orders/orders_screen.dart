@@ -1,6 +1,4 @@
-import 'package:cogina_restaurants/core/assets_constant/images.dart';
 import 'package:cogina_restaurants/core/resources/fonts/app_fonts.dart';
-import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:cogina_restaurants/presentation/component/custom_loading_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/orders_cubit.dart';
@@ -9,26 +7,20 @@ import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/wi
 import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/widgets/delivered_driver_orders_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/widgets/on_progress_orders_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/widgets/padding_orders_widget.dart';
-import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/widgets/order_item.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/widgets/rejected_orders_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/helpers/spacing.dart';
-import '../../../../../core/resources/color.dart';
-import '../../../../../core/resources/styles.dart';
 import '../../../../../core/translations/locale_keys.dart';
-import '../../../../component/custom_app_bar.dart';
-import '../../../../component/custom_not_found_data.dart';
 import '../../../../component/drop_down.dart';
 import '../../../../component/switch/custom_switch.dart';
 import '../../../../component/tabview/tabbar_widget.dart';
 import '../../../branches/branch_cubit.dart';
+import '../../../prescription/prescription_cubit.dart';
+import '../../../prescription/prescription_screen.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
-
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
 }
@@ -40,7 +32,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
   void initState() {
     branchCubit.getLocation(context);
     branchCubit.getBranches();
-
     super.initState();
   }
   @override
@@ -81,8 +72,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
               ),
               centerTitle: true,
               actions: [
-                 Text('متاح الان',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600,fontFamily: AppFonts.lateefFont),),
-
+                 Text('متاح الان',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,fontFamily: AppFonts.lateefFont,),),
                 BlocConsumer<ProfileCubit, ProfileState>(
                   listener: (context, state) {},
                   builder: (context, state) {
@@ -106,41 +96,119 @@ class _OrdersScreenState extends State<OrdersScreen> {
         Column(
           children: [
             Expanded(
-              child: TabBarWidget(
+              child:
+              (profileCubit.profileModel?.store?.storeType?.id??0)==2?
+              TabBarWidget(
                   tabs: [
-                TabItemModel(
-                    label: LocaleKeys.newOrder.tr(),
-                    page: const PaddingWidget()),
-                TabItemModel(
-                    label: LocaleKeys.currentOrders.tr(),
-                    page:  const AcceptedOrdersWidget()
-                ),
-                TabItemModel(
-                    label: LocaleKeys.preparation.tr(),
-                    page:  const OnProgressOrdersWidget()
-                ),
-                TabItemModel(
-                    label: LocaleKeys.delivered2.tr(),
-                    page:  const DeliveredDeliverOrdersWidget()
-                ),
-                TabItemModel(
-                    label: LocaleKeys.completed.tr(),
-                    page:  const CompletedOrdersWidget()
-                ),
-                TabItemModel(
-                    label: LocaleKeys.rejected.tr(),
-                    page:  const RejectedOrdersWidget()
-                ),
-              ]),
+                    OrdersTabsTopWidget(isUnderLine: true),
+                    TabItemModel(
+                        label: LocaleKeys.prescriptions.tr(),
+                        page:  RefreshIndicator(
+                          onRefresh: ()async{
+                            await Future.delayed(const Duration(seconds: 1));
+                            PrescriptionCubit cubit = context.read<PrescriptionCubit>();
+                            cubit.getPrescription();
+                          },
+                          child: PrescriptionScreen(),
+                        )
+                    )
+                  ]):
+              OrdersTabs(),
+
             ),
           ],
         )
-        // OnProgressOrdersWidget()
-
-
-
-
     );
+  }
+  TabItemModel OrdersTabsTopWidget({bool isUnderLine=false}){
+    OrdersCubit cubit =OrdersCubit.get();
+    return TabItemModel(
+        label: LocaleKeys.orders.tr(),
+        page:  RefreshIndicator(
+          onRefresh: ()async{
+
+          },
+          child:  Container(
+              child:
+              Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 10,
+                    color: Colors.white,
+                  ),
+                  Expanded(child:
+                  OrdersTabs(isUnderLine: isUnderLine))
+                ],
+              )
+          ),
+        ));
+  }
+  Widget OrdersTabs({bool isUnderLine=false}){
+    OrdersCubit cubit =OrdersCubit.get();
+    return TabBarWidget(
+        isUnderLine: isUnderLine,
+        tabs: [
+          TabItemModel(
+              label: LocaleKeys.newOrder.tr(),
+              page:  RefreshIndicator(
+                onRefresh: ()async{
+                  await Future.delayed(const Duration(seconds: 1));
+                  cubit.getPendingOrders(status: 'padding',isReload: true);
+                },
+                child: PaddingWidget(),
+              )),
+          TabItemModel(
+              label: LocaleKeys.currentOrders.tr(),
+              page:  RefreshIndicator(
+                onRefresh: ()async{
+                  await Future.delayed(const Duration(seconds: 1));
+                  cubit.getAcceptedOrders(status: 'restaurant_accepted',isReload: true);
+                },
+                child: AcceptedOrdersWidget(),
+              )
+          ),
+          TabItemModel(
+              label: LocaleKeys.preparation.tr(),
+              page:  RefreshIndicator(
+                onRefresh: ()async{
+                  await Future.delayed(const Duration(seconds: 1));
+                  cubit.getOnProgressOrders(status: 'restaurant_order_progress',isReload: true);
+                },
+                child: OnProgressOrdersWidget(),
+              )
+          ),
+          TabItemModel(
+              label: LocaleKeys.delivered2.tr(),
+              page:  RefreshIndicator(
+                onRefresh: ()async{
+                  await Future.delayed(const Duration(seconds: 1));
+                  cubit.getOnWayOrders(status: 'restaurant_done',isReload: true);
+                },
+                child: DeliveredDeliverOrdersWidget(),
+              )
+          ),
+          TabItemModel(
+              label: LocaleKeys.completed.tr(),
+              page:  RefreshIndicator(
+                onRefresh: ()async{
+                  await Future.delayed(const Duration(seconds: 1));
+                  cubit.getCompletedOrders(status: 'restaurant_delivered_driver',isReload: true);
+                },
+                child: CompletedOrdersWidget(),
+              )
+          ),
+          TabItemModel(
+              label: LocaleKeys.rejected.tr(),
+              page: RefreshIndicator(
+                onRefresh: ()async{
+                  await Future.delayed(const Duration(seconds: 1));
+                  cubit.getRejectedOrders(status: 'restaurant_rejected',isReload: true);
+                },
+                child: RejectedOrdersWidget(),
+              )
+          ),
+        ]);
   }
 }
 

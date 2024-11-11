@@ -17,7 +17,7 @@ class CustomProviderProfileItem extends StatelessWidget {
         onTap: onTap,
         title: Text(title,
           style: TextStyles.font18Black700Weight.copyWith(
-            fontSize: 20,
+            fontSize: 14,
             color:color?? Colors.grey.shade800
           ),),
         leading: Icon(icon,color:color?? backBlue2,),

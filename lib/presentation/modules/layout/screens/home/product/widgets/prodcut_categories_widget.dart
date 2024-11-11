@@ -29,9 +29,9 @@ class ProductCategoriesWidget extends StatelessWidget {
                   cubit.productsCategoriesModel!.data!.map(( e) => DropdownMenuItem<String>(
                     value: e.name,
                     child: Text(
-                      e.name!,
+                      e.name??'',
                       style: TextStyles.font15CustomGray400Weight.copyWith(
-                          fontSize: 20
+                          fontSize: 15
                       ),
                     ),
                   )).toList(),

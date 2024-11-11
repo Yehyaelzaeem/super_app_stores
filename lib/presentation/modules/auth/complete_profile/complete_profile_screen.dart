@@ -22,8 +22,8 @@ import '../widget/restuaran_type_widget.dart';
 
 class CompleteProfileFirstScreen extends StatelessWidget {
    CompleteProfileFirstScreen({super.key});
-  AddressLocationModel? addressModel;
-  TextEditingController pickUpController = TextEditingController(text: 'المنطقة/المدينة/البلدة/الشارع');
+  // AddressLocationModel? addressModel;
+  // TextEditingController pickUpController = TextEditingController(text: 'المنطقة/المدينة/البلدة/الشارع');
   @override
   Widget build(BuildContext context) {
     return

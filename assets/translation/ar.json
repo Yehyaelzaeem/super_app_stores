@@ -106,6 +106,16 @@
   "confirm_number": "تأكيد الرقم",
   "enter_code": "أدخل رمز OTP المُرسل إليك",
   "done": "تم",
+  "size": "الحجم",
+  "constSize": "حجم ثابت",
+  "choosePrice": "أختر الحجم والسعر من فضلك",
+  "sizes": "أحجام",
+  "addOffers": "اضافة عرض",
+  "all": "الكل",
+  "size_ar": "الحجم بالعربي",
+  "qty": "الكمية",
+  "bestDishesMess": "هذه الوجبة/المنتج من افضل الوجبات/المنتجات ؟",
+  "bestDishesMess2": "هذه الوجبة/المنتج من افضل الوجبات/المنتجات",
   "name1_empty": "اسم الأول فارغ",
   "first_name": "الاسم الأول",
   "last_name": "الاسم الثاني",
@@ -213,6 +223,15 @@
   "product_name":"اسم المنتج",
   "this_field":"هذا الحقل",
   "required":"مطلوب",
+  "extra":"الاضافات",
 
-  "update_data":"تحديث بيانات المطعم"
+  "update_data":"تحديث بيانات المتجر",
+  "date":"التاريخ",
+  "orderDate":"تاريخ الطلب",
+  "prescriptions":"الروشتات",
+  "prescription":"الروشتة",
+  "sendPrice":"ارسال السعر",
+  "notes":"ملاحظات",
+  "inPreparation":"قيد التحضير",
+  "send":"ارسال"
 }

@@ -83,8 +83,14 @@ class OrdersCubit extends Cubit<OrdersState> {
   bool isPaginationLoading = false;
   OrdersModel? pendingOrders;
   List<OrdersModelData> pendingOrdersList=[];
-  Future getPendingOrders({required String status}) async {
+  Future getPendingOrders({required String status,isReload=false}) async {
     if (isLoading || isPaginationLoading) return;
+    if(isReload==true){
+      pendingOrders=null;
+      pendingOrdersList.clear();
+      emit(state.copyWith(paddingState: RequestState.loading,paddingOrdersList: []));
+    }
+
     if (pendingOrders != null && (pendingOrders?.meta?.pagination?.currentPage ?? 0) >= (pendingOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationLoading = false;
       emit(state.copyWith(paddingState: RequestState.loaded,paddingOrdersList: pendingOrdersList));
@@ -126,8 +132,13 @@ class OrdersCubit extends Cubit<OrdersState> {
   OrdersModel? acceptedOrders;
   List<OrdersModelData> acceptedOrdersList=[];
   bool isPaginationAcceptedLoading = false;
-  Future getAcceptedOrders({required String status}) async {
+  Future getAcceptedOrders({required String status,bool isReload=false}) async {
     if ( isPaginationAcceptedLoading) return;
+    if(isReload==true){
+      acceptedOrders=null;
+      acceptedOrdersList.clear();
+      emit(state.copyWith(acceptOrderState: RequestState.loading,acceptOrdersList: []));
+    }
     if (acceptedOrders != null && (acceptedOrders?.meta?.pagination?.currentPage ?? 0) >= (acceptedOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationAcceptedLoading = false;
       emit(state.copyWith(acceptOrderState: RequestState.loaded,acceptOrdersList: acceptedOrdersList));
@@ -168,9 +179,14 @@ class OrdersCubit extends Cubit<OrdersState> {
   List<OrdersModelData> rejectedOrdersList=[];
   bool isPaginationRejectedLoading = false;
 
-  Future getRejectedOrders({required String status}) async {
+  Future getRejectedOrders({required String status,bool isReload=false}) async {
 
     if ( isPaginationRejectedLoading) return;
+    if(isReload==true){
+      rejectedOrders=null;
+      rejectedOrdersList.clear();
+      emit(state.copyWith(rejectedState: RequestState.loading,rejectedOrdersList: []));
+    }
     if (rejectedOrders != null && (rejectedOrders?.meta?.pagination?.currentPage ?? 0) >= (rejectedOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationRejectedLoading = false;
       emit(state.copyWith(rejectedState: RequestState.loaded,rejectedOrdersList: rejectedOrdersList));
@@ -216,8 +232,13 @@ class OrdersCubit extends Cubit<OrdersState> {
   List<OrdersModelData> completedOrdersList=[];
   bool isPaginationCompletedLoading = false;
 
-  Future getCompletedOrders({required String status}) async {
+  Future getCompletedOrders({required String status,bool isReload=false}) async {
     if ( isPaginationCompletedLoading) return;
+    if(isReload==true){
+      completedOrders=null;
+      completedOrdersList.clear();
+      emit(state.copyWith(completeState: RequestState.loading,completeOrdersList: []));
+    }
     if (completedOrders != null && (completedOrders?.meta?.pagination?.currentPage ?? 0) >= (completedOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationCompletedLoading = false;
       emit(state.copyWith(completeState: RequestState.loaded,completeOrdersList: completedOrdersList));
@@ -258,8 +279,13 @@ class OrdersCubit extends Cubit<OrdersState> {
   List<OrdersModelData> onWayOrdersList=[];
   bool isPaginationOnWayLoading = false;
 
-  Future getOnWayOrders({required String status}) async {
+  Future getOnWayOrders({required String status,bool isReload=false}) async {
     if ( isPaginationOnWayLoading) return;
+    if(isReload==true){
+      onWayOrders=null;
+      onWayOrdersList.clear();
+      emit(state.copyWith(onWayState: RequestState.loading,onWayOrdersList: []));
+    }
     if (onWayOrders != null && (onWayOrders?.meta?.pagination?.currentPage ?? 0) >= (onWayOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationOnWayLoading = false;
       emit(state.copyWith(onWayState: RequestState.loaded,onWayOrdersList: onWayOrdersList));
@@ -300,8 +326,13 @@ class OrdersCubit extends Cubit<OrdersState> {
   OrdersModel? onProgressOrders;
   List<OrdersModelData> onProgressOrdersList=[];
     bool isPaginationOnProgressLoading = false;
-  Future getOnProgressOrders({required String status}) async {
+  Future getOnProgressOrders({required String status,bool isReload=false}) async {
     if ( isPaginationOnProgressLoading) return;
+    if(isReload==true){
+      onProgressOrders=null;
+      onProgressOrdersList.clear();
+      emit(state.copyWith(onProgressState: RequestState.loading,onProgressOrdersList: []));
+    }
     if (onProgressOrders != null && (onProgressOrders?.meta?.pagination?.currentPage ?? 0) >= (onProgressOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationOnProgressLoading = false;
       emit(state.copyWith(onProgressState: RequestState.loaded,onProgressOrdersList: onProgressOrdersList));

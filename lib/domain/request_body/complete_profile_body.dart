@@ -8,6 +8,7 @@ class CompleteProfileBody {
   String? mobile;
   String? address;
   String? type;
+  String? category;
   String? lat;
   String? long;
   File? image;
@@ -21,6 +22,7 @@ class CompleteProfileBody {
         "phone": '021',
         "address": address,
         "type": type,
+        "category": category,
         "image": image!.path,
         "name_en": name,
         "lat": lat,
@@ -33,6 +35,7 @@ class CompleteProfileBody {
         "phone": '021',
         "address": address,
         "type": type,
+        "category": category,
         "name_en": name,
         "lat": lat,
         "long": long,
@@ -42,7 +45,7 @@ class CompleteProfileBody {
   }
 
   CompleteProfileBody({ this.nameAr, this.name, this.address,
-     this.lat, this.long,
+     this.lat, this.long,this.category,
      this.type, this.image});
 
 

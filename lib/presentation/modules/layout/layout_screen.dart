@@ -2,13 +2,16 @@
 import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../core/notification/FcmHandler.dart';
 import '../../../core/routing/navigation_services.dart';
 import '../../../core/tabs/tab.dart';
+import '../../../core/utils/globals.dart';
 import '../../../domain/provider/local_auth_provider_cubit.dart';
+import '../branches/branch_cubit.dart';
 import 'navigation_tabs.dart';
 import 'widgets/bottom_navigation_bar_widget.dart';
 
@@ -28,6 +31,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
     LocalAuthCubit.get().updateFCMToken();
     getPermission();
     HomeCubit.get(context).getProducts();
+    BranchCubit.get().getBranches();
     ProfileCubit.get(context).getProfile();
     BlocProvider.of<LayoutCubit>(context, listen: false).init(widget._currentPage);
     super.initState();
@@ -35,6 +39,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    kLanguage =context.locale.languageCode.toString();
 
     int currentIndex = context.watch<LayoutCubit>().currentIndex;
     final LayoutCubit viewModel = BlocProvider.of<LayoutCubit>(context);

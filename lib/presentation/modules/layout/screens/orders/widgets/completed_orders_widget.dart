@@ -85,13 +85,17 @@ class _State extends State<CompletedOrdersWidget> {
                   },
                 ),
               );
-            } else {
+            }
+            else {
               return Padding(
                 padding: EdgeInsets.only(top: 16.h),
                 child: CustomNotFoundDataWidget(
-                  image: AppImages.notFoundBranch,
+                  onTap: (){
+                    cubit.getCompletedOrders(status: 'restaurant_delivered_driver',isReload: true);
+                  },
+                  image: AppImages.not6,
                   title: LocaleKeys.notFoundData.tr(),
-                  type: 'svg',
+                  type: 'png',
                 ),
               );
             }

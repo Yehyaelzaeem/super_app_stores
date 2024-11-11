@@ -11,6 +11,7 @@ class AppURL {
   static const String kCompleteProfileURI = "stores/profile/store_info";
   static const String kUpdateFCMTokenURI = "stores/profile/fcm_token";
   static const String kRestaurantTypesURI = "stores/types";
+  static  String kRestaurantCategoriesURI(int id) => "stores/type-category/$id";
 
 
   /// Profile
@@ -34,7 +35,9 @@ class AppURL {
   static  String kDeleteProductURL({required int id}) => "stores/products/remove_product/$id";
   static  String kChangeProductStateURL({required int id}) => "stores/products/change_status?id=$id";
   static  String kUpdateProductURL({required int id}) => "stores/products/update_product/$id";
+  static  String kUpdateOfferProductURL({required int id}) => "stores/offer/update_product/$id";
   static const String kAddProductURL = "stores/products/add_product";
+  static const String kAddOfferProductURL = "stores/offer/add";
 
   ///more
   static const String kGetPrivacyURL = "privacy-policy-restaurant";
@@ -43,7 +46,9 @@ class AppURL {
 
 
 
-
+/// Prescription
+  static const String kGetPrescriptionURL = "stores/prescriptions";
+  static const String kSendPricePrescriptionURL = "stores/prescriptions/add-price";
 
 
 

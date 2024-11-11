@@ -41,11 +41,14 @@ class HomeRepositoryImp implements HomeRepository{
         'price': addProductBody.price,
         'discount': addProductBody.discount,
         'category_id': addProductBody.categoryId,
-        // 'main_category_id': '1',
+        "size_name": addProductBody.sizeNameEn,
+        "size_name_ar": addProductBody.sizeNameAr,
+        "size_price": addProductBody.sizePrice,
         'addition_name': addProductBody.additionName,
         'addition_name_ar': addProductBody.additionNameAr,
         'addition_price': addProductBody.additionPrice,
-        '': ''
+        'best_dishes': addProductBody.bestDishes,
+
       });
       Response response = await _dioClient.post(
         AppURL.kAddProductURL,
@@ -86,15 +89,20 @@ class HomeRepositoryImp implements HomeRepository{
     try {
       var data = FormData.fromMap({
         'name': addProductBody.name,
+        'name_ar': addProductBody.nameAr,
+        'description_ar': addProductBody.descriptionAr,
         'description': addProductBody.description,
         'price': addProductBody.price,
         'discount': addProductBody.discount,
         'category_id': addProductBody.categoryId,
-        // 'main_category_id': '1',
         'addition_name': addProductBody.additionName,
         'addition_name_ar': addProductBody.additionNameAr,
         'addition_price': addProductBody.additionPrice,
-        '': ''
+        "size_name": addProductBody.sizeNameEn,
+        "size_name_ar": addProductBody.sizeNameAr,
+        "size_price": addProductBody.sizePrice,
+        'best_dishes': addProductBody.bestDishes,
+
       });
 
       if(addProductBody.image!=null){
@@ -119,6 +127,74 @@ class HomeRepositoryImp implements HomeRepository{
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponse> addOfferProductUseCase({required AddProductBody addProductBody}) async{
+    try {
+      var data = FormData.fromMap({
+        'image': [
+          await MultipartFile.fromFile(addProductBody!.image!.path!, filename: 'upload')
+        ],
+        'name': addProductBody.name,
+        'name_ar': addProductBody.nameAr,
+        'description_ar': addProductBody.descriptionAr,
+        'description': addProductBody.description,
+        'price': addProductBody.price,
+        'discount': addProductBody.discount,
+        'category_id': addProductBody.categoryId,
+        "size_name": addProductBody.sizeNameEn,
+        "size_name_ar": addProductBody.sizeNameAr,
+        "size_price": addProductBody.sizePrice,
+        'addition_name': addProductBody.additionName,
+        'addition_name_ar': addProductBody.additionNameAr,
+        'addition_price': addProductBody.additionPrice,
+        'best_dishes': addProductBody.bestDishes,
+
+      });
+      Response response = await _dioClient.post(
+          AppURL.kAddOfferProductURL,
+          data2:data
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponse> updateOfferProductUseCase({required AddProductBody addProductBody, required int id})async {
+    try {
+      var data = FormData.fromMap({
+        'name': addProductBody.name,
+        'name_ar': addProductBody.nameAr,
+        'description_ar': addProductBody.descriptionAr,
+        'description': addProductBody.description,
+        'price': addProductBody.price,
+        'discount': addProductBody.discount,
+        'category_id': addProductBody.categoryId,
+        'addition_name': addProductBody.additionName,
+        'addition_name_ar': addProductBody.additionNameAr,
+        'addition_price': addProductBody.additionPrice,
+        "size_name": addProductBody.sizeNameEn,
+        "size_name_ar": addProductBody.sizeNameAr,
+        "size_price": addProductBody.sizePrice,
+        'best_dishes': addProductBody.bestDishes,
+
+      });
+
+
+      if(addProductBody.image!=null){
+        data.files.add(MapEntry('image', await MultipartFile.fromFile(addProductBody.image!.path, filename: 'upload')));
+    }
+    Response response = await _dioClient.post(
+    AppURL.kUpdateOfferProductURL(id: id),
+    data2: data
+    );
+    return ApiResponse.withSuccess(response);
+    } catch (e) {
+    return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 

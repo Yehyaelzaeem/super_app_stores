@@ -8,6 +8,7 @@ import '../../../../../../core/resources/color.dart';
 import '../../../../../../core/resources/styles.dart';
 import '../../../../../../core/routing/routes.dart';
 import '../../../../../../core/translations/locale_keys.dart';
+import '../../../../../../core/utils/globals.dart';
 import '../../../../../component/custom_elevated_button.dart';
 
 class CustomBottomSheetBody extends StatelessWidget {
@@ -84,8 +85,10 @@ class CustomBottomSheetBody extends StatelessWidget {
                       context.pushNamedAndRemoveUntil(Routes.splashScreen, predicate: (route) => route.isFirst);
                       if(_selectedLanguage==1){
                         context.setLocale(const Locale('ar'));
+                        kLanguage='ar';
                       }else{
                         context.setLocale(const Locale('en'));
+                        kLanguage='en';
                       }
                       // Navigator.of(context).pop();
                     });

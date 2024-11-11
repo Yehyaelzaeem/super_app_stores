@@ -136,7 +136,7 @@ final Widget? hintWidget;
                           child: Text(
                             item.title ?? '',
                             style: TextStyles.font15CustomGray400Weight.copyWith(
-                                fontSize: 20
+                                fontSize: 15
                             ),
                             textAlign: TextAlign.center,
                           ),

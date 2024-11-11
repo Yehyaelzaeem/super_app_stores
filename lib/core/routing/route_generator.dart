@@ -30,6 +30,7 @@ import '../../presentation/modules/layout/screens/orders/order_details/order_det
 import '../../presentation/modules/messages/chat_details.dart';
 import '../../presentation/modules/messages/messages_screen.dart';
 import '../../presentation/modules/orders/provider_orders_screen.dart';
+import '../../presentation/modules/prescription/prescription_screen.dart';
 import '../../presentation/modules/splash/splash_screen.dart';
 import '../../presentation/modules/store_time/store_time.dart';
 import 'routes.dart';
@@ -40,6 +41,8 @@ class RouteGenerator {
     switch (settings.name) {
         case Routes.splashScreen:
         return platformPageRoute( const SplashScreen());
+        case Routes.prescriptionScreen:
+        return platformPageRoute( const PrescriptionScreen());
         case Routes.aboutUsScreen:
         return platformPageRoute( const AboutUsScreen());
         case Routes.termsConditionScreen:
@@ -93,7 +96,7 @@ class RouteGenerator {
         case Routes.editProviderProfileScreen:
         return platformPageRoute(  const EditProviderProfileScreen());
         case Routes.addMealScreen:
-        return platformPageRoute(  const AddProductScreen());
+        return platformPageRoute(   AddProductScreen(isOffer: arguments?['isOffer'],));
         case Routes.layoutScreen:
         return platformPageRoute(   LayoutScreen(
           currentPage: arguments?['currentPage'],));

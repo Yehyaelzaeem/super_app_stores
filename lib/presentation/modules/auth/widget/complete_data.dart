@@ -38,18 +38,15 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
     if(profile==null){
       ProfileCubit.get(context).getProfile();
       profile=  ProfileCubit.get(context).profileModel;
+      cubit.comNameArController =TextEditingController(text:profile?.store?.nameAr??'' );
+      cubit.comNameController =TextEditingController(text:profile?.store?.name??'' );
     }
-    cubit.comNameArController =TextEditingController(text:profile?.store?.nameAr??'' );
-    cubit.comNameController =TextEditingController(text:profile?.store?.name??'' );
-    typeId =profile?.store?.storeType;
-
+    typeId =profile?.store?.storeType?.id.toString()??'0';
     super.initState();
   }
-  List<CategoryModel> categoryModelList=[];
   String? typeId;
   @override
   Widget build(BuildContext context) {
-
     return
       Scaffold(
           backgroundColor: primaryColor.withOpacity(0.5),
@@ -205,13 +202,14 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
                                           );
                                         }),
                                     verticalSpace(20),
-                                    RestaurantTypesWidget(onChanged: (String value ) {
-                                      cubit.comTypeController.text=value;
+                                    RestaurantTypesWidget(onChanged: (DropModel value ) {
+                                      cubit.comTypeController.text=value.id.toString()??'';
+                                      print('cccc : ${cubit.comTypeController.text}');
                                     },),
                                     verticalSpace(13),
                                     RestaurantCategoriesWidget(
                                       items: (List<CategoryModel> values) {
-                                        categoryModelList=values;
+                                        cubit.categoryModelDataList=values;
                                       },
                                       onChanged: (DropDownItem? value ) {
                                         print('value ============ ${value?.title}');

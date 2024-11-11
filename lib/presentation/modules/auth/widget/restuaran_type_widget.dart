@@ -12,7 +12,7 @@ import '../../../../core/translations/locale_keys.dart';
 import '../auth_cubit.dart';
 
 class RestaurantTypesWidget extends StatefulWidget {
-  final Function(String) onChanged;
+  final Function(DropModel) onChanged;
   const RestaurantTypesWidget({super.key, required this.onChanged});
 
   @override
@@ -39,15 +39,15 @@ class _RestaurantCategoriesWidgetState extends State<RestaurantTypesWidget> {
           child: StatefulBuilder(builder: (BuildContext context,void Function(void Function()) setState){
             return Column(
               children: [
-                DropdownButton2<String>(
+                DropdownButton2<DropModel>(
                   isExpanded: true,
                   underline: const SizedBox.shrink(),
                   hint: Text(selectedValue!=null?selectedValue??'':'${LocaleKeys.restaurantType.tr()}', style:
                   selectedValue!=null?TextStyles.font16Black500Weight:TextStyles.font16Black500Weight.copyWith(color: Colors.grey),),
                   items:
                   cubit.restaurantTypesModel?.data==null?[]:
-                  cubit.restaurantTypesModel?.data?.map(( e) => DropdownMenuItem<String>(
-                    value: e.name,
+                  cubit.restaurantTypesModel?.data?.map(( e) => DropdownMenuItem<DropModel>(
+                    value: DropModel(id: e.id,name: e.name),
                     child: Text(
                       e.name??'',
                       style: TextStyles.font15CustomGray400Weight.copyWith(
@@ -55,11 +55,12 @@ class _RestaurantCategoriesWidgetState extends State<RestaurantTypesWidget> {
                       ),
                     ),
                   )).toList()??[],
-                  onChanged: (String? value) {
+                  onChanged: (DropModel? value) {
 
-                    widget.onChanged.call(value??'');
-                    setState((){selectedValue=value??'';});
-                    cubit.getRestaurantCategories();
+                    widget.onChanged.call(value??DropModel());
+                    cubit.restaurantCategoriesModel=null;
+                    setState((){selectedValue=value?.name??'';});
+                    cubit.getRestaurantCategories(value?.id??0);
                   },
                   dropdownStyleData: DropdownStyleData(
                     maxHeight: 200.h, // Set the fixed height here
@@ -94,5 +95,9 @@ class _RestaurantCategoriesWidgetState extends State<RestaurantTypesWidget> {
   }
 }
 
-
+class DropModel{
+  int? id;
+  String? name;
+  DropModel({this.id,this.name});
+}
 

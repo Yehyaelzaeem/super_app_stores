@@ -14,7 +14,8 @@ import '../../../../../../core/resources/styles.dart';
 import '../../../../../../core/utils/contact_helper.dart';
 import '../../../../../../data/model/response/orders_model.dart';
 import '../../../../../component/custom_elevated_button.dart';
-import '../../../../../primary_button.dart';
+import '../../../../../component/primary_button.dart';
+import '../invoice/client_invoice.dart';
 import '../orders_cubit.dart';
 
 class OrderItem extends StatelessWidget {
@@ -24,6 +25,7 @@ class OrderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     OrdersCubit cubit = OrdersCubit.get();
     return Container(
       decoration: BoxDecoration(
@@ -43,42 +45,50 @@ class OrderItem extends StatelessWidget {
               children: [
                 Expanded(
                     flex: 2,
-                    child: Row(
+                    child:
+                    Row(
                       children: [
                         CustomImage(
                           height: 100.h,
                           width: 80.w,
-                          image: ordersModelData.details?.data?[0].image ?? '',
+                          image:
+                          ordersModelData.orderType=='prescription'?(ordersModelData.prescriptionsModel?.image??''):
+                        (  ordersModelData.details?.data?.isEmpty ?? false ?'':
+                          ordersModelData.details?.data?[0].image ?? ''),
                           radius: 10,
                         ),
                         horizontalSpace(10),
-                        Column(
+                        Expanded(child:  Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             //ordersModelData.client?.name ?? ''
-                          Container(
-                            width :100.w,
-                            child:  Text(
-                              ordersModelData.client?.name ?? '',
-                              style: TextStyles.font18Black700Weight.copyWith(height: 1),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
+                            Container(
+                              width :100.w,
+                              child:  Text(
+                                ordersModelData.client?.name ?? '',
+                                style: TextStyles.font18Black700Weight.copyWith(height: 1,
+                                    fontSize: 13
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
 
+                              ),
                             ),
-                          ),
-                            Row(
+                            FittedBox(child: Row(
                               children: [
                                 Text(
                                   ordersModelData.client?.address ?? '',
-                                  style: TextStyles.font15CustomGray400Weight,
+                                  style: TextStyles.font15CustomGray400Weight.copyWith(
+                                      fontSize: 13
+                                  ),
                                 ),
                                 const Icon(
                                   Icons.location_on,
                                   color: Colors.grey,
                                 ),
                               ],
-                            ),
+                            ),),
                             InkWell(
                               onTap: () {
                                 context.pushNamed(Routes.orderDetailsScreen,
@@ -91,7 +101,9 @@ class OrderItem extends StatelessWidget {
                                   Text(
                                     LocaleKeys.orderDetails.tr(),
                                     style: TextStyles.font15CustomGray400Weight
-                                        .copyWith(color: backBlue2),
+                                        .copyWith(color: backBlue2,
+                                        fontSize: 13
+                                    ),
                                   ),
                                   const Icon(
                                     Icons.arrow_forward_ios_outlined,
@@ -102,7 +114,7 @@ class OrderItem extends StatelessWidget {
                               ),
                             )
                           ],
-                        ),
+                        ))
                       ],
                     )),
                 Expanded(
@@ -111,9 +123,21 @@ class OrderItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${ordersModelData.orderTotal ?? ''} ${LocaleKeys.currency.tr()}',
-                        style: TextStyles.font18Black700Weight,
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              generateAndClientInvoicePrint(ordersModelData: ordersModelData);
+                            },
+                            child:Icon(Icons.print,color: Colors.grey,),),
+                          horizontalSpace(10),
+                          Text(
+                            '${ordersModelData.orderTotal ?? ''} ${LocaleKeys.currency.tr()}',
+                            style: TextStyles.font18Black700Weight.copyWith(
+                                fontSize: 13
+                            ),
+                          ),
+                        ],
                       ),
                       verticalSpace(20),
                       FittedBox(
@@ -132,19 +156,18 @@ class OrderItem extends StatelessWidget {
                                   color: redColor,
                                 ),
                               ),
-
                             ),
-                            horizontalSpace(10),
-                            InkWell(
-                              onTap: () {
-                                ContactHelper.openWhatsApp1(context,ordersModelData.client?.phone ?? '');
-                              },
-                              child:  CircleAvatar(
-                                backgroundColor: backBlue2.withOpacity(0.3),
-                                radius: 18,
-                                child: Icon(Icons.message_outlined,
-                                    color: backBlue2),
-                              ),),
+                            // horizontalSpace(10),
+                            // InkWell(
+                            //   onTap: () {
+                            //     ContactHelper.openWhatsApp1(context,ordersModelData.client?.phone ?? '');
+                            //   },
+                            //   child:  CircleAvatar(
+                            //     backgroundColor: backBlue2.withOpacity(0.3),
+                            //     radius: 18,
+                            //     child: Icon(Icons.message_outlined,
+                            //         color: backBlue2),
+                            //   ),),
                             horizontalSpace(10),
                             InkWell(
                                 onTap: () {
@@ -172,7 +195,7 @@ class OrderItem extends StatelessWidget {
               children: [
                 PrimaryButtonWidget(
                   width: MediaQuery.of(context).size.width * 0.35,
-                  height: 40,
+                  // height: 40,
                   onTap: () {
                     cubit.acceptOrder(orderId: ordersModelData.id!);
                   }, text: LocaleKeys.agree.tr(),),
@@ -183,8 +206,8 @@ class OrderItem extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.35,
                     onTap: () {
                       cubit.rejectOrder(orderId: ordersModelData.id!);
-
-                    }, height: 40,
+                    },
+                    // height: 40,
                     text: LocaleKeys.reject.tr()),
               ],
             ),

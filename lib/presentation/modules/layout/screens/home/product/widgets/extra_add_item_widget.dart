@@ -7,8 +7,10 @@ import '../../../../../../../core/helpers/spacing.dart';
 import '../../../../../../../core/resources/color.dart';
 
 class ExtraAddItemWidget extends StatelessWidget {
-  final ExtraModel extraModel;
-   const ExtraAddItemWidget({super.key, required this.extraModel});
+  final ExtraModel? extraModel;
+  final SizeProductModel? sizeProductModel;
+  final bool? isSizeProduct;
+   const ExtraAddItemWidget({super.key,  this.extraModel, this.isSizeProduct, this.sizeProductModel});
   @override
   Widget build(BuildContext context) {
     return   Padding(
@@ -27,17 +29,17 @@ class ExtraAddItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                    Expanded(
-                    child: Center(child: ProductTitleField(title:extraModel.nameEn,color: primaryColor,)),
+                    child: Center(child: ProductTitleField(title:extraModel?.nameEn??sizeProductModel?.nameEn??'',color: primaryColor,)),
                   ),
                   horizontalSpace(5),
                    Expanded(
                     child:
-                    Center(child: ProductTitleField(title: extraModel.nameAr,color: primaryColor,)),
+                    Center(child: ProductTitleField(title: extraModel?.nameAr??sizeProductModel?.nameAr??'',color: primaryColor,)),
                   ),
                   horizontalSpace(5),
                    Expanded(
                     child:
-                    Center(child: ProductTitleField(title: extraModel.price.toString(),color: primaryColor,)),
+                    Center(child: ProductTitleField(title: extraModel?.price.toString()??sizeProductModel?.price.toString()??'',color: primaryColor,)),
                   ),
                 ],
               ),
@@ -51,7 +53,11 @@ class ExtraAddItemWidget extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: InkWell(
                     onTap: (){
-                      HomeCubit.get(context).removeExtra(extraModel);
+                      if(isSizeProduct==true){
+                        HomeCubit.get(context).removeSizeProduct(sizeProductModel!);
+                      }else{
+                        HomeCubit.get(context).removeExtra(extraModel!);
+                      }
                     },
                     child: const Icon(Icons.delete_forever,color: redColor,)),
               ))

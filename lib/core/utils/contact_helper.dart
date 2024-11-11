@@ -8,7 +8,9 @@ import 'alerts.dart';
 
 
 class ContactHelper{
-
+  static String removeHtmlTags(String htmlText) {
+    return htmlText.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), '').trim();
+  }
   static void launchMap({num? lat = 47.6, num? long = -122.3}) async {
     var uri =  Uri.parse("google.navigation:q=$lat,$long&mode=d");
     Uri appleUrl = Uri.parse('https://maps.apple.com/?sll=$lat,$long');

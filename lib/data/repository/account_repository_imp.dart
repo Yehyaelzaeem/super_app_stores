@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cogina_restaurants/data/model/response/send_prescription_params.dart';
 import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:cogina_restaurants/domain/request_body/account_files_body.dart';
 import 'package:cogina_restaurants/domain/request_body/bank_account_body.dart';
@@ -95,6 +96,31 @@ class AccountRepositoryImp implements AccountRepository{
       log('yehya', 'starrrt');
       Response response = await _dioClient.get(
         AppURL.kGetTermsURL,
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponse> getPrescriptions()async {
+    try {
+      Response response = await _dioClient.get(
+        AppURL.kGetPrescriptionURL,
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  @override
+  Future<ApiResponse> sendPricePrescription({required SendPrescriptionParams sendPrescriptionParams}) async{
+    try {
+      Response response = await _dioClient.post(
+        AppURL.kSendPricePrescriptionURL,
+        queryParameters: sendPrescriptionParams.toJson()
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

@@ -108,12 +108,31 @@ class Times {
     return data;
   }
 }
+class StoreType {
+  int? id;
+  String? name;
 
+  StoreType({this.id, this.name});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': this.id,
+      'name': this.name,
+    };
+  }
+
+  factory StoreType.fromMap(Map<String, dynamic> map) {
+    return StoreType(
+      id: map['id'] as int,
+      name: map['name'] as String,
+    );
+  }
+}
 class StoreProfile {
   int? id;
   String? name;
   String? nameAr;
-  String? storeType;
+  StoreType? storeType;
   bool? approvedByAdmin;
   bool? status;
   String? deliveryTime;
@@ -141,7 +160,7 @@ class StoreProfile {
     id = json['id'];
     name = json['name'];
     nameAr = json['name_ar'];
-    storeType = json['store_type'];
+    storeType = StoreType.fromMap(json['store_type']);
     deliveryTime = json['delivery_time'];
     deliveryPrice = json['delivery_fees'];
     orderTime = json['order_time'];

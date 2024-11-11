@@ -26,6 +26,7 @@ class MyFilesScreen extends StatelessWidget {
     return  Scaffold(
       backgroundColor: backGroundGray,
       appBar:  CustomAppBar(
+        isBackButtonExist:isComplete,
         color: backGroundGray,
         title: LocaleKeys.myFiles.tr(),
       ),
@@ -34,11 +35,10 @@ class MyFilesScreen extends StatelessWidget {
               listener: (context, state) {},
               builder: (context, state) {
                 if(profileCubit.profileModel!=null){
-                  var storeFiles =profileCubit.profileModel?.store?.files??Files();
                   return SingleChildScrollView(
                     child: Column(
                       children: [
-                        storeFiles.commercialId!=null?
+                        profileCubit.profileModel?.store?.files?.commercialId!=null?
                         FileDoneWidget(
                           title: LocaleKeys.commercialRegisterFile.tr(), text: LocaleKeys.commercialRegisterFileUpdate.tr(), onTap: () {
                           context.pushNamed(Routes.editFileScreen,arguments: {
@@ -53,7 +53,7 @@ class MyFilesScreen extends StatelessWidget {
                           });
                         },),
 
-                        storeFiles.tax!=null?
+                        profileCubit.profileModel?.store?.files?.tax!=null?
                         FileDoneWidget(title: LocaleKeys.taxCard.tr(), text:LocaleKeys.taxCardUpdate.tr(), onTap: () {
                           context.pushNamed(Routes.editFileScreen,arguments: {
                             'type':'taxFile',
@@ -67,7 +67,7 @@ class MyFilesScreen extends StatelessWidget {
                           });
                         },),
 
-                        storeFiles.banner!=null?
+                        profileCubit.profileModel?.store?.files?.banner!=null?
                         FileDoneWidget(title: LocaleKeys.bannerImage.tr(), text:LocaleKeys.bannerImageUpdate.tr(), onTap: () {
                           context.pushNamed(Routes.editFileScreen,arguments: {
                             'type':'bannerFile',
@@ -82,8 +82,6 @@ class MyFilesScreen extends StatelessWidget {
 
                           });
                         },),
-
-
 
                       ],
                     ),

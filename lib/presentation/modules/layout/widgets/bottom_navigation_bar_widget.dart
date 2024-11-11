@@ -1,3 +1,4 @@
+import 'package:cogina_restaurants/core/resources/styles.dart';
 import 'package:cogina_restaurants/core/resources/text_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +32,14 @@ class BottomNavigationBarWidget extends StatelessWidget {
       backgroundColor: Theme.of(context).cardColor,
       showUnselectedLabels: true,
       showSelectedLabels: true,
-      selectedLabelStyle:const TextStyle().descriptionStyle().activeColor(),
-      unselectedLabelStyle:const TextStyle().descriptionStyle(),
+      selectedLabelStyle: TextStyles.font16Black600Weight.copyWith(
+        color: primaryColor,
+        fontSize: 12
+      ),
+      unselectedLabelStyle:TextStyles.font16Black600Weight.copyWith(
+          color: Colors.grey.shade300,
+          fontSize: 10
+      ),
       onTap: _onTap,
       currentIndex: _currentIndex,
       items: [..._generateTags(context)],

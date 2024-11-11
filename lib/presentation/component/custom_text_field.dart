@@ -87,7 +87,7 @@ class CustomTextField extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if(title!=null) ...
-              [Text(title!,style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade800,fontSize: 18),),
+              [Text(title!,style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade800,fontSize: 14),),
                verticalSpace(10),
               ],
               TextFormField(
@@ -145,14 +145,15 @@ class CustomTextField extends StatelessWidget {
                 onChanged: onChanged,
               )
             ],
-          ): TextFormField(
+          ):
+          TextFormField(
             style: textStyle,
 
             onTap: onTap,
             onFieldSubmitted: onFieldSubmitted,
             controller: controller,
             obscureText: isVisibility,
-            // maxLines: maxLines ?? 1,
+            maxLines: maxLines==0?1: maxLines ?? 1,
             decoration: customInputDecoration(
               fontSize: fontSize,
               fontWeight: fontWeight,

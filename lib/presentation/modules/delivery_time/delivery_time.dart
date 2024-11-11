@@ -43,13 +43,16 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
           backgroundColor: primaryColor,
           centerTitle: true,
           automaticallyImplyLeading: false,
-          leading: IconButton(
+
+          leading:
+          widget.isComplete==true?
+          IconButton(
             onPressed: (){
               Navigator.pop(context);
             },
             icon: const Icon(Icons.arrow_back_ios,color: Colors.white,),
-          ),
-          title: Text(LocaleKeys.delivery.tr(),style: TextStyles.font20Black700Weight.copyWith(color: Colors.white,fontSize: 30),),
+          ):SizedBox(),
+          title: Text(LocaleKeys.delivery.tr(),style: TextStyles.font20Black700Weight.copyWith(color: Colors.white,fontSize: 17),),
         ),
         body:
         SingleChildScrollView(
@@ -66,19 +69,18 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
                       prefixIcon: Icon(Icons.access_time_outlined,color: Colors.grey.shade500,),
                       hintText: LocaleKeys.orderTime.tr(), controller: orderTimeController,),
                     verticalSpace(15),
-                    CustomTextField(
-                      title: LocaleKeys.deliveryTime2.tr(),
-                      textInputType: TextInputType.number,
-                      prefixIcon: Icon(Icons.timer,color: Colors.grey.shade500,),
-                      hintText: LocaleKeys.deliveryTime2.tr(), controller: deliveryTimeController,),
-                    verticalSpace(15),
-                    CustomTextField(
-                      title: LocaleKeys.deliveryPrice.tr(),
-                      textInputType: TextInputType.number,
-                      prefixIcon: Icon(Icons.attach_money,color: Colors.grey.shade500,),
-                      hintText: LocaleKeys.deliveryPrice.tr(), controller: deliveryPriceController,),
+                    // CustomTextField(
+                    //   title: LocaleKeys.deliveryTime2.tr(),
+                    //   textInputType: TextInputType.number,
+                    //   prefixIcon: Icon(Icons.timer,color: Colors.grey.shade500,),
+                    //   hintText: LocaleKeys.deliveryTime2.tr(), controller: deliveryTimeController,),
+                    // verticalSpace(15),
+                    // CustomTextField(
+                    //   title: LocaleKeys.deliveryPrice.tr(),
+                    //   textInputType: TextInputType.number,
+                    //   prefixIcon: Icon(Icons.attach_money,color: Colors.grey.shade500,),
+                    //   hintText: LocaleKeys.deliveryPrice.tr(), controller: deliveryPriceController,),
                     verticalSpace(30),
-
                     BlocBuilder<DeliveryTimeCubit, DeliveryTimeState>(builder: (context, state) {
                       return  CustomElevatedButton(
                         isLoading: state.addDeliveryTimeState == RequestState.loading,
@@ -113,8 +115,8 @@ class _DeliveryTimeScreenState extends State<DeliveryTimeScreen> {
   displayData(GetProfileModelData? profile) {
     if(profile!=null){
       orderTimeController=TextEditingController(text: profile.store?.orderTime??'');
-      deliveryTimeController=TextEditingController(text: profile.store?.deliveryTime??'');
-      deliveryPriceController=TextEditingController(text: profile.store?.deliveryPrice==null?'':profile.store?.deliveryPrice.toString()??'');
+      // deliveryTimeController=TextEditingController(text: profile.store?.deliveryTime??'');
+      // deliveryPriceController=TextEditingController(text: profile.store?.deliveryPrice==null?'':profile.store?.deliveryPrice.toString()??'');
     }
   }
 }

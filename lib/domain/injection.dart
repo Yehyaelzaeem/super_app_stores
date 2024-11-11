@@ -1,8 +1,11 @@
 import 'package:cogina_restaurants/domain/usecase/account/add_account_file_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/account/bank_account_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/account/prescription_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/account/send_price_prescription_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/check_otp_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/complete_profile_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/register_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/auth/restaurant_categories_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/restaurant_type_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/sign_in_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/update_fcm_token_usecase.dart';
@@ -14,11 +17,13 @@ import 'package:cogina_restaurants/domain/usecase/branches/update_branch_usecase
 import 'package:cogina_restaurants/domain/usecase/favorite/add_favorite_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/favorite/get_favorite_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/favorite/remove_favorite_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/add_offer_product_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/add_product_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/change_product_state_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/delete_product_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/get_products_categories_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/get_products_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/home/update_offer_product_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/home/update_product_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/local/clear_user_data_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/local/get_is_login_usecase.dart';
@@ -59,6 +64,7 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => CompleteProfileUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => UpdateFCMTokenUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => RestaurantTypesUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => RestaurantCategoriesUseCase(repository: getIt()));
    ///Branches
    getIt.registerLazySingleton(() => GetBranchesUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AddBranchUseCase(repository: getIt()));
@@ -86,6 +92,8 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => UpdateProductUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => DeleteProductUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => ChangeProductStateUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => UpdateOfferProductUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => AddOfferProductUseCase(repository: getIt()));
 
 
    ///Orders
@@ -102,6 +110,8 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => TermsUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => PrivacyUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AboutUsUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => PrescriptionUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => SendPricePrescriptionUseCase(repository: getIt()));
  ///favorite
    getIt.registerLazySingleton(() => GetFavoriteUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AddFavoriteUseCase(repository: getIt()));

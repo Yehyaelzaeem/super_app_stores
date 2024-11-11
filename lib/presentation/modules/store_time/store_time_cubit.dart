@@ -26,13 +26,14 @@ class StoreTimeCubit extends Cubit<StoreTimeState> {
      ResponseModel responseModel = await addStoreTimeUseCase.call(params: params);
      if (responseModel.isSuccess) {
        showToast(text: responseModel.message.toString(), state: ToastStates.success, context: NavigationService.navigationKey.currentContext!);
-       if(isComplete==true){
-         context.pushNamed(Routes.deliveryTimeScreen,arguments: {'isComplete':true});
-       }else{
-         Navigator.of(context).pop();
-         ProfileCubit.get(context).getProfile();
-       }
-
+       // if(isComplete==true){
+       //   // context.pushNamed(Routes.deliveryTimeScreen,arguments: {'isComplete':true});
+       // }else{
+       //   Navigator.of(context).pop();
+       //   ProfileCubit.get(context).getProfile();
+       // }
+       Navigator.of(context).pop();
+       ProfileCubit.get(context).getProfile();
        emit(state.copyWith(addStoreTimeState: RequestState.loaded));
      }
      else {

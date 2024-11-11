@@ -16,5 +16,6 @@ class AppImages{
   static const String map = '${baseImage}map.PNG';
   static const String notFoundBranch = '${baseImage}no_branch.svg';
   static const String meal = '${baseImage}meal2.png';
+  static const String not6 = '${baseImage}not7.png';
 
 }

@@ -23,20 +23,21 @@ class _EditBranchScreenState extends State<EditBranchScreen> {
   @override
   void initState() {
     BranchCubit cubit=BranchCubit.get();
-    cubit.storeName.text=widget.branchesModelData.name!;
-    cubit.storeEmail.text=widget.branchesModelData.email!;
-    cubit.storePhone.text=widget.branchesModelData.phone!;
-    cubit.storeAddress.text=widget.branchesModelData.address!;
-    cubit.storeLocation.text='${widget.branchesModelData.lng!}/${widget.branchesModelData.lng!}';
-    cubit.lat=double.parse(widget.branchesModelData.lat!);
-    cubit.long=double.parse(widget.branchesModelData.lng!);
-    for(var a in cubit.regionsModel!.data!){
-      if(widget.branchesModelData.region!.id!.toString()==a.id.toString()){
-        cubit.valueData=a.name;
-        cubit.regionsId=a.id!;
-        break;
-      }
-    }
+    cubit.storeName.text=widget.branchesModelData.name??'';
+    cubit.storeNameAr.text=widget.branchesModelData.nameAr??'';
+    cubit.storeEmail.text=widget.branchesModelData.email??'';
+    cubit.storePhone.text=widget.branchesModelData.phone??'';
+    cubit.storeAddress.text=widget.branchesModelData.address??'';
+    cubit.storeLocation.text='${widget.branchesModelData.lng??''}/${widget.branchesModelData.lng??''}';
+    cubit.lat=double.parse(widget.branchesModelData.lat??'0');
+    cubit.long=double.parse(widget.branchesModelData.lng??'0');
+    // for(var a in cubit.regionsModel!.data!){
+    //   if(widget.branchesModelData.region!.id!.toString()==a.id.toString()){
+    //     cubit.valueData=a.name;
+    //     cubit.regionsId=a.id!;
+    //     break;
+    //   }
+    // }
     cubit.storeTime.text='0';
     super.initState();
   }

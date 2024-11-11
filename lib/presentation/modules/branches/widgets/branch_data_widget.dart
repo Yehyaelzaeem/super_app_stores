@@ -49,24 +49,42 @@ class BranchDataWidget extends StatelessWidget {
                     ),
                     verticalSpace(20),
                     CustomTextField(
-                      textInputType: TextInputType.emailAddress,
                       validationFunc: (value) {
-                        // if (value == null || value.isEmpty) {
-                        //   return LocaleKeys.requiredField.tr();
-                        // }
+                        if (value == null || value.isEmpty) {
+                          return LocaleKeys.requiredField.tr();
+                        }
                         return null;
                       },
-                      prefixIcon:  const Icon(Icons.email,color: Colors.grey,),
-                      hintText:LocaleKeys.email.tr(),
+                      prefixIcon:  const Icon(Icons.menu,color: Colors.grey,),
+                      hintText: LocaleKeys.restaurantNameAR.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600
                       ),
                       fillColor: whiteColor,
-                      controller: cubit.storeEmail,
+                      controller: cubit.storeNameAr,
                       borderRadius: 40,
                       borderColor: Colors.grey.shade400,
                     ),
+                    // CustomTextField(
+                    //   textInputType: TextInputType.emailAddress,
+                    //   validationFunc: (value) {
+                    //     // if (value == null || value.isEmpty) {
+                    //     //   return LocaleKeys.requiredField.tr();
+                    //     // }
+                    //     return null;
+                    //   },
+                    //   prefixIcon:  const Icon(Icons.email,color: Colors.grey,),
+                    //   hintText:LocaleKeys.email.tr(),
+                    //   hintStyle: TextStyles.font16Black500Weight.copyWith(
+                    //       color: Colors.grey.shade500,
+                    //       fontWeight: FontWeight.w600
+                    //   ),
+                    //   fillColor: whiteColor,
+                    //   controller: cubit.storeEmail,
+                    //   borderRadius: 40,
+                    //   borderColor: Colors.grey.shade400,
+                    // ),
                     verticalSpace(20),
                     CustomTextField(
                       textInputType: TextInputType.phone,
@@ -95,14 +113,14 @@ class BranchDataWidget extends StatelessWidget {
                         }
                         return null;
                       },
-                      prefixIcon:  const Icon(Icons.store,color: Colors.grey,),
+                      prefixIcon:  const Icon(Icons.location_city,color: Colors.grey,),
                       hintText: LocaleKeys.address.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600
                       ),
                       suffixIcon: IconButton(onPressed: (){},
-                        icon: const Icon(Icons.store_mall_directory_outlined,color: Colors.grey,),),
+                        icon: const Icon(Icons.location_city,color: Colors.grey,),),
                       fillColor: whiteColor,
                       controller: cubit.storeAddress,
                       borderRadius: 40,
@@ -150,64 +168,64 @@ class BranchDataWidget extends StatelessWidget {
                       ),
                     ),
                     verticalSpace(20),
-                    cubit.regionsModel!=null?
-                    StatefulBuilder(builder: (BuildContext context,void Function(void Function()) setState){
-                      return DropdownButton2<String>(
-                        isExpanded: true,
-                        underline: const SizedBox.shrink(),
-                        hint: Text(cubit.valueData ?? '', style:  TextStyle(fontSize: 14, color: Colors.grey.shade700,fontWeight: FontWeight.w700),),
-                        items: cubit.regionsModel!.data!.map(( e) => DropdownMenuItem<String>(
-                          value: e.name,
-                          child: Text(
-                            e.name!,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        )).toList(),
-                        onChanged: (String? value) {
-                          setState(() {
-                            cubit.valueData = value!;
-                            for(var a in cubit.regionsModel!.data! ){
-                              if(cubit.valueData==a.name){
-                                cubit.regionsId=a.id!;
-                                break;
-                              }
-                            }
-                          });
-                        },
-                        buttonStyleData: ButtonStyleData(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(50.r),
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 16.w) // Adjust the horizontal padding as needed
-
-                        ),
-
-                      );
-                    }):
-                    const SizedBox.shrink(),
-                    verticalSpace(20),
-                    CustomTextField(
-                      validationFunc: (value) {
-                        if (value == null || value.isEmpty) {
-                          return LocaleKeys.requiredField.tr();
-                        }
-                        return null;
-                      },
-                      prefixIcon:  const Icon(Icons.timer_outlined,color: Colors.grey,),
-                      hintText: LocaleKeys.deliveryTime.tr(),
-                      hintStyle: TextStyles.font16Black500Weight.copyWith(
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w600
-                      ),
-                      textInputType: TextInputType.number,
-                      textInputAction: TextInputAction.done,
-                      fillColor: whiteColor,
-                      controller: cubit.storeTime,
-                      borderRadius: 40,
-                      borderColor: Colors.grey.shade400,
-                    ),
+                    // cubit.regionsModel!=null?
+                    // StatefulBuilder(builder: (BuildContext context,void Function(void Function()) setState){
+                    //   return DropdownButton2<String>(
+                    //     isExpanded: true,
+                    //     underline: const SizedBox.shrink(),
+                    //     hint: Text(cubit.valueData ?? '', style:  TextStyle(fontSize: 14, color: Colors.grey.shade700,fontWeight: FontWeight.w700),),
+                    //     items: cubit.regionsModel!.data!.map(( e) => DropdownMenuItem<String>(
+                    //       value: e.name,
+                    //       child: Text(
+                    //         e.name!,
+                    //         style: const TextStyle(fontSize: 14),
+                    //       ),
+                    //     )).toList(),
+                    //     onChanged: (String? value) {
+                    //       setState(() {
+                    //         cubit.valueData = value!;
+                    //         for(var a in cubit.regionsModel!.data! ){
+                    //           if(cubit.valueData==a.name){
+                    //             cubit.regionsId=a.id!;
+                    //             break;
+                    //           }
+                    //         }
+                    //       });
+                    //     },
+                    //     buttonStyleData: ButtonStyleData(
+                    //         decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           border: Border.all(color: Colors.grey),
+                    //           borderRadius: BorderRadius.circular(50.r),
+                    //         ),
+                    //         padding: EdgeInsets.symmetric(horizontal: 16.w) // Adjust the horizontal padding as needed
+                    //
+                    //     ),
+                    //
+                    //   );
+                    // }):
+                    // const SizedBox.shrink(),
+                    // verticalSpace(20),
+                    // CustomTextField(
+                    //   validationFunc: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return LocaleKeys.requiredField.tr();
+                    //     }
+                    //     return null;
+                    //   },
+                    //   prefixIcon:  const Icon(Icons.timer_outlined,color: Colors.grey,),
+                    //   hintText: LocaleKeys.deliveryTime.tr(),
+                    //   hintStyle: TextStyles.font16Black500Weight.copyWith(
+                    //       color: Colors.grey.shade500,
+                    //       fontWeight: FontWeight.w600
+                    //   ),
+                    //   textInputType: TextInputType.number,
+                    //   textInputAction: TextInputAction.done,
+                    //   fillColor: whiteColor,
+                    //   controller: cubit.storeTime,
+                    //   borderRadius: 40,
+                    //   borderColor: Colors.grey.shade400,
+                    // ),
 
                   ],
                 ),

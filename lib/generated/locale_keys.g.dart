@@ -12,6 +12,7 @@ abstract class  LocaleKeys {
   static const addresses = 'addresses';
   static const privacy_policy = 'privacy_policy';
   static const termsAndConditions = 'termsAndConditions';
+  static const sendPrice = 'sendPrice';
   static const language = 'language';
   static const orderTime = 'orderTime';
   static const deliveryTime = 'deliveryTime';
@@ -128,6 +129,8 @@ abstract class  LocaleKeys {
   static const add_meal = 'add_meal';
   static const meal_name = 'meal_name';
   static const price = 'price';
+  static const notes = 'notes';
+  static const send = 'send';
   static const category = 'category';
   static const addition = 'addition';
   static const addition_arabic = 'addition_arabic';

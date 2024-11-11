@@ -31,7 +31,7 @@ class _ReasonReturnsWidgetState extends State<RestaurantCategoriesWidget> {
   @override
   void initState() {
     cubit.restaurantCategoriesModel=null;
-    // cubit.getRestaurantCategories();
+   // cubit.getRestaurantCategories();
     super.initState();
   }
   @override
@@ -42,9 +42,12 @@ class _ReasonReturnsWidgetState extends State<RestaurantCategoriesWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {},
       builder: (context, state) {
+        categoryModelList.clear();
+        selectedValue=null;
         if(cubit.restaurantCategoriesModel!=null)
         return Column(
           children: [
@@ -57,7 +60,7 @@ class _ReasonReturnsWidgetState extends State<RestaurantCategoriesWidget> {
               hintWidget: Text(selectedValue!=null?selectedValue??'':'${LocaleKeys.categories.tr()}', style:
               selectedValue!=null?TextStyles.font16Black500Weight:TextStyles.font16Black500Weight.copyWith(color: Colors.grey),),
 
-              isLoading: cubit.restaurantCategoriesModel == null || cubit.restaurantCategoriesModel!.data!.isEmpty,
+              isLoading: cubit.restaurantCategoriesModel == null,
               items: cubit.restaurantCategoriesModel?.data?.map((e) => DropDownItem(
                 id: e.id.toString(),
                 title: e.name,
@@ -90,7 +93,7 @@ class _ReasonReturnsWidgetState extends State<RestaurantCategoriesWidget> {
                       child: InkWell(
                         onTap: () {
                           categoryModelList.remove(e);
-                          _reasonModelListController.sink.add(categoryModelList);  // إرسال التحديث بعد إزالة العنصر
+                          _reasonModelListController.sink.add(categoryModelList);
                           widget.items!(categoryModelList);
                         },
                         child: Container(

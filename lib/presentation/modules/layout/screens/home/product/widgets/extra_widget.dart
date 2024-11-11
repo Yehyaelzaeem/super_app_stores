@@ -10,6 +10,7 @@ import '../../../../../../../core/resources/color.dart';
 import '../../../../../../../core/translations/locale_keys.dart';
 import '../../../../../../../data/model/response/extra_model.dart';
 import '../../../../../../component/custom_elevated_button.dart';
+import '../../../../../../component/primary_button.dart';
 import '../../home_cubit.dart';
 import 'extra_add_item_widget.dart';
 import 'extra_title_widget.dart';
@@ -87,27 +88,40 @@ class ExtraWidget extends StatelessWidget {
                         ],
                       ),
                       verticalSpace(5),
-                      Center(
-                        child: CustomElevatedButton(
-                          isLoading:state is ExtraModelLoadingState,
-                          backgroundColor: primaryColor.withOpacity(0.1),
-                          onTap: (){
-                            if(cubit.extraFormKey.currentState!.validate()){
-                              ExtraModel extraModel =
-                              ExtraModel(nameAr: cubit.productExtraNameAr.text,
-                                  nameEn: cubit.productExtraName.text, price: double.parse(cubit.productExtraPrice.text));
-                              cubit.addExtra(extraModel);
-                            }
-
-                          },
-                          buttonText:LocaleKeys.add.tr(),
-                          width: MediaQuery.of(context).size.width*0.3,
-                          height: 40,
-                          fontSize: 17,
-                          fontColor: primaryColor,
-                          borderRadius: 40,
-                        ),
-                      ),
+                      PrimaryButtonWidget(
+                        color: primaryColor.withOpacity(0.2),
+                        boxShadowColor: primaryColor.withOpacity(0.2),
+                        fontColor: primaryColor,
+                        borderColor: Colors.white,
+                        isLoading: state is ExtraModelLoadingState,
+                        radius: 25,
+                        width: 200.w,
+                        height: 40.h,
+                        onTap: () {
+                          if(cubit.extraFormKey.currentState!.validate()){
+                            ExtraModel extraModel =
+                            ExtraModel(nameAr: cubit.productExtraNameAr.text,
+                                nameEn: cubit.productExtraName.text, price: double.parse(cubit.productExtraPrice.text));
+                            cubit.addExtra(extraModel);
+                          }
+                        },
+                        text:LocaleKeys.add.tr(),),
+                      // Center(
+                      //   child: CustomElevatedButton(
+                      //     isLoading:state is ExtraModelLoadingState,
+                      //     backgroundColor: primaryColor.withOpacity(0.1),
+                      //     onTap: (){
+                      //
+                      //
+                      //     },
+                      //     buttonText:LocaleKeys.add.tr(),
+                      //     width: MediaQuery.of(context).size.width*0.3,
+                      //     height: 40,
+                      //     fontSize: 17,
+                      //     fontColor: primaryColor,
+                      //     borderRadius: 40,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

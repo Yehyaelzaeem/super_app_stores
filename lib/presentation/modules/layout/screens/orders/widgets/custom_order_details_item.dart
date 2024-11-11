@@ -7,6 +7,7 @@ import '../../../../../../core/resources/styles.dart';
 import '../../../../../../core/translations/locale_keys.dart';
 import '../../../../../../data/model/response/orders_model.dart';
 import '../../../../../component/images/custom_image.dart';
+import '../../home/widgets/custom_chip.dart';
 
 
 class CustomOrderDetailsItemWidget extends StatelessWidget {
@@ -29,7 +30,7 @@ class CustomOrderDetailsItemWidget extends StatelessWidget {
               children: [
                 SizedBox(
                     width:120.w,
-                    height: 100.h,
+                    height: 120.h,
                     child: CustomImage(image: ordersDetailsData.image??'',radius: 5,)),
                 horizontalSpace(10),
                 Expanded(
@@ -41,11 +42,13 @@ class CustomOrderDetailsItemWidget extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(ordersDetailsData.productName??'',style: TextStyles.font18Black700Weight.copyWith(
-                                height: 1
+                                height: 1,
+                              fontSize: 13
                             ),),
                           ),
                           horizontalSpace(10),
                           Text('${ordersDetailsData.productPrice} ${LocaleKeys.currency.tr()}',style: TextStyles.font18Black700Weight.copyWith(
+                              fontSize: 13,
                               color: redColor),),
                           horizontalSpace(10)
                         ],
@@ -53,20 +56,78 @@ class CustomOrderDetailsItemWidget extends StatelessWidget {
                      Row(
                        children: [
                          Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
                            children: [
                              verticalSpace(4),
-                             Text('${ordersDetailsData.qty}',style: TextStyles.font18Black700Weight.copyWith(
-                                 fontWeight: FontWeight.w600,
-                                 fontSize: 12.sp,
-                                 color: redColor
-                             ),),
+                             Row(
+                               children: [
+                                 Text("${LocaleKeys.qty.tr()}  :" ,style: TextStyles.font18Black700Weight.copyWith(
+                                   fontWeight: FontWeight.w600,
+                                   fontSize: 13.sp,
+                                 ),),
+                                 horizontalSpace(10),
+                                 Text('${ordersDetailsData.qty}',style: TextStyles.font18Black700Weight.copyWith(
+                                     fontWeight: FontWeight.w600,
+                                     fontSize: 13.sp,
+                                     color: redColor
+                                 ),),
+                               ],
+                             ),
+                             verticalSpace(4),
+                             if(ordersDetailsData.size!=null)
+                             Row(
+                               children: [
+                                 Text("${LocaleKeys.size.tr()}  :" ,style: TextStyles.font18Black700Weight.copyWith(
+                                   fontWeight: FontWeight.w600,
+                                   fontSize: 11.sp,
+                                 ),),
+                                 horizontalSpace(10),
+                                 Text('${ordersDetailsData.size?.name??''}',style: TextStyles.font18Black700Weight.copyWith(
+                                     fontWeight: FontWeight.w600,
+                                     fontSize: 11.sp,
+                                     color: redColor
+                                 ),),
+                               ],
+                             ),
+                             ordersDetailsData.addition?.data!=null&&ordersDetailsData.addition!.data!.isNotEmpty?
+                             FittedBox(
+                               child: SizedBox(
+                                 height: 30,
+                                 width: MediaQuery.of(context).size.width*0.5,
+                                 child: SingleChildScrollView(
+                                   scrollDirection: Axis.horizontal,
+                                   child: Row(
+                                     children: [
+                                       Wrap(
+                                           spacing: 5,
+                                           children: [
+                                             ...ordersDetailsData.addition?.data?.map((e) =>
+                                                 SizedBox(
+                                                   height: 30.h,
+                                                   child: FittedBox(
+                                                     child: OutlinedChip(
+                                                       backgroundColor: sandwichBackGround,
+                                                       avatarBackgroundColor: primaryColor,
+                                                       label: e.name??'',
+                                                       price: '${e.price}',
+                                                     ),
+                                                   ),
+                                                 ),)??[]
+                                           ]),
+                                     ],
+                                   ),
+                                 ),
+                               ),
+                             ):const SizedBox.shrink(),
+                             verticalSpace(5),
+
                              Text('${ordersDetailsData.productPrice} ${LocaleKeys.currency.tr()}',style: TextStyles.font18Black700Weight.copyWith(
                                  fontWeight: FontWeight.w500,
-                                 fontSize: 12.sp
+                                 fontSize: 13.sp
                              ),),
                            ],
                          ),
-                         horizontalSpace(8),
+                         verticalSpace(8),
 
                        ],
                      )

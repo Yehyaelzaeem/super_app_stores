@@ -6,22 +6,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../core/helpers/date_formatter.dart';
-import '../../../core/helpers/helper_methods.dart';
 import '../../../core/resources/color.dart';
 import '../../../core/resources/styles.dart';
 import '../../../core/translations/locale_keys.dart';
 import '../../../core/utils/toast_states/enums.dart';
 import '../../../data/model/response/profile_model.dart';
 import '../../../data/model/response/time_params.dart';
-import '../../component/custom_text_field.dart';
-import '../../component/spaces.dart';
 
 class StoreTimeScreen extends StatelessWidget {
   final List<Times>? times;
   final bool isComplete;
-   StoreTimeScreen({super.key, this.times, this.isComplete = false});
+   StoreTimeScreen({super.key, this.times, this.isComplete = true});
 
   TextEditingController saturdayTo  = TextEditingController();
   TextEditingController sundayTo  = TextEditingController();
@@ -29,7 +24,7 @@ class StoreTimeScreen extends StatelessWidget {
   TextEditingController tuesdayTo  = TextEditingController();
   TextEditingController wednesdayTo  = TextEditingController();
   TextEditingController thursdayTo  = TextEditingController();
-  TextEditingController fridayTo  = TextEditingController();
+   TextEditingController fridayTo  = TextEditingController();
    TextEditingController saturdayFrom  = TextEditingController();
    TextEditingController sundayFrom   = TextEditingController();
    TextEditingController mondayFrom  = TextEditingController();
@@ -48,19 +43,21 @@ class StoreTimeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
      if (times != null && times!.isNotEmpty) {
        displayTime(times??[]);
+     }else{
+       initTime();
      }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        leading: IconButton(
+        leading:isComplete==true? IconButton(
           onPressed: (){
             Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios,color: Colors.white,),
-        ),
-        title: Text(LocaleKeys.times.tr(),style: TextStyles.font20Black700Weight.copyWith(color: Colors.white,fontSize: 30),),
+        ):null,
+        title: Text(LocaleKeys.times.tr(),style: TextStyles.font20Black700Weight.copyWith(color: Colors.white,fontSize: 17),),
       ),
       body:
      SafeArea(
@@ -330,4 +327,31 @@ class StoreTimeScreen extends StatelessWidget {
    }
 
   }
+  initTime() {
+    saturdayActive=false;
+    sundayActive=false;
+    mondayActive=false;
+    tuesdayActive=false;
+    wednesdayActive=false;
+    thursdayActive=false;
+    fridayActive=false;
+    saturdayFrom.text = 'off';
+    sundayFrom.text = 'off';
+    mondayFrom.text = 'off';
+    tuesdayFrom.text = 'off';
+    wednesdayFrom.text = 'off';
+    thursdayFrom.text = 'off';
+    fridayFrom.text = 'off';
+    saturdayTo.text = '';
+    sundayTo.text = '';
+    mondayTo.text = '';
+    tuesdayTo.text = '';
+    wednesdayTo.text = '';
+    thursdayTo.text = '';
+    fridayTo.text = '';
+    saturdayFrom.text = '';
+
+
+  }
+
 }

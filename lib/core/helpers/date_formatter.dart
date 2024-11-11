@@ -109,5 +109,10 @@ class DateFormatter {
     DateFormat formatter = DateFormat('yyyy-MM-dd',);
     return formatter.format(date);
   }
+  static String currentTime() {
+    DateTime date = DateTime.now();
+    DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss a',);
+    return formatter.format(date);
+  }
 
 }

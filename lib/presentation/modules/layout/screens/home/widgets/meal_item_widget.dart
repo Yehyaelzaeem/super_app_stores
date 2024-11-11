@@ -18,177 +18,222 @@ import '../../../../../component/switch/custom_switch.dart';
 import 'custom_chip.dart';
 
 class MealItemWidget extends StatelessWidget {
-   MealItemWidget({super.key, required this.product});
+  MealItemWidget({super.key, required this.product});
+
   final ProductData product;
-  bool isLoading =false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding:  EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
       child: InkWell(
-        onTap: (){
-          context.pushNamed(Routes.productDetailsScreen,arguments: {"product":product});
+        onTap: () {
+          context.pushNamed(Routes.productDetailsScreen,
+              arguments: {"product": product});
         },
-        child:
-        Container(
-          decoration:  BoxDecoration(
+        child: Container(
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            boxShadow: const [BoxShadow(color: Colors.black12,blurRadius: 2)],
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 2)],
             color: whiteColor,
           ),
           child: Row(
             children: [
               SizedBox(
-                height:product.extra!=null&&product.extra!.data!.isNotEmpty?
-                MediaQuery.of(context).size.height*0.2:MediaQuery.of(context).size.height*0.15,
-                width: MediaQuery.of(context).size.width*0.4,
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: CustomImage(image: product.image!,radius: 15,),
-                )
-              ),
+                  height:
+                      product.extra != null && product.extra!.data!.isNotEmpty
+                          ? MediaQuery.of(context).size.height * 0.2
+                          : MediaQuery.of(context).size.height * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: CustomImage(
+                      image: product.image!,
+                      radius: 15,
+                    ),
+                  )),
               horizontalSpace(2),
               Expanded(
                 child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     verticalSpace(15),
                     Row(
                       children: [
                         Expanded(
-                          child: Text(product.name??'',
+                          child: Text(
+                            product.name ?? '',
                             style: TextStyles.font18Black700Weight.copyWith(
-                                fontWeight: FontWeight.bold,height:1
-                            ),
+                              fontSize: 16,
+                                fontWeight: FontWeight.bold, height: 1),
                           ),
                         ),
                         StatefulBuilder(builder: (context, setState) {
-
-                          if(isLoading==true)
-                            return  Padding(padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              child: CustomLoadingWidget(color: primaryColor,size: 25,),);
+                          if (isLoading == true)
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: CustomLoadingWidget(
+                                color: primaryColor,
+                                size: 25,
+                              ),
+                            );
                           else
                             return CustomSwitch(
                               onToggle: (bool x) async {
                                 setState(() {
-                                  product.published= !product.published!;
+                                  product.published = !product.published!;
                                   isLoading = true;
                                 });
-                                await HomeCubit.get(context).changeProductsState(id: product.id??0).then((value) {
+                                await HomeCubit.get(context)
+                                    .changeProductsState(id: product.id ?? 0)
+                                    .then((value) {
                                   setState(() {
                                     isLoading = false;
                                   });
                                 });
                               },
-                              value: product.published??false,
+                              value: product.published ?? false,
                             );
                         }),
-
                       ],
                     ),
-                     verticalSpace(8),
-                     // Text(product.description!,
-                     //  style: TextStyles.font15CustomGray400Weight.copyWith(
-                     //      fontWeight: FontWeight.w600,
-                     //    height: 1
-                     //  ),
-                     //  maxLines: 2,
-                     // ),
-                     Html(
-                       data:product.description.toString(),
-                       style: {
-                     "p": Style(
-                     fontSize: FontSize(20),
-                     color: customGray,
-                     fontWeight: FontWeight.w600,
-                       fontFamily:  AppFonts.lateefFont,
-                       lineHeight: const LineHeight(1.0),
-                       padding: HtmlPaddings.zero, // إزالة الحواف
-                       margin: Margins.zero, // إزالة الهامش إذا كان موجوداً
-
-                     ),
-                     }, ),
-                     verticalSpace(8),
-                     product.extra!=null&&product.extra!.data!.isNotEmpty?
-                     FittedBox(
-                       child: SizedBox(
-                         height: 30,
-                         width: MediaQuery.of(context).size.width*0.5,
-                         child: SingleChildScrollView(
-                           scrollDirection: Axis.horizontal,
-                           child: Row(
-                             children: [
-                               Wrap(
-                                   spacing: 5,
-                                   children: [
-                                     ...product.extra!.data!.map((e) =>
-                                         SizedBox(
-                                           height: 30.h,
-                                           child: FittedBox(
-                                             child: OutlinedChip(
-                                               backgroundColor: sandwichBackGround,
-                                               avatarBackgroundColor: primaryColor,
-                                               label: e.name!,
-                                               price: '${e.price}',
-                                             ),
-                                           ),
-                                         ),)
-                                   ]),
-                             ],
-                           ),
-                         ),
-                       ),
-                     ):const SizedBox.shrink(),
-                     verticalSpace(5),
-                     FittedBox(
-                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('${product.priceAfterDiscount!.toString()} ${LocaleKeys.currency.tr()}',
-                            style: TextStyles.font18Black700Weight.copyWith(
-                                color: backBlue2,
-                                fontSize: 15,
-                                fontFamily: AppFonts.cairo,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          horizontalSpace(8),
-                         if(product.discount!=null&&product.discount!.isNotEmpty&&product.discount!='0')
-                            Text('${product.price!.toString()} ${LocaleKeys.currency.tr()}',
-                            style: TextStyles.font18Black700Weight.copyWith(
-                                color:gray2,
-                                fontSize: 15,
-                                fontFamily: AppFonts.cairo,
-                                decoration: TextDecoration.lineThrough,
-                                decorationColor: gray2,
-                                fontWeight: FontWeight.bold
-
-
+                    verticalSpace(8),
+                    // Text(product.description!,
+                    //  style: TextStyles.font15CustomGray400Weight.copyWith(
+                    //      fontWeight: FontWeight.w600,
+                    //    height: 1
+                    //  ),
+                    //  maxLines: 2,
+                    // ),
+                    Html(
+                      data: product.description.toString(),
+                      style: {
+                        "p": Style(
+                          fontSize: FontSize(20),
+                          color: customGray,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: AppFonts.lateefFont,
+                          lineHeight: const LineHeight(1.0),
+                          padding: HtmlPaddings.zero,
+                          margin: Margins.zero,
+                        ),
+                      },
+                    ),
+                    verticalSpace(8),
+                    product.extra != null && product.extra!.data!.isNotEmpty
+                        ? FittedBox(
+                            child: SizedBox(
+                              height: 30,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    Wrap(spacing: 5, children: [
+                                      ...product.extra!.data!.map(
+                                        (e) => SizedBox(
+                                          height: 30.h,
+                                          child: FittedBox(
+                                            child: OutlinedChip(
+                                              backgroundColor:
+                                                  sandwichBackGround,
+                                              avatarBackgroundColor:
+                                                  primaryColor,
+                                              label: e.name!,
+                                              price: '${e.price}',
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                                  ],
+                                ),
+                              ),
                             ),
                           )
-                          else
-                            horizontalSpace(50),
-                          // const Spacer(),
-                          horizontalSpace(20),
-                          InkWell(
-                              onTap:(){
-                                HomeCubit.get(context).getProductsCategories();
-                                context.pushNamed(Routes.updateProductScreen,arguments:{'product':product});
-                              },
-                              child: const Icon(Icons.edit_calendar_outlined,color: customGray,)),
-                          horizontalSpace(5),
-                          InkWell(
-                              onTap: (){
-                                HomeCubit.get(context).deleteProducts(id: product.id!);
-                              },
-                              child: const Icon(Icons.delete,size: 25,color: redColor,)),
-                          horizontalSpace(10),
-                        ],
-                                           ),
-                     ),
+                        : const SizedBox.shrink(),
+                    verticalSpace(5),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(child: Row(
+                          children: [
+                            ...[  if (product.price != null &&
+                                product.price!.toString().isNotEmpty &&
+                                product.price!.toString().toString() != '0')
+                              ...[
+                                Expanded(child: Text(
+                                  '${product.priceAfterDiscount!.toString()} ${LocaleKeys.currency.tr()}',
+                                  style: TextStyles.font18Black700Weight.copyWith(
+                                      color: backBlue2,
+                                      fontSize: 15,
+                                      fontFamily: AppFonts.cairo,
+                                      fontWeight: FontWeight.bold),
+                                ),),
+                                horizontalSpace(2),
+                                if (product.discount != null &&
+                                    product.discount!.isNotEmpty &&
+                                    product.discount != '0')
+                                  Text(
+                                    '${product.price!.toString()} ${LocaleKeys.currency.tr()}',
+                                    style: TextStyles.font18Black700Weight.copyWith(
+                                        color: gray2,
+                                        fontSize: 15,
+                                        fontFamily: AppFonts.cairo,
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationColor: gray2,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                else
+                                  horizontalSpace(50),
+                              ]
+                            else if (product.productSize != null &&
+                                  product.productSize!.data != null &&
+                                  product.productSize!.data!.isNotEmpty )
+                                ...[
+                                  Text(
+                                    '${product.productSize!.data![0].priceAfterDiscount?.toString()??''} ${LocaleKeys.currency.tr()}',
+                                    style: TextStyles.font18Black700Weight.copyWith(
+                                        color: backBlue2,
+                                        fontSize: 15,
+                                        fontFamily: AppFonts.cairo,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ]
+                              else
+                                horizontalSpace(50),
+                            ]
+                          ],
+                        )),
+                        // const Spacer(),
+                        horizontalSpace(20),
+                        InkWell(
+                            onTap: () {
+                              HomeCubit.get(context).getProductsCategories();
+                              context.pushNamed(Routes.updateProductScreen,
+                                  arguments: {'product': product});
+                            },
+                            child: const Icon(
+                              Icons.edit_calendar_outlined,
+                              color: customGray,
+                            )),
+                        horizontalSpace(5),
+                        InkWell(
+                            onTap: () {
+                              HomeCubit.get(context)
+                                  .deleteProducts(id: product.id!);
+                            },
+                            child: const Icon(
+                              Icons.delete,
+                              size: 25,
+                              color: redColor,
+                            )),
+                        horizontalSpace(10),
+                      ],
+                    ),
                     verticalSpace(15),
                   ],
                 ),

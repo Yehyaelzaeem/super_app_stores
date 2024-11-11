@@ -24,18 +24,20 @@ class BranchesModel {
 class BranchesModelData {
   int? id;
   String? name;
+  String? nameAr;
   String? address;
   String? phone;
   String? email;
   String? lat;
   String? lng;
-  Region? region;
+  String? region;
 
   BranchesModelData(
       {this.id,
         this.name,
         this.address,
         this.phone,
+        this.nameAr,
         this.email,
         this.lat,
         this.lng,
@@ -44,13 +46,15 @@ class BranchesModelData {
   BranchesModelData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    nameAr = json['name_ar'];
     address = json['address'];
     phone = json['phone'];
     email = json['email'];
     lat = json['lat'];
     lng = json['lng'];
-    region =
-    json['region'] != null ? new Region.fromJson(json['region']) : null;
+    region = json['region'];
+    // region =
+    // json['region'] != null ? new Region.fromJson(json['region']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -62,9 +66,9 @@ class BranchesModelData {
     data['email'] = this.email;
     data['lat'] = this.lat;
     data['lng'] = this.lng;
-    if (this.region != null) {
-      data['region'] = this.region!.toJson();
-    }
+    // if (this.region != null) {
+    //   data['region'] = this.region!.toJson();
+    // }
     return data;
   }
 }

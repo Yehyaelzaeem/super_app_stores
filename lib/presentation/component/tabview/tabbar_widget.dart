@@ -21,9 +21,9 @@ class TabWidgetItemBuilder extends Tab{
 class TabBarWidget  extends StatelessWidget{
   final Function(int)? onTap;
   final TabController? controllerTapBar;
-
+  final bool? isUnderLine;
   final List<TabItemModel> tabs ;
-  const TabBarWidget({super.key ,required this.tabs, this.onTap, this.controllerTapBar});
+  const TabBarWidget({super.key ,required this.tabs, this.onTap, this.controllerTapBar, this.isUnderLine});
 
   @override
   Widget build(BuildContext context) {
@@ -36,30 +36,37 @@ class TabBarWidget  extends StatelessWidget{
           backgroundColor: whiteColor,
           bottom:
           TabBar(
-controller: controllerTapBar,
+            controller: controllerTapBar,
             // isScrollable: true,
             indicatorColor: primaryColor,
             // dividerColor: dividerColor,
             unselectedLabelStyle:TextStyles.font15CustomGray400Weight.copyWith(
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.lateefFont,
-              fontSize: 11,
+              fontSize: 10,
               color: customGray
             ),
             labelStyle: TextStyles.font16Black500Weight.copyWith(
               fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.lateefFont,
 
-                fontSize: 15,
-              color: whiteColor
+                fontSize: 12,
+              color:isUnderLine==true?primaryColor: whiteColor
             ),
 
             padding:  EdgeInsets.symmetric(horizontal: 0.w,vertical: 0.h),
             indicatorPadding: EdgeInsets.zero,
             labelPadding:  EdgeInsets.zero ,
-            indicator:   BoxDecoration(
+            indicator:
+            isUnderLine==true?
+            UnderlineTabIndicator(
+
+              borderSide: BorderSide(color: primaryColor, width: 2.0), // سماكة الخط ولونه
+              insets: EdgeInsets.symmetric(horizontal: 16.0), // مسافة الخط الأفقية من الجوانب
+            ):
+            BoxDecoration(
               color: primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(15)),
+              borderRadius: BorderRadius.all(Radius.circular(12)),
               // boxShadow: [
               //   BoxShadow(
               //     color: Colors.black.withOpacity(0.2),
@@ -70,6 +77,7 @@ controller: controllerTapBar,
               // ],
 
             ),
+
             indicatorSize: TabBarIndicatorSize.tab,
             onTap: onTap,
             tabs: tabs.map((e) => e.builder()

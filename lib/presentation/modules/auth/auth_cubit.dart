@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,10 +26,12 @@ import '../../../domain/request_body/register_body.dart';
 import '../../../domain/usecase/auth/check_otp_usecase.dart';
 import '../../../domain/usecase/auth/complete_profile_usecase.dart';
 import '../../../domain/usecase/auth/register_usecase.dart';
+import '../../../domain/usecase/auth/restaurant_categories_usecase.dart';
 import '../../../domain/usecase/auth/restaurant_type_usecase.dart';
 import '../../../domain/usecase/auth/sign_in_usecase.dart';
 import '../../../domain/usecase/local/save_data_usecase.dart';
 import '../../component/google_map/address_location_model.dart';
+import '../../component/multi_selcet_drop_down.dart';
 import 'complete_profile/complete_profile_screen.dart';
 
 part 'auth_state.dart';
@@ -38,11 +41,13 @@ class AuthCubit extends Cubit<AuthState> {
   final RegisterUseCase _registerUseCase;
   final OTPUseCase _otpUseCase;
   final RestaurantTypesUseCase _restaurantTypesUseCase;
+  final RestaurantCategoriesUseCase _restaurantCategoriesUseCase;
   final CompleteProfileUseCase _completeProfileUseCase;
   final SaveUserDataUseCase _saveUserDataUseCase;
   AuthCubit({
     required SignInUseCase signInUseCase,
     required RestaurantTypesUseCase restaurantTypesUseCase,
+    required RestaurantCategoriesUseCase restaurantCategoriesUseCase,
     required OTPUseCase otpUseCase,
     required CompleteProfileUseCase completeProfileUseCase,
     required RegisterUseCase registerUseCase,
@@ -50,6 +55,7 @@ class AuthCubit extends Cubit<AuthState> {
   })  : _signInUseCase = signInUseCase,
         _otpUseCase = otpUseCase,
         _restaurantTypesUseCase = restaurantTypesUseCase,
+        _restaurantCategoriesUseCase = restaurantCategoriesUseCase,
         _completeProfileUseCase=completeProfileUseCase,
         _saveUserDataUseCase = saveUserDataUseCase,
         _registerUseCase = registerUseCase,
@@ -155,10 +161,12 @@ class AuthCubit extends Cubit<AuthState> {
     return responseModel;
   }
 
+  List<CategoryModel> categoryModelDataList=[];
+
   RestaurantTypesModel? restaurantCategoriesModel;
-  Future<ResponseModel> getRestaurantCategories() async {
+  Future<ResponseModel> getRestaurantCategories(int id) async {
     emit(GetRestaurantCategoriesLoadingState()) ;
-    ResponseModel responseModel = await _restaurantTypesUseCase.call();
+    ResponseModel responseModel = await _restaurantCategoriesUseCase.call(id);
     if (responseModel.isSuccess) {
       restaurantCategoriesModel=responseModel.data;
       emit(GetRestaurantCategoriesSuccessState()) ;
@@ -172,6 +180,7 @@ class AuthCubit extends Cubit<AuthState> {
     if(comNameArController.text.isNotEmpty&&comNameController.text.isNotEmpty){
       CompleteProfileBody completeProfileBody =
       CompleteProfileBody(name: comNameController.text,
+          category: categoryModelDataList.map((e) => e.id.toString()).join(','),
           address: comAddressController.text, type: comTypeController.text, image: imageFile, nameAr: comNameArController.text, lat: addressModel?.lat??'', long: addressModel?.long??'');
       ResponseModel responseModel = await _completeProfileUseCase.call(body: completeProfileBody);
       if (responseModel.isSuccess) {
@@ -179,6 +188,7 @@ class AuthCubit extends Cubit<AuthState> {
         comEmailController.text='';
         comAddressController.text='';
         comNameController.text='';
+        categoryModelDataList.clear();
         comNameArController.text='';
         comPhoneController.text='';
         pickUpController.text='المنطقة/المدينة/البلدة/الشارع';
@@ -189,7 +199,8 @@ class AuthCubit extends Cubit<AuthState> {
             context.pop();
             ProfileCubit.get(context).getProfile();
           }else{
-            context.pushNamed(Routes.storeTimeScreen,arguments: {'isComplete':true});
+            // context.pushNamed(Routes.storeTimeScreen,arguments: {'isComplete':true});
+            context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
           }
           // context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
         });

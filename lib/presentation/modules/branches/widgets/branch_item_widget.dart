@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/resources/color.dart';
 import '../../../../core/resources/styles.dart';
 import '../../../../data/model/response/branches_model.dart';
+import '../../../component/google_map/const_location_map.dart';
 import '../../../component/google_map/custom_google_map.dart';
 
 class CustomBranchItemWidget extends StatelessWidget {
@@ -55,11 +56,9 @@ class CustomBranchItemWidget extends StatelessWidget {
                   InkWell(
                     onTap: (){
                           if(branchesModel.lat!=null&&branchesModel.lng!=null){
+
                           Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>
-                          CustomGoogleMapScreen(
-                          lat: double.parse(branchesModel.lat!),
-                          long:double.parse(branchesModel.lng!),
-                           )));
+                              ConstLocationMap(lat: double.parse(branchesModel.lat??'0'), long: double.parse(branchesModel.lng??'0'),)));
                           }
                     },
                     child: Row(

@@ -1,3 +1,5 @@
+import 'package:cogina_restaurants/data/model/response/products_model.dart';
+
 class OrdersModel {
   List<OrdersModelData>? data;
   MetaPagination? meta;
@@ -27,6 +29,8 @@ class OrdersModelData {
   String? status;
   Client? client;
   String? orderPrice;
+  String? orderType;
+  Prescriptions? prescriptionsModel;
   String? discout;
   String? orderTotal;
   String? deliveryFees;
@@ -42,9 +46,11 @@ class OrdersModelData {
         this.client,
         this.orderPrice,
         this.discout,
+        this.orderType,
         this.orderTotal,
         this.deliveryFees,
         this.promoCode,
+        this.prescriptionsModel,
         this.date,
         this.note,
         this.paymentMethod,
@@ -53,8 +59,15 @@ class OrdersModelData {
   OrdersModelData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     status = json['status'];
+    orderType = json['order_type'];
     client =
     json['client'] != null ?  Client.fromJson(json['client']) : null;
+    prescriptionsModel = json['prescriptions'] != null
+        ? (json['prescriptions'] is Map<String, dynamic>
+        ? Prescriptions.fromJson(json['prescriptions'])
+        : null)
+        : null;
+    json['prescriptions'] != null ?  Client.fromJson(json['client']) : null;
     orderPrice = json['order_price'];
     discout = json['discout'];
     orderTotal = json['order_total'];
@@ -86,6 +99,155 @@ class OrdersModelData {
     return data;
   }
 }
+class Branch {
+  int? id;
+  String? name;
+  String? address;
+  String? phone;
+  String? email;
+  String? lat;
+  String? lng;
+  Store? region;
+
+  Branch(
+      {this.id,
+        this.name,
+        this.address,
+        this.phone,
+        this.email,
+        this.lat,
+        this.lng,
+        this.region});
+
+  Branch.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    address = json['address'];
+    phone = json['phone'];
+    email = json['email'];
+    lat = json['lat'];
+    lng = json['lng'];
+    region = json['region'] != null ? new Store.fromJson(json['region']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['address'] = this.address;
+    data['phone'] = this.phone;
+    data['email'] = this.email;
+    data['lat'] = this.lat;
+    data['lng'] = this.lng;
+    if (this.region != null) {
+      data['region'] = this.region!.toJson();
+    }
+    return data;
+  }
+}
+// class PrescriptionsModel {
+//   Prescriptions? prescriptions;
+//
+//   PrescriptionsModel({this.prescriptions});
+//
+//   PrescriptionsModel.fromJson(Map<String, dynamic> json) {
+//     prescriptions = json['prescriptions'] != null
+//         ? (json['prescriptions'] is Map<String, dynamic>
+//         ? Prescriptions.fromJson(json['prescriptions'])
+//         : null)
+//         : null;
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     if (this.prescriptions != null) {
+//       data['prescriptions'] = this.prescriptions!.toJson();
+//     }
+//     return data;
+//   }
+// }
+
+class Prescriptions {
+  int? id;
+  String? image;
+  int? deliveryPrice;
+  int? price;
+  String? note;
+  String? status;
+  String? storesNote;
+  Store? store;
+  Branch? branch;
+  Client? client;
+
+  Prescriptions(
+      {this.id,
+        this.image,
+        this.deliveryPrice,
+        this.price,
+        this.note,
+        this.status,
+        this.storesNote,
+        this.store,
+        this.branch,
+        this.client});
+
+  Prescriptions.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    image = json['image'];
+    deliveryPrice = json['delivery_price'];
+    price = json['price'];
+    note = json['note'];
+    status = json['status'];
+    storesNote = json['stores_note'];
+    store = json['store'] != null ? new Store.fromJson(json['store']) : null;
+    branch =
+    json['branch'] != null ? new Branch.fromJson(json['branch']) : null;
+    client =
+    json['client'] != null ? new Client.fromJson(json['client']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['image'] = this.image;
+    data['delivery_price'] = this.deliveryPrice;
+    data['price'] = this.price;
+    data['note'] = this.note;
+    data['status'] = this.status;
+    data['stores_note'] = this.storesNote;
+    if (this.store != null) {
+      data['store'] = this.store!.toJson();
+    }
+    if (this.branch != null) {
+      data['branch'] = this.branch!.toJson();
+    }
+    if (this.client != null) {
+      data['client'] = this.client!.toJson();
+    }
+    return data;
+  }
+}
+
+class Store {
+  String? name;
+  int? id;
+
+  Store({this.name, this.id});
+
+  Store.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+
 
 class Client {
   String? name;
@@ -172,8 +334,8 @@ class OrdersDetailsData {
   String? qtyPrice;
   int? qty;
   String? color;
-  String? size;
-  AdditionData? addition;
+  ProductSizeData? size;
+  AdditionModel? addition;
 
 OrdersDetailsData(
       {this.id,
@@ -194,9 +356,13 @@ OrdersDetailsData.fromJson(Map<String, dynamic> json) {
     qtyPrice = json['qty_price'];
     qty = json['qty'];
     color = json['color'];
-    size = json['size'];
+    size = json['size'] != null
+        ? (json['size'] is Map<String, dynamic>
+        ? ProductSizeData.fromMap(json['size'])
+        : null)
+        : null;
     addition = json['addition'] != null
-        ? AdditionData.fromJson(json['addition'])
+        ? AdditionModel.fromJson(json['addition'])
         : null;
   }
 
@@ -215,6 +381,28 @@ OrdersDetailsData.fromJson(Map<String, dynamic> json) {
     }
     return data;
   }
+}
+class AdditionModel{
+  List<AdditionData>? data;
+
+  AdditionModel({this.data});
+
+  AdditionModel.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <AdditionData>[];
+      json['data'].forEach((v) {
+        data!.add( AdditionData.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'data': this.data!.map((v) => v.toJson()).toList(),
+    };
+  }
+
+
 }
 
 class AdditionData {

@@ -87,7 +87,7 @@ void showSuccessDialog(
 void showCustomDialog(BuildContext context, Widget body,
     {required Function onDismissCallback, bool isCancellable = false}) {
   AwesomeDialog(
-    dialogBackgroundColor:Theme.of(context).primaryColor,
+    dialogBackgroundColor:Colors.white,
       context: context,
       animType: AnimType.bottomSlide,
       headerAnimationLoop: false,

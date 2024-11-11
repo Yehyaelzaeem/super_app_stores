@@ -17,8 +17,8 @@ class GetBranchesUseCase implements BaseUseCase<BranchesModel>{
 
   @override
   ResponseModel<BranchesModel> onConvert(BaseModel baseModel) {
+    BranchesModel? branchesModel = BranchesModel.fromJson(baseModel.item);
     try{
-      BranchesModel? branchesModel = BranchesModel.fromJson(baseModel.item);
       return ResponseModel(baseModel.status??true, baseModel.message,data: branchesModel);
     }catch(e){
       return ResponseModel(baseModel.status??false, baseModel.message,data: baseModel.item);

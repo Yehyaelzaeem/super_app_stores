@@ -1,6 +1,7 @@
 import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/component/images/custom_image.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/home/product/widgets/size_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,14 +10,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../core/helpers/spacing.dart';
 import '../../../../../../../core/resources/color.dart';
 import '../../../../../../../core/resources/decoration.dart';
+import '../../../../../../../core/resources/styles.dart';
 import '../../../../../../../core/utils/toast_states/enums.dart';
 import '../../../../../../component/custom_elevated_button.dart';
+import '../../../../../../component/primary_button.dart';
 import 'extra_widget.dart';
 
 class ProductImageAndButtonWidget extends StatelessWidget {
-  const ProductImageAndButtonWidget({super.key, required this.type,  this.id, this.image});
+  const ProductImageAndButtonWidget({super.key, required this.type,  this.id, this.image, this.isOffer});
   final String type;
   final int? id;
+  final bool? isOffer;
   final String? image;
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,7 @@ class ProductImageAndButtonWidget extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
+
             Center(
               child: InkWell(
                 onTap: (){
@@ -56,76 +61,117 @@ class ProductImageAndButtonWidget extends StatelessWidget {
                     width:150.w,
                     child:  Center(
                       child:
-                     type=='update' && image!=null?
-                         CustomImage(image: image??'',radius: 25,
-                          height: 100.h,
-                           width: 150.w,
-                         ):
+                      type=='update' && image!=null?
+                      CustomImage(image: image??'',radius: 25,
+                        height: 100.h,
+                        width: 150.w,
+                      ):
                       Icon(Icons.add_photo_alternate_outlined,size: 100,color: Colors.grey,),
                     ),
                   ),
                 ),
               ),
             ),
+
             verticalSpace(20),
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 8.w,vertical: 10.h),
-              child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: backGroundGray,
-                    boxShadow: const [BoxShadow(color: Colors.black12,blurRadius: 7)]
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: ExtraWidget(),
-                  )),
-            ),
-            verticalSpace(20),
-            Center(
-              child: Container(
-                decoration: Decorations.backGroundDecorationButton().copyWith(
-                    borderRadius: BorderRadius.circular(40)
-                ),
-                child:
-                CustomElevatedButton(
-                  isLoading: state is AddProductLoadingState,
-                  backgroundColor: Colors.transparent,
-                  onTap: (){
-                    if(type=='update'){
-                      if(cubit.productFormKey.currentState!.validate()){
-                        if(cubit.categoryId==null){
-                          showToast(text: LocaleKeys.chooseCategory.tr(), state: ToastStates.error, context: context);
-                        }
-                        // else if(cubit.productImageFile==null){
-                        //   showToast(text: LocaleKeys.chooseImage.tr(), state: ToastStates.error, context: context);
-                        // }
-                        else{
-                          cubit.updateProduct(id: id??0, context: context);
-                        }
+           FittedBox(
+             fit: BoxFit.scaleDown,
+             child:  Padding(
+               padding: EdgeInsets.symmetric(horizontal: 16.w),
+               child: Row(
+                 children: [
+
+                   Text('${LocaleKeys.bestDishesMess.tr()}', style: TextStyles.font18Black700Weight.copyWith(
+                       fontSize:10.sp ,
+                       color: Colors.grey.shade700)),
+                   StatefulBuilder(builder: (context,setState){
+                     return  Checkbox(
+                         value: cubit.checkValue,
+                         onChanged: (bool? val){
+                           setState((){
+                             cubit.checkValue=val!;
+                           });
+                         });
+                   })
+                 ],
+               ),
+             ),
+           ),
+
+            verticalSpace(5),
+            PrimaryButtonWidget(
+              isLoading: state is AddProductLoadingState,
+              radius: 15,
+              height: 50.h,
+                onTap: () {
+                if(isOffer==true){
+                  if(type=='update'){
+                    print(cubit.productPrice.text);
+                    if(cubit.productFormKey.currentState!.validate()){
+                      if(cubit.categoryId==null){
+                        showToast(text: LocaleKeys.chooseCategory.tr(), state: ToastStates.error, context: context);
                       }
-                    }else{
-                      if(cubit.productFormKey.currentState!.validate()){
-                        if(cubit.categoryId==null){
-                          showToast(text:  LocaleKeys.chooseCategory.tr(), state: ToastStates.error, context: context);
-                        }
-                        else if(cubit.productImageFile==null){
-                          showToast(text: LocaleKeys.chooseImage.tr(), state: ToastStates.error, context: context);
-                        }else{
-                          cubit.addProduct();
-                        }
+                      else if((cubit.productPrice.text.isEmpty || cubit.productPrice.text == '0')  && cubit.sizeProductList.isEmpty){
+                        showToast(text: LocaleKeys.choosePrice.tr(), state: ToastStates.error, context: context);
                       }
 
+                      else{
+                        cubit.updateOfferProduct(id: id??0, context: context);
+                      }
                     }
-                  },
-                  buttonText:type=='update'?LocaleKeys.update.tr():LocaleKeys.add.tr(),
-                  width: MediaQuery.of(context).size.width*0.5,
-                  height: 40,
-                  fontSize: 17,
-                  borderRadius: 40,
-                ),
-              ),
-            ),
+                  }
+                  else{
+                    if(cubit.productFormKey.currentState!.validate()){
+                      if(cubit.categoryId==null){
+                        showToast(text:  LocaleKeys.chooseCategory.tr(), state: ToastStates.error, context: context);
+                      }
+                      else if(cubit.productImageFile==null){
+                        showToast(text: LocaleKeys.chooseImage.tr(), state: ToastStates.error, context: context);
+                      }
+                      else if(cubit.productPrice.text.isEmpty && cubit.sizeProductList.isEmpty){
+                        showToast(text: LocaleKeys.choosePrice.tr(), state: ToastStates.error, context: context);
+                      }
+                      else{
+                        cubit.addOfferProduct();
+                      }
+                    }
+                  }
+                }else{
+                  if(type=='update'){
+                    print(cubit.productPrice.text);
+                    if(cubit.productFormKey.currentState!.validate()){
+                      if(cubit.categoryId==null){
+                        showToast(text: LocaleKeys.chooseCategory.tr(), state: ToastStates.error, context: context);
+                      }
+                      else if((cubit.productPrice.text.isEmpty || cubit.productPrice.text == '0')  && cubit.sizeProductList.isEmpty){
+                        showToast(text: LocaleKeys.choosePrice.tr(), state: ToastStates.error, context: context);
+                      }
+
+                      else{
+                        cubit.updateProduct(id: id??0, context: context);
+                      }
+                    }
+                  }else{
+                    if(cubit.productFormKey.currentState!.validate()){
+                      if(cubit.categoryId==null){
+                        showToast(text:  LocaleKeys.chooseCategory.tr(), state: ToastStates.error, context: context);
+                      }
+                      else if(cubit.productImageFile==null){
+                        showToast(text: LocaleKeys.chooseImage.tr(), state: ToastStates.error, context: context);
+                      }
+                      else if(cubit.productPrice.text.isEmpty && cubit.sizeProductList.isEmpty){
+                        showToast(text: LocaleKeys.choosePrice.tr(), state: ToastStates.error, context: context);
+                      }
+                      else{
+                        cubit.addProduct();
+                      }
+                    }
+                  }
+                }
+
+                },
+              text:type=='update'?LocaleKeys.update.tr():LocaleKeys.add.tr(),),
+
             verticalSpace(20),
           ],
         );

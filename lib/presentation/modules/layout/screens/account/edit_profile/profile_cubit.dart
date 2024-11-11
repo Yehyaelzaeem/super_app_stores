@@ -37,22 +37,26 @@ class ProfileCubit extends Cubit<ProfileState> {
           context.pushNamed(Routes.completeProfileScreen);
         }
        else if(profileModel!.store?.files==null){
-          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':false}, );
         }
         else if(profileModel!.store?.files?.tax==null){
-          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':false});
+
         }
         else if(profileModel!.store?.files?.commercialId==null){
-          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':false}, );
+
         }
         else if(profileModel!.store?.files?.banner==null){
-          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':true});
-        }else if(profileModel!.store?.times==null || profileModel!.store?.times?.length==0){
-          context.pushNamed(Routes.storeTimeScreen,arguments: {'isComplete':true});
-        }else if(profileModel!.store?.deliveryTime==null || profileModel!.store?.deliveryPrice==null || profileModel!.store?.orderTime==null){
-          context.pushNamed(Routes.deliveryTimeScreen,arguments: {'isComplete':true});
-        }
+          context.pushNamed(Routes.myFilesScreen,arguments: {'isComplete':false}, );
 
+        }else if(profileModel!.store?.times==null || profileModel!.store?.times?.length==0){
+          context.pushNamed(Routes.storeTimeScreen,arguments: {'isComplete':false},);
+
+        }
+        else if(profileModel!.store?.orderTime==null){
+          context.pushNamed(Routes.deliveryTimeScreen,arguments: {'isComplete':false},);
+        }
       }
       emit(GetProfileSuccessState()) ;
     }else{

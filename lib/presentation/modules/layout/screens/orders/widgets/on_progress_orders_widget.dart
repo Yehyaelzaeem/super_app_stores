@@ -96,9 +96,12 @@ class _State extends State<OnProgressOrdersWidget> {
                 return Padding(
                   padding: EdgeInsets.only(top: 16.h),
                   child: CustomNotFoundDataWidget(
-                    image: AppImages.notFoundBranch,
+                    onTap: (){
+                      cubit.getOnProgressOrders(status: 'restaurant_order_progress',isReload: true);
+                    },
+                    image: AppImages.not6,
                     title: LocaleKeys.notFoundData.tr(),
-                    type: 'svg',
+                    type: 'png',
                   ),
                 );
               }

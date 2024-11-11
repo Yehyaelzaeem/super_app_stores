@@ -24,8 +24,12 @@ class DeleteProductSuccessState extends HomeState {}
 class DeleteProductErrorState extends HomeState {}
 class PushDataState extends HomeState {}
 class ExtraModelLoadingState extends HomeState {}
+class SizeProductLoadingState extends HomeState {}
+class SizeProductsSuccessState extends HomeState {}
+class FilterStates extends HomeState {}
 class AddExtraModelState extends HomeState {}
 class RemoveExtraModelState extends HomeState {}
+class RemoveSizeProductState extends HomeState {}
 class ChangeProductLoadingState extends HomeState {}
 class ChangeProductSuccessState extends HomeState {}
 class ChangeProductErrorState extends HomeState {}

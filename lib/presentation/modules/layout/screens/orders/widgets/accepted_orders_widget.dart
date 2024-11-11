@@ -90,9 +90,12 @@ class _State extends State<AcceptedOrdersWidget> {
               return Padding(
                 padding: EdgeInsets.only(top: 16.h),
                 child: CustomNotFoundDataWidget(
-                  image: AppImages.notFoundBranch,
+                  onTap: (){
+                    cubit.getAcceptedOrders(status: 'restaurant_accepted',isReload: true);
+                  },
+                  image: AppImages.not6,
                   title: LocaleKeys.notFoundData.tr(),
-                  type: 'svg',
+                  type: 'png',
                 ),
               );
             }

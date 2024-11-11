@@ -61,7 +61,6 @@ class TimeDayItem extends StatelessWidget {
                   TextSwitch(
                     value: isSwitchActive,
                     text: day,
-
                     onToggle: (bool x) {
                       setState(() {
                         isSwitchActive = x;
@@ -114,7 +113,7 @@ class TimeDayItem extends StatelessWidget {
                                         });
                                       },
                                     ),
-                                    Text('12 ${LocaleKeys.hour.tr()}', style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade700)),
+                                    Text('12 ${LocaleKeys.hour.tr()}', style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade700,fontSize: 14)),
                                   ],
                                 ),
                                 Row(
@@ -129,7 +128,7 @@ class TimeDayItem extends StatelessWidget {
                                         });
                                       },
                                     ),
-                                    Text('24 ${LocaleKeys.hour.tr()}', style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade700)),
+                                    Text('24 ${LocaleKeys.hour.tr()}', style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade700,fontSize: 14)),
                                   ],
                                 ),
                               ],
@@ -145,7 +144,7 @@ class TimeDayItem extends StatelessWidget {
                                         '${LocaleKeys.from.tr()}',
                                         style: TextStyles.font18Black700Weight
                                             .copyWith(
-                                            fontSize: 20,
+                                            fontSize: 15,
                                             color: Colors.grey.shade800),
                                       ),
                                       horizontalSpace(10),
@@ -200,7 +199,7 @@ class TimeDayItem extends StatelessWidget {
                                         '${LocaleKeys.to.tr()}',
                                         style: TextStyles.font18Black700Weight
                                             .copyWith(
-                                            fontSize: 20,
+                                            fontSize: 15,
                                             color: Colors.grey.shade800),
                                       ),
                                       horizontalSpace(10),

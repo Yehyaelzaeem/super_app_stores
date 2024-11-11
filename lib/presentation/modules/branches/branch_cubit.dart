@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../core/routing/navigation_services.dart';
+import '../../../core/routing/routes.dart';
 import '../../../data/model/base/response_model.dart';
 import '../../../data/model/response/branches_model.dart';
 import '../../../data/model/response/regions_model.dart';
@@ -34,6 +35,7 @@ class BranchCubit extends Cubit<BranchState> {
   }
   static BranchCubit get()=>BlocProvider.of(NavigationService.navigationKey.currentContext!);
   TextEditingController storeName =TextEditingController();
+  TextEditingController storeNameAr =TextEditingController();
   TextEditingController storeEmail =TextEditingController();
   TextEditingController storePhone =TextEditingController();
   TextEditingController storeAddress =TextEditingController();
@@ -48,6 +50,10 @@ class BranchCubit extends Cubit<BranchState> {
     ResponseModel responseModel = await _getBranchesUseCase.call();
     if (responseModel.isSuccess) {
       branchesModel=responseModel.data;
+      if(branchesModel?.data?.isEmpty??false){
+        NavigationService.navigationKey.currentContext!.pushNamed(Routes.addBranchScreen);
+
+      }
       emit(GetBranchesSuccessState()) ;
     }else{
       emit(GetBranchesErrorState()) ;
@@ -73,17 +79,32 @@ class BranchCubit extends Cubit<BranchState> {
   BranchesModel? branchesModel;
   Future<dynamic> addBranch(BuildContext context) async {
    if(addBranchKey.currentState!.validate()){
-     if(regionsId!=null){
+     if(1==1){
        emit(AddBranchLoadingState()) ;
        AddBranchBody addBranchBody =AddBranchBody(
-           name: storeName.text, email: storeEmail.text,
-           phone: storePhone.text, address: storeAddress.text,
-           lat: addressLocationModel!=null?addressLocationModel!.lat:'', lng: addressLocationModel!=null?addressLocationModel!.long:'',
-           regionId: regionsId!=null?regionsId!.toString():'', deliveryTime: storeTime.text);
+           name: storeName.text,
+            nameAr:storeNameAr.text,
+            // email: '',
+            // storeEmail.text,
+           phone: storePhone.text,
+           address: storeAddress.text,
+           lat: addressLocationModel!=null?addressLocationModel!.lat:'',
+           lng: addressLocationModel!=null?addressLocationModel!.long:'',
+           // regionId: '',
+           // regionsId!=null?regionsId!.toString():'',
+           // deliveryTime: storeTime.text,
+       );
        ResponseModel responseModel = await _addBranchUseCase.call(addBranchBody: addBranchBody);
        if (responseModel.isSuccess) {
          Future.delayed(const Duration(microseconds: 0)).then((value) {
            showToast(text: responseModel.message.toString(), state: ToastStates.success, context: context);
+           storeNameAr.text='';
+           storeName.text='';
+           storeEmail.text='';
+           storePhone.text='';
+           storeAddress.text='';
+           storeLocation.text='';
+           storeTime.text='';
            getBranches();
            context.pop();
          });
@@ -99,17 +120,30 @@ class BranchCubit extends Cubit<BranchState> {
   }
   Future<dynamic> updateBranch({required int branchId,required BuildContext context}) async {
    if(addBranchKey.currentState!.validate()){
-     if(regionsId!=null){
+     if(1==1){
        emit(UpdateBranchLoadingState()) ;
        AddBranchBody addBranchBody =AddBranchBody(
-           name: storeName.text, email: storeEmail.text,
-           phone: storePhone.text, address: storeAddress.text,
+           nameAr: storeNameAr.text,
+           name: storeName.text,
+           // email: storeEmail.text,
+           phone: storePhone.text,
+           address: storeAddress.text,
            lat: addressLocationModel!=null?addressLocationModel!.lat:'', lng: addressLocationModel!=null?addressLocationModel!.long:'',
-           regionId: regionsId!=null?regionsId!.toString():'', deliveryTime: storeTime.text);
+           // regionId: '',
+           // regionsId!=null?regionsId!.toString():'',
+           // deliveryTime: storeTime.text,
+       );
        ResponseModel responseModel = await _updateBranchUseCase.call(addBranchBody: addBranchBody, branchId: branchId);
        if (responseModel.isSuccess) {
          Future.delayed(const Duration(microseconds: 0)).then((value) {
            showToast(text: responseModel.message.toString(), state: ToastStates.success, context: context);
+           storeNameAr.text='';
+           storeName.text='';
+           storeEmail.text='';
+           storePhone.text='';
+           storeAddress.text='';
+           storeLocation.text='';
+           storeTime.text='';
            getBranches();
            context.pop();
          });

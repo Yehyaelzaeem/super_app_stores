@@ -82,4 +82,14 @@ class AuthRepositoryImp implements AuthRepository{
     }
   }
 
+  @override
+  Future<ApiResponse> getRestaurantCategories(int id) async{
+    try {
+      Response response = await _dioClient.post(AppURL.kRestaurantCategoriesURI(id),);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
 }

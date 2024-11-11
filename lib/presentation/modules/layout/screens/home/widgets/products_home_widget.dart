@@ -19,13 +19,12 @@ class ProductsHomeWidget extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if(cubit.homeModel!=null&&cubit.homeModel!.productsModel!=null){
-          final products =cubit.homeModel!.productsModel!.data!;
-          if(products.isNotEmpty){
+        if(cubit.filterHomeModel!=null&&cubit.filterHomeModel!.productsModel!=null&&cubit.filterHomeModel!.productsModel!.data!=null){
+          if(cubit.filterHomeModel!.productsModel!.data!.isNotEmpty){
             return  ListView.builder(
-                itemCount:products.length,
+                itemCount:cubit.filterHomeModel!.productsModel!.data!.length,
                 itemBuilder: (context,index){
-              return MealItemWidget(product: products[index]);
+              return MealItemWidget(product: cubit.filterHomeModel!.productsModel!.data![index]);
             });
           }else{
             return Column(

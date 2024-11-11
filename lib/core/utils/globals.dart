@@ -4,3 +4,4 @@ import '../../domain/entities/user_entity.dart';
 
 UserModel? kUser;
 String typeData='item';
+String kLanguage='ar';

@@ -5,8 +5,13 @@ class LocaleKeys
   static const ar = 'ar';
   static const changeLanguage = 'change_language';
   static const save = 'save';
+  static const sendPrice = 'sendPrice';
+  static const inPreparation = 'inPreparation';
+  static const send = 'send';
+  static const notes = 'notes';
   static const profile = 'profile';
   static const aboutUs = 'about_us';
+  static const qty = 'qty';
   static const notification = 'notification';
   static const this_field_required = 'this_field_required';
   static const myOrders = 'my_orders';
@@ -15,10 +20,16 @@ class LocaleKeys
   static const sunday = 'sunday';
   static const monday = 'monday';
   static const tuesday = 'tuesday';
+  static const addOffers = 'addOffers';
+  static const prescriptions = 'prescriptions';
+  static const prescription = 'prescription';
+  static const all = 'all';
   static const wednesday = 'wednesday';
   static const orderTime = 'orderTime';
   static const deliveryTime2 = 'deliveryTime';
   static const hour = 'hour';
+  static const constSize = 'constSize';
+  static const sizes = 'sizes';
   static const deliveryPrice = 'deliveryPrice';
 
   static const thursday = 'thursday';
@@ -56,6 +67,8 @@ class LocaleKeys
   static const to = 'to';
   static const addCart = 'add_cart';
   static const orderNo = 'order_no';
+  static const orderDate = 'orderDate';
+  static const date = 'date';
   static const delivered = 'delivered';
   static const delivered2 = 'delivered2';
   static const appCommission = 'appCommission';
@@ -102,6 +115,8 @@ class LocaleKeys
   static const telephoneNumber = 'telephone_number';
   static const telephoneNumberMes = 'telephone_number_mes';
   static const addressMes = 'address_mes';
+  static const bestDishesMess = 'bestDishesMess';
+  static const bestDishesMess2 = 'bestDishesMess2';
   static const logOut = 'log_out';
   static const logOutMes = 'log_out_mes';
   static const deleteAccountMes = 'delete_account_mes';
@@ -154,8 +169,12 @@ class LocaleKeys
   static const mealName = 'meal_name';
   static const mealNameAr = 'meal_name_ar';
   static const descriptionAr = 'description_ar';
+  static const extra = 'extra';
+  static const size = 'size';
+  static const sizeAr = 'size_ar';
   static const rejected = 'rejected';
   static const price = 'price';
+  static const choosePrice = 'choosePrice';
   static const category = 'category';
   static const categories = 'categories';
   static const addition = 'addition';

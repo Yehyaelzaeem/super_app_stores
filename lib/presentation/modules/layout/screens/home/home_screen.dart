@@ -15,6 +15,7 @@ import '../../../../../core/resources/color.dart';
 import '../../../../../core/resources/decoration.dart';
 import '../../../../../core/resources/styles.dart';
 import '../../../../../../core/routing/routes.dart';
+import '../../../../component/choose_from_list_widget.dart';
 import '../../../../component/custom_app_bar.dart';
 import 'home_cubit.dart';
 // _getData(BuildContext context){
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(LocaleKeys.categories.tr(),
                                 style: TextStyles.font20Black700Weight.copyWith(
                                     color: backBlue2,
-                                    fontSize: 26
+                                    fontSize: 20
                                 ),
                               ),
                               verticalSpace(10),
@@ -72,9 +73,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                  child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ...cubit.homeModel!.categories!.data!.map((e) =>
-                                         CustomItem( categoriesData: e,)
-                                    )
+                                    ChooseFromListItemWidget(
+                                      onChoose: (ChooseItemListModel item) async{
+                                       await cubit.filterProductHome(item);
+
+                                      },
+                                      items:
+                                      [
+                                        ...cubit.homeModel!.categories!.data!.map((e) => ChooseItemListModel(id: e.id??0, title: e.name??'')).toList(),
+                                        if(cubit.homeModel!.categories!.data!.length > 4)
+                                          ChooseItemListModel(id: -100, title: '${LocaleKeys.all.tr()}'),
+                                      ]),                                    // ...cubit.homeModel!.categories!.data!.map((e) =>
+                                    //      CustomItem( categoriesData: e,)
+                                    // )
                                   ],
                                  ),
                                ),
@@ -91,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(LocaleKeys.meals.tr(),
                 style: TextStyles.font20Black700Weight.copyWith(
                     color: backBlue2,
-                    fontSize: 20
+                    fontSize: 15
                 ),
               ),
 
@@ -111,7 +122,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: InkWell(
                     onTap: (){
-                      cubit.getProductsCategories();
                       context.pushNamed(Routes.addMealScreen);
                     },
                     child: const Icon(Icons.add,size: 25,color: Colors.white,)),

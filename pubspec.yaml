@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   html: ^0.15.4
   collection: ^1.18.0
+  photo_view: ^0.15.0
 
   logger: ^1.1.0
   fluttertoast: ^8.2.4
@@ -41,6 +42,8 @@ dependencies:
   geolocator:
   geocoding:
   flutter_html:
+  printing: ^5.11.0
+  pdf: ^3.8.1
   # DI
   get_it: ^7.2.0
   equatable: ^2.0.5
@@ -90,6 +93,8 @@ flutter:
     - lib/presentation/component/inputs/phone_country/flags/
     - assets/translation/
     - assets/mp3/
+    - assets/fonts/
+    - assets/fonts/Cairo-Black.ttf
 
   # assets:
   #   - images/a_dot_burr.jpeg
