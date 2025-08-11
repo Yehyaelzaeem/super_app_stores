@@ -13,7 +13,7 @@ import 'core/resources/color.dart';
 import 'core/routing/navigation_services.dart';
 import 'core/routing/route_generator.dart';
 import 'domain/injection.dart' as domain_injection;
-    
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
