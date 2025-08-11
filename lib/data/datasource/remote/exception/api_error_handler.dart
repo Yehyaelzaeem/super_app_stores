@@ -15,15 +15,15 @@ class ApiErrorHandler {
             case DioErrorType.cancel:
               return  ErrorModel(code:error.response?.statusCode??0 ,codeError: ErrorEnum.cancel,errorMessage:
               'error');
-            case DioErrorType.connectTimeout:
+            case DioErrorType.connectionTimeout:
               return   ErrorModel(code:error.response?.statusCode??0 ,codeError: ErrorEnum.connectTimeout,errorMessage:'error');
             case DioErrorType.receiveTimeout:
               return  ErrorModel(code:error.response?.statusCode??0 ,codeError: ErrorEnum.receiveTimeout,errorMessage: 'error');
             case DioErrorType.sendTimeout:
               return  ErrorModel(code:error.response?.statusCode??0 ,codeError: ErrorEnum.sendTimeout,errorMessage: 'error');
-            case DioErrorType.other:
+            case DioErrorType.unknown:
               return   ErrorModel(code:error.response?.statusCode??0 ,codeError: ErrorEnum.other,errorMessage: 'error',);
-            case DioErrorType.response:
+            case DioErrorType.badResponse:
               switch (error.response!.statusCode) {
                 case 401:return  const ErrorModel(code:401 ,codeError: ErrorEnum.auth,errorMessage:  'Unauthorized');
                 case 404:
@@ -40,6 +40,12 @@ class ApiErrorHandler {
               }
               break;
 
+            case DioExceptionType.badCertificate:
+              // TODO: Handle this case.
+              throw UnimplementedError();
+            case DioExceptionType.connectionError:
+              // TODO: Handle this case.
+              throw UnimplementedError();
           }
         } else {
           return const ErrorModel(code:0 ,codeError: ErrorEnum.otherError,errorMessage: "Unexpected error occured");

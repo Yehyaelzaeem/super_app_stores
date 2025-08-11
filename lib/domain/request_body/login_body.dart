@@ -17,7 +17,7 @@ class LoginBody{
   Map<String, dynamic> toJson() {
     return {
       "phone": _phone,
-      "password": _password,
+      // "password": _password,
     };
   }
   setData({

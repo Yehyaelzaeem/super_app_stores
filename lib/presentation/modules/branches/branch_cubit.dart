@@ -3,6 +3,7 @@ import 'package:cogina_restaurants/core/utils/toast_states/enums.dart';
 import 'package:cogina_restaurants/domain/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../core/routing/navigation_services.dart';
@@ -97,7 +98,7 @@ class BranchCubit extends Cubit<BranchState> {
        ResponseModel responseModel = await _addBranchUseCase.call(addBranchBody: addBranchBody);
        if (responseModel.isSuccess) {
          Future.delayed(const Duration(microseconds: 0)).then((value) {
-           showToast(text: responseModel.message.toString(), state: ToastStates.success, context: context);
+           showToast(text: '${responseModel.message.toString()} ✅', state: ToastStates.success, context: context,timeInSecForIosWeb: 10,toastLength: Toast.LENGTH_LONG);
            storeNameAr.text='';
            storeName.text='';
            storeEmail.text='';
@@ -136,7 +137,8 @@ class BranchCubit extends Cubit<BranchState> {
        ResponseModel responseModel = await _updateBranchUseCase.call(addBranchBody: addBranchBody, branchId: branchId);
        if (responseModel.isSuccess) {
          Future.delayed(const Duration(microseconds: 0)).then((value) {
-           showToast(text: responseModel.message.toString(), state: ToastStates.success, context: context);
+           showToast(text: '${responseModel.message.toString()} ✅', state: ToastStates.success, context: context,timeInSecForIosWeb: 10,toastLength: Toast.LENGTH_LONG);
+
            storeNameAr.text='';
            storeName.text='';
            storeEmail.text='';

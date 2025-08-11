@@ -14,6 +14,7 @@ mixin AuthRepository {
 
   Future<ApiResponse> otpCode({required OTPBody otpBody});
    Future<ApiResponse> updateFCMToken({required String fcmToken});
+  Future<ApiResponse> forgetPassword({required String phone});
 
   Future<ApiResponse> register({required RegisterBody registerBody});
   Future<ApiResponse> completeProfile({required CompleteProfileBody completeProfileBody});

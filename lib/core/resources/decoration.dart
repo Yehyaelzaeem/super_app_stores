@@ -57,7 +57,8 @@ class Decorations{
       gradient: LinearGradient(
         begin:  Alignment(0, 1),
         end: Alignment(0,-1.0),
-        colors: [backBlue1,backPink1],
+        colors: [backBlue1.withOpacity(0.3),
+          backPink1.withOpacity(0.8)],
       ),
     );
 }

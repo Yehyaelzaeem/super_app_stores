@@ -13,8 +13,8 @@ import '../../../../data/injection.dart' as data_injection;
 import '../../../core/assets_constant/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:audioplayers/audioplayers.dart';
 
+import '../../../core/resources/color.dart';
 import '../../../core/resources/decoration.dart';
 import '../../component/custom_logo.dart';
 import '../auth/auth_cubit.dart';
@@ -37,12 +37,8 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
   // void loadSoundEffect() async {
   //   await audioCache.load('assets/mp3/splash.mp3');
   // }
-  AudioPlayer player = AudioPlayer();
 
-  static play(String src) async {
-    final player = AudioPlayer();
-    await player.play(AssetSource(src));
-  }
+
   Animation<Offset>? _animation;
   late final LocalAuthCubit _viewModel;
   DioClient dioClient =DioClient(AppURL.kBaseURL, getIt(),loggingInterceptor: getIt(), cacheConsumer: getIt());
@@ -105,7 +101,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Color(0xff26624E),
+        backgroundColor: primaryColor,
         body: Image.asset(AppImages.logo3,
           height: height,
           width: width,

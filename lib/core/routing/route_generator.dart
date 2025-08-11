@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../presentation/modules/auth/auth_screen.dart';
 import '../../presentation/modules/auth/complete_profile/complete_profile_screen.dart';
+import '../../presentation/modules/auth/otp/otp_screen.dart';
 import '../../presentation/modules/branches/add_beanch/add_branch_screen.dart';
 import '../../presentation/modules/branches/branches_screen.dart';
 import '../../presentation/modules/branches/edit_branch/edit_branch_screen.dart';
@@ -46,8 +47,11 @@ class RouteGenerator {
         case Routes.aboutUsScreen:
         return platformPageRoute( const AboutUsScreen());
         case Routes.termsConditionScreen:
+
         return platformPageRoute( const TermsConditionScreen());
-        case Routes.deliveryTimeScreen:
+      case Routes.otpScreen:return platformPageRoute(OTPScreen(phone: arguments?['phone'],checkOTPType: arguments?['checkOTPType']));
+
+      case Routes.deliveryTimeScreen:
         return platformPageRoute(  DeliveryTimeScreen(profile: arguments?['profile'],isComplete: arguments?['isComplete']??false));
         case Routes.privacyPolicyScreen:
         return platformPageRoute( const PrivacyPolicyScreen());

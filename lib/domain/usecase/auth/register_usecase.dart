@@ -7,24 +7,22 @@ import '../../request_body/register_body.dart';
 import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
-class RegisterUseCase implements BaseUseCase<RegisterModel>{
+class RegisterUseCase implements BaseUseCase{
 
   final AuthRepository repository;
 
   RegisterUseCase({required this.repository});
 
   Future<ResponseModel> call({ required RegisterBody body}) async {
-    return BaseUseCaseCall.onGetData<RegisterModel>( await repository.register(registerBody: body), onConvert,tag: 'RegisterUseCase');
+    return BaseUseCaseCall.onGetData( await repository.register(registerBody: body), onConvert,tag: 'RegisterUseCase');
   }
 
   @override
-  ResponseModel<RegisterModel> onConvert(BaseModel baseModel) {
+  ResponseModel onConvert(BaseModel baseModel) {
     try{
-      RegisterModel? registerModel = RegisterModel.fromJson(baseModel.item);
-      return ResponseModel(baseModel.status??true, baseModel.message, data: registerModel);
+      return ResponseModel(baseModel.status??true, baseModel.message, data: baseModel.data);
     }catch(e){
-      RegisterModel? registerModel = RegisterModel.fromJson(baseModel.item);
-      return ResponseModel(baseModel.status??false, baseModel.message,data: registerModel);
+      return ResponseModel(baseModel.status??false, baseModel.message,data: baseModel.data);
     }
   }
 

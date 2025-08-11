@@ -20,7 +20,7 @@ class RegisterWidget extends StatelessWidget {
      SingleChildScrollView(
        child:  Column(
          children: [
-           verticalSpace(25),
+           verticalSpace(35),
            CustomTextField(
                prefixIcon: const Icon(
                  Icons.person,
@@ -91,44 +91,44 @@ class RegisterWidget extends StatelessWidget {
                hintText: LocaleKeys.email.tr(),
                controller: cubit.regEmailController),
            verticalSpace(20),
-           CustomTextField(
-             prefixIcon: const Icon(
-               Icons.lock_open,
-               color: primaryColor,
-             ),
-             isPassword: true,
-             fillColor: backGroundGray,
-             borderRadius: 30,
-             borderColor: whiteColor.withOpacity(0.1),
-             hintText: 'password2'.tr(),
-             controller: cubit.regPasswordController,
-             textInputAction: TextInputAction.done,
-             onFieldSubmitted: (vsl){
-               // cubit.otpCode(cubit.phoneController.text,context);
-               cubit.register(context) ;
-             },
-           ),
-           verticalSpace(20),
-           CustomTextField(
-             // textInputType: TextInputType.number,
-             prefixIcon: const Icon(
-               Icons.lock_open,
-               color: primaryColor,
-             ),
-             fillColor: backGroundGray,
-             borderRadius: 30,
-             isPassword: true,
-             borderColor: whiteColor.withOpacity(0.1),
-             hintText: LocaleKeys.confirm.tr(),
-             controller: cubit.confirmPasswordController,
-             textInputAction: TextInputAction.done,
-             onFieldSubmitted: (vsl){
-               // cubit.otpCode(cubit.phoneController.text,context);
-               cubit.register(context);
-
-             },
-           ),
-           verticalSpace(45),
+           // CustomTextField(
+           //   prefixIcon: const Icon(
+           //     Icons.lock_open,
+           //     color: primaryColor,
+           //   ),
+           //   isPassword: true,
+           //   fillColor: backGroundGray,
+           //   borderRadius: 30,
+           //   borderColor: whiteColor.withOpacity(0.1),
+           //   hintText: 'password2'.tr(),
+           //   controller: cubit.regPasswordController,
+           //   textInputAction: TextInputAction.done,
+           //   onFieldSubmitted: (vsl){
+           //     // cubit.otpCode(cubit.phoneController.text,context);
+           //     cubit.register(context) ;
+           //   },
+           // ),
+           // verticalSpace(20),
+           // CustomTextField(
+           //   // textInputType: TextInputType.number,
+           //   prefixIcon: const Icon(
+           //     Icons.lock_open,
+           //     color: primaryColor,
+           //   ),
+           //   fillColor: backGroundGray,
+           //   borderRadius: 30,
+           //   isPassword: true,
+           //   borderColor: whiteColor.withOpacity(0.1),
+           //   hintText: LocaleKeys.confirm.tr(),
+           //   controller: cubit.confirmPasswordController,
+           //   textInputAction: TextInputAction.done,
+           //   onFieldSubmitted: (vsl){
+           //     // cubit.otpCode(cubit.phoneController.text,context);
+           //     cubit.register(context);
+           //
+           //   },
+           // ),
+           // verticalSpace(45),
            BlocConsumer<AuthCubit, AuthState>(
              listener: (context, state) {},
              builder: (context, state) {

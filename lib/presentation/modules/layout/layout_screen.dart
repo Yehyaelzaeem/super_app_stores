@@ -30,7 +30,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
   void initState() {
     LocalAuthCubit.get().updateFCMToken();
     getPermission();
-    HomeCubit.get(context).getProducts();
+    HomeCubit.get(context).getProducts(reload: true);
     BranchCubit.get().getBranches();
     ProfileCubit.get(context).getProfile();
     BlocProvider.of<LayoutCubit>(context, listen: false).init(widget._currentPage);

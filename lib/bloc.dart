@@ -1,5 +1,6 @@
 
 import 'package:cogina_restaurants/presentation/modules/auth/auth_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/auth/otp/otp_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/branches/branch_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/delivery_time/delivery_time_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart';
@@ -34,6 +35,7 @@ class GenerateMultiBloc extends StatelessWidget {
         BlocProvider(create: (_) => getIt<BranchCubit>()),
         BlocProvider(create: (_) => getIt<AccountCubit>()),
         BlocProvider(create: (_) => getIt<OrdersCubit>()),
+        BlocProvider(create: (_) => getIt<OtpCubit>()),
       ],
       child: child,
     );

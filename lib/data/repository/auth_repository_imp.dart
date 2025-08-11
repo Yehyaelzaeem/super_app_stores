@@ -92,4 +92,17 @@ class AuthRepositoryImp implements AuthRepository{
     }
   }
 
+  @override
+  Future<ApiResponse> forgetPassword({String? phone})  async {
+    try {
+      Response response = await _dioClient.post(
+        AppURL.kForgetPasswordURI,
+        queryParameters: {'mobile':phone},
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
 }

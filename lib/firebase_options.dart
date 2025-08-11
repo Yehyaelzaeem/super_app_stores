@@ -50,21 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDyfsg9K5t2kiNMjVy1D7i2w1Yu-B_yfWI',
-    appId: '1:219224693462:android:ba4403805cdb3ac22b8777',
-    messagingSenderId: '219224693462',
-    projectId: 'yalla-hatly',
-    databaseURL: 'https://yalla-hatly-default-rtdb.firebaseio.com',
-    storageBucket: 'yalla-hatly.appspot.com',
+    apiKey: 'AIzaSyABY-bmLF3dgkfVLxyuDgORYiWwzWXRX-4',
+    appId: '1:179875326250:android_old:da377b3d3f85ed9d049653',
+    messagingSenderId: '179875326250',
+    projectId: 'super-app-asia',
+    databaseURL: 'https://super-app-asia-default-rtdb.firebaseio.com',
+    storageBucket: 'super-app-asia.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBU1KhFu7ooGCoAyie45rNY7TYz-4VYPho',
-    appId: '1:219224693462:ios:c2d2c10bd622371b2b8777',
-    messagingSenderId: '219224693462',
-    projectId: 'yalla-hatly',
-    databaseURL: 'https://yalla-hatly-default-rtdb.firebaseio.com',
-    storageBucket: 'yalla-hatly.appspot.com',
-    iosBundleId: 'com.example.coginaRestaurants',
+    apiKey: 'AIzaSyDVc459MDMW3ehlGot4E2_t1qEjLk2glG4',
+    appId: '1:179875326250:ios:fa7453a9d360bd64049653',
+    messagingSenderId: '179875326250',
+    projectId: 'super-app-asia',
+    databaseURL: 'https://super-app-asia-default-rtdb.firebaseio.com',
+    storageBucket: 'super-app-asia.firebasestorage.app',
+    iosBundleId: 'com.superApp.Partners',
   );
 }

@@ -124,13 +124,29 @@ class OrderItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+
                         children: [
+                          Text(
+                            ' # ${ordersModelData.id ?? ''}',
+                            style: TextStyles.font18Black700Weight.copyWith(
+                                fontSize: 13
+                            ),
+                          ),
+                          horizontalSpace(10),
+
                           InkWell(
                             onTap: (){
                               generateAndClientInvoicePrint(ordersModelData: ordersModelData);
                             },
                             child:Icon(Icons.print,color: Colors.grey,),),
-                          horizontalSpace(10),
+
+                        ],
+                      ),
+                      Row(
+                         mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+
                           Text(
                             '${ordersModelData.orderTotal ?? ''} ${LocaleKeys.currency.tr()}',
                             style: TextStyles.font18Black700Weight.copyWith(

@@ -90,7 +90,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     height: (bottomSize?? 20).h,
                     width: deviceWidth,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(color: Theme.of(context).backgroundColor,
+                    decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(kFormRadius),
                           topRight: Radius.circular(kFormRadius)),

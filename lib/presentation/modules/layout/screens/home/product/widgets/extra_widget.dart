@@ -32,6 +32,7 @@ class ExtraWidget extends StatelessWidget {
               ...cubit.extralList.map((e) =>  ExtraAddItemWidget(extraModel: e,)),
             verticalSpace(20),
             Container(
+              width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   boxShadow:   [BoxShadow(color: primaryColor.withOpacity(0.05),blurRadius: 1)]
@@ -42,52 +43,55 @@ class ExtraWidget extends StatelessWidget {
                   key:cubit.extraFormKey,
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ProductTitleField(title: LocaleKeys.addition.tr(),),
-                                ProductTextField(
-                                  contentHorizontalPadding:20,
-                                  textInputAction: TextInputAction.newline,
+                      if(cubit.showExtra==true)
+                        ...[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    ProductTitleField(title: LocaleKeys.additionEn.tr(),),
+                                    ProductTextField(
+                                      contentHorizontalPadding:20,
+                                      textInputAction: TextInputAction.newline,
 
-                                  textInputType: TextInputType.multiline,
-                                  controller: cubit.productExtraName,notValidation: true,),
-                              ],
-                            ),
-                          ),
-                          horizontalSpace(5),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                ProductTitleField(title:LocaleKeys.additionArabic.tr(),),
-                                ProductTextField(controller: cubit.productExtraNameAr,
-                                  textInputAction: TextInputAction.newline,
+                                      textInputType: TextInputType.multiline,
+                                      controller: cubit.productExtraName,notValidation: true,),
+                                  ],
+                                ),
+                              ),
+                              horizontalSpace(5),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    ProductTitleField(title:LocaleKeys.additionArabic.tr(),),
+                                    ProductTextField(controller: cubit.productExtraNameAr,
+                                      textInputAction: TextInputAction.newline,
 
-                                  contentHorizontalPadding:20,
-                                  textInputType: TextInputType.multiline,notValidation: true,),
-                              ],
-                            ),
-                          ),
-                          horizontalSpace(5),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                ProductTitleField(title: LocaleKeys.extraPrice.tr(),),
-                                ProductTextField(controller: cubit.productExtraPrice,
-                                  textInputAction: TextInputAction.newline,
+                                      contentHorizontalPadding:20,
+                                      textInputType: TextInputType.multiline,notValidation: true,),
+                                  ],
+                                ),
+                              ),
+                              horizontalSpace(5),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    ProductTitleField(title: LocaleKeys.extraPrice.tr(),),
+                                    ProductTextField(controller: cubit.productExtraPrice,
+                                      textInputAction: TextInputAction.newline,
 
-                                  contentHorizontalPadding:20,
-                                  textInputType: TextInputType.number,notValidation: true,),
-                              ],
-                            ),
+                                      contentHorizontalPadding:20,
+                                      textInputType: TextInputType.number,notValidation: true,),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
+                          verticalSpace(5),
                         ],
-                      ),
-                      verticalSpace(5),
                       PrimaryButtonWidget(
                         color: primaryColor.withOpacity(0.2),
                         boxShadowColor: primaryColor.withOpacity(0.2),
@@ -96,14 +100,20 @@ class ExtraWidget extends StatelessWidget {
                         isLoading: state is ExtraModelLoadingState,
                         radius: 25,
                         width: 200.w,
-                        height: 40.h,
+                        // height: 40.h,
                         onTap: () {
-                          if(cubit.extraFormKey.currentState!.validate()){
-                            ExtraModel extraModel =
-                            ExtraModel(nameAr: cubit.productExtraNameAr.text,
-                                nameEn: cubit.productExtraName.text, price: double.parse(cubit.productExtraPrice.text));
-                            cubit.addExtra(extraModel);
+                          if(cubit.showExtra==false){
+                            cubit.showExtraInput();
+                          }else{
+                            if(cubit.extraFormKey.currentState!.validate()){
+                              ExtraModel extraModel =
+                              ExtraModel(nameAr: cubit.productExtraNameAr.text,
+                                  nameEn: cubit.productExtraName.text, price: double.parse(cubit.productExtraPrice.text));
+                              cubit.addExtra(extraModel);
+                              cubit.hideExtraInput();
+                            }
                           }
+
                         },
                         text:LocaleKeys.add.tr(),),
                       // Center(

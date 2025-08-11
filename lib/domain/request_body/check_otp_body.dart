@@ -1,6 +1,6 @@
 
 
-enum CheckOTPType { register , reset}
+enum CheckOTPType { register , reset,login}
 
 class CheckOTPBody {
  final String _phone;

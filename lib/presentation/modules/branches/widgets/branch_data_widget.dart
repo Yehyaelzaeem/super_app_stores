@@ -37,7 +37,7 @@ class BranchDataWidget extends StatelessWidget {
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.menu,color: Colors.grey,),
-                      hintText: LocaleKeys.restaurantName.tr(),
+                      hintText: LocaleKeys.branchNameEN.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600
@@ -56,7 +56,7 @@ class BranchDataWidget extends StatelessWidget {
                         return null;
                       },
                       prefixIcon:  const Icon(Icons.menu,color: Colors.grey,),
-                      hintText: LocaleKeys.restaurantNameAR.tr(),
+                      hintText: LocaleKeys.branchNameAR.tr(),
                       hintStyle: TextStyles.font16Black500Weight.copyWith(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.w600

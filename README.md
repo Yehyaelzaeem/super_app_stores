@@ -1,4 +1,4 @@
-# cogina_restaurants
+# super_app_stores
 
 A new Flutter project.
 

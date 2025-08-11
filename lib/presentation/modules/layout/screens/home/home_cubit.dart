@@ -145,6 +145,26 @@ class HomeCubit extends Cubit<HomeState> {
       emit(AddExtraModelState());
     });
   }
+
+  ///Show Input Extra
+   bool showExtra = true;
+  void showExtraInput(){
+    showExtra = true;
+    emit(ShowExtraInputState());
+  }
+  void hideExtraInput(){
+    showExtra = false;
+    // emit(HideExtraInputState());
+  }
+  bool showSize = true;
+  void showSizeInput(){
+    showSize = true;
+    emit(ShowExtraInputState());
+  }
+  void hideSizeInput(){
+    showSize = false;
+    // emit(HideExtraInputState());
+  }
   void removeExtra(ExtraModel extraModel){
     extralList.remove(extraModel);
     emit(RemoveExtraModelState());
@@ -162,8 +182,14 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
 
-  Future<ResponseModel> getProducts() async {
+  Future<ResponseModel> getProducts({bool reload=false}) async {
+    if(reload==true){
+      filterHomeModel=null;
+      homeModel=null;
+      emit(GetProductLoadingState()) ;
+    }
     emit(GetProductLoadingState()) ;
+
     ResponseModel responseModel = await _getProductsUseCase.call();
     if (responseModel.isSuccess) {
       filterHomeModel=responseModel.data;
@@ -219,7 +245,7 @@ class HomeCubit extends Cubit<HomeState> {
         description: productDescription.text,
         price: productPrice.text, discount:
       productDisCount.text,
-        // image: productImageFile??null,
+         image: productImageFile??null,
         categoryId: categoryId.toString(),
         additionName: extralList.map((e) =>e.nameEn.isNotEmpty? e.nameEn.trim():e.nameAr.trim()).join(','),
         additionNameAr: extralList.map((e) =>e.nameAr.isNotEmpty? e.nameAr.trim():e.nameEn.trim()).join(','),

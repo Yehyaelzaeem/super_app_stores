@@ -1,22 +1,22 @@
 {
   "project_info": {
-    "project_number": "219224693462",
-    "firebase_url": "https://yalla-hatly-default-rtdb.firebaseio.com",
-    "project_id": "yalla-hatly",
-    "storage_bucket": "yalla-hatly.appspot.com"
+    "project_number": "179875326250",
+    "firebase_url": "https://super-app-asia-default-rtdb.firebaseio.com",
+    "project_id": "super-app-asia",
+    "storage_bucket": "super-app-asia.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:219224693462:android:ba4403805cdb3ac22b8777",
+        "mobilesdk_app_id": "1:179875326250:android:da377b3d3f85ed9d049653",
         "android_client_info": {
-          "package_name": "com.yalla.Partners"
+          "package_name": "com.superApp.Partners"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDyfsg9K5t2kiNMjVy1D7i2w1Yu-B_yfWI"
+          "current_key": "AIzaSyABY-bmLF3dgkfVLxyuDgORYiWwzWXRX-4"
         }
       ],
       "services": {
@@ -27,15 +27,72 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:219224693462:android:ce96fdadec26e7722b8777",
+        "mobilesdk_app_id": "1:179875326250:android:342fe48dd9e7c75b049653",
         "android_client_info": {
-          "package_name": "com.yalla.store"
+          "package_name": "com.weltweit.provider"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDyfsg9K5t2kiNMjVy1D7i2w1Yu-B_yfWI"
+          "current_key": "AIzaSyABY-bmLF3dgkfVLxyuDgORYiWwzWXRX-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179875326250:android:c54678c06b831565049653",
+        "android_client_info": {
+          "package_name": "com.weltweit.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABY-bmLF3dgkfVLxyuDgORYiWwzWXRX-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179875326250:android:beecb93b12759abf049653",
+        "android_client_info": {
+          "package_name": "com.weltwiet.driver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABY-bmLF3dgkfVLxyuDgORYiWwzWXRX-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179875326250:android:c88364f64e90f390049653",
+        "android_client_info": {
+          "package_name": "com.weltwietDriver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABY-bmLF3dgkfVLxyuDgORYiWwzWXRX-4"
         }
       ],
       "services": {

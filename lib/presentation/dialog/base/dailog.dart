@@ -20,9 +20,7 @@ void customShowDialog({required String title, required String body, required voi
         actions: <Widget>[
           TextButton(
             style: TextButton.styleFrom(
-              primary: Colors.white,
-              backgroundColor: Colors.grey,
-              onSurface: Colors.grey,
+              foregroundColor: Colors.white, backgroundColor: Colors.grey, disabledForegroundColor: Colors.grey.withOpacity(0.38),
             ),
             onPressed: () {
               context.pop();
@@ -31,9 +29,7 @@ void customShowDialog({required String title, required String body, required voi
           ),
           TextButton(
             style: TextButton.styleFrom(
-              primary: Colors.white,
-              backgroundColor: primaryColor.withOpacity(0.70),
-              onSurface: Colors.grey,
+              foregroundColor: Colors.white, backgroundColor: primaryColor.withOpacity(0.70), disabledForegroundColor: Colors.grey.withOpacity(0.38),
             ),
             onPressed:onPressed,
             child: const Text('Agree'),

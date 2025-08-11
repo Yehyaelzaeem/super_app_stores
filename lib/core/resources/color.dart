@@ -73,7 +73,9 @@ const errorColor =  Color(0xffc52828);
 const errorColorDark = Colors.redAccent;
 
 // primary color
-const primaryColor = Color(0xff26624E);
+// const primaryColor = Color(0xff26624E);
+const primaryColor =  Color(0xffFF2626);
+
 // Color(0xff71C0A3);
 const primaryColorDark =primaryColor;
 const primaryColorLight =primaryColor;

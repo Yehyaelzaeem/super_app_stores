@@ -37,8 +37,7 @@ class PrimaryButtonWidget extends StatelessWidget {
       child: Container(
           width: width ?? MediaQuery.of(context).size.width * 0.8,
           height: height,
-          margin: EdgeInsets.symmetric(horizontal: 10.w) +
-              EdgeInsets.only(top: 10.h, bottom: 20.h),
+          margin: EdgeInsets.symmetric(horizontal: 10.w) + EdgeInsets.only(top: 10.h, bottom: 20.h),
           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical:10.h),
           decoration: BoxDecoration(
               color: color ?? primaryColor,

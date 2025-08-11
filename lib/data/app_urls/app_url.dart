@@ -3,10 +3,10 @@ import '../../main.dart';
 class AppURL {
 
   static const String kAPIKey = "";
-  static  String kBaseURL = "http://yalla-hatly.matrixclouds.net/api/";
+  static const String kBaseURL = "https://newsuperapp.weltweithg.com/api/";
   /// Auth
-  static const String kLoginURI = "stores/login";
-  static const String kOtpURI = "stores/otp";
+  static const String kLoginURI = "stores/otp";
+  static const String kOtpURI = "stores/check-otp";
   static const String kRegisterURI = "stores/register";
   static const String kCompleteProfileURI = "stores/profile/store_info";
   static const String kUpdateFCMTokenURI = "stores/profile/fcm_token";

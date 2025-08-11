@@ -76,6 +76,7 @@ class SizeProductWidget extends StatelessWidget {
                        ...cubit.sizeProductList.map((e) =>  ExtraAddItemWidget(sizeProductModel:e,isSizeProduct: true,)),
                      verticalSpace(20),
                      Container(
+                       width: MediaQuery.sizeOf(context).width,
                        decoration: BoxDecoration(
                            borderRadius: BorderRadius.circular(20),
                            boxShadow:   [BoxShadow(color: primaryColor.withOpacity(0.05),blurRadius: 1)]
@@ -86,50 +87,53 @@ class SizeProductWidget extends StatelessWidget {
                            key:cubit.sizeFormKey,
                            child: Column(
                              children: [
-                               Row(
-                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                 children: [
-                                   Expanded(
-                                     child: Column(
-                                       crossAxisAlignment: CrossAxisAlignment.center,
-                                       children: [
-                                         ProductTitleField(title: LocaleKeys.size.tr(),),
-                                         ProductTextField(
-                                           contentHorizontalPadding:20,
-                                           textInputAction: TextInputAction.newline,
-                                           textInputType: TextInputType.multiline,
-                                           controller: cubit.productSizeNameEn,notValidation: true,),
-                                       ],
-                                     ),
-                                   ),
-                                   horizontalSpace(5),
-                                   Expanded(
-                                     child: Column(
-                                       children: [
-                                         ProductTitleField(title:LocaleKeys.sizeAr.tr(),),
-                                         ProductTextField(controller: cubit.productSizeNameAr,
-                                           textInputAction: TextInputAction.newline,
-                                           contentHorizontalPadding:20,
-                                           textInputType: TextInputType.multiline,notValidation: true,),
-                                       ],
-                                     ),
-                                   ),
-                                   horizontalSpace(5),
-                                   Expanded(
-                                     child: Column(
-                                       children: [
-                                         ProductTitleField(title: LocaleKeys.price.tr(),),
-                                         ProductTextField(controller: cubit.productSizePrice,
-                                           textInputAction: TextInputAction.newline,
+                               if(cubit.showSize==true)
+                                ...[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            ProductTitleField(title: LocaleKeys.sizeEn.tr(),),
+                                            ProductTextField(
+                                              contentHorizontalPadding:20,
+                                              textInputAction: TextInputAction.newline,
+                                              textInputType: TextInputType.multiline,
+                                              controller: cubit.productSizeNameEn,notValidation: true,),
+                                          ],
+                                        ),
+                                      ),
+                                      horizontalSpace(5),
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            ProductTitleField(title:LocaleKeys.sizeAr.tr(),),
+                                            ProductTextField(controller: cubit.productSizeNameAr,
+                                              textInputAction: TextInputAction.newline,
+                                              contentHorizontalPadding:20,
+                                              textInputType: TextInputType.multiline,notValidation: true,),
+                                          ],
+                                        ),
+                                      ),
+                                      horizontalSpace(5),
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            ProductTitleField(title: LocaleKeys.price.tr(),),
+                                            ProductTextField(controller: cubit.productSizePrice,
+                                              textInputAction: TextInputAction.newline,
 
-                                           contentHorizontalPadding:20,
-                                           textInputType: TextInputType.number,notValidation: true,),
-                                       ],
-                                     ),
-                                   ),
-                                 ],
-                               ),
-                               verticalSpace(5),
+                                              contentHorizontalPadding:20,
+                                              textInputType: TextInputType.number,notValidation: true,),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  verticalSpace(5),
+                                ],
                                PrimaryButtonWidget(
                                  color: primaryColor.withOpacity(0.2),
                                  boxShadowColor: primaryColor.withOpacity(0.2),
@@ -138,13 +142,20 @@ class SizeProductWidget extends StatelessWidget {
                                  isLoading: state is SizeProductLoadingState,
                                  radius: 25,
                                  width: 200.w,
-                                 height: 40.h,
+                                 // height: 40.h,
                                  onTap: () {
-                                   if(cubit.sizeFormKey.currentState!.validate()){
-                                     SizeProductModel sizeProductModel=SizeProductModel(nameAr: cubit.productSizeNameAr.text,
-                                         nameEn: cubit.productSizeNameEn.text, price: double.parse(cubit.productSizePrice.text));
-                                     cubit.addSizeProduct(sizeProductModel);
+                                   if(cubit.showSize==false){
+                                     cubit.showSizeInput();
+                                   }else{
+                                           if(cubit.sizeFormKey.currentState!.validate()){
+                                           SizeProductModel sizeProductModel=SizeProductModel(nameAr: cubit.productSizeNameAr.text,
+                                           nameEn: cubit.productSizeNameEn.text, price: double.parse(cubit.productSizePrice.text));
+                                           cubit.addSizeProduct(sizeProductModel);
+                                           }
+                                       cubit.hideSizeInput();
+
                                    }
+
                                  },
                                  text:LocaleKeys.add.tr(),),
 
