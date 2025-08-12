@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../core/routing/navigation_services.dart';
 import '../../../core/routing/routes.dart';
+import '../../../core/translations/locale_keys.dart';
 import '../../../core/utils/toast_states/enums.dart';
 import '../../../data/datasource/remote/exception/error_widget.dart';
 import '../../../data/model/base/response_model.dart';
@@ -19,6 +21,7 @@ import '../../../data/model/response/restaurant_types_model.dart';
 import '../../../data/model/response/user_model.dart';
 import '../../../domain/logger.dart';
 import '../../../domain/provider/local_auth_provider_cubit.dart';
+import '../../../domain/request_body/check_otp_body.dart';
 import '../../../domain/request_body/complete_profile_body.dart';
 import '../../../domain/request_body/login_body.dart';
 import '../../../domain/request_body/otp_body.dart';
@@ -78,7 +81,7 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController comAddressController = TextEditingController();
   TextEditingController comTypeController = TextEditingController();
   AddressLocationModel? addressModel;
-  TextEditingController pickUpController = TextEditingController(text: 'المنطقة/المدينة/البلدة/الشارع');
+  TextEditingController pickUpController = TextEditingController(text: LocaleKeys.locationMap2.tr());
   File? imageFile;
   Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -102,7 +105,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   ///variables
   final LoginBody _body = LoginBody(phone: '', password: '');
-  final OTPBody _otpBody = OTPBody(phone: '');
+  final OTPBody _otpBody = OTPBody(phone: '',code: '');
   final RegisterBody _regBody = RegisterBody(firstName: '', lastName: '', mobile: '', confirmPassword: '', password: '', email: '');
 
   ///getters
@@ -127,21 +130,29 @@ class AuthCubit extends Cubit<AuthState> {
 
     ResponseModel responseModel = await _signInUseCase.call(loginBody: body);
     if (responseModel.isSuccess) {
-      UserModel registerModel =responseModel.data;
-      LoginModelData userModel = registerModel.data??LoginModelData();
-      String token = userModel.token??'';
-      if (token.isNotEmpty) {
-        await _saveUserDataUseCase.call(token: token);
-      }
-      await BlocProvider.of<LocalAuthCubit>(context,listen: false).userLoginSuccessfully();
+      NavigationService.push(Routes.otpScreen, arguments: {
+        'phone': phone,
+        'checkOTPType': CheckOTPType.login
+      });
+      // UserModel registerModel =responseModel.data;
+      // LoginModelData userModel = registerModel.data??LoginModelData();
+      // String token = userModel.token??'';
+      // if (token.isNotEmpty) {
+      //   await _saveUserDataUseCase.call(token: token);
+      // }
+      // await BlocProvider.of<LocalAuthCubit>(context,listen: false).userLoginSuccessfully();
       phoneController.text='';
       passwordController.text='';
 
-      if(authType=='login'){
-        NavigationService.pushReplacement(Routes.layoutScreen,arguments: {'currentPage':0});
-      }else{
-        changeType('res_data');
-      }
+      // if(authType=='login'){
+      //   NavigationService.pushReplacement(Routes.layoutScreen,arguments: {'currentPage':0});
+      // }else{
+      //   changeType('res_data');
+      // }hType=='login'){
+      //   NavigationService.pushReplacement(Routes.layoutScreen,arguments: {'currentPage':0});
+      // }else{
+      //   changeType('res_data');
+      // }
       emit(LoginSuccessState()) ;
     }else{
       emit(LoginErrorState(responseModel.error)) ;
@@ -261,32 +272,31 @@ class AuthCubit extends Cubit<AuthState> {
       _assignRegisterBody(firstName: regFirstNameController.text,
           lastName:  regLastNameController.text, phone: regPhoneController.text, password: regPasswordController.text, confirmPassword: confirmPasswordController.text, email: regEmailController.text);
       ResponseModel responseModel = await _registerUseCase.call(body: regBody);
-      RegisterModel registerModel =responseModel.data;
-      if(responseModel.data!=null){
-        if (responseModel.isSuccess) {
-          // showToast(text: registerModel.data!.otp.toString(), state: ToastStates.success,
-          //     context: context,gravity: ToastGravity.TOP,timeInSecForIosWeb: 250);
-          // changeType('otp');
-          print('---------------------------');
+      // RegisterModel registerModel =responseModel.data;
+     if (responseModel.isSuccess) {
+        // showToast(text: registerModel.data!.otp.toString(), state: ToastStates.success,
+        //     context: context,gravity: ToastGravity.TOP,timeInSecForIosWeb: 250);
+        // changeType('otp');
+        print('---------------------------');
+        NavigationService.push(Routes.otpScreen, arguments: {
+          'phone': regPhoneController.text,
+          'checkOTPType': CheckOTPType.register
+        });
+        // LoginModelData userModel = registerModel.data??LoginModelData();
+        // String token = userModel.token??'';
+        // if (token.isNotEmpty) {
+        //   await _saveUserDataUseCase.call(token: token);
+        //   // context.pushNamed(Routes.completeProfileScreen);
+        //   Navigator.push(context, MaterialPageRoute(builder: (context) =>CompleteProfileFirstScreen()));
+        // }
+        regPhoneController.text='';
+        regLastNameController.text='';
+        regFirstNameController.text='';
+        regPasswordController.text='';
+        confirmPasswordController.text='';
+        regEmailController.text='';
+        emit(RegisterSuccessState()) ;
 
-          LoginModelData userModel = registerModel.data??LoginModelData();
-          String token = userModel.token??'';
-          if (token.isNotEmpty) {
-            await _saveUserDataUseCase.call(token: token);
-            // context.pushNamed(Routes.completeProfileScreen);
-            Navigator.push(context, MaterialPageRoute(builder: (context) =>CompleteProfileFirstScreen()));
-          }
-          regPhoneController.text='';
-          regLastNameController.text='';
-          regFirstNameController.text='';
-          regPasswordController.text='';
-          confirmPasswordController.text='';
-          regEmailController.text='';
-          emit(RegisterSuccessState()) ;
-        }else{
-          emit(RegisterErrorState()) ;
-        }
-      }else{
       }
       emit(RegisterSuccessState()) ;
       return responseModel;
@@ -316,7 +326,7 @@ class AuthCubit extends Cubit<AuthState> {
     body.setData(phone: phone, password: password);
   }
   void _assignOtpBody(String phone) {
-    otpBody.setData(phone: phone);
+    otpBody.setData(phone: phone, code: '');
   }
 
 

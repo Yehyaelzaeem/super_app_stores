@@ -5,11 +5,12 @@ class BaseModel<E> {
   dynamic message;
   E? item;
   E? response;
+  E? data;
   E? categories;
   E? extra;
 
 
-  BaseModel({ this.statusCode, this.status, this.code,  this.message, this.item, this.response,this.categories,this.extra});
+  BaseModel({ this.statusCode, this.status, this.code,this.data,  this.message, this.item, this.response,this.categories,this.extra});
 
  factory BaseModel.fromJson(Map<String, dynamic> json) => BaseModel(
       statusCode: ((json['code']??'200').toString() == '200')||((json['code']??'201').toString() == '201'),
@@ -17,6 +18,7 @@ class BaseModel<E> {
       message: json['message']??"Error",
       status: json['status'],
       item: json['item'],
+     data: json['data'],
       response: json['all_items'],
       categories: json['categories'],
       extra: json['extra']

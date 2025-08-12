@@ -25,11 +25,12 @@ class FileRequiredWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title,style: TextStyles.font18Black700Weight.copyWith(
-                      color: backBlue2
+                      color: backBlue2,
+                    fontSize: 13
                   ),),
                   Text(text,style: TextStyles.font18Black700Weight.copyWith(
                       fontWeight: FontWeight.w500,
-                      fontSize: 15
+                      fontSize: 12
                   ),),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,10 +17,14 @@ class LoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthCubit cubit =AuthCubit.get(context);
+    if(kDebugMode){
+      cubit.phoneController.text=  '01027362575';
+      cubit.passwordController.text=  '123456';
+    }
     return  SingleChildScrollView(
       child:  Column(
         children: [
-          verticalSpace(25),
+          verticalSpace(35),
           CustomTextField(
             textInputType: TextInputType.number,
             prefixIcon: const Icon(
@@ -36,25 +41,25 @@ class LoginWidget extends StatelessWidget {
             //   cubit.otpCode(cubit.phoneController.text,context);
             // },
           ),
+          // verticalSpace(20),
+          // CustomTextField(
+          //   prefixIcon: const Icon(
+          //     Icons.lock_open,
+          //     color: primaryColor,
+          //   ),
+          //   isPassword: true,
+          //   fillColor: backGroundGray,
+          //   borderRadius: 30,
+          //   borderColor: whiteColor.withOpacity(0.1),
+          //   hintText: 'password2'.tr(),
+          //   controller: cubit.passwordController,
+          //   textInputAction: TextInputAction.done,
+          //   onFieldSubmitted: (vsl){
+          //     // cubit.otpCode(cubit.phoneController.text,context);
+          //     cubit.login(cubit.phoneController.text, cubit.passwordController.text,context);
+          //   },
+          // ),
           verticalSpace(20),
-          CustomTextField(
-            prefixIcon: const Icon(
-              Icons.lock_open,
-              color: primaryColor,
-            ),
-            isPassword: true,
-            fillColor: backGroundGray,
-            borderRadius: 30,
-            borderColor: whiteColor.withOpacity(0.1),
-            hintText: 'password2'.tr(),
-            controller: cubit.passwordController,
-            textInputAction: TextInputAction.done,
-            onFieldSubmitted: (vsl){
-              // cubit.otpCode(cubit.phoneController.text,context);
-              cubit.login(cubit.phoneController.text, cubit.passwordController.text,context);
-            },
-          ),
-          verticalSpace(45),
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {},
             builder: (context, state) {

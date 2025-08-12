@@ -9,10 +9,10 @@ enum RequestState{
   error,
 }
 //Toast ***************************************
-void showToast({required String text, required ToastStates state,required BuildContext context,ToastGravity? gravity,int? timeInSecForIosWeb}) =>
+void showToast({required String text, required ToastStates state,required BuildContext context,ToastGravity? gravity,Toast? toastLength,int? timeInSecForIosWeb}) =>
     Fluttertoast.showToast(
         msg: text,
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength:toastLength?? Toast.LENGTH_SHORT,
         gravity: gravity?? ToastGravity.BOTTOM,
         timeInSecForIosWeb: timeInSecForIosWeb??5,
         backgroundColor: chooseColor(state, context),
@@ -25,7 +25,7 @@ Color chooseColor(ToastStates state, context) {
   Color color;
   switch (state) {
     case ToastStates.success:
-      color = Theme.of(context).primaryColor;
+      color = Colors.green;
       break;
     case ToastStates.error:
       color = Colors.red;

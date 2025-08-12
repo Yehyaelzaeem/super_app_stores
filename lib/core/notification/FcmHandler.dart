@@ -41,20 +41,20 @@ class _FcmHandlerState extends State<FcmHandler> {
 
   static bool initialized = false;
 
-  static const IOSNotificationDetails iosLiquidChannel = IOSNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true, sound: "default");
+  // static const IOSNotificationDetails iosLiquidChannel = IOSNotificationDetails(presentAlert: true, presentBadge: true, presentSound: true, sound: "default");
 
 
 
   Future selectNotification(String? payload) async {
     if (payload != null) {
-      log(_tag,'notification payload android: $payload');
+      log(_tag,'notification payload android_old: $payload');
       setupNotificationClickAction(payload,widget._navigatorKey);
     }
   }
 
   Future onDidReceiveLocalNotification(int id, String? title, String? body, String? payload) async {
     if (payload != null) {
-      log(_tag,'notification payload android: $payload');
+      log(_tag,'notification payload android_old: $payload');
       setupNotificationClickAction(payload,widget._navigatorKey);
     }
   }
@@ -80,11 +80,11 @@ class _FcmHandlerState extends State<FcmHandler> {
       await Firebase.initializeApp();
 
       const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-      final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-      final InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS,);
+      // final IOSInitializationSettings initializationSettingsIOS = IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+      final InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, );
       await flutterLocalNotificationsPlugin.initialize(initializationSettings,);
       await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(alert: true, badge: true,sound:  true);/// NEW
-      // assign channel (required after android 8)
+      // assign channel (required after android_old 8)
       await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
 
 
@@ -137,7 +137,7 @@ class _FcmHandlerState extends State<FcmHandler> {
             // message.data['body'],
             message.notification?.title,
             message.notification?.body,
-            const NotificationDetails(iOS: iosLiquidChannel),
+            const NotificationDetails(),
             payload: json.encode(message.data),
           );
         }

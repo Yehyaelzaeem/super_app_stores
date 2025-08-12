@@ -49,7 +49,7 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
   Widget build(BuildContext context) {
     return
       Scaffold(
-          backgroundColor: primaryColor.withOpacity(0.5),
+          // backgroundColor: primaryColor.withOpacity(0.5),
           body:  SafeArea(
             child: Center(
               child: Padding(
@@ -210,9 +210,11 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
                                     RestaurantCategoriesWidget(
                                       items: (List<CategoryModel> values) {
                                         cubit.categoryModelDataList=values;
+                                        print('value ============ ${values.toString()}');
+
                                       },
-                                      onChanged: (DropDownItem? value ) {
-                                        print('value ============ ${value?.title}');
+                                      onChanged: (CategoryModel? value ) {
+                                        print('value ============ ${value?.name}');
                                       },
                                     ),
                                   ],

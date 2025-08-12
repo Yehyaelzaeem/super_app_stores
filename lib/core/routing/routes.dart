@@ -36,6 +36,7 @@ class Routes {
   static const String splashScreen = "/splashScreen";
   static const String prescriptionScreen = "/prescriptionScreen";
   static const String termsConditionScreen = "/termsConditionScreen";
+  static const String otpScreen = "/otpScreen";
   static const String deliveryTimeScreen = "/deliveryTimeScreen";
   static const String privacyPolicyScreen = "/privacyPolicyScreen";
   static const String completeProfileScreen = "/completeProfileScreen";

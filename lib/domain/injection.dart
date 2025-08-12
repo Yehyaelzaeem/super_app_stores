@@ -4,6 +4,7 @@ import 'package:cogina_restaurants/domain/usecase/account/prescription_usecase.d
 import 'package:cogina_restaurants/domain/usecase/account/send_price_prescription_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/check_otp_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/complete_profile_usecase.dart';
+import 'package:cogina_restaurants/domain/usecase/auth/forget_password_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/register_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/restaurant_categories_usecase.dart';
 import 'package:cogina_restaurants/domain/usecase/auth/restaurant_type_usecase.dart';
@@ -65,6 +66,7 @@ Future<void> init() async {
    getIt.registerLazySingleton(() => UpdateFCMTokenUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => RestaurantTypesUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => RestaurantCategoriesUseCase(repository: getIt()));
+   getIt.registerLazySingleton(() => ForgetPasswordUseCase(repository: getIt()));
    ///Branches
    getIt.registerLazySingleton(() => GetBranchesUseCase(repository: getIt()));
    getIt.registerLazySingleton(() => AddBranchUseCase(repository: getIt()));

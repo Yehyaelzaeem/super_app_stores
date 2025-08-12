@@ -26,6 +26,7 @@ class GetProfileModelData {
   String? phone;
   String? address;
   String? image;
+  String? token;
   StoreProfile? store;
   BankAccount? bankAccount;
 
@@ -38,6 +39,7 @@ class GetProfileModelData {
         this.status,
         this.phone,
         this.address,
+        this.token,
         this.image,
         this.store,
         this.bankAccount});
@@ -52,6 +54,7 @@ class GetProfileModelData {
     phone = json['phone'];
     address = json['address'];
     image = json['image'];
+    token = json['token'];
     store = json['store'] != null ? StoreProfile.fromJson(json['store']) : null;
     bankAccount = json['bank_account'] != null
         ? BankAccount.fromJson(json['bank_account'])
@@ -160,7 +163,7 @@ class StoreProfile {
     id = json['id'];
     name = json['name'];
     nameAr = json['name_ar'];
-    storeType = StoreType.fromMap(json['store_type']);
+    storeType =json['store_type']!=null? json['store_type'] is Map<String,dynamic>? StoreType.fromMap(json['store_type']):null:null;
     deliveryTime = json['delivery_time'];
     deliveryPrice = json['delivery_fees'];
     orderTime = json['order_time'];

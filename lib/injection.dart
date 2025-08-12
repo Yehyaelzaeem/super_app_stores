@@ -2,6 +2,7 @@
 
 
 import 'package:cogina_restaurants/presentation/modules/auth/auth_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/auth/otp/otp_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/branches/branch_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/delivery_time/delivery_time_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart';
@@ -21,6 +22,7 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => PrescriptionCubit(prescriptionUseCase: getIt(), sendPricePrescriptionUseCase: getIt()));
   getIt.registerLazySingleton(() => StoreTimeCubit(addStoreTimeUseCase: getIt()));
   getIt.registerLazySingleton(() => DeliveryTimeCubit(addDeliveryTimeUseCase: getIt()));
+  getIt.registerLazySingleton(() => OtpCubit(otpUseCase: getIt(), saveUserDataUseCase:  getIt(), forgetPasswordUseCase:  getIt(), updateFCMTokenUseCase:  getIt(),));
   getIt.registerLazySingleton(() => LocalAuthCubit(clearUserDataUseCase: getIt(), isUserLoginUseCase: getIt(), getProfileUseCase: getIt(), updateFCMTokenUseCase: getIt()));
   getIt.registerLazySingleton(() => HomeCubit(getProductsCategoriesUseCase: getIt(), addProductUseCase: getIt(), getProductsUseCase: getIt(),
       updateProductUseCase: getIt(), deleteProductUseCase: getIt(), changeProductStateUseCase: getIt(), updateOfferProductUseCase: getIt(), addOfferProductUseCase: getIt()));

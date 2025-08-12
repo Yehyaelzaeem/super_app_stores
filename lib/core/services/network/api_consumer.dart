@@ -24,9 +24,9 @@ class ApiConsumer {
     BaseOptions options = BaseOptions(
       baseUrl: _baseURL,
       receiveDataWhenStatusError: true,
-      sendTimeout: Constants.connectTimeout,
-      connectTimeout: Constants.connectTimeout,
-      receiveTimeout: Constants.connectTimeout,
+      sendTimeout:const Duration(seconds: Constants.connectTimeout),
+      connectTimeout:const Duration(seconds: Constants.connectTimeout),
+      receiveTimeout:const Duration(seconds: Constants.connectTimeout),
       headers: {_xApiKey: _apiKey, _contentType: _applicationJson, _accept: _applicationJson},
     );
 

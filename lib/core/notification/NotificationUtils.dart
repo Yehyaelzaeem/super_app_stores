@@ -14,13 +14,13 @@ class NotificationUtils {
   NotificationUtils({StyleInformation? styleInformation}) {
     _platformChannelSpecifics = NotificationDetails(
       android: getAndroidNotificationDetails(styleInformation: styleInformation),
-      iOS: getIosNotificationDetails(styleInformation: styleInformation),
+      // iOS: getIosNotificationDetails(styleInformation: styleInformation),
     );
   }
 
   getAndroidNotificationDetails({StyleInformation? styleInformation}) =>  AndroidNotificationDetails(
     '112233',
-    'Cogina Restaurant',
+    'Super App Stores',
     channelDescription: 'MainChannel',
     importance: Importance.max,
     priority: Priority.high,
@@ -29,11 +29,11 @@ class NotificationUtils {
     // icon:'logo2'
   );
 
-  getIosNotificationDetails({StyleInformation? styleInformation}) => const IOSNotificationDetails(
-    presentAlert: false,
-    presentBadge: false,
-    presentSound: false,
-  );
+  // getIosNotificationDetails({StyleInformation? styleInformation}) => const IOSNotificationDetails(
+  //   presentAlert: false,
+  //   presentBadge: false,
+  //   presentSound: false,
+  // );
 
   NotificationDetails getNotificationSpecifics() => _platformChannelSpecifics;
   static Future<void> showBigPictureNotificationHiddenLargeIcon(String title, String body, String orderID, String image, FlutterLocalNotificationsPlugin fln) async {

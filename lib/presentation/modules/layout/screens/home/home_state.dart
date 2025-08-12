@@ -28,6 +28,8 @@ class SizeProductLoadingState extends HomeState {}
 class SizeProductsSuccessState extends HomeState {}
 class FilterStates extends HomeState {}
 class AddExtraModelState extends HomeState {}
+class HideExtraInputState extends HomeState {}
+class ShowExtraInputState extends HomeState {}
 class RemoveExtraModelState extends HomeState {}
 class RemoveSizeProductState extends HomeState {}
 class ChangeProductLoadingState extends HomeState {}

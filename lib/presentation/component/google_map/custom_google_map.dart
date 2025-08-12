@@ -157,7 +157,7 @@ class _MapScreenState extends State<CustomGoogleMapScreen> {
   Future<void> _searchPlace() async {
     try {
       List<Location> locations = await locationFromAddress(searchController.text);
-      LatLng latLng =LatLng(locations.first.latitude, locations.first.longitude);
+      LatLng latLng =LatLng(locations[0].latitude, locations[0].longitude);
       if (locations.isNotEmpty) {
         mapController.animateCamera(
           CameraUpdate.newLatLng(latLng),

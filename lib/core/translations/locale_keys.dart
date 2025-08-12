@@ -7,11 +7,13 @@ class LocaleKeys
   static const save = 'save';
   static const sendPrice = 'sendPrice';
   static const inPreparation = 'inPreparation';
+  static const sizeEn = 'sizeEn';
   static const send = 'send';
   static const notes = 'notes';
   static const profile = 'profile';
   static const aboutUs = 'about_us';
   static const qty = 'qty';
+  static const locationMap2 = 'locationMap2';
   static const notification = 'notification';
   static const this_field_required = 'this_field_required';
   static const myOrders = 'my_orders';
@@ -178,6 +180,7 @@ class LocaleKeys
   static const category = 'category';
   static const categories = 'categories';
   static const addition = 'addition';
+  static const additionEn = 'additionEn';
   static const additionArabic = 'addition_arabic';
   static const extraPrice = 'extra_price';
   static const chooseCategory = 'choose_category';
@@ -206,9 +209,12 @@ class LocaleKeys
   static const bankName = 'bank_name';
   static const accountNumber = 'account_number';
   static const branchName = 'branch_name';
+  static const branchNameAR = 'branchNameAR';
+  static const branchNameEN = 'branchNameEN';
   static const iban = 'iban';
   static const notFoundBranch = 'not_found_branch';
   static const addBranch = 'add_branch';
+  static const optionalProductAdditions = 'optionalProductAdditions';
   static const restaurantName = 'restaurant_name';
   static const restaurantNameAR = 'restaurant_name_ar';
   static const email = 'email';

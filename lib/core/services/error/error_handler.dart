@@ -15,13 +15,13 @@ class ErrorHandler {
 
   Failure _handleDioError(DioError dioError) {
     switch (dioError.type) {
-      case DioErrorType.connectTimeout:
+      case DioErrorType.connectionTimeout:
         return ErrorType.connectTimeOut.getFailure();
       case DioErrorType.sendTimeout:
         return ErrorType.sendTimeOut.getFailure();
       case DioErrorType.receiveTimeout:
         return ErrorType.receiveTimeOut.getFailure();
-      case DioErrorType.response:
+      case DioErrorType.badResponse:
         {
           if (dioError.response?.statusMessage != null && dioError.response?.statusCode != null) {
             return Failure(dioError.response!.statusCode!, dioError.response!.data["message"]);
@@ -31,8 +31,14 @@ class ErrorHandler {
         }
       case DioErrorType.cancel:
         return ErrorType.cancel.getFailure();
-      case DioErrorType.other:
+      case DioErrorType.unknown:
         return ErrorType.unKnown.getFailure();
+      case DioExceptionType.badCertificate:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case DioExceptionType.connectionError:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 }

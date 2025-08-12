@@ -17,6 +17,13 @@ abstract class  LocaleKeys {
   static const orderTime = 'orderTime';
   static const deliveryTime = 'deliveryTime';
   static const deliveryPrice = 'deliveryPrice';
+  static const otpVerification  = 'otpVerification';
+  static const phoneVerification  = 'phoneVerification';
+  static const anAuthenticationCodeHasBeenSentTo  = 'anAuthenticationCodeHasBeenSentTo';
+  static const iDidNotReceiveCode  = 'iDidNotReceiveCode';
+  static const secLeft  = 'secLeft';
+  static const verifyNow  = 'verifyNow';
+  static const resendCode  = 'resendCode';
 
   static const delete_account = 'delete_account';
   static const logout = 'logout';

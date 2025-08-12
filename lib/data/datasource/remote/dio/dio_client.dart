@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../../../../core/routing/navigation_services.dart';
+import '../../../../core/utils/constants.dart';
 import '../../../../domain/logger.dart';
 import '../../../app_urls/app_url.dart';
 import '../../local/cache_consumer.dart';
@@ -36,8 +37,8 @@ class DioClient {
     _getToken();
     dio!
       ..options.baseUrl = baseUrl
-      ..options.connectTimeout = 30000
-      ..options.receiveTimeout = 30000
+      ..options.connectTimeout = const Duration(seconds: 30)
+      ..options.receiveTimeout = const Duration(seconds: 30)
       ..httpClientAdapter
       ..options.headers = {
         'Accept': 'application/json',
@@ -152,7 +153,6 @@ class DioClient {
       log( 'Unable to process the data','');
       throw const FormatException("Unable to process the data");
     }  on DioError catch (e) {
-       log('post:', e.message);
 
       rethrow;
     }

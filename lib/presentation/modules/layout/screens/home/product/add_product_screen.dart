@@ -96,7 +96,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   contentHorizontalPadding: 10,
                   textInputAction: TextInputAction.newline,
                 ),
-                verticalSpace(15),
+                verticalSpace(5),
+                ProductTitleField(
+                  title: LocaleKeys.size.tr(),
+                ),
+                verticalSpace(5),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
@@ -111,6 +115,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         padding: EdgeInsets.all(10.0),
                         child: SizeProductWidget(),
                       )),
+                ),
+                ProductTitleField(
+                  title: LocaleKeys.optionalProductAdditions.tr(),
                 ),
                 Padding(
                   padding:

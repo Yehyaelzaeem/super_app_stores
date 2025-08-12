@@ -20,6 +20,7 @@ class AuthWidget extends StatefulWidget {
 
 class _AuthWidgetState extends State<AuthWidget> {
   int height =600;
+  TabController? controller;
   @override
   Widget build(BuildContext context) {
     return
@@ -27,12 +28,12 @@ class _AuthWidgetState extends State<AuthWidget> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: whiteColor,
-                boxShadow: const [
-                  BoxShadow(color: Colors.black12, blurRadius: 2)
-                ]),
+            // decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(15),
+            //     color: whiteColor,
+            //     boxShadow: const [
+            //       BoxShadow(color: Colors.black12, blurRadius: 2)
+            //     ]),
             child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 18.w, vertical: 25.h),
@@ -41,17 +42,18 @@ class _AuthWidgetState extends State<AuthWidget> {
                   child: Column(
                     children: [
                       TabBar(
+                        controller: controller,
                         onTap: (int val) {
-                          if(val==1){
-                            setState(() {
-                              height=300;
-                            });
-                          }else{
-                            setState(() {
-                              height=600;
-
-                            });
-                          }
+                          // if(val==1){
+                          //   setState(() {
+                          //     height=250;
+                          //   });
+                          // }else{
+                          //   setState(() {
+                          //     height=450;
+                          //
+                          //   });
+                          // }
                         },
                         tabs:  <Widget>[
                           CustomTitleTabBarWidget(title: LocaleKeys.register.tr(),),
@@ -62,8 +64,8 @@ class _AuthWidgetState extends State<AuthWidget> {
                             .font15CustomGray400Weight.copyWith(
                             color: backGroundGray
                         ),
-                        indicatorColor: blueColor,
-                        labelColor: blueColor,
+                        indicatorColor: primaryColor,
+                        labelColor: primaryColor,
                         indicatorPadding: EdgeInsets.zero,
                         unselectedLabelColor: black,
                       ),

@@ -1,7 +1,6 @@
 import 'package:cogina_restaurants/presentation/modules/auth/complete_profile/complete_profile_screen.dart';
 import 'package:cogina_restaurants/presentation/modules/splash/splash_screen.dart';
-import 'package:country_code_picker/country_localizations.dart';
-import 'package:device_preview/device_preview.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +13,13 @@ import 'core/resources/color.dart';
 import 'core/routing/navigation_services.dart';
 import 'core/routing/route_generator.dart';
 import 'domain/injection.dart' as domain_injection;
+/// 12/8/2025
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await data_injection.init();
   await domain_injection.init();
+  //super-app-asia.
   await injection.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -33,10 +34,7 @@ void main() async{
         saveLocale: true,
         useOnlyLangCode: true,
         startLocale: supportedLocales[0],
-        child: DevicePreview(
-          enabled: false,
-          builder: (context) => const MyApp(),
-        ),
+        child: MyApp(),
       )));
 }
 final supportedLocales = <Locale>[
@@ -54,7 +52,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, Widget? child) {
           return MaterialApp(
             title:
-            'Yalla Hatly Restaurant',
+            'Super App Stores',
             debugShowCheckedModeBanner: false,
             navigatorKey: NavigationService.navigationKey,
             onGenerateRoute: RouteGenerator.generateBaseRoute,

@@ -332,7 +332,7 @@ class _CustomTextFieldPhoneCodeState extends State<CustomTextFieldPhoneCode> {
     // Set initial value to Egypt's dial code +20
     _selectedCountry = _countryList.firstWhere(
           (item) => item.code == (widget.initialCountryCode ?? 'EG'), // EG for Egypt
-      orElse: () => _countryList.first,
+      orElse: () => _countryList[0],
     );
 
     if (widget.autoValidate) {
