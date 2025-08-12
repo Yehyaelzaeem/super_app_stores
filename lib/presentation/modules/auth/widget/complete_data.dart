@@ -210,7 +210,7 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
                                     RestaurantCategoriesWidget(
                                       items: (List<CategoryModel> values) {
                                         cubit.categoryModelDataList=values;
-                                        print('value ============ ${values?.toString()}');
+                                        print('value ============ ${values.toString()}');
 
                                       },
                                       onChanged: (CategoryModel? value ) {

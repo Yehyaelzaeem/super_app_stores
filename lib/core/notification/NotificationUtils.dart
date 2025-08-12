@@ -20,7 +20,7 @@ class NotificationUtils {
 
   getAndroidNotificationDetails({StyleInformation? styleInformation}) =>  AndroidNotificationDetails(
     '112233',
-    'Cogina Restaurant',
+    'Super App Stores',
     channelDescription: 'MainChannel',
     importance: Importance.max,
     priority: Priority.high,

@@ -16,7 +16,7 @@ import '../../account/edit_profile/profile_cubit.dart';
 
 void generateAndClientInvoicePrint({required OrdersModelData ordersModelData}) async {
   final pdf = pw.Document();
-  final ByteData bytes = await rootBundle.load('assets/images/logo.png');
+  final ByteData bytes = await rootBundle.load('assets/images/logo23.png');
   final Uint8List byteList = bytes.buffer.asUint8List();
   final ttf = await fontFromAssetBundle('assets/fonts/Cairo-Black.ttf');
   ProfileCubit profileCubit =

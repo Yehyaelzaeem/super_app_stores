@@ -76,7 +76,7 @@ class OtpCubit extends Cubit<OtpState> {
      ResponseModel responseModel = await _otpUseCase.call(body: OTPBody(phone: phone, code: otp, ));
 
      if ( responseModel.isSuccess && responseModel.data != null) {
-       GetProfileModelData registerModel =responseModel?.data;
+       GetProfileModelData registerModel =responseModel.data;
        String token = registerModel.token??'';
        if (token.isNotEmpty) {
          await _saveUserDataUseCase.call(token: token);

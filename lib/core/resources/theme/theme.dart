@@ -26,7 +26,6 @@ ThemeData get lightTheme {
     hoverColor: hoverColor,
     floatingActionButtonTheme: floatingActionButtonTheme,
     dividerColor: dividerColor,
-    cardTheme: errorColor,
     hintColor: textSecondary,
     primaryColor: primaryColor,
     primaryColorDark: primaryColorDark,

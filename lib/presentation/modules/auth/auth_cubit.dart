@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:collection/collection.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../core/routing/navigation_services.dart';
 import '../../../core/routing/routes.dart';
+import '../../../core/translations/locale_keys.dart';
 import '../../../core/utils/toast_states/enums.dart';
 import '../../../data/datasource/remote/exception/error_widget.dart';
 import '../../../data/model/base/response_model.dart';
@@ -79,7 +81,7 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController comAddressController = TextEditingController();
   TextEditingController comTypeController = TextEditingController();
   AddressLocationModel? addressModel;
-  TextEditingController pickUpController = TextEditingController(text: 'المنطقة/المدينة/البلدة/الشارع');
+  TextEditingController pickUpController = TextEditingController(text: LocaleKeys.locationMap2.tr());
   File? imageFile;
   Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();

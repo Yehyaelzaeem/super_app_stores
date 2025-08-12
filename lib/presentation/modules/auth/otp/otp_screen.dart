@@ -59,12 +59,12 @@ class _OTPScreenState extends State<OTPScreen> {
            Navigator.pushNamedAndRemoveUntil(context, Routes.layoutScreen, (route) => false);
 
          }else{
-           Navigator.push(context,MaterialPageRoute(builder: (context)=>CompleteProfileFirstScreen()),);
-
+           Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context)=>CompleteProfileFirstScreen()),(d)=>false);
          }
         _codeController.clear();
       } else {
         // _codeController.clear();
+
       }
     }
   }
@@ -181,6 +181,7 @@ class _OTPScreenState extends State<OTPScreen> {
       textDirection: TextDirection.ltr,
       child:
     PinCodeTextField(
+
       appContext: context,
       length: 4,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -192,10 +193,10 @@ class _OTPScreenState extends State<OTPScreen> {
       animationType: AnimationType.fade,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
-        inactiveColor: Colors.transparent,
-        disabledColor: Theme.of(context).cardColor,
-        activeColor: Colors.transparent,
-        selectedColor: Colors.transparent,
+        inactiveColor: Colors.grey.shade200,
+        disabledColor: Colors.grey.shade200,
+        activeColor:Colors.grey.shade300,
+        selectedColor: Colors.red.shade100,
         errorBorderColor: Theme.of(context).cardColor,
         inactiveFillColor: Theme.of(context).cardColor,
         selectedFillColor: Theme.of(context).cardColor,

@@ -13,6 +13,7 @@ class LocaleKeys
   static const profile = 'profile';
   static const aboutUs = 'about_us';
   static const qty = 'qty';
+  static const locationMap2 = 'locationMap2';
   static const notification = 'notification';
   static const this_field_required = 'this_field_required';
   static const myOrders = 'my_orders';
