@@ -136,6 +136,7 @@ class StoreProfile {
   String? name;
   String? nameAr;
   StoreType? storeType;
+  StoreType? storeTypeCategory;
   bool? approvedByAdmin;
   bool? status;
   String? deliveryTime;
@@ -155,6 +156,7 @@ class StoreProfile {
         this.appCommission,
         this.deliveryTime,
         this.deliveryPrice,
+        this.storeTypeCategory,
          this.orderTime,
         this.files,
         this.times}); // Include times in constructor
@@ -164,6 +166,7 @@ class StoreProfile {
     name = json['name'];
     nameAr = json['name_ar'];
     storeType =json['store_type']!=null? json['store_type'] is Map<String,dynamic>? StoreType.fromMap(json['store_type']):null:null;
+    storeTypeCategory =json['store_type_category']!=null? json['store_type_category'] is Map<String,dynamic>? StoreType.fromMap(json['store_type_category']):null:null;
     deliveryTime = json['delivery_time'];
     deliveryPrice = json['delivery_fees'];
     orderTime = json['order_time'];

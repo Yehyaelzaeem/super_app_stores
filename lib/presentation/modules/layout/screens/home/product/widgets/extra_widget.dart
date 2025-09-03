@@ -1,3 +1,4 @@
+import 'package:cogina_restaurants/presentation/component/animation/tap_effect.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/product/widgets/product_text_field.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/product/widgets/product_title_field.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,8 +31,24 @@ class ExtraWidget extends StatelessWidget {
               const ExtraTitleWidget(),
             if( cubit.extralList.isNotEmpty)
               ...cubit.extralList.map((e) =>  ExtraAddItemWidget(extraModel: e,)),
-            verticalSpace(20),
-            Container(
+            verticalSpace(2),
+            if(cubit.showExtra==false)
+            TapEffect(onClick: (){
+              cubit.showExtraInput();
+            },
+                child: Container(
+                  height: 35.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.brown.shade100,
+
+                  ),
+                  child: Icon(Icons.add_circle_outline,size: 25,color: Colors.white),
+                ),),
+            verticalSpace(8),
+            if(cubit.showExtra==true)
+              Container(
               width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -43,53 +60,53 @@ class ExtraWidget extends StatelessWidget {
                   key:cubit.extraFormKey,
                   child: Column(
                     children: [
-                      if(cubit.showExtra==true)
                         ...[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ProductTitleField(title: LocaleKeys.additionEn.tr(),),
-                                    ProductTextField(
-                                      contentHorizontalPadding:20,
-                                      textInputAction: TextInputAction.newline,
-
-                                      textInputType: TextInputType.multiline,
-                                      controller: cubit.productExtraName,notValidation: true,),
-                                  ],
-                                ),
+                                child: ProductTitleField(title: LocaleKeys.additionEn.tr(),),
                               ),
                               horizontalSpace(5),
                               Expanded(
-                                child: Column(
-                                  children: [
-                                    ProductTitleField(title:LocaleKeys.additionArabic.tr(),),
-                                    ProductTextField(controller: cubit.productExtraNameAr,
-                                      textInputAction: TextInputAction.newline,
-
-                                      contentHorizontalPadding:20,
-                                      textInputType: TextInputType.multiline,notValidation: true,),
-                                  ],
-                                ),
+                                child: ProductTitleField(title:LocaleKeys.additionArabic.tr(),),
                               ),
                               horizontalSpace(5),
                               Expanded(
-                                child: Column(
-                                  children: [
-                                    ProductTitleField(title: LocaleKeys.extraPrice.tr(),),
-                                    ProductTextField(controller: cubit.productExtraPrice,
-                                      textInputAction: TextInputAction.newline,
-
-                                      contentHorizontalPadding:20,
-                                      textInputType: TextInputType.number,notValidation: true,),
-                                  ],
-                                ),
+                                child:  ProductTitleField(title: LocaleKeys.extraPrice.tr(),),
                               ),
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child:  ProductTextField(
+                                  contentHorizontalPadding:20,
+                                  textInputAction: TextInputAction.newline,
+
+                                  textInputType: TextInputType.multiline,
+                                  controller: cubit.productExtraName,notValidation: true,),
+                              ),
+                              horizontalSpace(5),
+                              Expanded(
+                                child: ProductTextField(controller: cubit.productExtraNameAr,
+                                  textInputAction: TextInputAction.newline,
+
+                                  contentHorizontalPadding:20,
+                                  textInputType: TextInputType.multiline,notValidation: true,),
+                              ),
+                              horizontalSpace(5),
+                              Expanded(
+                                child: ProductTextField(controller: cubit.productExtraPrice,
+                                  textInputAction: TextInputAction.newline,
+
+                                  contentHorizontalPadding:20,
+                                  textInputType: TextInputType.number,notValidation: true,),
+                              ),
+                            ],
+                          ),
+
                           verticalSpace(5),
                         ],
                       PrimaryButtonWidget(
@@ -103,7 +120,7 @@ class ExtraWidget extends StatelessWidget {
                         // height: 40.h,
                         onTap: () {
                           if(cubit.showExtra==false){
-                            cubit.showExtraInput();
+                            // cubit.showExtraInput();
                           }else{
                             if(cubit.extraFormKey.currentState!.validate()){
                               ExtraModel extraModel =

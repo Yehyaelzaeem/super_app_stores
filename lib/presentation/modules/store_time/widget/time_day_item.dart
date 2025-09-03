@@ -50,8 +50,8 @@ class TimeDayItem extends StatelessWidget {
                 EdgeInsets.only(bottom: 10.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: isSwitchActive ? Colors.grey.shade200 : Colors.grey
-                  .shade500,
+              color: isSwitchActive ? Colors.grey.shade100 : Colors.grey
+                  .shade300,
               border: Border.all(color: Colors.grey.shade400, width: 1),
 
             ),
@@ -88,8 +88,8 @@ class TimeDayItem extends StatelessWidget {
                     absorbing: !isSwitchActive,
                     child: Container(
                       color: isSwitchActive
-                          ? Colors.grey.shade200
-                          : Colors.grey.shade500,
+                          ? Colors.grey.shade100
+                          : Colors.grey.shade300,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 5.w, vertical: 5.h),

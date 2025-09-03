@@ -52,6 +52,10 @@
   "search": "بحث",
   "the_search": "البحث",
   "description": "الوصف",
+  "descriptionEn": "الوصف بالانجليزية",
+  "sizeEn": "الحجم بالانجليزية",
+  "additionEn": "الاضافات بالانجليزية",
+  "optionalProductAdditions": "الاضافات الخاصة بالمنتجات المختلفة",
   "start_search": "ماذا ترغب في البحث عنه ؟",
 
   "extra_components": "المكونات الإضافية",
@@ -134,7 +138,7 @@
   "meals": "الوجبات/المنتجات",
   "restaurant": "المطعم",
   "add_meal": "أضف وجبة/منتج",
-  "meal_name": "اسم الوجبة/المنتج",
+  "meal_name": "اسم الوجبة/المنتج بالانجليزي",
   "description_ar": "الوصف بالعربي",
   "rejected": "مرفوض",
   "note": "الملاحظات",
@@ -228,6 +232,7 @@
   "this_field":"هذا الحقل",
   "required":"مطلوب",
   "extra":"الاضافات",
+  "giveOrderToDriver":"تسليم لمندوب التوصيل",
 
   "update_data":"تحديث بيانات المتجر",
   "date":"التاريخ",

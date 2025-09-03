@@ -60,6 +60,7 @@ class _State extends State<AcceptedOrdersWidget> {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
                   controller: _scrollController,
                   itemCount: cubit.acceptedOrdersList.length + 1,
                   itemBuilder: (context, index) {

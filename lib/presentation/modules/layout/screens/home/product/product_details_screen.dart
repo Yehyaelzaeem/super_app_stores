@@ -60,11 +60,11 @@ class ProductDetailsScreen extends StatelessWidget {
                       ],
                     ),
                     verticalSpace(10),
-                    RatingWidget(filledStar: Icons.star, halfStar: Icons.star_half, emptyStar: Icons.star_border,
-                      rating: double.parse(product.rate?.toString()??'0.0'), onChanged: (double c) {
-                        print(c);
-                      },),
-                    verticalSpace(10),
+                    // RatingWidget(filledStar: Icons.star, halfStar: Icons.star_half, emptyStar: Icons.star_border,
+                    //   rating: double.parse(product.rate?.toString()??'0.0'), onChanged: (double c) {
+                    //     print(c);
+                    //   },),
+                    // verticalSpace(10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

@@ -191,8 +191,14 @@ class AuthCubit extends Cubit<AuthState> {
     if(comNameArController.text.isNotEmpty&&comNameController.text.isNotEmpty){
       CompleteProfileBody completeProfileBody =
       CompleteProfileBody(name: comNameController.text,
+          mobile: comPhoneController.text,
+          email: comEmailController.text,
           category: categoryModelDataList.map((e) => e.id.toString()).join(','),
-          address: comAddressController.text, type: comTypeController.text, image: imageFile, nameAr: comNameArController.text, lat: addressModel?.lat??'', long: addressModel?.long??'');
+          address: comAddressController.text, type: comTypeController.text,
+          image: imageFile,
+
+          nameAr: comNameArController.text, lat: addressModel?.lat??'',
+          long: addressModel?.long??'');
       ResponseModel responseModel = await _completeProfileUseCase.call(body: completeProfileBody);
       if (responseModel.isSuccess) {
 

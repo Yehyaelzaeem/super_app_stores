@@ -10,7 +10,7 @@ class ProductTitleField extends StatelessWidget {
     return  Text('  $title',
       style: TextStyles.font18Black700Weight.copyWith(
           color:color?? Colors.grey.shade700,
-        fontSize: 13,
+        fontSize: 16,
         height: 1,
       ),
       textAlign: TextAlign.center,

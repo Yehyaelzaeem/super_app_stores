@@ -42,6 +42,9 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
       cubit.comNameController =TextEditingController(text:profile?.store?.name??'' );
     }
     typeId =profile?.store?.storeType?.id.toString()??'0';
+    final storeTypeCategory =profile?.store?.storeTypeCategory;
+    cubit.comTypeController.text=typeId.toString();
+    cubit.categoryModelDataList=[CategoryModel(id: storeTypeCategory?.id??0, name:storeTypeCategory?.name??'')];
     super.initState();
   }
   String? typeId;
@@ -112,34 +115,34 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
                                   borderColor: Colors.grey.shade400,
                                 ),
                                 verticalSpace(20),
-                                // CustomTextField(
-                                //   textInputType: TextInputType.emailAddress,
-                                //   prefixIcon:  const Icon(Icons.email,color: Colors.grey,),
-                                //   hintText: LocaleKeys.email.tr(),
-                                //   hintStyle: TextStyles.font16Black500Weight.copyWith(
-                                //       color: Colors.grey.shade500,
-                                //       fontWeight: FontWeight.w600
-                                //   ),
-                                //   fillColor: backGroundGray,
-                                //   controller: cubit.comEmailController,
-                                //   borderRadius: 40,
-                                //   borderColor: Colors.grey.shade400,
-                                // ),
-                                // verticalSpace(20),
-                                // CustomTextField(
-                                //   textInputType: TextInputType.phone,
-                                //   prefixIcon:  const Icon(Icons.phone_android,color: Colors.grey,),
-                                //   hintText: LocaleKeys.phone.tr(),
-                                //   hintStyle: TextStyles.font16Black500Weight.copyWith(
-                                //       color: Colors.grey.shade500,
-                                //       fontWeight: FontWeight.w600
-                                //   ),
-                                //   fillColor: backGroundGray,
-                                //   controller: cubit.comPhoneController,
-                                //   borderRadius: 40,
-                                //   borderColor: Colors.grey.shade400,
-                                // ),
-                                // verticalSpace(20),
+                                CustomTextField(
+                                  textInputType: TextInputType.emailAddress,
+                                  prefixIcon:  const Icon(Icons.email,color: Colors.grey,),
+                                  hintText: LocaleKeys.email.tr(),
+                                  hintStyle: TextStyles.font16Black500Weight.copyWith(
+                                      color: Colors.grey.shade500,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                  fillColor: backGroundGray,
+                                  controller: cubit.comEmailController,
+                                  borderRadius: 40,
+                                  borderColor: Colors.grey.shade400,
+                                ),
+                                verticalSpace(20),
+                                CustomTextField(
+                                  textInputType: TextInputType.phone,
+                                  prefixIcon:  const Icon(Icons.phone_android,color: Colors.grey,),
+                                  hintText: LocaleKeys.phone.tr(),
+                                  hintStyle: TextStyles.font16Black500Weight.copyWith(
+                                      color: Colors.grey.shade500,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                  fillColor: backGroundGray,
+                                  controller: cubit.comPhoneController,
+                                  borderRadius: 40,
+                                  borderColor: Colors.grey.shade400,
+                                ),
+                                verticalSpace(20),
                                 if(widget.title != LocaleKeys.updateData.tr())
                                 Column(
                                   children: [
@@ -241,44 +244,77 @@ class _CompeteDataWidgetState extends State<CompeteDataWidget> {
                                   builder: (context, state) {
                                     return Column(
                                       children: [
-                                        Center(
-                                          child: InkWell(
-                                            onTap: (){
-                                              cubit.pickImage();
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(30),
-                                                  border: Border.all(color: Colors.grey)
-                                              ),
-                                              child:
-                                              cubit.imageFile!=null?
-                                              SizedBox(
-                                                height:150.w,
-                                                width:150.w,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(20.0),
-                                                  child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(80),
-                                                    child: Image.file(cubit.imageFile!,
-                                                      fit: BoxFit.cover,
-                                                    ),),
-                                                ),
-                                              ):
-                                              SizedBox(
-                                                height:120.w,
-                                                width:150.w,
-                                                child:  Center(
+                                        Stack(
+                                          children: [
+                                            Center(
+                                              child: InkWell(
+                                                onTap: (){
+
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30),
+                                                      border: Border.all(color: Colors.grey)
+                                                  ),
                                                   child:
-                                                  widget.image!=null?CustomImage(image:widget.image??'',radius: 30,
-                                                    width: 150.w,
-                                                    height:120.w,
+                                                  cubit.imageFile!=null?
+                                                  SizedBox(
+                                                    height:150.w,
+                                                    width:150.w,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(20.0),
+                                                      child: ClipRRect(
+                                                        borderRadius: BorderRadius.circular(80),
+                                                        child: Image.file(cubit.imageFile!,
+                                                          fit: BoxFit.cover,
+                                                        ),),
+                                                    ),
                                                   ):
-                                                  const Icon(Icons.add_a_photo,size: 120,color: Colors.grey,),
+                                                  SizedBox(
+                                                    height:150.w,
+                                                    width:150.w,
+                                                    child:  Container(
+                                                      padding: const EdgeInsets.all(20.0),
+                                                      child: Center(
+                                                        child:
+                                                        widget.image!=null?CustomImage(image:widget.image??'',radius: 80,
+                                                          height:150.w,
+                                                          width:150.w,
+                                                        ):
+                                                        const Icon(Icons.add_a_photo,size: 120,color: Colors.grey,),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
+                                            Positioned(
+                                              bottom: 20,
+                                              right: 20,
+                                              left: 100,
+                                              child:Center(
+                                                child:  InkWell(
+                                                  onTap: () {
+                                                    cubit.pickImage();
+                                                    // cubit.removeImage();
+                                                  },
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(5),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.circular(30),
+                                                        border: Border.all(color: Colors.grey)
+                                                    ),
+                                                    child:  Icon(
+                                                      Icons.camera_alt,
+                                                      size: 30,
+                                                      color: Colors.grey.shade800,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ),
+                                          ],
                                         ),
                                         verticalSpace(25),
                                         Container(

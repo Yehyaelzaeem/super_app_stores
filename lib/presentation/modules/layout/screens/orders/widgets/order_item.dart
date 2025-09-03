@@ -187,7 +187,7 @@ class OrderItem extends StatelessWidget {
                             horizontalSpace(10),
                             InkWell(
                                 onTap: () {
-                                  ContactHelper.launchMap(lat: double.parse(ordersModelData.client?.location?.lng ??'0.0'), long: double.parse(ordersModelData.client?.location?.lng ??'0.0'));
+                                  ContactHelper.launchMap(lat: double.parse(ordersModelData.client?.location?.lat ??'0.0'), long: double.parse(ordersModelData.client?.location?.lng ??'0.0'));
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: Colors.blue.withOpacity(0.3),
@@ -239,7 +239,7 @@ class OrderItem extends StatelessWidget {
             PrimaryButtonWidget(
                 onTap: () {
                   cubit.finishOrder(orderId: ordersModelData.id??0);
-            }, text: 'إنهاء الطلب'),
+            }, text: LocaleKeys.giveOrderToDriver.tr()),
           ],
           if (ordersModelData.status == 'restaurant_done') ...[
             PrimaryButtonWidget(

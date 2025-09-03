@@ -1,4 +1,5 @@
 import 'package:cogina_restaurants/core/resources/color.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,8 @@ import '../../core/resources/styles.dart';
 import '../../core/routing/navigation_services.dart';
 import '../../core/translations/locale_keys.dart';
 import '../modules/auth/auth_cubit.dart';
+import '../modules/auth/widget/restuaran_type_widget.dart';
+import 'custom_loading_widget.dart';
 
 class RestaurantCategoriesWidget extends StatefulWidget {
   final void Function(CategoryModel?)? onChanged;
@@ -43,7 +46,7 @@ class _RestaurantCategoriesWidgetState
     _reasonModelListController.close();
     super.dispose();
   }
-
+   String? selectedValue;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
@@ -59,36 +62,79 @@ class _RestaurantCategoriesWidgetState
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MultiSelectDialogField<CategoryModel>(
-                items: allCategories
-                    .map((cat) =>
-                    MultiSelectItem<CategoryModel>(cat, cat.name))
-                    .toList(),
-                title: Text(LocaleKeys.categories.tr()),
-                selectedColor: primaryColor,
-                decoration: BoxDecoration(
-                  color: grayBackGroundColor,
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
-                buttonText: Text(
-                  LocaleKeys.categories.tr(),
-                  style: TextStyles.font16Black500Weight
-                      .copyWith(color: Colors.grey),
-                ),
-                onConfirm: (selected) {
-                  categoryModelList = selected;
+              DropdownButton2<DropModel>(
+                isExpanded: true,
+                underline: const SizedBox.shrink(),
+                hint: Text(selectedValue!=null?selectedValue??'':'${LocaleKeys.categories.tr()}', style:
+                selectedValue!=null?TextStyles.font16Black500Weight:TextStyles.font16Black500Weight.copyWith(color: Colors.grey),),
+                items:
+                cubit.restaurantCategoriesModel?.data==null?[]:
+                cubit.restaurantCategoriesModel?.data?.map(( e) => DropdownMenuItem<DropModel>(
+                  value: DropModel(id: e.id,name: e.name),
+                  child: Text(
+                    e.name??'',
+                    style: TextStyles.font15CustomGray400Weight.copyWith(
+                        fontSize: 20
+                    ),
+                  ),
+                )).toList()??[],
+                onChanged: (DropModel? value) {
                   _reasonModelListController.sink.add(categoryModelList);
                   widget.items?.call(categoryModelList);
+                  setState((){selectedValue=value?.name??'';});
                 },
-                chipDisplay: MultiSelectChipDisplay(
-                  onTap: (item) {
-                    categoryModelList.remove(item);
-                    _reasonModelListController.sink.add(categoryModelList);
-                    widget.items?.call(categoryModelList);
-                  },
+                dropdownStyleData: DropdownStyleData(
+                  maxHeight: 200.h, // Set the fixed height here
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
                 ),
+                iconStyleData: IconStyleData(
+                    icon: cubit.restaurantTypesModel == null?
+                    const CustomLoadingWidget():
+                    const Icon(Icons.keyboard_arrow_down)
+                ) ,
+                buttonStyleData: ButtonStyleData(
+                    decoration: BoxDecoration(
+                      color: backGroundGray,
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(50.r),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w) // Adjust the horizontal padding as needed
+
+                ),
+
               ),
+              // MultiSelectDialogField<CategoryModel>(
+              //   items: allCategories
+              //       .map((cat) =>
+              //       MultiSelectItem<CategoryModel>(cat, cat.name))
+              //       .toList(),
+              //   title: Text(LocaleKeys.categories.tr()),
+              //   selectedColor: primaryColor,
+              //   decoration: BoxDecoration(
+              //     color: grayBackGroundColor,
+              //     borderRadius: BorderRadius.circular(50),
+              //     border: Border.all(color: Colors.grey.shade300),
+              //   ),
+              //   buttonText: Text(
+              //     LocaleKeys.categories.tr(),
+              //     style: TextStyles.font16Black500Weight
+              //         .copyWith(color: Colors.grey),
+              //   ),
+              //   onConfirm: (selected) {
+              //
+              //   },
+              //   chipDisplay: MultiSelectChipDisplay(
+              //     onTap: (item) {
+              //       categoryModelList.remove(item);
+              //       _reasonModelListController.sink.add(categoryModelList);
+              //       widget.items?.call(categoryModelList);
+              //     },
+              //   ),
+              // ),
               // SizedBox(height: 10.h),
               // StreamBuilder<List<CategoryModel>>(
               //   stream: _reasonModelListController.stream,

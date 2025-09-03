@@ -59,6 +59,8 @@ class _State extends State<CompletedOrdersWidget> {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+
                   controller: _scrollController,
                   itemCount: cubit.completedOrdersList.length + 1,
                   itemBuilder: (context, index) {

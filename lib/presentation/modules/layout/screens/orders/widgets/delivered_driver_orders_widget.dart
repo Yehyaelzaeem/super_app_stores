@@ -61,6 +61,8 @@ class _State extends State<DeliveredDeliverOrdersWidget> {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
                   controller: _scrollController,
+                  physics: AlwaysScrollableScrollPhysics(),
+
                   itemCount: cubit.onWayOrdersList.length + 1,
                   itemBuilder: (context, index) {
                     if (index == cubit.onWayOrdersList.length) {

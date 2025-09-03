@@ -95,9 +95,14 @@ class AccountCubit extends Cubit<AccountState> {
     aboutUsData=null;
     emit(GetDataLoadingState()) ;
     ResponseModel responseModel = await _aboutUsUseCase.call();
+    print('ssssss655555s ${responseModel.data.toString()}');
+
     if (responseModel.isSuccess) {
-      MoreContactUsModel moreContactUsModel=responseModel.data;
-      emit(GetDataSuccessState(data: moreContactUsModel.data.toString())) ;
+      // MoreContactUsModel moreContactUsModel=responseModel.data;
+      // print('sdfsdfdf ${moreContactUsModel.data.toString()}');
+      print('ssssss655555s ${responseModel.data}');
+
+      emit(GetDataSuccessState(data:responseModel.data.toString())) ;
     }else{
       emit(GetDataErrorState()) ;
     }

@@ -171,6 +171,7 @@ class LocaleKeys
   static const mealName = 'meal_name';
   static const mealNameAr = 'meal_name_ar';
   static const descriptionAr = 'description_ar';
+  static const descriptionEn = 'descriptionEn';
   static const extra = 'extra';
   static const size = 'size';
   static const sizeAr = 'size_ar';
@@ -219,6 +220,7 @@ class LocaleKeys
   static const restaurantNameAR = 'restaurant_name_ar';
   static const email = 'email';
   static const location = 'location';
+  static const giveOrderToDriver = 'giveOrderToDriver';
   static const deliveryTime = 'delivery_time';
   static const region = 'region';
   static const onMap = 'on_map';

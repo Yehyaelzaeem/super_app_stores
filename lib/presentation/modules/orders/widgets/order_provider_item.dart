@@ -41,6 +41,7 @@ class OrderProviderItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     verticalSpace(1),
@@ -57,9 +58,11 @@ class OrderProviderItem extends StatelessWidget {
                       ],
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         const Icon(Icons.account_balance_wallet,color: Colors.black,size: 18,),
-                        Text(' طريقة الدفع.كاش',style: TextStyles.font16Black500Weight.copyWith(
+                        Text('${ordersModelData?.paymentMethod??''}',style: TextStyles.font16Black500Weight.copyWith(
                         ),),
                       ],
                     ),

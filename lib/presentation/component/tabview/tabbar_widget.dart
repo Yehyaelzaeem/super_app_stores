@@ -9,13 +9,31 @@ class TabItemModel{
   final String? image ;
   final Widget page ;
   TabItemModel({required this.label  ,required this.page, this.image});
-  Tab builder(){
-    return TabWidgetItemBuilder(this);
+  Tab builder(bool? isUnderLine){
+    return TabWidgetItemBuilder(this, isUnderLine: isUnderLine);
   }
 }
 
 class TabWidgetItemBuilder extends Tab{
-  TabWidgetItemBuilder(TabItemModel model, {Key? key}):super(key: key, text: model.label);
+  TabWidgetItemBuilder(TabItemModel model, {Key? key, bool? isUnderLine}):super(
+      key: key,
+      child: Container(
+        // height: 250.h, // ارتفاع مناسب لسطرين
+        child: Center(
+          child: Text(
+            model.label,
+            textAlign: TextAlign.center,
+            maxLines: 1, // السماح بسطرين
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.lateefFont,
+              fontSize: 10.sp,
+            ),
+          ),
+        ),
+      )
+  );
 }
 
 class TabBarWidget  extends StatelessWidget{
@@ -37,32 +55,31 @@ class TabBarWidget  extends StatelessWidget{
           bottom:
           TabBar(
             controller: controllerTapBar,
-            // isScrollable: true,
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
+            labelPadding: EdgeInsets.symmetric(horizontal: 16),
             indicatorColor: primaryColor,
-            // dividerColor: dividerColor,
+            dividerColor: dividerColor,
             unselectedLabelStyle:TextStyles.font15CustomGray400Weight.copyWith(
-              fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.lateefFont,
-              fontSize: 10,
-              color: customGray
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.lateefFont,
+                fontSize: 10,
+                color: customGray
             ),
             labelStyle: TextStyles.font16Black500Weight.copyWith(
-              fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.lateefFont,
-
                 fontSize: 12,
-              color:isUnderLine==true?primaryColor: whiteColor
+                color:isUnderLine==true?primaryColor: whiteColor
             ),
 
             padding:  EdgeInsets.symmetric(horizontal: 0.w,vertical: 0.h),
             indicatorPadding: EdgeInsets.zero,
-            labelPadding:  EdgeInsets.zero ,
             indicator:
             isUnderLine==true?
             UnderlineTabIndicator(
-
-              borderSide: BorderSide(color: primaryColor, width: 2.0), // سماكة الخط ولونه
-              insets: EdgeInsets.symmetric(horizontal: 16.0), // مسافة الخط الأفقية من الجوانب
+              borderSide: BorderSide(color: primaryColor, width: 2.0),
+              insets: EdgeInsets.symmetric(horizontal: 16.0),
             ):
             BoxDecoration(
               color: primaryColor,
@@ -75,12 +92,11 @@ class TabBarWidget  extends StatelessWidget{
               //     offset: const Offset(0, 1), // changes position of shadow
               //   ),
               // ],
-
             ),
 
             indicatorSize: TabBarIndicatorSize.tab,
             onTap: onTap,
-            tabs: tabs.map((e) => e.builder()
+            tabs: tabs.map((e) => e.builder(isUnderLine)
             ).toList(),
           ),
         ),
@@ -91,5 +107,4 @@ class TabBarWidget  extends StatelessWidget{
       ),
     );
   }
-
 }

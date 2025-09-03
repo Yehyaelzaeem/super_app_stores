@@ -47,10 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             verticalSpace(15),
             Center(child: Image.asset(
-              AppImages.logo2,
+              AppImages.logo3,
               width: 100.w,
               height: 100.h,
-              color: backBlue2, ),),
+          ),),
+            verticalSpace(10),
 
             BlocConsumer<HomeCubit, HomeState>(
                     listener: (context, state) {},

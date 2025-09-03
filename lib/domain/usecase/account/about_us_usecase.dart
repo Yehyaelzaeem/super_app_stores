@@ -7,18 +7,19 @@ import '../base_usecase/base_use_case_call.dart';
 import '../base_usecase/base_usecase.dart';
 
 
-class AboutUsUseCase implements BaseUseCase<MoreContactUsModel>{
+class AboutUsUseCase implements BaseUseCase<String>{
   final AccountRepository repository;
   AboutUsUseCase({required this.repository});
   Future<ResponseModel> call() async {
-    return BaseUseCaseCall.onGetData<MoreContactUsModel>( await repository.getAboutUs(), onConvert,tag: 'AboutUsUseCase');
+    return BaseUseCaseCall.onGetData<String>( await repository.getAboutUs(), onConvert,tag: 'AboutUsUseCase');
   }
 
   @override
-  ResponseModel<MoreContactUsModel> onConvert(BaseModel baseModel) {
+  ResponseModel<String> onConvert(BaseModel baseModel) {
     try{
-      MoreContactUsModel moreContactUsModel =MoreContactUsModel.fromJson(baseModel.item);
-      return ResponseModel(baseModel.status??true , baseModel.message,data:moreContactUsModel);
+      print('sssssss ${baseModel.data}');
+      // MoreContactUsModel moreContactUsModel =MoreContactUsModel.fromJson(baseModel.data);
+      return ResponseModel(true , baseModel.message,data:baseModel.data);
     }catch(e){
       return ResponseModel(baseModel.status??false, baseModel.message,data: baseModel.item);
     }

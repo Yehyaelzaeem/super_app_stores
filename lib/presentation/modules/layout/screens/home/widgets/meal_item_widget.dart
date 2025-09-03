@@ -217,7 +217,7 @@ class MealItemWidget extends StatelessWidget {
                                   arguments: {'product': product});
                             },
                             child: const Icon(
-                              Icons.edit_calendar_outlined,
+                              Icons.edit,
                               color: customGray,
                             )),
                         horizontalSpace(5),

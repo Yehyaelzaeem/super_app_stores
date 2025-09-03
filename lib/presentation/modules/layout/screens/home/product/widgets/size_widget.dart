@@ -9,6 +9,7 @@ import '../../../../../../../core/resources/color.dart';
 import '../../../../../../../core/resources/styles.dart';
 import '../../../../../../../core/translations/locale_keys.dart';
 import '../../../../../../../data/model/response/extra_model.dart';
+import '../../../../../../component/animation/tap_effect.dart';
 import '../../../../../../component/custom_elevated_button.dart';
 import '../../../../../../component/primary_button.dart';
 import '../../home_cubit.dart';
@@ -74,7 +75,23 @@ class SizeProductWidget extends StatelessWidget {
                      const ExtraTitleWidget(),
                      if( cubit.sizeProductList.isNotEmpty)
                        ...cubit.sizeProductList.map((e) =>  ExtraAddItemWidget(sizeProductModel:e,isSizeProduct: true,)),
-                     verticalSpace(20),
+                     verticalSpace(2),
+                     if(cubit.showSize==false)
+                       TapEffect(onClick: (){
+                         cubit.showSizeInput();
+                       },
+                         child: Container(
+                           height: 35.h,
+                           width: double.infinity,
+                           decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(10),
+                             color: Colors.brown.shade100,
+
+                           ),
+                           child: Icon(Icons.add_circle_outline,size: 25,color: Colors.white),
+                         ),),
+                     verticalSpace(8),
+                     if(cubit.showSize==true)
                      Container(
                        width: MediaQuery.sizeOf(context).width,
                        decoration: BoxDecoration(
@@ -87,48 +104,51 @@ class SizeProductWidget extends StatelessWidget {
                            key:cubit.sizeFormKey,
                            child: Column(
                              children: [
-                               if(cubit.showSize==true)
+
                                 ...[
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            ProductTitleField(title: LocaleKeys.sizeEn.tr(),),
-                                            ProductTextField(
-                                              contentHorizontalPadding:20,
-                                              textInputAction: TextInputAction.newline,
-                                              textInputType: TextInputType.multiline,
-                                              controller: cubit.productSizeNameEn,notValidation: true,),
-                                          ],
-                                        ),
+                                        child:  ProductTitleField(title: LocaleKeys.sizeEn.tr(),),
                                       ),
                                       horizontalSpace(5),
                                       Expanded(
-                                        child: Column(
-                                          children: [
-                                            ProductTitleField(title:LocaleKeys.sizeAr.tr(),),
-                                            ProductTextField(controller: cubit.productSizeNameAr,
-                                              textInputAction: TextInputAction.newline,
-                                              contentHorizontalPadding:20,
-                                              textInputType: TextInputType.multiline,notValidation: true,),
-                                          ],
-                                        ),
+                                        child: ProductTitleField(title:LocaleKeys.sizeAr.tr(),),
                                       ),
                                       horizontalSpace(5),
                                       Expanded(
-                                        child: Column(
-                                          children: [
-                                            ProductTitleField(title: LocaleKeys.price.tr(),),
-                                            ProductTextField(controller: cubit.productSizePrice,
-                                              textInputAction: TextInputAction.newline,
+                                        child: ProductTitleField(title: LocaleKeys.price.tr(),),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child:  ProductTextField(
+                                          contentHorizontalPadding:20,
+                                          textInputAction: TextInputAction.newline,
+                                          textInputType: TextInputType.multiline,
+                                          controller: cubit.productSizeNameEn,notValidation: true,),
 
-                                              contentHorizontalPadding:20,
-                                              textInputType: TextInputType.number,notValidation: true,),
-                                          ],
-                                        ),
+                                      ),
+                                      horizontalSpace(5),
+                                      Expanded(
+                                        child: ProductTextField(controller: cubit.productSizeNameAr,
+                                          textInputAction: TextInputAction.newline,
+                                          contentHorizontalPadding:20,
+                                          textInputType: TextInputType.multiline,notValidation: true,),
+
+                                      ),
+                                      horizontalSpace(5),
+                                      Expanded(
+                                        child: ProductTextField(controller: cubit.productSizePrice,
+                                          textInputAction: TextInputAction.newline,
+
+                                          contentHorizontalPadding:20,
+                                          textInputType: TextInputType.number,notValidation: true,),
+
                                       ),
                                     ],
                                   ),

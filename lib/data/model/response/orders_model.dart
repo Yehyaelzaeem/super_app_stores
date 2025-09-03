@@ -270,7 +270,7 @@ class Client {
   Client.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     phone = json['phone'];
-    address = json['address'];
+    address = (json['address'] is Map) ?json['address']['address_to']:null;
     addressId = json['address_id'];
     addressNot = json['address_not'];
     location = json['location'] != null

@@ -61,6 +61,8 @@ class _State extends State<PaddingWidget> {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+
                   controller: _scrollController,
                   itemCount: cubit.pendingOrdersList.length + 1,
                   itemBuilder: (context, index) {

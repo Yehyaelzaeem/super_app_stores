@@ -60,6 +60,8 @@ class _State extends State<RejectedOrdersWidget> {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+
                   controller: _scrollController,
                   itemCount: cubit.rejectedOrdersList.length + 1,
                   itemBuilder: (context, index) {

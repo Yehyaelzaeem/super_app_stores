@@ -30,6 +30,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
     cubit.getProductsCategories();
     cubit.removeProductTextFieldData();
     cubit.productDisCount = TextEditingController(text: '0');
+    cubit.showSize=false;
+    cubit.showExtra=false;
     super.initState();
   }
 
@@ -75,7 +77,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   textInputType: TextInputType.number,
                 ),
                 ProductTitleField(
-                  title: LocaleKeys.description.tr(),
+                  title: LocaleKeys.descriptionEn.tr(),
                 ),
                 ProductTextField(
                   borderRadius: 16,

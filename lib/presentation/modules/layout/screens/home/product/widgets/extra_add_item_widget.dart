@@ -13,8 +13,8 @@ class ExtraAddItemWidget extends StatelessWidget {
    const ExtraAddItemWidget({super.key,  this.extraModel, this.isSizeProduct, this.sizeProductModel});
   @override
   Widget build(BuildContext context) {
-    return   Padding(
-      padding:  EdgeInsets.symmetric(vertical: 5.h),
+    return   Container(
+      padding:  EdgeInsets.symmetric(vertical: 5.h,),
       child: Stack(
         children: [
           Container(
@@ -23,7 +23,7 @@ class ExtraAddItemWidget extends StatelessWidget {
                 color: whiteColor
             ),
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 5),
+              padding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,

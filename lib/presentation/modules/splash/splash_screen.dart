@@ -84,6 +84,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
     return permission;
   }
   navigationPage() async{
+    print('asdadadasdasdas');
     context.read<LocalAuthCubit>().getLocation();
     AuthCubit.get(context).changeType('auth');
     bool isAuthed = await _viewModel.isLogin();

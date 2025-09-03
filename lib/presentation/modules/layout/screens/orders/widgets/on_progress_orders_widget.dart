@@ -63,6 +63,8 @@ class _State extends State<OnProgressOrdersWidget> {
                       child:  Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: ListView.builder(
+                          physics: AlwaysScrollableScrollPhysics(),
+
                           controller: _scrollController,
                           itemCount: cubit.onProgressOrdersList.length + 1,
                           itemBuilder: (context, index) {

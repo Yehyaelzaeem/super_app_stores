@@ -1,3 +1,4 @@
+import 'package:cogina_restaurants/presentation/component/animation/tap_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,13 +15,16 @@ class OrderDetailsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      InkWell(
-        onTap: onTap,
+      TapEffect(
+        onClick: onTap,
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: whiteColor,
-              boxShadow: const [BoxShadow(color: Colors.black12,blurRadius: 3)],
+              boxShadow: const [BoxShadow(color: Colors.black38,blurRadius: 3,
+              offset: Offset(4,4)
+
+              )],
               border: Border.all(color: primaryColor.withOpacity(0.4),width: 1)
           ),
           child: Column(
