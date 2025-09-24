@@ -17,5 +17,8 @@ class GetDataSuccessState extends AccountState {
   final String data;
   GetDataSuccessState({required this.data});
 }
-class GetDataErrorState extends AccountState {}
+class GetDataErrorState extends AccountState {
+  final String error;
+  GetDataErrorState({required this.error});
+}
 class GetDataLoadingState extends AccountState {}

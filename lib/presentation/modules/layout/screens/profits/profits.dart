@@ -8,13 +8,12 @@ import '../../../../../core/assets_constant/images.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/resources/color.dart';
 import '../../../../../core/resources/styles.dart';
-import '../../../../../../core/resources/decoration.dart';
-import '../../../../../core/translations/locale_keys.dart';
 import '../../../../component/custom_app_bar.dart';
-import '../../../../component/custom_elevated_button.dart';
 import '../../../../component/custom_not_found_data.dart';
 import '../../../../component/cutsom_calendar.dart';
 import '../../../orders/widgets/order_provider_item.dart';
+import 'package:cogina_restaurants/generated/locale_keys.g.dart';
+
 
 class ProfitsScreen extends StatelessWidget {
   const ProfitsScreen({super.key});
@@ -23,9 +22,9 @@ class ProfitsScreen extends StatelessWidget {
     OrdersCubit cubit =OrdersCubit.get();
     return Scaffold(
       backgroundColor: backGroundGray,
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         color: backGroundGray,
-        title: 'سجل الارباح',
+        title:LocaleKeys.profits.tr() ,
         isBackButtonExist: false,
       ),
       body: Column(
@@ -61,7 +60,7 @@ class ProfitsScreen extends StatelessWidget {
                                   Text('$total ${LocaleKeys.currency.tr()}',style: TextStyles.font20Black700Weight.copyWith(
                                       color: backBlue2
                                   ),),
-                                  Text('اجمالي الارباح',style: TextStyles.font16Black600Weight),
+                                  Text(LocaleKeys.totalProfits.tr(),style: TextStyles.font16Black600Weight),
                                 ],
                               );
                             }else{
@@ -105,7 +104,7 @@ class ProfitsScreen extends StatelessWidget {
                                 }else{
                                   return Padding(
                                     padding:  EdgeInsets.symmetric(horizontal: 16.w),
-                                    child: CustomNotFoundDataWidget(image: AppImages.notFoundBranch,title: LocaleKeys.notFoundData.tr(), type: 'svg',),
+                                    child: CustomNotFoundDataWidget(image: AppImages.notFoundBranch,title: LocaleKeys.not_found_data.tr(), type: 'svg',),
                                   );
                                 }
                               }else{

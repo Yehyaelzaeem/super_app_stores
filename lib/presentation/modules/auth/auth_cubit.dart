@@ -59,7 +59,7 @@ class AuthCubit extends Cubit<AuthState> {
         _otpUseCase = otpUseCase,
         _restaurantTypesUseCase = restaurantTypesUseCase,
         _restaurantCategoriesUseCase = restaurantCategoriesUseCase,
-        _completeProfileUseCase=completeProfileUseCase,
+        _completeProfileUseCase = completeProfileUseCase,
         _saveUserDataUseCase = saveUserDataUseCase,
         _registerUseCase = registerUseCase,
         super(AuthInitial());
@@ -81,46 +81,50 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController comAddressController = TextEditingController();
   TextEditingController comTypeController = TextEditingController();
   AddressLocationModel? addressModel;
-  TextEditingController pickUpController = TextEditingController(text: LocaleKeys.locationMap2.tr());
+  TextEditingController pickUpController =
+      TextEditingController(text: LocaleKeys.locationMap2.tr());
   File? imageFile;
   Future<void> pickImage() async {
     final ImagePicker picker = ImagePicker();
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      imageFile =File(image.path);
+      imageFile = File(image.path);
     }
     emit(PickImageState());
   }
-  static AuthCubit get(BuildContext context)=>BlocProvider.of(context);
-  String type='auth';
-  String authType='register';
-  void changeType(String x){
-    type =x;
+
+  static AuthCubit get(BuildContext context) => BlocProvider.of(context);
+  String type = 'auth';
+  String authType = 'register';
+  void changeType(String x) {
+    type = x;
     emit(ChangeTypeState());
   }
-  void changeAuthType(String x){
-    authType =x;
+
+  void changeAuthType(String x) {
+    authType = x;
     emit(ChangeTypeState());
   }
 
   ///variables
   final LoginBody _body = LoginBody(phone: '', password: '');
-  final OTPBody _otpBody = OTPBody(phone: '',code: '');
-  final RegisterBody _regBody = RegisterBody(firstName: '', lastName: '', mobile: '', confirmPassword: '', password: '', email: '');
+  final OTPBody _otpBody = OTPBody(phone: '', code: '');
+  final RegisterBody _regBody = RegisterBody(
+      firstName: '',
+      lastName: '',
+      mobile: '',
+      confirmPassword: '',
+      password: '',
+      email: '');
 
   ///getters
   LoginBody get body => _body;
   OTPBody get otpBody => _otpBody;
   RegisterBody get regBody => _regBody;
 
-
-
-
-
-
   ///calling APIs Functions
-  Future<ResponseModel> login(String phone, String password,context) async {
-    emit(LoginLoadingState()) ;
+  Future<ResponseModel> login(String phone, String password, context) async {
+    emit(LoginLoadingState());
     // if(authType=='login'){
     //   _assignLoginBody(phoneController.text, otp);
     // }else{
@@ -130,10 +134,8 @@ class AuthCubit extends Cubit<AuthState> {
 
     ResponseModel responseModel = await _signInUseCase.call(loginBody: body);
     if (responseModel.isSuccess) {
-      NavigationService.push(Routes.otpScreen, arguments: {
-        'phone': phone,
-        'checkOTPType': CheckOTPType.login
-      });
+      NavigationService.push(Routes.otpScreen,
+          arguments: {'phone': phone, 'checkOTPType': CheckOTPType.login});
       // UserModel registerModel =responseModel.data;
       // LoginModelData userModel = registerModel.data??LoginModelData();
       // String token = userModel.token??'';
@@ -141,8 +143,8 @@ class AuthCubit extends Cubit<AuthState> {
       //   await _saveUserDataUseCase.call(token: token);
       // }
       // await BlocProvider.of<LocalAuthCubit>(context,listen: false).userLoginSuccessfully();
-      phoneController.text='';
-      passwordController.text='';
+      phoneController.text = '';
+      passwordController.text = '';
 
       // if(authType=='login'){
       //   NavigationService.pushReplacement(Routes.layoutScreen,arguments: {'currentPage':0});
@@ -153,133 +155,150 @@ class AuthCubit extends Cubit<AuthState> {
       // }else{
       //   changeType('res_data');
       // }
-      emit(LoginSuccessState()) ;
-    }else{
-      emit(LoginErrorState(responseModel.error)) ;
-    }
-    return responseModel;
-  }
-  RestaurantTypesModel? restaurantTypesModel;
-  Future<ResponseModel> getRestaurantType() async {
-    emit(GetRestaurantTypeLoadingState()) ;
-    ResponseModel responseModel = await _restaurantTypesUseCase.call();
-    if (responseModel.isSuccess) {
-      restaurantTypesModel=responseModel.data;
-      emit(GetRestaurantTypeSuccessState()) ;
-    }else{
-      emit(GetRestaurantTypeErrorState()) ;
+      emit(LoginSuccessState());
+    } else {
+      emit(LoginErrorState(responseModel.error));
     }
     return responseModel;
   }
 
-  List<CategoryModel> categoryModelDataList=[];
+  RestaurantTypesModel? restaurantTypesModel;
+  Future<ResponseModel> getRestaurantType() async {
+    emit(GetRestaurantTypeLoadingState());
+    ResponseModel responseModel = await _restaurantTypesUseCase.call();
+    if (responseModel.isSuccess) {
+      restaurantTypesModel = responseModel.data;
+      emit(GetRestaurantTypeSuccessState());
+    } else {
+      emit(GetRestaurantTypeErrorState());
+    }
+    return responseModel;
+  }
+
+  List<CategoryModel> categoryModelDataList = [];
 
   RestaurantTypesModel? restaurantCategoriesModel;
   Future<ResponseModel> getRestaurantCategories(int id) async {
-    emit(GetRestaurantCategoriesLoadingState()) ;
+    emit(GetRestaurantCategoriesLoadingState());
     ResponseModel responseModel = await _restaurantCategoriesUseCase.call(id);
     if (responseModel.isSuccess) {
-      restaurantCategoriesModel=responseModel.data;
-      emit(GetRestaurantCategoriesSuccessState()) ;
-    }else{
-      emit(GetRestaurantCategoriesErrorState()) ;
+      restaurantCategoriesModel = responseModel.data;
+      emit(GetRestaurantCategoriesSuccessState());
+    } else {
+      emit(GetRestaurantCategoriesErrorState());
     }
     return responseModel;
   }
-  Future<ResponseModel?> completeProfile(BuildContext context, bool? isUpdate) async {
-    emit(CompleteProfileLoadingState()) ;
-    if(comNameArController.text.isNotEmpty&&comNameController.text.isNotEmpty){
-      CompleteProfileBody completeProfileBody =
-      CompleteProfileBody(name: comNameController.text,
+
+  Future<ResponseModel?> completeProfile(
+      BuildContext context, bool? isUpdate) async {
+    emit(CompleteProfileLoadingState());
+    if (comNameArController.text.isNotEmpty &&
+        comNameController.text.isNotEmpty) {
+      CompleteProfileBody completeProfileBody = CompleteProfileBody(
+          name: comNameController.text,
           mobile: comPhoneController.text,
           email: comEmailController.text,
           category: categoryModelDataList.map((e) => e.id.toString()).join(','),
-          address: comAddressController.text, type: comTypeController.text,
+          address: comAddressController.text,
+          type: comTypeController.text,
           image: imageFile,
-
-          nameAr: comNameArController.text, lat: addressModel?.lat??'',
-          long: addressModel?.long??'');
-      ResponseModel responseModel = await _completeProfileUseCase.call(body: completeProfileBody);
+          nameAr: comNameArController.text,
+          lat: addressModel?.lat ?? '',
+          long: addressModel?.long ?? '');
+      ResponseModel responseModel =
+          await _completeProfileUseCase.call(body: completeProfileBody);
       if (responseModel.isSuccess) {
-
-        comEmailController.text='';
-        comAddressController.text='';
-        comNameController.text='';
+        comEmailController.text = '';
+        comAddressController.text = '';
+        comNameController.text = '';
         categoryModelDataList.clear();
-        comNameArController.text='';
-        comPhoneController.text='';
-        pickUpController.text='المنطقة/المدينة/البلدة/الشارع';
-        comTypeController.text='';
-        imageFile=null;
+        comNameArController.text = '';
+        comPhoneController.text = '';
+        pickUpController.text = 'المنطقة/المدينة/البلدة/الشارع';
+        comTypeController.text = '';
+        imageFile = null;
         Future.delayed(const Duration(minutes: 0)).then((value) {
-          if(isUpdate==true){
+          if (isUpdate == true) {
             context.pop();
             ProfileCubit.get(context).getProfile();
-          }else{
+          } else {
             // context.pushNamed(Routes.storeTimeScreen,arguments: {'isComplete':true});
-            context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
+            context
+                .pushNamed(Routes.layoutScreen, arguments: {'currentPage': 0});
           }
           // context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
         });
-        emit(CompleteProfileSuccessState()) ;
-      }else{
-        emit(CompleteProfileErrorState()) ;
+        emit(CompleteProfileSuccessState());
+      } else {
+        emit(CompleteProfileErrorState());
       }
       return responseModel;
-    }
-    else{
-      showToast(text: 'اكمل البيانات', state: ToastStates.error, context: context);
+    } else {
+      showToast(
+          text: 'اكمل البيانات', state: ToastStates.error, context: context);
       return null;
     }
   }
-  void removeCompleteDate(BuildContext context){
-    comEmailController.text='';
-    comAddressController.text='';
-    comNameController.text='';
-    comNameArController.text='';
-    comPhoneController.text='';
-    comTypeController.text='';
-    imageFile=null;
-    emit(RemoveDateState()) ;
+
+  void removeCompleteDate(BuildContext context) {
+    comEmailController.text = '';
+    comAddressController.text = '';
+    comNameController.text = '';
+    comNameArController.text = '';
+    comPhoneController.text = '';
+    comTypeController.text = '';
+    imageFile = null;
+    emit(RemoveDateState());
   }
-  Future<ResponseModel?> otpCode({required String phone,required BuildContext context}) async {
-    emit(OtpLoadingState()) ;
-    try{
+
+  Future<ResponseModel?> otpCode(
+      {required String phone, required BuildContext context}) async {
+    emit(OtpLoadingState());
+    try {
       _assignOtpBody(phone);
       ResponseModel responseModel = await _otpUseCase.call(body: otpBody);
-      if(responseModel.data!=null){
-        AuthModel otpModel =responseModel.data;
+      if (responseModel.data != null) {
+        AuthModel otpModel = responseModel.data;
         if (responseModel.isSuccess) {
           Future.delayed(const Duration(microseconds: 0)).then((value) {
-            showToast(text: otpModel.data!.otp!.toString(), state: ToastStates.success,
-                context: context,gravity: ToastGravity.TOP,timeInSecForIosWeb: 250);
+            showToast(
+                text: otpModel.data!.otp!.toString(),
+                state: ToastStates.success,
+                context: context,
+                gravity: ToastGravity.TOP,
+                timeInSecForIosWeb: 250);
           });
           changeType('otp');
           changeAuthType('login');
-          emit(OtpSuccessState()) ;
-        }else{
+          emit(OtpSuccessState());
+        } else {
           log('error', '${otpModel.toJson()}');
           log('error', '${responseModel.message}');
-          emit(OtpErrorState()) ;
+          emit(OtpErrorState());
         }
       }
-    }catch (e){
-      emit(OtpErrorState()) ;
+    } catch (e) {
+      emit(OtpErrorState());
     }
-    emit(OtpSuccessState()) ;
+    emit(OtpSuccessState());
     return null;
   }
 
-
   Future<ResponseModel?> register(context) async {
-    emit(RegisterLoadingState()) ;
-    try{
+    emit(RegisterLoadingState());
+    try {
       // changeAuthType('register');
-      _assignRegisterBody(firstName: regFirstNameController.text,
-          lastName:  regLastNameController.text, phone: regPhoneController.text, password: regPasswordController.text, confirmPassword: confirmPasswordController.text, email: regEmailController.text);
+      _assignRegisterBody(
+          firstName: regFirstNameController.text,
+          lastName: regLastNameController.text,
+          phone: regPhoneController.text,
+          password: regPasswordController.text,
+          confirmPassword: confirmPasswordController.text,
+          email: regEmailController.text);
       ResponseModel responseModel = await _registerUseCase.call(body: regBody);
       // RegisterModel registerModel =responseModel.data;
-     if (responseModel.isSuccess) {
+      if (responseModel.isSuccess) {
         // showToast(text: registerModel.data!.otp.toString(), state: ToastStates.success,
         //     context: context,gravity: ToastGravity.TOP,timeInSecForIosWeb: 250);
         // changeType('otp');
@@ -295,26 +314,22 @@ class AuthCubit extends Cubit<AuthState> {
         //   // context.pushNamed(Routes.completeProfileScreen);
         //   Navigator.push(context, MaterialPageRoute(builder: (context) =>CompleteProfileFirstScreen()));
         // }
-        regPhoneController.text='';
-        regLastNameController.text='';
-        regFirstNameController.text='';
-        regPasswordController.text='';
-        confirmPasswordController.text='';
-        regEmailController.text='';
-        emit(RegisterSuccessState()) ;
-
+        regPhoneController.text = '';
+        regLastNameController.text = '';
+        regFirstNameController.text = '';
+        regPasswordController.text = '';
+        confirmPasswordController.text = '';
+        regEmailController.text = '';
+        emit(RegisterSuccessState());
       }
-      emit(RegisterSuccessState()) ;
+      emit(RegisterSuccessState());
       return responseModel;
-    }catch (e){
-      emit(RegisterErrorState()) ;
+    } catch (e) {
+      emit(RegisterErrorState());
     }
-    emit(RegisterErrorState()) ;
+    emit(RegisterErrorState());
     return null;
   }
-
-
-
 
   void _assignRegisterBody({
     required String firstName,
@@ -323,17 +338,21 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String confirmPassword,
     required String email,
-
   }) {
-    regBody.setData(firstName: firstName, lastName: lastName, phone: phone, password: password, confirmPassword: confirmPassword, email: email);
+    regBody.setData(
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        password: password,
+        confirmPassword: confirmPassword,
+        email: email);
   }
 
-  void _assignLoginBody(String phone,String password) {
+  void _assignLoginBody(String phone, String password) {
     body.setData(phone: phone, password: password);
   }
+
   void _assignOtpBody(String phone) {
     otpBody.setData(phone: phone, code: '');
   }
-
-
 }

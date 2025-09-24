@@ -1,4 +1,3 @@
-import 'package:cogina_restaurants/core/translations/locale_keys.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/product/widgets/extra_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/product/widgets/prodcut_categories_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/product/widgets/product_image_widget.dart';
@@ -13,6 +12,7 @@ import '../../../../../component/custom_app_bar.dart';
 import '../home_cubit.dart';
 import 'widgets/product_text_field.dart';
 import 'widgets/product_title_field.dart';
+import 'package:cogina_restaurants/generated/locale_keys.g.dart';
 
 class AddProductScreen extends StatefulWidget {
   final bool? isOffer;
@@ -30,8 +30,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
     cubit.getProductsCategories();
     cubit.removeProductTextFieldData();
     cubit.productDisCount = TextEditingController(text: '0');
-    cubit.showSize=false;
-    cubit.showExtra=false;
+    cubit.showSize = false;
+    cubit.showExtra = false;
     super.initState();
   }
 
@@ -42,7 +42,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       backgroundColor: backGroundGray,
       appBar: CustomAppBar(
         color: backGroundGray,
-        title: LocaleKeys.addMeal.tr(),
+        title: LocaleKeys.add_meal.tr(),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -53,7 +53,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProductTitleField(
-                  title: LocaleKeys.mealName.tr(),
+                  title: LocaleKeys.meal_name.tr(),
                 ),
                 ProductTextField(
                   controller: cubit.productName,

@@ -1,4 +1,3 @@
-import 'package:cogina_restaurants/core/assets_constant/images.dart';
 import 'package:cogina_restaurants/core/helpers/extensions.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/widgets/custom_bottom_sheet_body.dart';
@@ -8,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/resources/color.dart';
 import '../../../../../core/resources/styles.dart';
 import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../core/routing/navigation_services.dart';
 import '../../../../../core/routing/routes.dart';
-import '../../../../../core/translations/locale_keys.dart';
 import '../../../../../data/model/response/profile_model.dart';
 import '../../../../component/custom_app_bar.dart';
 import '../../../../component/images/custom_image.dart';
 import '../../../../dialog/show_logout_dialog.dart';
 import '../../../branches/branch_cubit.dart';
 import '../../layout_cubit.dart';
+import 'package:cogina_restaurants/generated/locale_keys.g.dart';
+
 
 
 class AccountScreen extends StatelessWidget {

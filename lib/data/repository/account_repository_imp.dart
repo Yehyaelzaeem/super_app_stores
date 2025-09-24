@@ -10,21 +10,18 @@ import '../datasource/remote/dio/dio_client.dart';
 import '../datasource/remote/exception/api_error_handler.dart';
 import '../model/base/api_response.dart';
 
-class AccountRepositoryImp implements AccountRepository{
+class AccountRepositoryImp implements AccountRepository {
   final DioClient _dioClient;
   const AccountRepositoryImp({
     required DioClient dioClient,
-  })  : _dioClient = dioClient;
-
-
+  }) : _dioClient = dioClient;
 
   @override
-  Future<ApiResponse> bankAccount({required BankAccountBody bankAccountBody})async {
+  Future<ApiResponse> bankAccount(
+      {required BankAccountBody bankAccountBody}) async {
     try {
-      Response response = await _dioClient.post(
-          AppURL.kBankAccountURL,
-          queryParameters: bankAccountBody.toJson()
-      );
+      Response response = await _dioClient.post(AppURL.kBankAccountURL,
+          queryParameters: bankAccountBody.toJson());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -32,34 +29,35 @@ class AccountRepositoryImp implements AccountRepository{
   }
 
   @override
-  Future<ApiResponse> addAccountFiles({required AccountFilesBody accountFilesBody}) async{
-    FormData data ;
-    if(accountFilesBody.commercialFile!=null){
-      data =FormData.fromMap({
+  Future<ApiResponse> addAccountFiles(
+      {required AccountFilesBody accountFilesBody}) async {
+    FormData data;
+    if (accountFilesBody.commercialFile != null) {
+      data = FormData.fromMap({
         'commercial_id': [
-          await MultipartFile.fromFile(accountFilesBody.commercialFile!.path, filename: 'upload')
+          await MultipartFile.fromFile(accountFilesBody.commercialFile!.path,
+              filename: 'upload')
         ],
       });
-    }
-    else if(accountFilesBody.taxFile!=null){
-      data =FormData.fromMap({
+    } else if (accountFilesBody.taxFile != null) {
+      data = FormData.fromMap({
         'tax': [
-          await MultipartFile.fromFile(accountFilesBody.taxFile!.path, filename: 'upload')
+          await MultipartFile.fromFile(accountFilesBody.taxFile!.path,
+              filename: 'upload')
         ],
       });
-    }else{
-      data =FormData.fromMap({
+    } else {
+      data = FormData.fromMap({
         'banner': [
-          await MultipartFile.fromFile(accountFilesBody.bannerFile!.path, filename: 'upload')
+          await MultipartFile.fromFile(accountFilesBody.bannerFile!.path,
+              filename: 'upload')
         ],
       });
     }
 
     try {
-      Response response = await _dioClient.post(
-          AppURL.kAddAccountFilesURL,
-          data2: data
-      );
+      Response response =
+          await _dioClient.post(AppURL.kAddAccountFilesURL, data2: data);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -67,7 +65,7 @@ class AccountRepositoryImp implements AccountRepository{
   }
 
   @override
-  Future<ApiResponse> getAboutUs() async{
+  Future<ApiResponse> getAboutUs() async {
     try {
       Response response = await _dioClient.get(
         AppURL.kGetAboutUsURL,
@@ -79,7 +77,7 @@ class AccountRepositoryImp implements AccountRepository{
   }
 
   @override
-  Future<ApiResponse> getPrivacy() async{
+  Future<ApiResponse> getPrivacy() async {
     try {
       Response response = await _dioClient.get(
         AppURL.kGetPrivacyURL,
@@ -91,7 +89,7 @@ class AccountRepositoryImp implements AccountRepository{
   }
 
   @override
-  Future<ApiResponse> getTerms() async{
+  Future<ApiResponse> getTerms() async {
     try {
       log('yehya', 'starrrt');
       Response response = await _dioClient.get(
@@ -104,7 +102,7 @@ class AccountRepositoryImp implements AccountRepository{
   }
 
   @override
-  Future<ApiResponse> getPrescriptions()async {
+  Future<ApiResponse> getPrescriptions() async {
     try {
       Response response = await _dioClient.get(
         AppURL.kGetPrescriptionURL,
@@ -116,12 +114,12 @@ class AccountRepositoryImp implements AccountRepository{
   }
 
   @override
-  Future<ApiResponse> sendPricePrescription({required SendPrescriptionParams sendPrescriptionParams}) async{
+  Future<ApiResponse> sendPricePrescription(
+      {required SendPrescriptionParams sendPrescriptionParams}) async {
     try {
       Response response = await _dioClient.post(
-        AppURL.kSendPricePrescriptionURL,
-        queryParameters: sendPrescriptionParams.toJson()
-      );
+          AppURL.kSendPricePrescriptionURL,
+          queryParameters: sendPrescriptionParams.toJson());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
