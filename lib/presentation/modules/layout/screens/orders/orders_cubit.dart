@@ -78,6 +78,21 @@ class OrdersCubit extends Cubit<OrdersState> {
     getOnWayOrders(status: 'restaurant_done');
     getOnProgressOrders(status: 'restaurant_order_progress');
   }
+  refreshOrders(){
+    pendingOrders=null;
+    pendingOrdersList.clear();
+    acceptedOrders=null;
+    acceptedOrdersList.clear();
+    rejectedOrders=null;
+    rejectedOrdersList.clear();
+    completedOrders=null;
+    completedOrdersList.clear();
+    onWayOrders=null;
+    onWayOrdersList.clear();
+    onProgressOrders=null;
+    onProgressOrdersList.clear();
+   emit(state.copyWith(paddingPage:1));
+  }
   ///Pending Orders
   bool isLoading = false;
   bool isPaginationLoading = false;

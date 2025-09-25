@@ -16,7 +16,7 @@ class UpdateRestaurant extends StatelessWidget {
     return   Scaffold(
       body: CompeteDataWidget(
         title: LocaleKeys.updateData.tr(),
-        image: ProfileCubit.get(context).profileModel?.store?.files?.banner??'',
+        image: ProfileCubit.get(context).profileModel?.image??'',
       ),
     );
   }

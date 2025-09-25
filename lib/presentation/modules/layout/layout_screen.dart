@@ -2,6 +2,7 @@
 import 'package:cogina_restaurants/presentation/modules/layout/layout_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/account/edit_profile/profile_cubit.dart';
 import 'package:cogina_restaurants/presentation/modules/layout/screens/home/home_cubit.dart';
+import 'package:cogina_restaurants/presentation/modules/layout/screens/orders/orders_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +31,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
   void initState() {
     LocalAuthCubit.get().updateFCMToken();
     getPermission();
+
     HomeCubit.get(context).getProducts(reload: true);
+    OrdersCubit.get().refreshOrders();
     BranchCubit.get().getBranches();
     ProfileCubit.get(context).getProfile();
     BlocProvider.of<LayoutCubit>(context, listen: false).init(widget._currentPage);

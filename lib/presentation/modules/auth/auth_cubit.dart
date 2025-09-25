@@ -195,10 +195,13 @@ class AuthCubit extends Cubit<AuthState> {
           email: comEmailController.text,
           category: categoryModelDataList.map((e) => e.id.toString()).join(','),
           address: comAddressController.text, type: comTypeController.text,
-          image: imageFile,
+          // image: imageFile,
 
           nameAr: comNameArController.text, lat: addressModel?.lat??'',
           long: addressModel?.long??'');
+      if(imageFile!=null){
+       context.read<ProfileCubit>().updateImageProfile(file: imageFile);
+      }
       ResponseModel responseModel = await _completeProfileUseCase.call(body: completeProfileBody);
       if (responseModel.isSuccess) {
 

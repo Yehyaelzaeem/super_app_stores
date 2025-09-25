@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/assets_constant/images.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/resources/decoration.dart';
+import '../../../core/resources/styles.dart';
 import 'auth_cubit.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -35,8 +36,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // verticalSpace(10),
-                  Image.asset(AppImages.logo,color: Colors.red,),
+                  verticalSpace(100),
+                  Text('Connect App',style: TextStyles.font20Black700Weight.copyWith(
+                    color: Colors.red,
+                    fontSize: 30)),
+                  verticalSpace(100),
+
+                  // Image.asset(AppImages.logo,color: Colors.red,),
 
                   // verticalSpace(cubit.type=='auth'||cubit.type=='otp'?60:10),
                   cubit.type=='auth'?const AuthWidget():

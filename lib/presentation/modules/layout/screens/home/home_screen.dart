@@ -46,11 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             verticalSpace(15),
-            Center(child: Image.asset(
-              AppImages.logo3,
-              width: 100.w,
-              height: 100.h,
-          ),),
+            Center(child: Text('Connect App' ,style: TextStyles.font20Black700Weight.copyWith(
+              color: Colors.red,
+              fontSize: 22))),
             verticalSpace(10),
 
             BlocConsumer<HomeCubit, HomeState>(

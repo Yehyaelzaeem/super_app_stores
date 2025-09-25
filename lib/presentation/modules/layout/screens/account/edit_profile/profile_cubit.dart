@@ -84,11 +84,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
     return responseModel;
   }
-  Future<ResponseModel> updateImageProfile() async {
+  Future<ResponseModel> updateImageProfile({File? file}) async {
     emit(UpdateProfileLoadingState()) ;
-    ResponseModel responseModel = await _updateProfileUseCase.updateImage(image: imageFile!);
+    ResponseModel responseModel = await _updateProfileUseCase.updateImage(image:file?? imageFile!);
     if (responseModel.isSuccess) {
       imageFile=null;
+      getProfile();
       emit(UpdateProfileSuccessState()) ;
     }else{
       emit(UpdateProfileErrorState()) ;

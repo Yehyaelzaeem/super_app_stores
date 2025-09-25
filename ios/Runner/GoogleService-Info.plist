@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:179875326250:ios:1aa9374e025dbb67049653</string>
+	<string>1:179875326250:ios:826b02140c0d7e6f049653</string>
 	<key>DATABASE_URL</key>
 	<string>https://super-app-asia-default-rtdb.firebaseio.com</string>
 </dict>
