@@ -29,48 +29,54 @@ class OrdersCubit extends Cubit<OrdersState> {
   final DeliveredOrderUseCase deliveredOrderUseCase;
 
   final ChangeStateRestaurantUseCase _changeStateRestaurantUseCase;
-  OrdersCubit( {
-    required this.finishOrderUseCase, required this.inProgressOrderUseCase, required this.deliveredOrderUseCase,
-    required ChangeStateRestaurantUseCase changeStateRestaurantUseCase,
-    required GetOrdersByDateUseCase getOrdersByDateUseCase,required GetOrdersUseCase getOrdersUseCase,required AcceptOrderUseCase acceptOrderUseCase,required RejectOrderUseCase rejectOrderUseCase}) :
-      _getOrdersUseCase=getOrdersUseCase,
-      _getOrdersByDateUseCase=getOrdersByDateUseCase,
-      _changeStateRestaurantUseCase=changeStateRestaurantUseCase,
-      _acceptOrderUseCase=acceptOrderUseCase,
-      _rejectOrderUseCase=rejectOrderUseCase,
+  OrdersCubit(
+      {required this.finishOrderUseCase,
+      required this.inProgressOrderUseCase,
+      required this.deliveredOrderUseCase,
+      required ChangeStateRestaurantUseCase changeStateRestaurantUseCase,
+      required GetOrdersByDateUseCase getOrdersByDateUseCase,
+      required GetOrdersUseCase getOrdersUseCase,
+      required AcceptOrderUseCase acceptOrderUseCase,
+      required RejectOrderUseCase rejectOrderUseCase})
+      : _getOrdersUseCase = getOrdersUseCase,
+        _getOrdersByDateUseCase = getOrdersByDateUseCase,
+        _changeStateRestaurantUseCase = changeStateRestaurantUseCase,
+        _acceptOrderUseCase = acceptOrderUseCase,
+        _rejectOrderUseCase = rejectOrderUseCase,
         super(OrdersInitial());
 
-  static OrdersCubit get()=>BlocProvider.of(NavigationService.navigationKey.currentContext!);
+  static OrdersCubit get() =>
+      BlocProvider.of(NavigationService.navigationKey.currentContext!);
   OrdersModel? ordersModel;
   OrdersModel? ordersByDate;
   bool switchValue = true;
-  void switchState(bool x){
-    switchValue=x;
-    emit(GetAllOrderLoadingState()) ;
+  void switchState(bool x) {
+    switchValue = x;
+    emit(GetAllOrderLoadingState());
   }
 
-   String? branchId;
+  String? branchId;
 
-  changeBranch(String? branchId){
-    this.branchId=branchId;
+  changeBranch(String? branchId) {
+    this.branchId = branchId;
     pendingOrdersList.clear();
-    pendingOrders=null;
-    emit(state.copyWith(paddingPage:1));
+    pendingOrders = null;
+    emit(state.copyWith(paddingPage: 1));
     acceptedOrdersList.clear();
-    acceptedOrders=null;
-    emit(state.copyWith(acceptPage:1));
+    acceptedOrders = null;
+    emit(state.copyWith(acceptPage: 1));
     rejectedOrdersList.clear();
-    rejectedOrders=null;
-    emit(state.copyWith(rejectedPage:1));
+    rejectedOrders = null;
+    emit(state.copyWith(rejectedPage: 1));
     completedOrdersList.clear();
-    completedOrders=null;
-    emit(state.copyWith(completePage:1));
+    completedOrders = null;
+    emit(state.copyWith(completePage: 1));
     onWayOrdersList.clear();
-    onWayOrders=null;
-    emit(state.copyWith(onWayPage:1));
+    onWayOrders = null;
+    emit(state.copyWith(onWayPage: 1));
     onProgressOrdersList.clear();
-    onProgressOrders=null;
-    emit(state.copyWith(onProgressPage:1));
+    onProgressOrders = null;
+    emit(state.copyWith(onProgressPage: 1));
     getPendingOrders(status: 'padding');
     getAcceptedOrders(status: 'restaurant_accepted');
     getRejectedOrders(status: 'restaurant_rejected');
@@ -78,429 +84,529 @@ class OrdersCubit extends Cubit<OrdersState> {
     getOnWayOrders(status: 'restaurant_done');
     getOnProgressOrders(status: 'restaurant_order_progress');
   }
+
   ///Pending Orders
   bool isLoading = false;
   bool isPaginationLoading = false;
   OrdersModel? pendingOrders;
-  List<OrdersModelData> pendingOrdersList=[];
-  Future getPendingOrders({required String status,isReload=false}) async {
+  List<OrdersModelData> pendingOrdersList = [];
+  Future getPendingOrders({required String status, isReload = false}) async {
     if (isLoading || isPaginationLoading) return;
-    if(isReload==true){
-      pendingOrders=null;
+    if (isReload == true) {
+      pendingOrders = null;
       pendingOrdersList.clear();
-      emit(state.copyWith(paddingState: RequestState.loading,paddingOrdersList: []));
+      emit(state
+          .copyWith(paddingState: RequestState.loading, paddingOrdersList: []));
     }
 
-    if (pendingOrders != null && (pendingOrders?.meta?.pagination?.currentPage ?? 0) >= (pendingOrders?.meta?.pagination?.totalPages ?? 1)) {
+    if (pendingOrders != null &&
+        (pendingOrders?.meta?.pagination?.currentPage ?? 0) >=
+            (pendingOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationLoading = false;
-      emit(state.copyWith(paddingState: RequestState.loaded,paddingOrdersList: pendingOrdersList));
+      emit(state.copyWith(
+          paddingState: RequestState.loaded,
+          paddingOrdersList: pendingOrdersList));
       return;
     }
     isPaginationLoading = true;
     try {
       if (pendingOrders != null) {
         emit(state.copyWith(paddingPage: state.paddingPage + 1));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: state.paddingPage,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: state.paddingPage, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           pendingOrders = responseModel.data;
           pendingOrdersList.addAll(pendingOrders?.data ?? []);
           isPaginationLoading = false;
-          emit(state.copyWith(paddingState: RequestState.loaded, paddingOrdersList: pendingOrdersList));
+          emit(state.copyWith(
+              paddingState: RequestState.loaded,
+              paddingOrdersList: pendingOrdersList));
         } else {
           emit(state.copyWith(paddingState: RequestState.error));
         }
       } else {
         emit(state.copyWith(paddingState: RequestState.loading));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: 1,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: 1, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           pendingOrders = responseModel.data;
           pendingOrdersList.addAll(pendingOrders?.data ?? []);
-          emit(state.copyWith(paddingState: RequestState.loaded, paddingOrdersList: pendingOrdersList));
+          emit(state.copyWith(
+              paddingState: RequestState.loaded,
+              paddingOrdersList: pendingOrdersList));
         } else {
           emit(GetAllOrderErrorState());
         }
       }
-    }
-    finally {
+    } finally {
       isPaginationLoading = false;
-      emit(state.copyWith(paddingState: RequestState.loaded, paddingOrdersList: pendingOrdersList));
+      emit(state.copyWith(
+          paddingState: RequestState.loaded,
+          paddingOrdersList: pendingOrdersList));
     }
   }
 
-
   ///Accepted Orders
   OrdersModel? acceptedOrders;
-  List<OrdersModelData> acceptedOrdersList=[];
+  List<OrdersModelData> acceptedOrdersList = [];
   bool isPaginationAcceptedLoading = false;
-  Future getAcceptedOrders({required String status,bool isReload=false}) async {
-    if ( isPaginationAcceptedLoading) return;
-    if(isReload==true){
-      acceptedOrders=null;
+  Future getAcceptedOrders(
+      {required String status, bool isReload = false}) async {
+    if (isPaginationAcceptedLoading) return;
+    if (isReload == true) {
+      acceptedOrders = null;
       acceptedOrdersList.clear();
-      emit(state.copyWith(acceptOrderState: RequestState.loading,acceptOrdersList: []));
+      emit(state.copyWith(
+          acceptOrderState: RequestState.loading, acceptOrdersList: []));
     }
-    if (acceptedOrders != null && (acceptedOrders?.meta?.pagination?.currentPage ?? 0) >= (acceptedOrders?.meta?.pagination?.totalPages ?? 1)) {
+    if (acceptedOrders != null &&
+        (acceptedOrders?.meta?.pagination?.currentPage ?? 0) >=
+            (acceptedOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationAcceptedLoading = false;
-      emit(state.copyWith(acceptOrderState: RequestState.loaded,acceptOrdersList: acceptedOrdersList));
+      emit(state.copyWith(
+          acceptOrderState: RequestState.loaded,
+          acceptOrdersList: acceptedOrdersList));
       return;
     }
     isPaginationAcceptedLoading = true;
     try {
       if (acceptedOrders != null) {
         emit(state.copyWith(acceptPage: state.acceptPage + 1));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: state.acceptPage,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: state.acceptPage, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           acceptedOrders = responseModel.data;
           acceptedOrdersList.addAll(acceptedOrders?.data ?? []);
-          emit(state.copyWith(acceptOrderState: RequestState.loaded, acceptOrdersList: acceptedOrdersList));
+          emit(state.copyWith(
+              acceptOrderState: RequestState.loaded,
+              acceptOrdersList: acceptedOrdersList));
         } else {
           emit(state.copyWith(acceptOrderState: RequestState.error));
         }
-      }
-      else {
+      } else {
         emit(state.copyWith(acceptOrderState: RequestState.loading));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: 1,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: 1, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           acceptedOrders = responseModel.data;
           acceptedOrdersList.addAll(acceptedOrders?.data ?? []);
-          emit(state.copyWith(acceptOrderState: RequestState.loaded, acceptOrdersList: acceptedOrdersList));
+          emit(state.copyWith(
+              acceptOrderState: RequestState.loaded,
+              acceptOrdersList: acceptedOrdersList));
         } else {
           emit(GetAllOrderErrorState());
         }
       }
-    }
-    finally {
+    } finally {
       isPaginationAcceptedLoading = false;
     }
   }
 
   ///Rejected Orders
   OrdersModel? rejectedOrders;
-  List<OrdersModelData> rejectedOrdersList=[];
+  List<OrdersModelData> rejectedOrdersList = [];
   bool isPaginationRejectedLoading = false;
 
-  Future getRejectedOrders({required String status,bool isReload=false}) async {
-
-    if ( isPaginationRejectedLoading) return;
-    if(isReload==true){
-      rejectedOrders=null;
+  Future getRejectedOrders(
+      {required String status, bool isReload = false}) async {
+    if (isPaginationRejectedLoading) return;
+    if (isReload == true) {
+      rejectedOrders = null;
       rejectedOrdersList.clear();
-      emit(state.copyWith(rejectedState: RequestState.loading,rejectedOrdersList: []));
+      emit(state.copyWith(
+          rejectedState: RequestState.loading, rejectedOrdersList: []));
     }
-    if (rejectedOrders != null && (rejectedOrders?.meta?.pagination?.currentPage ?? 0) >= (rejectedOrders?.meta?.pagination?.totalPages ?? 1)) {
+    if (rejectedOrders != null &&
+        (rejectedOrders?.meta?.pagination?.currentPage ?? 0) >=
+            (rejectedOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationRejectedLoading = false;
-      emit(state.copyWith(rejectedState: RequestState.loaded,rejectedOrdersList: rejectedOrdersList));
+      emit(state.copyWith(
+          rejectedState: RequestState.loaded,
+          rejectedOrdersList: rejectedOrdersList));
       return;
     }
     isPaginationRejectedLoading = true;
     try {
       if (rejectedOrders != null) {
         emit(state.copyWith(rejectedPage: state.rejectedPage + 1));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: state.rejectedPage,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status,
+            page: state.rejectedPage,
+            branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           rejectedOrders = responseModel.data;
           rejectedOrdersList.addAll(rejectedOrders?.data ?? []);
-          emit(state.copyWith(rejectedState: RequestState.loaded, rejectedOrdersList: rejectedOrdersList));
-          print('rejectedOrdersadsafdfdsasList ${state.rejectedOrdersList.length}');
-
+          emit(state.copyWith(
+              rejectedState: RequestState.loaded,
+              rejectedOrdersList: rejectedOrdersList));
+          print(
+              'rejectedOrdersadsafdfdsasList ${state.rejectedOrdersList.length}');
         } else {
           emit(state.copyWith(rejectedState: RequestState.error));
         }
-      }
-      else {
+      } else {
         emit(state.copyWith(rejectedState: RequestState.loading));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: 1,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: 1, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           rejectedOrders = responseModel.data;
           rejectedOrdersList.addAll(rejectedOrders?.data ?? []);
-          emit(state.copyWith(rejectedState: RequestState.loaded, rejectedOrdersList: rejectedOrdersList));
+          emit(state.copyWith(
+              rejectedState: RequestState.loaded,
+              rejectedOrdersList: rejectedOrdersList));
         } else {
           emit(GetAllOrderErrorState());
         }
       }
-    }
-    finally {
+    } finally {
       isPaginationRejectedLoading = false;
     }
-    emit(state.copyWith(rejectedState: RequestState.loaded, rejectedOrdersList: rejectedOrdersList));
-
+    emit(state.copyWith(
+        rejectedState: RequestState.loaded,
+        rejectedOrdersList: rejectedOrdersList));
   }
-
 
   ///Completed Orders
   OrdersModel? completedOrders;
-  List<OrdersModelData> completedOrdersList=[];
+  List<OrdersModelData> completedOrdersList = [];
   bool isPaginationCompletedLoading = false;
 
-  Future getCompletedOrders({required String status,bool isReload=false}) async {
-    if ( isPaginationCompletedLoading) return;
-    if(isReload==true){
-      completedOrders=null;
+  Future getCompletedOrders(
+      {required String status, bool isReload = false}) async {
+    if (isPaginationCompletedLoading) return;
+    if (isReload == true) {
+      completedOrders = null;
       completedOrdersList.clear();
-      emit(state.copyWith(completeState: RequestState.loading,completeOrdersList: []));
+      emit(state.copyWith(
+          completeState: RequestState.loading, completeOrdersList: []));
     }
-    if (completedOrders != null && (completedOrders?.meta?.pagination?.currentPage ?? 0) >= (completedOrders?.meta?.pagination?.totalPages ?? 1)) {
+    if (completedOrders != null &&
+        (completedOrders?.meta?.pagination?.currentPage ?? 0) >=
+            (completedOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationCompletedLoading = false;
-      emit(state.copyWith(completeState: RequestState.loaded,completeOrdersList: completedOrdersList));
+      emit(state.copyWith(
+          completeState: RequestState.loaded,
+          completeOrdersList: completedOrdersList));
       return;
     }
     isPaginationCompletedLoading = true;
     try {
       if (completedOrders != null) {
         emit(state.copyWith(completePage: state.completePage + 1));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: state.completePage,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status,
+            page: state.completePage,
+            branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           completedOrders = responseModel.data;
           completedOrdersList.addAll(completedOrders?.data ?? []);
-          emit(state.copyWith(completeState: RequestState.loaded, completeOrdersList: completedOrdersList));
+          emit(state.copyWith(
+              completeState: RequestState.loaded,
+              completeOrdersList: completedOrdersList));
         } else {
           emit(state.copyWith(completeState: RequestState.error));
         }
-      }
-      else {
+      } else {
         emit(state.copyWith(completeState: RequestState.loading));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: 1,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: 1, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           completedOrders = responseModel.data;
           completedOrdersList.addAll(completedOrders?.data ?? []);
-          emit(state.copyWith(completeState: RequestState.loaded, completeOrdersList: completedOrdersList));
+          emit(state.copyWith(
+              completeState: RequestState.loaded,
+              completeOrdersList: completedOrdersList));
         } else {
           emit(GetAllOrderErrorState());
         }
       }
-    }
-    finally {
+    } finally {
       isPaginationCompletedLoading = false;
     }
   }
 
   ///On Way Orders
   OrdersModel? onWayOrders;
-  List<OrdersModelData> onWayOrdersList=[];
+  List<OrdersModelData> onWayOrdersList = [];
   bool isPaginationOnWayLoading = false;
 
-  Future getOnWayOrders({required String status,bool isReload=false}) async {
-    if ( isPaginationOnWayLoading) return;
-    if(isReload==true){
-      onWayOrders=null;
+  Future getOnWayOrders({required String status, bool isReload = false}) async {
+    if (isPaginationOnWayLoading) return;
+    if (isReload == true) {
+      onWayOrders = null;
       onWayOrdersList.clear();
-      emit(state.copyWith(onWayState: RequestState.loading,onWayOrdersList: []));
+      emit(state
+          .copyWith(onWayState: RequestState.loading, onWayOrdersList: []));
     }
-    if (onWayOrders != null && (onWayOrders?.meta?.pagination?.currentPage ?? 0) >= (onWayOrders?.meta?.pagination?.totalPages ?? 1)) {
+    if (onWayOrders != null &&
+        (onWayOrders?.meta?.pagination?.currentPage ?? 0) >=
+            (onWayOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationOnWayLoading = false;
-      emit(state.copyWith(onWayState: RequestState.loaded,onWayOrdersList: onWayOrdersList));
+      emit(state.copyWith(
+          onWayState: RequestState.loaded, onWayOrdersList: onWayOrdersList));
       return;
     }
     isPaginationOnWayLoading = true;
     try {
       if (onWayOrders != null) {
         emit(state.copyWith(onWayPage: state.onWayPage + 1));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: state.onWayPage,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: state.onWayPage, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           onWayOrders = responseModel.data;
           onWayOrdersList.addAll(onWayOrders?.data ?? []);
-          emit(state.copyWith(onWayState: RequestState.loaded, onWayOrdersList: onWayOrdersList));
+          emit(state.copyWith(
+              onWayState: RequestState.loaded,
+              onWayOrdersList: onWayOrdersList));
         } else {
           emit(state.copyWith(onWayState: RequestState.error));
         }
-      }
-      else {
+      } else {
         emit(state.copyWith(onWayState: RequestState.loading));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: 1,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: 1, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           onWayOrders = responseModel.data;
           onWayOrdersList.addAll(onWayOrders?.data ?? []);
-          emit(state.copyWith(onWayState: RequestState.loaded, onWayOrdersList: onWayOrdersList));
+          emit(state.copyWith(
+              onWayState: RequestState.loaded,
+              onWayOrdersList: onWayOrdersList));
         } else {
           emit(GetAllOrderErrorState());
         }
       }
-    }
-    finally {
+    } finally {
       isPaginationOnWayLoading = false;
     }
   }
 
-
   ///On Progress Orders
   OrdersModel? onProgressOrders;
-  List<OrdersModelData> onProgressOrdersList=[];
-    bool isPaginationOnProgressLoading = false;
-  Future getOnProgressOrders({required String status,bool isReload=false}) async {
-    if ( isPaginationOnProgressLoading) return;
-    if(isReload==true){
-      onProgressOrders=null;
+  List<OrdersModelData> onProgressOrdersList = [];
+  bool isPaginationOnProgressLoading = false;
+  Future getOnProgressOrders(
+      {required String status, bool isReload = false}) async {
+    if (isPaginationOnProgressLoading) return;
+    if (isReload == true) {
+      onProgressOrders = null;
       onProgressOrdersList.clear();
-      emit(state.copyWith(onProgressState: RequestState.loading,onProgressOrdersList: []));
+      emit(state.copyWith(
+          onProgressState: RequestState.loading, onProgressOrdersList: []));
     }
-    if (onProgressOrders != null && (onProgressOrders?.meta?.pagination?.currentPage ?? 0) >= (onProgressOrders?.meta?.pagination?.totalPages ?? 1)) {
+    if (onProgressOrders != null &&
+        (onProgressOrders?.meta?.pagination?.currentPage ?? 0) >=
+            (onProgressOrders?.meta?.pagination?.totalPages ?? 1)) {
       isPaginationOnProgressLoading = false;
-      emit(state.copyWith(onProgressState: RequestState.loaded,onProgressOrdersList: onProgressOrdersList));
+      emit(state.copyWith(
+          onProgressState: RequestState.loaded,
+          onProgressOrdersList: onProgressOrdersList));
       return;
     }
     isPaginationOnProgressLoading = true;
     try {
       if (onProgressOrders != null) {
         emit(state.copyWith(onProgressPage: state.onProgressPage + 1));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: state.onProgressPage,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status,
+            page: state.onProgressPage,
+            branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           onProgressOrders = responseModel.data;
           onProgressOrdersList.addAll(onProgressOrders?.data ?? []);
-          emit(state.copyWith(onProgressState: RequestState.loaded, onProgressOrdersList: onProgressOrdersList));
+          emit(state.copyWith(
+              onProgressState: RequestState.loaded,
+              onProgressOrdersList: onProgressOrdersList));
         } else {
           emit(state.copyWith(onProgressState: RequestState.error));
         }
-      }
-      else {
+      } else {
         emit(state.copyWith(onProgressState: RequestState.loading));
-        ResponseModel responseModel = await _getOrdersUseCase.call(status: status, page: 1,branchId: branchId??'0');
+        ResponseModel responseModel = await _getOrdersUseCase.call(
+            status: status, page: 1, branchId: branchId ?? '0');
         if (responseModel.isSuccess) {
           onProgressOrders = responseModel.data;
           onProgressOrdersList.addAll(onProgressOrders?.data ?? []);
-          emit(state.copyWith(onProgressState: RequestState.loaded, onProgressOrdersList: onProgressOrdersList));
+          emit(state.copyWith(
+              onProgressState: RequestState.loaded,
+              onProgressOrdersList: onProgressOrdersList));
         } else {
           emit(GetAllOrderErrorState());
         }
       }
-    }
-    finally {
+    } finally {
       isPaginationOnProgressLoading = false;
     }
   }
 
   Future<ResponseModel> getOrdersByDate({required String date}) async {
-    ordersByDate=null;
-    emit(GetAllOrderLoadingState()) ;
-    ResponseModel responseModel = await _getOrdersByDateUseCase.call(date: date);
+    ordersByDate = null;
+    emit(GetAllOrderLoadingState());
+    ResponseModel responseModel =
+        await _getOrdersByDateUseCase.call(date: date);
     if (responseModel.isSuccess) {
       print(responseModel.data!.toString());
-      ordersByDate =responseModel.data!;
-      emit(GetAllOrderSuccessState()) ;
-    }else{
-      emit(GetAllOrderErrorState()) ;
+      ordersByDate = responseModel.data!;
+      emit(GetAllOrderSuccessState());
+    } else {
+      emit(GetAllOrderErrorState());
     }
     return responseModel;
   }
 
-
   Future<ResponseModel> changeStateRestaurant() async {
-    emit(ChangeRestaurantLoadingState()) ;
+    emit(ChangeRestaurantLoadingState());
     ResponseModel responseModel = await _changeStateRestaurantUseCase.call();
     if (responseModel.isSuccess) {
-      ProfileCubit.get(NavigationService.navigationKey.currentContext!).getProfile();
-      emit(ChangeRestaurantSuccessState()) ;
-    }else{
-      emit(ChangeRestaurantErrorState()) ;
+      ProfileCubit.get(NavigationService.navigationKey.currentContext!)
+          .getProfile();
+      emit(ChangeRestaurantSuccessState());
+    } else {
+      emit(ChangeRestaurantErrorState());
     }
     return responseModel;
   }
 
   Future<ResponseModel> rejectOrder({required int orderId}) async {
-    emit(RejectOrderLoadingState()) ;
-    ResponseModel responseModel = await _rejectOrderUseCase.call(orderId: orderId);
+    emit(RejectOrderLoadingState());
+    ResponseModel responseModel =
+        await _rejectOrderUseCase.call(orderId: orderId);
     if (responseModel.isSuccess) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
-        showToast(text: responseModel.message.toString(), state: ToastStates.success, context: NavigationService.navigationKey.currentContext!);
-        pendingOrders=null;
+        showToast(
+            text: responseModel.message.toString(),
+            state: ToastStates.success,
+            context: NavigationService.navigationKey.currentContext!);
+        pendingOrders = null;
         pendingOrdersList.clear();
-        emit(state.copyWith(paddingPage:1));
+        emit(state.copyWith(paddingPage: 1));
         getPendingOrders(status: 'padding');
-
       });
-      emit(RejectOrderSuccessState()) ;
-    }else{
-      emit(RejectOrderErrorState()) ;
+      emit(RejectOrderSuccessState());
+    } else {
+      emit(RejectOrderErrorState());
     }
     return responseModel;
   }
 
-
-///Access Orders
+  ///Access Orders
   Future<ResponseModel> acceptOrder({required int orderId}) async {
-    emit(AcceptOrderLoadingState()) ;
-    BranchCubit cubit =BranchCubit.get();
-    AcceptOrderBody acceptOrderBody=AcceptOrderBody(
+    emit(AcceptOrderLoadingState());
+    BranchCubit cubit = BranchCubit.get();
+    AcceptOrderBody acceptOrderBody = AcceptOrderBody(
       orderId: orderId,
-      lat:cubit.lat??0.0 ,
-      long:cubit.long??0.0,
+      lat: cubit.lat ?? 0.0,
+      long: cubit.long ?? 0.0,
     );
-    ResponseModel responseModel = await _acceptOrderUseCase.call(acceptOrderBody: acceptOrderBody);
+    ResponseModel responseModel =
+        await _acceptOrderUseCase.call(acceptOrderBody: acceptOrderBody);
     if (responseModel.isSuccess) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
-        showToast(text: responseModel.message.toString(), state: ToastStates.success, context: NavigationService.navigationKey.currentContext!);
-        pendingOrders=null;
+        showToast(
+            text: responseModel.message.toString(),
+            state: ToastStates.success,
+            context: NavigationService.navigationKey.currentContext!);
+        pendingOrders = null;
         pendingOrdersList.clear();
-        emit(state.copyWith(paddingPage:1));
+        emit(state.copyWith(paddingPage: 1));
         getPendingOrders(status: 'padding');
       });
-      emit(AcceptOrderSuccessState()) ;
-    }else{
-      emit(AcceptOrderErrorState()) ;
+      emit(AcceptOrderSuccessState());
+    } else {
+      emit(AcceptOrderErrorState());
     }
     return responseModel;
   }
 
   Future<ResponseModel> inProgressOrder({required int orderId}) async {
     emit(AcceptOrderLoadingState());
-    ResponseModel responseModel = await inProgressOrderUseCase.call(orderId: orderId);
+    ResponseModel responseModel =
+        await inProgressOrderUseCase.call(orderId: orderId);
     if (responseModel.isSuccess) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
-        showToast(text: responseModel.message.toString(), state: ToastStates.success, context: NavigationService.navigationKey.currentContext!);
-        acceptedOrders=null;
-        onProgressOrders=null;
+        showToast(
+            text: responseModel.message.toString(),
+            state: ToastStates.success,
+            context: NavigationService.navigationKey.currentContext!);
+        acceptedOrders = null;
+        onProgressOrders = null;
         onProgressOrdersList.clear();
         acceptedOrdersList.clear();
-        emit(state.copyWith(onProgressPage:1));
-        emit(state.copyWith(acceptPage:1));
+        emit(state.copyWith(onProgressPage: 1));
+        emit(state.copyWith(acceptPage: 1));
         getAcceptedOrders(status: 'restaurant_accepted');
       });
-      emit(AcceptOrderSuccessState()) ;
-    }else{
-      emit(AcceptOrderErrorState()) ;
+      emit(AcceptOrderSuccessState());
+    } else {
+      emit(AcceptOrderErrorState());
     }
     return responseModel;
   }
 
   Future<ResponseModel> finishOrder({required int orderId}) async {
     emit(AcceptOrderLoadingState());
-    ResponseModel responseModel = await finishOrderUseCase.call(orderId: orderId);
+    ResponseModel responseModel =
+        await finishOrderUseCase.call(orderId: orderId);
     if (responseModel.isSuccess) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
-        showToast(text: responseModel.message.toString(), state: ToastStates.success, context: NavigationService.navigationKey.currentContext!);
-        onWayOrders=null;
-        onProgressOrders=null;
+        showToast(
+            text: responseModel.message.toString(),
+            state: ToastStates.success,
+            context: NavigationService.navigationKey.currentContext!);
+        onWayOrders = null;
+        onProgressOrders = null;
         onProgressOrdersList.clear();
         onWayOrdersList.clear();
-        emit(state.copyWith(onWayPage:1));
-        emit(state.copyWith(onProgressPage:1));
+        emit(state.copyWith(onWayPage: 1));
+        emit(state.copyWith(onProgressPage: 1));
         getOnProgressOrders(status: 'restaurant_order_progress');
       });
-      emit(AcceptOrderSuccessState()) ;
-    }else{
-      emit(AcceptOrderErrorState()) ;
+      emit(AcceptOrderSuccessState());
+    } else {
+      emit(AcceptOrderErrorState());
     }
     return responseModel;
   }
+
   Future<ResponseModel> deliveredOrder({required int orderId}) async {
     emit(AcceptOrderLoadingState());
-    ResponseModel responseModel = await deliveredOrderUseCase.call(orderId: orderId);
+    ResponseModel responseModel =
+        await deliveredOrderUseCase.call(orderId: orderId);
     if (responseModel.isSuccess) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
-        showToast(text: responseModel.message.toString(), state: ToastStates.success, context: NavigationService.navigationKey.currentContext!);
-        onWayOrders=null;
-        completedOrders=null;
+        showToast(
+            text: responseModel.message.toString(),
+            state: ToastStates.success,
+            context: NavigationService.navigationKey.currentContext!);
+        onWayOrders = null;
+        completedOrders = null;
         completedOrdersList.clear();
         onWayOrdersList.clear();
-        emit(state.copyWith(onWayPage:1));
-        emit(state.copyWith(completePage:1));
+        emit(state.copyWith(onWayPage: 1));
+        emit(state.copyWith(completePage: 1));
         getOnWayOrders(status: 'restaurant_done');
-
       });
-      emit(AcceptOrderSuccessState()) ;
-    }else{
-      emit(AcceptOrderErrorState()) ;
+      emit(AcceptOrderSuccessState());
+    } else {
+      emit(AcceptOrderErrorState());
     }
     return responseModel;
   }
 
+  void clearOrders() {
+    pendingOrders = null;
+    acceptedOrders = null;
+    rejectedOrders = null;
+    completedOrders = null;
+    onWayOrders = null;
+    onProgressOrders = null;
+
+    pendingOrdersList.clear();
+    acceptedOrdersList.clear();
+    rejectedOrdersList.clear();
+    completedOrdersList.clear();
+    onWayOrdersList.clear();
+    onProgressOrdersList.clear();
+
+    emit(OrdersInitial());
+  }
 }

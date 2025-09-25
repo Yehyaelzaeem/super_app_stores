@@ -16,16 +16,17 @@ class LoginWidget extends StatelessWidget {
   const LoginWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    AuthCubit cubit =AuthCubit.get(context);
-    if(kDebugMode){
-      cubit.phoneController.text=  '01027362575';
-      cubit.passwordController.text=  '123456';
+    AuthCubit cubit = AuthCubit.get(context);
+    if (kDebugMode) {
+      cubit.phoneController.text = '01027362575';
+      cubit.passwordController.text = '123456';
     }
-    return  SingleChildScrollView(
-      child:  Column(
+    return SingleChildScrollView(
+      child: Column(
         children: [
           verticalSpace(35),
           CustomTextField(
+          
             textInputType: TextInputType.number,
             prefixIcon: const Icon(
               Icons.phone,
@@ -35,7 +36,7 @@ class LoginWidget extends StatelessWidget {
             borderRadius: 30,
             borderColor: whiteColor.withOpacity(0.1),
             hintText: LocaleKeys.phone.tr(),
-            controller:cubit.phoneController,
+            controller: cubit.phoneController,
             textInputAction: TextInputAction.next,
             // onFieldSubmitted: (vsl){
             //   cubit.otpCode(cubit.phoneController.text,context);
@@ -64,22 +65,24 @@ class LoginWidget extends StatelessWidget {
             listener: (context, state) {},
             builder: (context, state) {
               return Container(
-                decoration: Decorations.backGroundDecorationButton().copyWith(borderRadius: BorderRadius.circular(40)),
+                decoration: Decorations.backGroundDecorationButton()
+                    .copyWith(borderRadius: BorderRadius.circular(40)),
                 height: 47,
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: CustomElevatedButton(
-                    isLoading:state is LoginLoadingState,
+                    isLoading: state is LoginLoadingState,
                     backgroundColor: Colors.transparent,
-                    onTap: (){
-                      cubit.login(cubit.phoneController.text, cubit.passwordController.text, context);
+                    onTap: () {
+                      cubit.login(cubit.phoneController.text,
+                          cubit.passwordController.text, context);
                       // if(type=='login'){
                       //   cubit.otpCode( phone: cubit.phoneController.text, context: context);
                       // }else{
                       //   cubit.register(context);
                       // }
                     },
-                    buttonText:LocaleKeys.log.tr(),
+                    buttonText: LocaleKeys.log.tr(),
                     width: MediaQuery.of(context).size.width,
                     fontSize: 17,
                     borderRadius: 40,
@@ -91,6 +94,5 @@ class LoginWidget extends StatelessWidget {
         ],
       ),
     );
-
   }
 }
