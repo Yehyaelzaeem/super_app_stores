@@ -19,6 +19,7 @@ InputDecoration customInputDecoration({
   bool? enabled,
 }) {
   return InputDecoration(
+    
     hintText: hintText,
 
     hintStyle: hintStyle??TextStyle(

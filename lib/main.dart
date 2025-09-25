@@ -13,8 +13,9 @@ import 'core/resources/color.dart';
 import 'core/routing/navigation_services.dart';
 import 'core/routing/route_generator.dart';
 import 'domain/injection.dart' as domain_injection;
-/// 12/8/2025
-void main() async{
+
+/// 25/9/2025
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await data_injection.init();
@@ -25,52 +26,54 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
-  runApp( GenerateMultiBloc(
-      child:   EasyLocalization(
-        supportedLocales: supportedLocales,
-        path: 'assets/translation',
-        fallbackLocale: supportedLocales[0],
-        saveLocale: true,
-        useOnlyLangCode: true,
-        startLocale: supportedLocales[0],
-        child: MyApp(),
-      )));
+  runApp(GenerateMultiBloc(
+      child: EasyLocalization(
+    supportedLocales: supportedLocales,
+    path: 'assets/translation',
+    fallbackLocale: supportedLocales[0],
+    saveLocale: true,
+    useOnlyLangCode: true,
+    startLocale: supportedLocales[0],
+    child: MyApp(),
+  )));
 }
+
 final supportedLocales = <Locale>[
   const Locale('ar'),
   const Locale('en'),
 ];
-BuildContext appContext=NavigationService.navigationKey.currentContext!;
+BuildContext appContext = NavigationService.navigationKey.currentContext!;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(375, 812),
-        useInheritedMediaQuery: true,
-        builder: (BuildContext context, Widget? child) {
-          return MaterialApp(
-            title:
-            'Super App Stores',
-            debugShowCheckedModeBanner: false,
-            navigatorKey: NavigationService.navigationKey,
-            onGenerateRoute: RouteGenerator.generateBaseRoute,
-            localizationsDelegates: [CountryLocalizations.delegate, ...context.localizationDelegates,],
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            theme: ThemeData(
-              primaryColor: primaryColor,
-              // AppColors.primaryColor,
-              primaryColorDark: primaryColorDark,
-              colorScheme: ColorScheme.fromSeed(seedColor: primaryColor.withOpacity(0.5)),
-              useMaterial3: true,
-            ),
-            home:  SplashScreen(),
-
-
-          );
-        },
-      );
+      designSize: const Size(375, 812),
+      useInheritedMediaQuery: true,
+      builder: (BuildContext context, Widget? child) {
+        return MaterialApp(
+          title: 'Super App Stores',
+          debugShowCheckedModeBanner: false,
+          navigatorKey: NavigationService.navigationKey,
+          onGenerateRoute: RouteGenerator.generateBaseRoute,
+          localizationsDelegates: [
+            CountryLocalizations.delegate,
+            ...context.localizationDelegates,
+          ],
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          theme: ThemeData(
+            primaryColor: primaryColor,
+            // AppColors.primaryColor,
+            primaryColorDark: primaryColorDark,
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: primaryColor.withOpacity(0.5)),
+            useMaterial3: true,
+          ),
+          home: SplashScreen(),
+        );
+      },
+    );
   }
 }

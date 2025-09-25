@@ -26,64 +26,85 @@ class AccountCubit extends Cubit<AccountState> {
   final TermsUseCase _termsUseCase;
   final BankAccountUseCase _bankAccountUseCase;
   final AddAccountFilesUseCase _addAccountFilesUseCase;
-  AccountCubit({
-    required BankAccountUseCase bankAccountUseCase,
-    required AboutUsUseCase aboutUsUseCase,
-    required PrivacyUseCase privacyUseCase,
-    required TermsUseCase termsUseCase,
-    required AddAccountFilesUseCase addAccountFilesUseCase}) :
-        _aboutUsUseCase =aboutUsUseCase,_privacyUseCase=privacyUseCase,_termsUseCase=termsUseCase,
-        _bankAccountUseCase=bankAccountUseCase,_addAccountFilesUseCase=addAccountFilesUseCase, super(AccountInitial());
+  AccountCubit(
+      {required BankAccountUseCase bankAccountUseCase,
+      required AboutUsUseCase aboutUsUseCase,
+      required PrivacyUseCase privacyUseCase,
+      required TermsUseCase termsUseCase,
+      required AddAccountFilesUseCase addAccountFilesUseCase})
+      : _aboutUsUseCase = aboutUsUseCase,
+        _privacyUseCase = privacyUseCase,
+        _termsUseCase = termsUseCase,
+        _bankAccountUseCase = bankAccountUseCase,
+        _addAccountFilesUseCase = addAccountFilesUseCase,
+        super(AccountInitial());
 
-  static AccountCubit get(BuildContext context)=>BlocProvider.of(context);
+  static AccountCubit get(BuildContext context) => BlocProvider.of(context);
 
-  TextEditingController holderName =TextEditingController();
-  TextEditingController bankName =TextEditingController();
-  TextEditingController accountNumber =TextEditingController();
-  TextEditingController branchName =TextEditingController();
-  TextEditingController iban =TextEditingController();
+  TextEditingController holderName = TextEditingController();
+  TextEditingController bankName = TextEditingController();
+  TextEditingController accountNumber = TextEditingController();
+  TextEditingController branchName = TextEditingController();
+  TextEditingController iban = TextEditingController();
   final bankKey = GlobalKey<FormState>();
 
   Future<dynamic> bankAccount(BuildContext context) async {
-    if(bankKey.currentState!.validate()){
-      emit(BankAccountLoadingState()) ;
-      BankAccountBody bankAccountBody =BankAccountBody(
-          holderName: holderName.text, bankName: bankName.text,
-          accountNumber: accountNumber.text, bankBranch: branchName.text,
+    if (bankKey.currentState!.validate()) {
+      emit(BankAccountLoadingState());
+      BankAccountBody bankAccountBody = BankAccountBody(
+          holderName: holderName.text,
+          bankName: bankName.text,
+          accountNumber: accountNumber.text,
+          bankBranch: branchName.text,
           iban: iban.text);
-      ResponseModel responseModel = await _bankAccountUseCase.call(bankAccountBody: bankAccountBody);
+      ResponseModel responseModel =
+          await _bankAccountUseCase.call(bankAccountBody: bankAccountBody);
       if (responseModel.isSuccess) {
         Future.delayed(const Duration(microseconds: 0)).then((value) {
-          showToast(text: responseModel.message.toString(), state: ToastStates.success, context: context);
+          showToast(
+              text: responseModel.message.toString(),
+              state: ToastStates.success,
+              context: context);
           removeData();
           ProfileCubit.get(context).getProfile();
           context.pop();
         });
-        emit(BankAccountSuccessState()) ;
-      }else{
+        emit(BankAccountSuccessState());
+      } else {
         emit(BankAccountErrorState());
       }
     }
   }
-  Future<dynamic> uploadAccountFile({required BuildContext context,required String type,bool isComplete=false}) async {
-    emit(UploadFileLoadingState()) ;
-    AccountFilesBody accountFilesBody =
-    type=='commercialIdFile'?
-    AccountFilesBody(commercialFile: commercialIdFile,):
-    type=='taxFile'? AccountFilesBody(taxFile: taxFile ): AccountFilesBody(bannerFile:bannerFile );
-    ResponseModel responseModel = await _addAccountFilesUseCase.call(accountFilesBody: accountFilesBody);
+
+  Future<dynamic> uploadAccountFile(
+      {required BuildContext context,
+      required String type,
+      bool isComplete = false}) async {
+    emit(UploadFileLoadingState());
+    AccountFilesBody accountFilesBody = type == 'commercialIdFile'
+        ? AccountFilesBody(
+            commercialFile: commercialIdFile,
+          )
+        : type == 'taxFile'
+            ? AccountFilesBody(taxFile: taxFile)
+            : AccountFilesBody(bannerFile: bannerFile);
+    ResponseModel responseModel =
+        await _addAccountFilesUseCase.call(accountFilesBody: accountFilesBody);
     if (responseModel.isSuccess) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
-        showToast(text: responseModel.message.toString(), state: ToastStates.success, context: context);
+        showToast(
+            text: responseModel.message.toString(),
+            state: ToastStates.success,
+            context: context);
         ProfileCubit.get(context).getProfile();
-        if(isComplete==true){
-          context.pushNamed(Routes.layoutScreen,arguments: {'currentPage':0});
-        }else{
+        if (isComplete == true) {
+          context.pushNamed(Routes.layoutScreen, arguments: {'currentPage': 0});
+        } else {
           context.pop();
         }
       });
-      emit(UploadFileLSuccessState()) ;
-    }else{
+      emit(UploadFileLSuccessState());
+    } else {
       emit(UploadFileErrorState());
     }
   }
@@ -92,74 +113,78 @@ class AccountCubit extends Cubit<AccountState> {
   MoreContactUsModel? privacyData;
   MoreContactUsModel? termsData;
   Future<ResponseModel> getAboutUs() async {
-    aboutUsData=null;
-    emit(GetDataLoadingState()) ;
+    aboutUsData = null;
+    emit(GetDataLoadingState());
     ResponseModel responseModel = await _aboutUsUseCase.call();
-    print('ssssss655555s ${responseModel.data.toString()}');
-
     if (responseModel.isSuccess) {
-      // MoreContactUsModel moreContactUsModel=responseModel.data;
-      // print('sdfsdfdf ${moreContactUsModel.data.toString()}');
-      print('ssssss655555s ${responseModel.data}');
-
-      emit(GetDataSuccessState(data:responseModel.data.toString())) ;
-    }else{
-      emit(GetDataErrorState()) ;
+      emit(GetDataSuccessState(data: responseModel.data.toString()));
+    } else {
+      emit(GetDataErrorState(
+          error: responseModel.error?.errorMessage.toString() ?? 'error'));
     }
     return responseModel;
   }
+
   Future<ResponseModel> getPrivacy() async {
-    privacyData=null;
-    emit(GetDataLoadingState()) ;
+    privacyData = null;
+    emit(GetDataLoadingState());
     ResponseModel responseModel = await _privacyUseCase.call();
     if (responseModel.isSuccess) {
-      MoreContactUsModel moreContactUsModel=responseModel.data;
-      emit(GetDataSuccessState(data: moreContactUsModel.data!.toString())) ;
-    }else{
-      emit(GetDataErrorState()) ;
+      emit(GetDataSuccessState(data: responseModel.data.toString()));
+    } else {
+      emit(GetDataErrorState(
+          error: responseModel.error?.errorMessage.toString() ?? 'error'));
     }
     return responseModel;
   }
+
   Future<ResponseModel> getTerms() async {
-    termsData=null;
-    emit(GetDataLoadingState()) ;
+    termsData = null;
+    emit(GetDataLoadingState());
     ResponseModel responseModel = await _termsUseCase.call();
     if (responseModel.isSuccess) {
-      MoreContactUsModel moreContactUsModel=responseModel.data;
-      emit(GetDataSuccessState(data:  moreContactUsModel.data!.toString())) ;
-    }else{
-      emit(GetDataErrorState()) ;
+      emit(GetDataSuccessState(data: responseModel.data.toString()));
+    } else {
+      emit(GetDataErrorState(
+          error: responseModel.error?.errorMessage.toString() ?? 'error'));
     }
     return responseModel;
   }
-  void pushToUpdateRestaurant(BuildContext context){
-    ProfileCubit profileCubit=  ProfileCubit.get(context);
-    AuthCubit cubit =AuthCubit.get(context);
-    var data =profileCubit.profileModel!;
-    cubit.comNameArController=TextEditingController(text:data.store?.nameAr??'');
-    cubit.comNameController=TextEditingController(text:data.store?.name??'');
-    cubit.comEmailController=TextEditingController(text:data.email??'');
-    cubit.comPhoneController=TextEditingController(text:data.mobileNumber??'');
-    cubit.comAddressController=TextEditingController(text:data.address??'');
-    emit(PassAccountDataState()) ;
+
+  void pushToUpdateRestaurant(BuildContext context) {
+    ProfileCubit profileCubit = ProfileCubit.get(context);
+    AuthCubit cubit = AuthCubit.get(context);
+    var data = profileCubit.profileModel!;
+    cubit.comNameArController =
+        TextEditingController(text: data.store?.nameAr ?? '');
+    cubit.comNameController =
+        TextEditingController(text: data.store?.name ?? '');
+    cubit.comEmailController = TextEditingController(text: data.email ?? '');
+    cubit.comPhoneController =
+        TextEditingController(text: data.mobileNumber ?? '');
+    cubit.comAddressController =
+        TextEditingController(text: data.address ?? '');
+    emit(PassAccountDataState());
   }
-  void passAccountData(BuildContext context){
-    ProfileCubit cubit=  ProfileCubit.get(context);
-    var data =cubit.profileModel!.bankAccount!;
-    holderName.text=data.holderName!;
-    bankName.text=data.bankName!;
-    accountNumber.text=data.accountNumber!;
-    branchName.text=data.bankBranch!;
-    iban.text=data.iban!;
-    emit(PassAccountDataState()) ;
+
+  void passAccountData(BuildContext context) {
+    ProfileCubit cubit = ProfileCubit.get(context);
+    var data = cubit.profileModel!.bankAccount!;
+    holderName.text = data.holderName!;
+    bankName.text = data.bankName!;
+    accountNumber.text = data.accountNumber!;
+    branchName.text = data.bankBranch!;
+    iban.text = data.iban!;
+    emit(PassAccountDataState());
   }
-  void removeData(){
-    holderName.text='';
-    bankName.text='';
-    accountNumber.text='';
-    branchName.text='';
-    iban.text='';
-    emit(RemoveAccountDataState()) ;
+
+  void removeData() {
+    holderName.text = '';
+    bankName.text = '';
+    accountNumber.text = '';
+    branchName.text = '';
+    iban.text = '';
+    emit(RemoveAccountDataState());
   }
 
   File? commercialIdFile;
@@ -169,13 +194,12 @@ class AccountCubit extends Cubit<AccountState> {
     final ImagePicker picker = ImagePicker();
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      if(type=='commercialIdFile'){
-        commercialIdFile=File(image.path);
-      }else if (type=='taxFile'){
-        taxFile=File(image.path);
-      }
-      else if (type=='bannerFile'){
-        bannerFile=File(image.path);
+      if (type == 'commercialIdFile') {
+        commercialIdFile = File(image.path);
+      } else if (type == 'taxFile') {
+        taxFile = File(image.path);
+      } else if (type == 'bannerFile') {
+        bannerFile = File(image.path);
       }
     }
     emit(PickImageState());

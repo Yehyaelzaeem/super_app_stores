@@ -9,36 +9,32 @@ import '../../../../../component/custom_app_contant_data.dart';
 import '../../../../../component/custom_loading_widget.dart';
 import '../account_cubit.dart';
 
-
-
 class TermsConditionScreen extends StatelessWidget {
   const TermsConditionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AccountCubit cubit =AccountCubit.get(context);
+    AccountCubit cubit = AccountCubit.get(context);
     cubit.getTerms();
-    return
-      Scaffold(
-          appBar:  CustomAppBar(
-            title: LocaleKeys.termsAndConditions.tr(),
-          ),
-          body: BlocBuilder<AccountCubit, AccountState>(
-            builder: (context, state) {
-              if(state is GetDataSuccessState)
-              {
-                return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                    child:  CustomAppContData(
-                      image: '',
-                      des: state.data.toString(), title: '',
-                    ));
-              }
-              else{
-                return const CustomLoadingWidget();
-              }
-            },
-          )
-      );
+    return Scaffold(
+        appBar: CustomAppBar(
+          title: LocaleKeys.termsAndConditions.tr(),
+        ),
+        body: BlocBuilder<AccountCubit, AccountState>(
+          builder: (context, state) {
+            if (state is GetDataSuccessState) {
+              return Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  child: CustomAppContData(
+                    image: '',
+                    des: state.data.toString(),
+                    title: '',
+                  ));
+            } else {
+              return const CustomLoadingWidget();
+            }
+          },
+        ));
   }
 }

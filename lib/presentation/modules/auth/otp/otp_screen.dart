@@ -43,28 +43,30 @@ class _OTPScreenState extends State<OTPScreen> {
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   void _onResendCode() async {
-    await BlocProvider.of<OtpCubit>(context,listen: false).reSendCode(phone: widget._phone);
+    await BlocProvider.of<OtpCubit>(context, listen: false)
+        .reSendCode(phone: widget._phone);
   }
+
   void _onSubmit(context) async {
-
-
-
     String otp = _codeController.text;
-    if (otp.length==4) {
+    if (otp.length == 4) {
+      var response = await BlocProvider.of<OtpCubit>(context, listen: false)
+          .otpCode(phone: widget._phone, otp: otp, type: widget._checkOTPType);
 
-    var response = await BlocProvider.of<OtpCubit>(context,listen: false).otpCode(phone: widget._phone,otp: otp,type: widget._checkOTPType );
-
-      if (response?.isSuccess ==true) {
-         if(widget._checkOTPType==CheckOTPType.login){
-           Navigator.pushNamedAndRemoveUntil(context, Routes.layoutScreen, (route) => false);
-
-         }else{
-           Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context)=>CompleteProfileFirstScreen()),(d)=>false);
-         }
+      if (response?.isSuccess == true) {
+        if (widget._checkOTPType == CheckOTPType.login) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.layoutScreen, (route) => false);
+        } else {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CompleteProfileFirstScreen()),
+              (d) => false);
+        }
         _codeController.clear();
       } else {
         // _codeController.clear();
-
       }
     }
   }
@@ -79,11 +81,12 @@ class _OTPScreenState extends State<OTPScreen> {
     bool isLoading = context.watch<OtpCubit>().isLoading;
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Phone Verification',
+      appBar: CustomAppBar(
+        title: el.tr(LocaleKeys.phoneVerification),
         actions: [
           Padding(
             padding:
-            EdgeInsets.symmetric(horizontal: kScreenPaddingNormal.w + 10.w),
+                EdgeInsets.symmetric(horizontal: kScreenPaddingNormal.w + 10.w),
             child: Image.asset(
               AppImages.logo2,
               width: 25.w,
@@ -96,14 +99,14 @@ class _OTPScreenState extends State<OTPScreen> {
       key: scaffoldKey,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
+          scrollDirection: Axis.vertical,
+          child: Container(
             padding: const EdgeInsets.only(left: 24, right: 24, bottom: 8),
             width: double.infinity,
             height: MediaQuery.of(context).size.height * .99,
-            child:               ListView(
+            child: ListView(
               children: [
-                VerticalSpace( 50.h),
+                VerticalSpace(50.h),
 
                 Center(
                   child: Text(
@@ -117,7 +120,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   child: Text(
                     '${el.tr(LocaleKeys.anAuthenticationCodeHasBeenSentTo)}\n ${widget._phone}',
                     textAlign: TextAlign.center,
-                    style: const TextStyle().descriptionStyle(fontSize: 14).heightStyle(height: 1.4),
+                    style: const TextStyle()
+                        .descriptionStyle(fontSize: 14)
+                        .heightStyle(height: 1.4),
                   ),
                 ),
                 // const ConfirmCodeForm(),
@@ -127,91 +132,96 @@ class _OTPScreenState extends State<OTPScreen> {
                 _buildResendCode(),
                 VerticalSpace(kScreenPaddingNormal.h),
 
-                Center(child: CustomElevatedButton(
-                    width: MediaQuery.sizeOf(context).width*0.8,
-                    height: 45.h,
-                    isLoading: isLoading,
-                    buttonText: el.tr(LocaleKeys.verifyNow),
-                    onTap: ()=> _onSubmit(context))),
-                VerticalSpace( kScreenPaddingNormal.h),
-
+                Center(
+                    child: CustomElevatedButton(
+                        width: MediaQuery.sizeOf(context).width * 0.8,
+                        height: 45.h,
+                        isLoading: isLoading,
+                        buttonText: el.tr(LocaleKeys.verifyNow),
+                        onTap: () => _onSubmit(context))),
+                VerticalSpace(kScreenPaddingNormal.h),
               ],
             ),
-          )
-
-      ),
+          )),
     );
   }
 
-  _buildResendCode(){
+  _buildResendCode() {
     bool isLoading = context.watch<OtpCubit>().isResendLoading;
     bool isTimerDone = context.watch<OtpCubit>().isTimerDone;
 
     return Column(
-     children: [
-       isLoading?const CustomLoadingWidget():
-       TextClickWidget(
-         text: el.tr(LocaleKeys.iDidNotReceiveCode),
-         subText: el.tr(LocaleKeys.resendCode),
-         onTap: ()=> _onResendCode(),
-       ),
-
-       VerticalSpace( kScreenPaddingNormal.h),
-       if(!isTimerDone && !isLoading)
-       Row(
-         mainAxisSize: MainAxisSize.min,
-         children: [
-           TimerCountdown(
-             format: CountDownTimerFormat.minutesSeconds,
-             enableDescriptions: false,
-             endTime: DateTime.now().add(const Duration(minutes: 1)),
-             spacerWidth: 1.0,
-             timeTextStyle: const TextStyle().regularStyle(),
-             onEnd: () => BlocProvider.of<OtpCubit>(context,listen: false).onTimerEnd(),
-           ),
-           Text(' ${el.tr(LocaleKeys.secLeft)}',style:const TextStyle().regularStyle(),)
-         ],
-       ),
-     ],
-   );
+      children: [
+        isLoading
+            ? const CustomLoadingWidget()
+            : TextClickWidget(
+                text: el.tr(LocaleKeys.iDidNotReceiveCode),
+                subText: el.tr(LocaleKeys.resendCode),
+                onTap: () => _onResendCode(),
+              ),
+        VerticalSpace(kScreenPaddingNormal.h),
+        if (!isTimerDone && !isLoading)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TimerCountdown(
+                format: CountDownTimerFormat.minutesSeconds,
+                enableDescriptions: false,
+                endTime: DateTime.now().add(const Duration(minutes: 1)),
+                spacerWidth: 1.0,
+                timeTextStyle: const TextStyle().regularStyle(),
+                onEnd: () => BlocProvider.of<OtpCubit>(context, listen: false)
+                    .onTimerEnd(),
+              ),
+              Text(
+                ' ${el.tr(LocaleKeys.secLeft)}',
+                style: const TextStyle().regularStyle(),
+              )
+            ],
+          ),
+      ],
+    );
   }
 
-  _buildForm(){
-    return  Directionality(
+  _buildForm() {
+    return Directionality(
       textDirection: TextDirection.ltr,
-      child:
-    PinCodeTextField(
-
-      appContext: context,
-      length: 4,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      keyboardType: TextInputType.number,
-      obscureText: false,
-      showCursor: false,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-      animationType: AnimationType.fade,
-      pinTheme: PinTheme(
-        shape: PinCodeFieldShape.box,
-        inactiveColor: Colors.grey.shade200,
-        disabledColor: Colors.grey.shade200,
-        activeColor:Colors.grey.shade300,
-        selectedColor: Colors.red.shade100,
-        errorBorderColor: Theme.of(context).cardColor,
-        inactiveFillColor: Theme.of(context).cardColor,
-        selectedFillColor: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(kFormRadius),
-        fieldHeight: 48.r,
-        fieldWidth: 48.r,
-        activeFillColor: Theme.of(context).cardColor,
+      child: PinCodeTextField(
+        appContext: context,
+        length: 4,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        keyboardType: TextInputType.number,
+        obscureText: false,
+        showCursor: false,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        animationType: AnimationType.fade,
+        pinTheme: PinTheme(
+          shape: PinCodeFieldShape.box,
+          inactiveColor: Colors.grey.shade200,
+          disabledColor: Colors.grey.shade200,
+          activeColor: Colors.grey.shade300,
+          selectedColor: Colors.red.shade100,
+          errorBorderColor: Theme.of(context).cardColor,
+          inactiveFillColor: Theme.of(context).cardColor,
+          selectedFillColor: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(kFormRadius),
+          fieldHeight: 48.r,
+          fieldWidth: 48.r,
+          activeFillColor: Theme.of(context).cardColor,
+        ),
+        animationDuration: const Duration(milliseconds: 300),
+        backgroundColor: Colors.transparent,
+        textStyle: const TextStyle().titleStyle(fontSize: 24).activeColor(),
+        enableActiveFill: true,
+        boxShadows: const [
+          BoxShadow(color: grayScaleLiteColor, spreadRadius: 1, blurRadius: 5)
+        ],
+        controller: _codeController,
+        beforeTextPaste: (text) {
+          return true;
+        },
+        onChanged: (String value) {},
       ),
-      animationDuration: const Duration(milliseconds: 300),
-      backgroundColor: Colors.transparent,
-      textStyle: const TextStyle().titleStyle(fontSize: 24).activeColor(),
-      enableActiveFill: true,
-      boxShadows: const [ BoxShadow(color: grayScaleLiteColor, spreadRadius: 1, blurRadius: 5)],
-      controller: _codeController,
-      beforeTextPaste: (text) {return true;}, onChanged: (String value) {},
-    ),);
+    );
   }
 }

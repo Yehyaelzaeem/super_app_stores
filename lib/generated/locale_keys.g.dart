@@ -1,5 +1,7 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
+// ignore_for_file: constant_identifier_names
+
 abstract class  LocaleKeys {
   static const en = 'en';
   static const ar = 'ar';
@@ -17,14 +19,13 @@ abstract class  LocaleKeys {
   static const orderTime = 'orderTime';
   static const deliveryTime = 'deliveryTime';
   static const deliveryPrice = 'deliveryPrice';
-  static const otpVerification  = 'otpVerification';
-  static const phoneVerification  = 'phoneVerification';
-  static const anAuthenticationCodeHasBeenSentTo  = 'anAuthenticationCodeHasBeenSentTo';
-  static const iDidNotReceiveCode  = 'iDidNotReceiveCode';
-  static const secLeft  = 'secLeft';
-  static const verifyNow  = 'verifyNow';
-  static const resendCode  = 'resendCode';
-
+  static const otpVerification = 'otpVerification';
+  static const phoneVerification = 'phoneVerification';
+  static const anAuthenticationCodeHasBeenSentTo = 'anAuthenticationCodeHasBeenSentTo';
+  static const iDidNotReceiveCode = 'iDidNotReceiveCode';
+  static const secLeft = 'secLeft';
+  static const verifyNow = 'verifyNow';
+  static const resendCode = 'resendCode';
   static const delete_account = 'delete_account';
   static const logout = 'logout';
   static const home = 'home';
@@ -198,5 +199,58 @@ abstract class  LocaleKeys {
   static const this_field = 'this_field';
   static const required = 'required';
   static const update_data = 'update_data';
+  static const categoreis = 'categoreis';
+  static const all = 'all';
+  static const times = 'times';
+  static const hour = 'hour';
+  static const saturday = 'saturday';
+  static const monday = 'monday';
+  static const tuesday = 'tuesday';
+  static const wednesday = 'wednesday';
+  static const thursday = 'thursday';
+  static const friday = 'friday';
+  static const sunday = 'sunday';
+  static const inPreparation = 'inPreparation';
+  static const sizeEn = 'sizeEn';
+  static const locationMap2 = 'locationMap2';
+  static const note = 'note';
+  static const addOffers = 'addOffers';
+  static const prescriptions = 'prescriptions';
+  static const prescription = 'prescription';
+  static const deliveryTime2 = 'deliveryTime2';
+  static const constSize = 'constSize';
+  static const sizes = 'sizes';
+  static const delivered2 = 'delivered2';
+  static const appCommission = 'appCommission';
+  static const orderDate = 'orderDate';
+  static const anotherCart = 'anotherCart';
+  static const descriptionAr = 'descriptionAr';
+  static const descriptionEn = 'descriptionEn';
+  static const additionEn = 'additionEn';
+  static const branchNameAR = 'branchNameAR';
+  static const branchNameEN = 'branchNameEN';
+  static const optionalProductAdditions = 'optionalProductAdditions';
+  static const giveOrderToDriver = 'giveOrderToDriver';
+  static const mealNameAr = 'mealNameAr';
+  static const bestDishesMess = 'bestDishesMess';
+  static const bestDishesMess2 = 'bestDishesMess2';
+  static const updateData = 'updateData';
+  static const myFiles = 'myFiles';
+  static const bankDetails = 'bankDetails';
+  static const aboutUs = 'aboutUs';
+  static const privacyPolicy = 'privacyPolicy';
+  static const contactUs = 'contactUs';
+  static const deleteAccount = 'deleteAccount';
+  static const size = 'size';
+  static const availableNow = 'availableNow';
+  static const notAvailable = 'notAvailable';
+  static const newOrders = 'newOrders';
+  static const newOrder = 'newOrder';
+  static const currentOrders = 'currentOrders';
+  static const preparation = 'preparation';
+  static const completed = 'completed';
+  static const rejected = 'rejected';
+  static const profitsHistory = 'profitsHistory';
+  static const totalProfits = 'totalProfits';
 
 }

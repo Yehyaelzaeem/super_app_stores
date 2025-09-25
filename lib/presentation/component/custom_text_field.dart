@@ -68,7 +68,8 @@ class CustomTextField extends StatelessWidget {
     this.hintColor,
     this.suffixIcon,
     this.onFieldSubmitted,
-    this.onChanged, this.title,
+    this.onChanged,
+    this.title,
   }) : super(key: key);
 
   @override
@@ -81,125 +82,131 @@ class CustomTextField extends StatelessWidget {
       return SizedBox(
           height: height,
           width: width,
-          child:
-          title!=null?
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if(title!=null) ...
-              [Text(title!,style: TextStyles.font18Black700Weight.copyWith(color: Colors.grey.shade800,fontSize: 14),),
-               verticalSpace(10),
-              ],
-              TextFormField(
-                style: textStyle,
+          child: title != null
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (title != null) ...[
+                      Text(
+                        title!,
+                        style: TextStyles.font18Black700Weight.copyWith(
+                            color: Colors.grey.shade800, fontSize: 14),
+                      ),
+                      verticalSpace(10),
+                    ],
+                    TextFormField(
+                      style: textStyle,
+                      maxLength:
+                          textInputType == TextInputType.number ? 11 : null,
+                      onTap: onTap,
+                      onFieldSubmitted: onFieldSubmitted,
+                      controller: controller,
+                      obscureText: isVisibility,
+                      // maxLines: maxLines ?? 1,
+                      decoration: customInputDecoration(
+                        fontSize: fontSize,
+                        fontWeight: fontWeight,
+                        hintStyle: hintStyle,
+                        hintText: hintText,
+                        contentHorizontalPadding: contentHorizontalPadding,
+                        contentVerticalPadding: contentVerticalPadding,
+                        borderRadius: borderRadius,
+                        borderColor: borderColor,
+                        prefixIconColor: prefixIconColor,
+                        prefixIcon: prefixIcon,
+                        hintFontFamily: hintFontFamily,
+                        suffixIcon: isPassword == true
+                            ? IconButton(
+                                icon: Icon(
+                                  isVisibility == true
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                  color: isVisibility == true
+                                      ? hintColor
+                                      : primaryColor,
+                                ),
+                                onPressed: () {
+                                  isVisibility = !isVisibility;
+                                  setState(() {});
+                                },
+                              )
+                            : null,
+                        enabled: enabled,
+                        hintColor: hintColor,
+                        fillColor: fillColor,
+                      ),
+                      validator: validationFunc ??
+                          (value) {
+                            if (value == null || value.isEmpty) {
+                              return LocaleKeys.this_field_required.tr();
+                            }
+                            return null;
+                          },
+                      onSaved: (String? val) {
+                        controller.text = val!;
+                      },
 
-                onTap: onTap,
-                onFieldSubmitted: onFieldSubmitted,
-                controller: controller,
-                obscureText: isVisibility,
-                // maxLines: maxLines ?? 1,
-                decoration: customInputDecoration(
-                  fontSize: fontSize,
-                  fontWeight: fontWeight,
-                  hintStyle: hintStyle,
-                  hintText: hintText,
-                  contentHorizontalPadding: contentHorizontalPadding,
-                  contentVerticalPadding: contentVerticalPadding,
-                  borderRadius: borderRadius,
-                  borderColor: borderColor,
-                  prefixIconColor: prefixIconColor,
-                  prefixIcon: prefixIcon,
-                  hintFontFamily: hintFontFamily,
-                  suffixIcon: isPassword == true
-                      ? IconButton(
-                    icon: Icon(
-                      isVisibility == true
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      color: isVisibility == true ? hintColor : primaryColor,
-                    ),
-                    onPressed: () {
-                      isVisibility = !isVisibility;
-                      setState(() {});
-                    },
-                  )
-                      : null,
-                  enabled: enabled,
-                  hintColor: hintColor,
-                  fillColor: fillColor,
-                ),
-                validator: validationFunc ??
-                        (value) {
-                      if (value == null || value.isEmpty) {
-                        return LocaleKeys.this_field_required.tr();
-                      }
-                      return null;
-                    },
-                onSaved: (String? val) {
-                  controller.text = val!;
-                },
-
-                cursorWidth: 1,
-                textInputAction: textInputAction ?? TextInputAction.next,
-                keyboardType: textInputType ?? TextInputType.text,
-                onChanged: onChanged,
-              )
-            ],
-          ):
-          TextFormField(
-            style: textStyle,
-
-            onTap: onTap,
-            onFieldSubmitted: onFieldSubmitted,
-            controller: controller,
-            obscureText: isVisibility,
-            maxLines: maxLines==0?1: maxLines ?? 1,
-            decoration: customInputDecoration(
-              fontSize: fontSize,
-              fontWeight: fontWeight,
-              hintStyle: hintStyle,
-              hintText: hintText,
-              contentHorizontalPadding: contentHorizontalPadding,
-              contentVerticalPadding: contentVerticalPadding,
-              borderRadius: borderRadius,
-              borderColor: borderColor,
-              prefixIconColor: prefixIconColor,
-              prefixIcon: prefixIcon,
-              hintFontFamily: hintFontFamily,
-              suffixIcon: isPassword == true
-                  ? IconButton(
-                icon: Icon(
-                  isVisibility == true
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined,
-                  color: isVisibility == true ? hintColor : primaryColor,
-                ),
-                onPressed: () {
-                  isVisibility = !isVisibility;
-                  setState(() {});
-                },
-              )
-                  : null,
-              enabled: enabled,
-              hintColor: hintColor,
-              fillColor: fillColor,
-            ),
-            validator: validationFunc ??
-                    (value) {
-                  if (value == null || value.isEmpty) {
-                    return LocaleKeys.this_field_required.tr();
-                  }
-                  return null;
-                },
-            onSaved: (String? val) {
-              controller.text = val!;
-            },
-
-            cursorWidth: 1,
-            textInputAction: textInputAction ?? TextInputAction.next,
-            keyboardType: textInputType ?? TextInputType.text,
-            onChanged: onChanged,
-          ));
+                      cursorWidth: 1,
+                      textInputAction: textInputAction ?? TextInputAction.next,
+                      keyboardType: textInputType ?? TextInputType.text,
+                      onChanged: onChanged,
+                    )
+                  ],
+                )
+              : TextFormField(
+                  style: textStyle,
+                  onTap: onTap,
+                  onFieldSubmitted: onFieldSubmitted,
+                  controller: controller,
+                  obscureText: isVisibility,
+                  maxLines: maxLines == 0 ? 1 : maxLines ?? 1,
+                  decoration: customInputDecoration(
+                    fontSize: fontSize,
+                    fontWeight: fontWeight,
+                    hintStyle: hintStyle,
+                    hintText: hintText,
+                    contentHorizontalPadding: contentHorizontalPadding,
+                    contentVerticalPadding: contentVerticalPadding,
+                    borderRadius: borderRadius,
+                    borderColor: borderColor,
+                    prefixIconColor: prefixIconColor,
+                    prefixIcon: prefixIcon,
+                    hintFontFamily: hintFontFamily,
+                    suffixIcon: isPassword == true
+                        ? IconButton(
+                            icon: Icon(
+                              isVisibility == true
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              color: isVisibility == true
+                                  ? hintColor
+                                  : primaryColor,
+                            ),
+                            onPressed: () {
+                              isVisibility = !isVisibility;
+                              setState(() {});
+                            },
+                          )
+                        : null,
+                    enabled: enabled,
+                    hintColor: hintColor,
+                    fillColor: fillColor,
+                  ),
+                  validator: validationFunc ??
+                      (value) {
+                        if (value == null || value.isEmpty) {
+                          return LocaleKeys.this_field_required.tr();
+                        }
+                        return null;
+                      },
+                  onSaved: (String? val) {
+                    controller.text = val!;
+                  },
+                  cursorWidth: 1,
+                  textInputAction: textInputAction ?? TextInputAction.next,
+                  keyboardType: textInputType ?? TextInputType.text,
+                  onChanged: onChanged,
+                ));
     });
   }
 }
