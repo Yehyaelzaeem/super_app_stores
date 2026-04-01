@@ -46,8 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Center(
               child: Image.asset(
                 AppImages.logo3,
-                width: 100.w,
+                width: 200.w,
                 height: 100.h,
+                fit: BoxFit.cover,
+                color: Colors.red,
               ),
             ),
             verticalSpace(10),
@@ -77,20 +79,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               ChooseFromListItemWidget(
+                                  value: LocaleKeys.all.tr(),
                                   onChoose: (ChooseItemListModel item) async {
                                     await cubit.filterProductHome(item);
                                   },
                                   items: [
+                                    ChooseItemListModel(
+                                        id: -100,
+                                        title: LocaleKeys.all.tr()),
                                     ...cubit.homeModel!.categories!.data!
                                         .map((e) => ChooseItemListModel(
                                             id: e.id ?? 0, title: e.name ?? ''))
                                         .toList(),
-                                    if (cubit.homeModel!.categories!.data!
-                                            .length >
-                                        4)
-                                      ChooseItemListModel(
-                                          id: -100,
-                                          title: '${LocaleKeys.all.tr()}'),
                                   ]), // ...cubit.homeModel!.categories!.data!.map((e) =>
                               //      CustomItem( categoriesData: e,)
                               // )

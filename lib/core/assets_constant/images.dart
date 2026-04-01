@@ -2,8 +2,9 @@ class AppImages{
   static const String baseImage = 'assets/images/';
   static const String holder = '${baseImage}holder.png';
   static const String logo = '${baseImage}new_logo.png';
-  static const String logo2 = '${baseImage}new_logo.png';
-  static const String logo3 = '${baseImage}new_logo.png';
+  static const String logo2 = '${baseImage}logo12.png';
+  static const String logo3 = '${baseImage}logo12.png';
+  static const String logo4 = '${baseImage}logo11.png';
   static const String bur1 = '${baseImage}bur1.png';
   static const String banner = '${baseImage}banner.png';
   static const String home1 = '${baseImage}home1.png';

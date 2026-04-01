@@ -89,7 +89,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 EdgeInsets.symmetric(horizontal: kScreenPaddingNormal.w + 10.w),
             child: Image.asset(
               AppImages.logo2,
-              width: 25.w,
+              width: 60.w,
               height: 25.h,
               fit: BoxFit.cover,
             ),

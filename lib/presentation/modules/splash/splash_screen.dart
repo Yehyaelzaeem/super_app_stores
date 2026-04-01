@@ -103,7 +103,7 @@ class _SplashPageState extends State<SplashScreen> with TickerProviderStateMixin
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: primaryColor,
-        body: Image.asset(AppImages.logo3,
+        body: Image.asset(AppImages.logo4,
           height: height,
           width: width,
         )

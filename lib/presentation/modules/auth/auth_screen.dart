@@ -1,4 +1,5 @@
 
+import 'package:cogina_restaurants/presentation/component/custom_logo.dart';
 import 'package:cogina_restaurants/presentation/modules/auth/widget/auth_widget.dart';
 import 'package:cogina_restaurants/presentation/modules/auth/widget/complete_data.dart';
 import 'package:cogina_restaurants/presentation/modules/auth/widget/otp_widget.dart';

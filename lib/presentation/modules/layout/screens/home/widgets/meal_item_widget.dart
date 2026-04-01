@@ -154,7 +154,7 @@ class MealItemWidget extends StatelessWidget {
                             ),
                           )
                         : const SizedBox.shrink(),
-                    verticalSpace(5),
+                    verticalSpace(12),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
